@@ -15,7 +15,7 @@
 		"isolatedModules": true,
 		"noEmit": true,
 		"jsx": "preserve",
-		"plugins": [{ "name": "@twind/typescript-plugin" }]
+		"plugins": [{ "name": "@twind/typescript-plugin", "tags": ["tw", "apply"] }]
 	},
 	"include": ["./src"]
 }
