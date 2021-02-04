@@ -12,6 +12,9 @@ setup({
 			colors: {
 				gray: colors.gray,
 			},
+			transitionDuration: {
+				DEFAULT: "0.2s",
+			},
 		},
 	},
 	preflight: {

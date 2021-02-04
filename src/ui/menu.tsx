@@ -55,12 +55,12 @@ export function MenuItems({ children }: { children: React.ReactNode }) {
 					${
 						menu.isOpen
 							? css({
-									transform: `perspective(800px) rotateX(0)`,
+									transform: `perspective(800px)`,
 									opacity: "1",
 									visibility: "visible",
 							  })
 							: css({
-									transform: `perspective(800px) rotateX(-30deg)`,
+									transform: `perspective(800px) rotateX(-30deg) `,
 									opacity: 0,
 									visibility: "hidden",
 							  })
