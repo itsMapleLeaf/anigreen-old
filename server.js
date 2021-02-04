@@ -7,6 +7,7 @@ const express = require("express")
 const { createServer: createViteServer } = require("vite")
 const dotenv = require("dotenv")
 const { Router } = require("express")
+const https = require("https")
 
 dotenv.config({
 	path: path.join(__dirname, ".env.local"),
@@ -14,6 +15,13 @@ dotenv.config({
 
 function createAuthRouter() {
 	const router = Router()
+
+	router.use((req, res, next) => {
+		if (req.session.user && Date.now() > req.session.user.expiresAt) {
+			req.session.user = undefined
+		}
+		next()
+	})
 
 	router.get("/auth-redirect", async (req, res, next) => {
 		try {
@@ -28,7 +36,10 @@ function createAuthRouter() {
 				},
 			)
 
-			req.session.user = response.data
+			req.session.user = {
+				...response.data,
+				expiresAt: Date.now() + response.data.expires_in * 1000,
+			}
 
 			res.redirect("/")
 		} catch (error) {
@@ -43,34 +54,32 @@ function createAuthRouter() {
 	})
 
 	router.get("/session", async (req, res) => {
-		if (!req.session.user) {
-			return res.json({})
+		return res.json({ authenticated: !!req.session.user })
+	})
+
+	router.post("/anilist", async (req, res) => {
+		const headers = {
+			"Content-Type": "application/json",
+			Accept: "application/json",
 		}
 
-		const token = req.session.user.access_token
-
-		const response = await Axios({
-			url: `https://graphql.anilist.co`,
-			method: "post",
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-			data: {
-				query: `
-					{
-						Viewer {
-							id
-						}
-					}
-				`,
-			},
-		}).catch(() => undefined)
-
-		if (!response) {
-			return res.status(401).json({})
+		if (req.session.user) {
+			headers.Authorization = `Bearer ${req.session.user.access_token}`
 		}
 
-		res.json({ session: { token: req.session.user.access_token } })
+		const proxyRequest = https.request(
+			`https://graphql.anilist.co`,
+			{
+				method: "POST",
+				headers,
+			},
+			(apiResponse) => {
+				res.status(apiResponse.statusCode)
+				apiResponse.setEncoding("utf-8").pipe(res, { end: true })
+			},
+		)
+
+		req.pipe(proxyRequest)
 	})
 
 	return router
@@ -80,8 +89,6 @@ async function createServer() {
 	const vite = await createViteServer({ server: { middlewareMode: true } })
 
 	const app = express()
-
-	app.use(express.json())
 
 	app.use(
 		cookieSession({

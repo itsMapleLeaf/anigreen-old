@@ -1,5 +1,4 @@
-import { QueryKey, useQuery, useQueryClient } from "react-query"
-import { createSessionQuery, Session } from "./auth/session"
+import { QueryKey, useQuery } from "react-query"
 
 export function useAnilistQuery<Data>({
 	queryKey,
@@ -10,19 +9,12 @@ export function useAnilistQuery<Data>({
 	query: string
 	variables?: object
 }) {
-	const client = useQueryClient()
-
 	return useQuery<{ data: Data }, unknown, Data>({
 		queryKey: [queryKey, variables],
 		queryFn: async () => {
-			const session = await client.fetchQuery<Session | undefined>(
-				createSessionQuery(),
-			)
-
-			const response = await fetch(`https://graphql.anilist.co`, {
+			const response = await fetch(`/anilist`, {
 				method: "post",
 				headers: {
-					...(session && { Authorization: `Bearer ${session.token}` }),
 					"Content-Type": "application/json",
 					Accept: "application/json",
 				},

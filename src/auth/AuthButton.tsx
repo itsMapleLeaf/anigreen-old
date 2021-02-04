@@ -1,11 +1,16 @@
 import { useQuery } from "react-query"
-import { createSessionQuery, Session } from "./session"
 
 export default function AuthButton() {
-	const sessionQuery = useQuery<Session | undefined>(createSessionQuery())
+	const sessionQuery = useQuery<{ authenticated: boolean }>({
+		queryKey: "session",
+		queryFn: () => fetch("/session").then((res) => res.json()),
+	})
 
 	if (sessionQuery.isLoading) return null
-	if (sessionQuery.data) return <a href="/logout">Log out</a>
+
+	if (sessionQuery.data?.authenticated) {
+		return <a href="/logout">Log out</a>
+	}
 
 	return (
 		<a
