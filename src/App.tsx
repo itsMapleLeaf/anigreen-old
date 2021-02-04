@@ -30,7 +30,7 @@ export default function App() {
 	})
 
 	return (
-		<div className={tw`grid gap-4 h-full`}>
+		<div className={tw`space-y-4`}>
 			<header
 				className={tw`flex justify-between items-center p-4 bg-gray-800 shadow`}
 			>
@@ -38,7 +38,9 @@ export default function App() {
 				<AuthButton />
 			</header>
 			<main className={tw`mx-auto w-full bg-gray-800 shadow max-w-4xl p-4`}>
-				<pre>{JSON.stringify(query.data, null, 2)}</pre>
+				<pre className={tw`overflow-x-auto`}>
+					{JSON.stringify(query.data, null, 2)}
+				</pre>
 			</main>
 		</div>
 	)
