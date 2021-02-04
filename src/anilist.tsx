@@ -1,4 +1,5 @@
 import { QueryKey, useQuery } from "react-query"
+import { GqlString } from "./gql"
 
 export function useAnilistQuery<Data>({
 	queryKey,
@@ -6,7 +7,7 @@ export function useAnilistQuery<Data>({
 	variables,
 }: {
 	queryKey: QueryKey
-	query: string
+	query: GqlString
 	variables?: object
 }) {
 	return useQuery<{ data: Data }, unknown, Data>({
