@@ -9,4 +9,5 @@ export default defineConfig({
 		jsxFragment: `jsx.Fragment`,
 	},
 	plugins: [reactRefresh()],
+	clearScreen: false,
 })
