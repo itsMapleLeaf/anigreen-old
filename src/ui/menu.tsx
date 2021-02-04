@@ -1,7 +1,7 @@
 import constate from "constate"
 import { cloneElement, useRef, useState } from "react"
 import { FocusOn } from "react-focus-on"
-import { tw } from "twind"
+import { apply, tw } from "twind"
 import { css } from "twind/css"
 
 const [MenuProvider, useMenuContext] = constate(function useMenu() {
@@ -77,12 +77,15 @@ export function MenuItem({ children }: { children: React.ReactElement }) {
 	const menu = useMenuContext()
 	return cloneElement(children, {
 		className: tw`
-			py-3 pl-3 pr-6
-			leading-none font-medium text-left
-			transition
-			ring(2 inset transparent)
-			hover:(bg-green-100 text-green-900)
-			focus-visible:(outline-none ring-green-400)
+			${apply`
+				py-3 pl-3 pr-6
+				leading-none font-medium text-left
+				transition
+				ring(2 inset transparent)
+				hover:(bg-green-100 text-green-900)
+				focus-visible:(outline-none ring-green-400)
+			`}
+			${children.props.className ?? ""}
 		`,
 		onClick: (...args: unknown[]) => {
 			children.props.onClick?.(...args)
