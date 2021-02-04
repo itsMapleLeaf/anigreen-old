@@ -4,7 +4,13 @@ import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
 import App from "./App"
 
-const client = new QueryClient()
+const client = new QueryClient({
+	defaultOptions: {
+		queries: {
+			staleTime: Infinity,
+		},
+	},
+})
 
 render(
 	<StrictMode>
