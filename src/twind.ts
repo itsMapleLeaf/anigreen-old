@@ -19,4 +19,7 @@ setup({
 			wordWrap: "break-word",
 		}),
 	},
+	variants: {
+		"focus-visible": `&[data-focus-visible-added]`,
+	},
 })
