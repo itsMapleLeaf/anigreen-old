@@ -5,14 +5,16 @@ dependencies:
   twind: 0.14.5_typescript@4.1.3
 devDependencies:
   '@graphql-codegen/cli': 1.20.1_graphql@15.5.0+typescript@4.1.3
-  '@graphql-codegen/introspection': 1.18.1_graphql@15.5.0
   '@graphql-codegen/typescript': 1.20.2_graphql@15.5.0
   '@graphql-codegen/typescript-operations': 1.17.14_graphql@15.5.0
   '@twind/typescript-plugin': 0.1.0
   '@types/react': 17.0.1
   '@types/react-dom': 17.0.0
   '@vitejs/plugin-react-refresh': 1.2.2
+  axios: 0.21.1
   concurrently: 5.3.0
+  cookie-session: 1.4.0
+  dotenv: 8.2.0
   express: 4.17.1
   graphql: 15.5.0
   nodemon: 2.0.7
@@ -572,16 +574,6 @@ packages:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
     resolution:
       integrity: sha512-7nwy+bMWqb0iYJ2DKxA9UiE16meeJ2Ch2XWS/N/ZnA0snTR+GZ20USI8z6YqP1Fuist7LvGO1MbitO2qBT8raA==
-  /@graphql-codegen/introspection/1.18.1_graphql@15.5.0:
-    dependencies:
-      '@graphql-codegen/plugin-helpers': 1.18.2_graphql@15.5.0
-      graphql: 15.5.0
-      tslib: 2.0.3
-    dev: true
-    peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
-    resolution:
-      integrity: sha512-M8kLUYF+YA/oj378RHh7BN5hO2wdplBfL2oyRL9sxjtNY30iYGn7To3TRijDCNoXaak5jLwgwUURZ0BZgX6IJA==
   /@graphql-codegen/plugin-helpers/1.18.2_graphql@15.5.0:
     dependencies:
       '@graphql-tools/utils': 6.2.4_graphql@15.5.0
@@ -1228,6 +1220,12 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-Hdw8qdNiqdJ8LqT0iK0sVzkFbzg6fhnQqqfWhBDxcHZvU75+B+ayzTy8x+k5Ix0Y92XOhOUlx74ps+bA6BeYMQ==
+  /axios/0.21.1:
+    dependencies:
+      follow-redirects: 1.13.2
+    dev: true
+    resolution:
+      integrity: sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
   /babel-plugin-dynamic-import-node/2.3.3:
     dependencies:
       object.assign: 4.1.2
@@ -1693,6 +1691,14 @@ packages:
     dev: true
     resolution:
       integrity: sha512-4FJkXzKXEDB1snCFZlLP4gpC3JILicCpGbzG9f9G7tGqGCzETQ2hWPrcinA9oU4wtf2biUaEH5065UnMeR33oA==
+  /cookie-session/1.4.0:
+    dependencies:
+      cookies: 0.8.0
+      debug: 2.6.9
+      on-headers: 1.0.2
+    dev: true
+    resolution:
+      integrity: sha512-0hhwD+BUIwMXQraiZP/J7VP2YFzqo6g4WqZlWHtEHQ22t0MeZZrNBSCxC1zcaLAs8ApT3BzAKizx9gW/AP9vNA==
   /cookie-signature/1.0.6:
     dev: true
     resolution:
@@ -1703,6 +1709,15 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-+Hp8fLp57wnUSt0tY0tHEXh4voZRDnoIrZPqlo3DPiI4y9lwg/jqx+1Om94/W6ZaPDOUbnjOt/99w66zk+l1Xg==
+  /cookies/0.8.0:
+    dependencies:
+      depd: 2.0.0
+      keygrip: 1.1.0
+    dev: true
+    engines:
+      node: '>= 0.8'
+    resolution:
+      integrity: sha512-8aPsApQfebXnuI+537McwYsDtjVxGm8gTIzQI3FDW6t5t/DAhERxtnbEPN/8RX+uZthoz4eCOgloXaE5cYyNow==
   /cosmiconfig-toml-loader/1.0.0:
     dependencies:
       '@iarna/toml': 2.2.5
@@ -1854,6 +1869,12 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak=
+  /depd/2.0.0:
+    dev: true
+    engines:
+      node: '>= 0.8'
+    resolution:
+      integrity: sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==
   /dependency-graph/0.10.0:
     dev: true
     engines:
@@ -2224,6 +2245,17 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-PpOwAdQ/YlXQ2vj8a3h8IipDuYRi3wceVQQGYWxNINccq40Anw7BlsEXCMbt1Zt+OLA6Fq9suIpIWD0OsnISlw==
+  /follow-redirects/1.13.2:
+    dev: true
+    engines:
+      node: '>=4.0'
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    resolution:
+      integrity: sha512-6mPTgLxYm3r6Bkkg0vNM0HTjfGrOEtsfbhagQvbxDEsEkpNhw582upBaoRZylzen6krEmxXJgt9Ju6HiI4O7BA==
   /form-data/2.5.1:
     dependencies:
       asynckit: 0.4.0
@@ -3035,6 +3067,14 @@ packages:
     dev: true
     resolution:
       integrity: sha512-YHlZCB6lMTllWDtSPHz/ZXTsi8S00usEV6v1tjq8tOUZzw7DpSDWVXjXDre6ed1w/pd495ODpHZYSdkRTsa0HA==
+  /keygrip/1.1.0:
+    dependencies:
+      tsscmp: 1.0.6
+    dev: true
+    engines:
+      node: '>= 0.6'
+    resolution:
+      integrity: sha512-iYSchDJ+liQ8iwbSI2QqsQOvqv58eJCEanyJPJi+Khyu8smkcKSFUCbPwzFcL7YVtZ6eONjqRX/38caJ7QjRAQ==
   /keyv/3.1.0:
     dependencies:
       json-buffer: 3.0.0
@@ -3508,6 +3548,12 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha1-IPEzZIGwg811M3mSoWlxqi2QaUc=
+  /on-headers/1.0.2:
+    dev: true
+    engines:
+      node: '>= 0.8'
+    resolution:
+      integrity: sha512-pZAE+FJLoyITytdqK0U5s+FIpjN0JP3OzFi/u8Rx+EV5/W+JTWGXG8xFzevE7AjBfDqHv/8vL8qQsIhHnqRkrA==
   /once/1.4.0:
     dependencies:
       wrappy: 1.0.2
@@ -4568,6 +4614,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==
+  /tsscmp/1.0.6:
+    dev: true
+    engines:
+      node: '>=0.6.x'
+    resolution:
+      integrity: sha512-LxhtAkPDTkVCMQjt2h6eBVY28KCjikZqZfMcC15YBeNjkgUpdCfBu5HoiOTDu86v6smE8yOjyEktJ8hlbANHQA==
   /twind/0.14.5_typescript@4.1.3:
     dependencies:
       csstype: 3.0.6
@@ -4959,14 +5011,16 @@ packages:
       integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
 specifiers:
   '@graphql-codegen/cli': 1.20.1
-  '@graphql-codegen/introspection': 1.18.1
   '@graphql-codegen/typescript': 1.20.2
   '@graphql-codegen/typescript-operations': 1.17.14
   '@twind/typescript-plugin': ^0.1.0
   '@types/react': ^17.0.1
   '@types/react-dom': ^17.0.0
   '@vitejs/plugin-react-refresh': ^1.2.2
+  axios: ^0.21.1
   concurrently: ^5.3.0
+  cookie-session: ^1.4.0
+  dotenv: ^8.2.0
   express: ^4.17.1
   graphql: ^15.5.0
   nodemon: ^2.0.7

@@ -4322,5 +4322,12 @@ export type AnimeQuery = (
       { __typename?: 'MediaTitle' }
       & Pick<MediaTitle, 'romaji' | 'english' | 'native'>
     )> }
+  )>, Viewer?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'name'>
+    & { avatar?: Maybe<(
+      { __typename?: 'UserAvatar' }
+      & Pick<UserAvatar, 'medium'>
+    )> }
   )> }
 );
