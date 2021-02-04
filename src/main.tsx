@@ -1,3 +1,4 @@
+import "focus-visible"
 import { StrictMode } from "react"
 import { render } from "react-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
