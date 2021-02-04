@@ -1,16 +1,19 @@
 // @ts-check
-const Axios = require("axios").default
-const cookieSession = require("cookie-session")
-const fs = require("fs/promises")
-const path = require("path")
-const express = require("express")
-const { createServer: createViteServer } = require("vite")
-const dotenv = require("dotenv")
-const { Router } = require("express")
-const https = require("https")
+import Axios from "axios"
+import cookieSession from "cookie-session"
+import { config } from "dotenv"
+import express, { Router } from "express"
+import { readFile } from "fs/promises"
+import { request } from "https"
+import { dirname, join, resolve } from "path"
+import { fileURLToPath } from "url"
+import { createServer as createViteServer } from "vite"
 
-dotenv.config({
-	path: path.join(__dirname, ".env.local"),
+// @ts-expect-error
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
+config({
+	path: join(__dirname, ".env.local"),
 })
 
 function createAuthRouter() {
@@ -67,7 +70,7 @@ function createAuthRouter() {
 			headers.Authorization = `Bearer ${req.session.user.access_token}`
 		}
 
-		const proxyRequest = https.request(
+		const proxyRequest = request(
 			`https://graphql.anilist.co`,
 			{
 				method: "POST",
@@ -85,9 +88,33 @@ function createAuthRouter() {
 	return router
 }
 
-async function createServer() {
+async function createDevRouter() {
+	const router = Router()
+
 	const vite = await createViteServer({ server: { middlewareMode: true } })
 
+	router.use(vite.middlewares)
+
+	router.use("*", async (req, res) => {
+		const url = req.originalUrl
+
+		try {
+			const template = await readFile(resolve(__dirname, "index.html"), "utf-8")
+
+			const transformed = await vite.transformIndexHtml(url, template)
+
+			res.status(200).set({ "Content-Type": "text/html" }).end(transformed)
+		} catch (e) {
+			vite.ssrFixStacktrace(e)
+			console.error(e)
+			res.status(500).end(e.message)
+		}
+	})
+
+	return router
+}
+
+async function createServer() {
 	const app = express()
 
 	app.use(
@@ -101,26 +128,11 @@ async function createServer() {
 
 	app.use(createAuthRouter())
 
-	app.use(vite.middlewares)
-
-	app.use("*", async (req, res) => {
-		const url = req.originalUrl
-
-		try {
-			const template = await fs.readFile(
-				path.resolve(__dirname, "index.html"),
-				"utf-8",
-			)
-
-			const transformed = await vite.transformIndexHtml(url, template)
-
-			res.status(200).set({ "Content-Type": "text/html" }).end(transformed)
-		} catch (e) {
-			vite.ssrFixStacktrace(e)
-			console.error(e)
-			res.status(500).end(e.message)
-		}
-	})
+	if (process.env.NODE_ENV === "production") {
+		app.use(express.static(join(__dirname, "dist")))
+	} else {
+		app.use(await createDevRouter())
+	}
 
 	app.listen(3000, () => {
 		console.info(`🚀 Server running on http://localhost:3000`)
