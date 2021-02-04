@@ -22,10 +22,13 @@ export default function UserMenuButton() {
 	return (
 		<Menu>
 			<MenuTrigger>
-				<button type="button">
-					{avatarUrl ? (
-						<img src={avatarUrl} className={tw`rounded-full w-8 h-8`} />
-					) : null}
+				<button
+					type="button"
+					className={tw`rounded-full w-10 h-10 p-0.5 bg-gradient-to-br from-green-400 to-blue-400`}
+				>
+					{avatarUrl && (
+						<img src={avatarUrl} className={tw`rounded-full w-full h-full`} />
+					)}
 				</button>
 			</MenuTrigger>
 			<MenuItems>
