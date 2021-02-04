@@ -1,4 +1,5 @@
 import { useQuery } from "react-query"
+import UserMenuButton from "./UserMenuButton"
 
 export default function AuthButton() {
 	const sessionQuery = useQuery<{ authenticated: boolean }>({
@@ -9,7 +10,7 @@ export default function AuthButton() {
 	if (sessionQuery.isLoading) return null
 
 	if (sessionQuery.data?.authenticated) {
-		return <a href="/logout">Log out</a>
+		return <UserMenuButton />
 	}
 
 	return (

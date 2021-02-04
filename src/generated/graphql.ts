@@ -4331,3 +4331,17 @@ export type AnimeQuery = (
     )> }
   )> }
 );
+
+export type UserButtonQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserButtonQuery = (
+  { __typename?: 'Query' }
+  & { Viewer?: Maybe<(
+    { __typename?: 'User' }
+    & { avatar?: Maybe<(
+      { __typename?: 'UserAvatar' }
+      & Pick<UserAvatar, 'medium'>
+    )> }
+  )> }
+);
