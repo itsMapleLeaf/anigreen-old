@@ -1,26 +1,23 @@
-import request, { gql } from "graphql-request"
-import { useQuery } from "react-query"
 import { tw } from "twind"
-import { AnimeQuery } from "./generated/graphql"
+import { useAnilistQuery } from "./anilist"
+import { gql } from "./gql"
 
 export default function App() {
-	const query = useQuery<AnimeQuery>("anime", () => {
-		return request(
-			`https://graphql.anilist.co`,
-			gql`
-				query Anime($id: Int) {
-					Media(id: $id, type: ANIME) {
-						id
-						title {
-							romaji
-							english
-							native
-						}
+	const query = useAnilistQuery({
+		queryKey: "anime",
+		variables: { id: 116287 },
+		query: gql`
+			query Anime($id: Int) {
+				Media(id: $id, type: ANIME) {
+					id
+					title {
+						romaji
+						english
+						native
 					}
 				}
-			`,
-			{ id: 116287 },
-		)
+			}
+		`,
 	})
 
 	return (
