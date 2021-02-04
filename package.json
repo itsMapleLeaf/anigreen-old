@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"scripts": {
-		"dev": "concurrently --names \"vite,codegen\" vite \"npm run generate -- --watch\"",
+		"dev": "concurrently --names \"vite,codegen\" \"nodemon ./server.js\" \"npm run generate -- --watch\"",
 		"build": "tsc && vite build",
 		"serve": "vite preview",
 		"generate": "graphql-codegen --config graphql.config.yml"
@@ -22,8 +22,10 @@
 		"@types/react-dom": "^17.0.0",
 		"@vitejs/plugin-react-refresh": "^1.2.2",
 		"concurrently": "^5.3.0",
+		"express": "^4.17.1",
 		"graphql": "^15.5.0",
+		"nodemon": "^2.0.7",
 		"typescript": "^4.1.3",
-		"vite": "^2.0.0-beta.62"
+		"vite": "^2.0.0-beta.64"
 	}
 }
