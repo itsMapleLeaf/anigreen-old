@@ -71,12 +71,10 @@ export default function App() {
 
 						<div className={tw`grid gap-2 mt-2`}>
 							{list?.entries?.map((entry) => {
-								const titles = unique(
-									[
-										entry?.media?.title?.english,
-										entry?.media?.title?.romaji,
-									].filter(Boolean),
-								)
+								const titles = unique([
+									entry?.media?.title?.english,
+									entry?.media?.title?.romaji,
+								]).filter(Boolean)
 
 								return (
 									<div className={tw`relative shadow rounded overflow-hidden`}>
