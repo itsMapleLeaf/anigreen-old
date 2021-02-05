@@ -4308,27 +4308,44 @@ export type UserModData = {
   counts?: Maybe<Scalars['Json']>;
 };
 
-export type AnimeQueryVariables = Exact<{
-  id?: Maybe<Scalars['Int']>;
+export type ViewerQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ViewerQuery = (
+  { __typename?: 'Query' }
+  & { Viewer?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  )> }
+);
+
+export type AnimeListQueryVariables = Exact<{
+  userId: Scalars['Int'];
 }>;
 
 
-export type AnimeQuery = (
+export type AnimeListQuery = (
   { __typename?: 'Query' }
-  & { Media?: Maybe<(
-    { __typename?: 'Media' }
-    & Pick<Media, 'id'>
-    & { title?: Maybe<(
-      { __typename?: 'MediaTitle' }
-      & Pick<MediaTitle, 'romaji' | 'english' | 'native'>
-    )> }
-  )>, Viewer?: Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'name'>
-    & { avatar?: Maybe<(
-      { __typename?: 'UserAvatar' }
-      & Pick<UserAvatar, 'medium'>
-    )> }
+  & { MediaListCollection?: Maybe<(
+    { __typename?: 'MediaListCollection' }
+    & { lists?: Maybe<Array<Maybe<(
+      { __typename?: 'MediaListGroup' }
+      & Pick<MediaListGroup, 'name' | 'status'>
+      & { entries?: Maybe<Array<Maybe<(
+        { __typename?: 'MediaList' }
+        & { media?: Maybe<(
+          { __typename?: 'Media' }
+          & Pick<Media, 'bannerImage'>
+          & { title?: Maybe<(
+            { __typename?: 'MediaTitle' }
+            & Pick<MediaTitle, 'english' | 'romaji' | 'native'>
+          )>, coverImage?: Maybe<(
+            { __typename?: 'MediaCoverImage' }
+            & Pick<MediaCoverImage, 'extraLarge' | 'large' | 'color'>
+          )> }
+        )> }
+      )>>> }
+    )>>> }
   )> }
 );
 
