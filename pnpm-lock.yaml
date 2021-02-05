@@ -23,6 +23,7 @@ devDependencies:
   dotenv: 8.2.0
   eslint: 7.19.0
   eslint-config-prettier: 7.2.0_eslint@7.19.0
+  eslint-plugin-jsx-a11y: 6.4.1_eslint@7.19.0
   eslint-plugin-react: 7.22.0_eslint@7.19.0
   eslint-plugin-react-hooks: 4.2.0_eslint@7.19.0
   express: 4.17.1
@@ -462,6 +463,13 @@ packages:
       '@babel/core': ^7.0.0-0
     resolution:
       integrity: sha512-arIKlWYUgmNsF28EyfmiQHJLJFlAJNYkuQO10jL46ggjBpeb2re1P9K9YGxNJB45BqTbaslVysXDYm/g3sN/Qg==
+  /@babel/runtime-corejs3/7.12.13:
+    dependencies:
+      core-js-pure: 3.8.3
+      regenerator-runtime: 0.13.7
+    dev: true
+    resolution:
+      integrity: sha512-8fSpqYRETHATtNitsCXq8QQbKJP31/KnDl2Wz2Vtui9nKzjss2ysuZtyVsWjBtvkeEFo346gkwjYPab1hvrXkQ==
   /@babel/runtime/7.12.13:
     dependencies:
       regenerator-runtime: 0.13.7
@@ -1347,6 +1355,15 @@ packages:
       node: '>=8.5.0'
     resolution:
       integrity: sha512-WAMH9q3vRimVqP+B0q2eDvx7IPDoY17A2fWwj5atTA/zTYJCNcS6HJ5YErZ5FO3PUHhrV0y0yR1NA0dRNm913A==
+  /aria-query/4.2.2:
+    dependencies:
+      '@babel/runtime': 7.12.13
+      '@babel/runtime-corejs3': 7.12.13
+    dev: true
+    engines:
+      node: '>=6.0'
+    resolution:
+      integrity: sha512-o/HelwhuKpTj/frsOsbNLNgnNGVIFsVP/SW2BSF14gVl7kAfMOJ6/8wUAUvG1R1NHKrfG+2sHZTu0yauT1qBrA==
   /array-flatten/1.1.1:
     dev: true
     resolution:
@@ -1384,6 +1401,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-5QNHYR1+aQlDIIu9r+vLwvuGbUY=
+  /ast-types-flow/0.0.7:
+    dev: true
+    resolution:
+      integrity: sha1-9wtzXGvKGlycItmCw+Oef+ujva0=
   /astral-regex/2.0.0:
     dev: true
     engines:
@@ -1406,12 +1427,22 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-Hdw8qdNiqdJ8LqT0iK0sVzkFbzg6fhnQqqfWhBDxcHZvU75+B+ayzTy8x+k5Ix0Y92XOhOUlx74ps+bA6BeYMQ==
+  /axe-core/4.1.1:
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha512-5Kgy8Cz6LPC9DJcNb3yjAXTu3XihQgEdnIg50c//zOC/MyLP0Clg+Y8Sh9ZjjnvBrDZU4DgXS9C3T9r4/scGZQ==
   /axios/0.21.1:
     dependencies:
       follow-redirects: 1.13.2
     dev: true
     resolution:
       integrity: sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
+  /axobject-query/2.2.0:
+    dev: true
+    resolution:
+      integrity: sha512-Td525n+iPOOyUQIeBfcASuG6uJsDOITl7Mds5gFyerkWiX7qhUTdYUBlSgNMyVqtSJqwpt1kXGLdUt6SykLMRA==
   /babel-plugin-dynamic-import-node/2.3.3:
     dependencies:
       object.assign: 4.1.2
@@ -1912,6 +1943,11 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha512-8aPsApQfebXnuI+537McwYsDtjVxGm8gTIzQI3FDW6t5t/DAhERxtnbEPN/8RX+uZthoz4eCOgloXaE5cYyNow==
+  /core-js-pure/3.8.3:
+    dev: true
+    requiresBuild: true
+    resolution:
+      integrity: sha512-V5qQZVAr9K0xu7jXg1M7qTEwuxUgqr7dUOezGaNa7i+Xn9oXAU/d1fzqD9ObuwpVQOaorO5s70ckyi1woP9lVA==
   /cosmiconfig-toml-loader/1.0.0:
     dependencies:
       '@iarna/toml': 2.2.5
@@ -1993,6 +2029,10 @@ packages:
   /csstype/3.0.6:
     resolution:
       integrity: sha512-+ZAmfyWMT7TiIlzdqJgjMb7S4f1beorDbWbsocyK4RaiqA5RTX3K14bnBWmmA9QEM0gRdsjyyrEmcyga8Zsxmw==
+  /damerau-levenshtein/1.0.6:
+    dev: true
+    resolution:
+      integrity: sha512-JVrozIeElnj3QzfUIt8tB8YMluBJom4Vw9qTPpjGYQ9fYlB3D/rb6OordUxf3xeFB35LKWs0xqcO5U6ySvBtug==
   /dataloader/2.0.0:
     dev: true
     resolution:
@@ -2220,6 +2260,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==
+  /emoji-regex/9.2.1:
+    dev: true
+    resolution:
+      integrity: sha512-117l1H6U4X3Krn+MrzYrL57d5H7siRHWraBs7s+LjRuFK7Fe7hJqnJ0skWlinqsycVLU5YAo6L8CsEYQ0V5prg==
   /encodeurl/1.0.2:
     dev: true
     engines:
@@ -2314,6 +2358,27 @@ packages:
       eslint: '>=7.0.0'
     resolution:
       integrity: sha512-rV4Qu0C3nfJKPOAhFujFxB7RMP+URFyQqqOZW9DMRD7ZDTFyjaIlETU3xzHELt++4ugC0+Jm084HQYkkJe+Ivg==
+  /eslint-plugin-jsx-a11y/6.4.1_eslint@7.19.0:
+    dependencies:
+      '@babel/runtime': 7.12.13
+      aria-query: 4.2.2
+      array-includes: 3.1.2
+      ast-types-flow: 0.0.7
+      axe-core: 4.1.1
+      axobject-query: 2.2.0
+      damerau-levenshtein: 1.0.6
+      emoji-regex: 9.2.1
+      eslint: 7.19.0
+      has: 1.0.3
+      jsx-ast-utils: 3.2.0
+      language-tags: 1.0.5
+    dev: true
+    engines:
+      node: '>=4.0'
+    peerDependencies:
+      eslint: ^3 || ^4 || ^5 || ^6 || ^7
+    resolution:
+      integrity: sha512-0rGPJBbwHoGNPU73/QCLP/vveMlM1b1Z9PponxO87jfr6tuH5ligXbDT6nHSSzBC8ovX2Z+BQu7Bk5D/Xgq9zg==
   /eslint-plugin-react-hooks/4.2.0_eslint@7.19.0:
     dependencies:
       eslint: 7.19.0
@@ -3603,6 +3668,16 @@ packages:
     dev: true
     resolution:
       integrity: sha512-9ykJ/46SN/9KPM/sichzQ7OvXyGDYKGTaDlKMGCAlg2UK8KRy4jb0d8sFc+0Tt0YYnThq8X2RZgCg74RPxgcVA==
+  /language-subtag-registry/0.3.21:
+    dev: true
+    resolution:
+      integrity: sha512-L0IqwlIXjilBVVYKFT37X9Ih11Um5NEl9cbJIuU/SwP/zEEAbBPOnEeeuxVMf45ydWQRDQN3Nqc96OgbH1K+Pg==
+  /language-tags/1.0.5:
+    dependencies:
+      language-subtag-registry: 0.3.21
+    dev: true
+    resolution:
+      integrity: sha1-0yHbxNowuovzAk4ED6XBRmH5GTo=
   /latest-version/5.1.0:
     dependencies:
       package-json: 6.5.0
@@ -5914,6 +5989,7 @@ specifiers:
   dotenv: ^8.2.0
   eslint: ^7.19.0
   eslint-config-prettier: ^7.2.0
+  eslint-plugin-jsx-a11y: ^6.4.1
   eslint-plugin-react: ^7.22.0
   eslint-plugin-react-hooks: ^4.2.0
   express: ^4.17.1

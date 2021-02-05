@@ -35,6 +35,7 @@
 		"eslint-config-prettier": "^7.2.0",
 		"eslint-plugin-react": "^7.22.0",
 		"eslint-plugin-react-hooks": "^4.2.0",
+		"eslint-plugin-jsx-a11y": "^6.4.1",
 		"express": "^4.17.1",
 		"graphql": "^15.5.0",
 		"nodemon": "^2.0.7",
