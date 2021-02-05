@@ -35,6 +35,7 @@ export default function App() {
 						name
 						status
 						entries {
+							id
 							media {
 								title {
 									english
@@ -66,7 +67,7 @@ export default function App() {
 
 			<main className={tw`mx-auto max-w-screen-md px-2`}>
 				{animeListQuery.data?.MediaListCollection?.lists?.map((list) => (
-					<div>
+					<div key={list?.name}>
 						<h2 className={tw`font-light text-3xl py-2 z-10`}>{list?.name}</h2>
 
 						<div className={tw`grid gap-2 mt-2`}>
@@ -77,9 +78,13 @@ export default function App() {
 								]).filter(Boolean)
 
 								return (
-									<div className={tw`relative shadow rounded overflow-hidden`}>
+									<div
+										key={entry?.id}
+										className={tw`relative shadow rounded overflow-hidden`}
+									>
 										<img
 											className={tw`w-full object-cover`}
+											alt=""
 											style={{
 												aspectRatio: "2.2/1",
 												backgroundColor: `${entry?.media?.coverImage?.color}`,

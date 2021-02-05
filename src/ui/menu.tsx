@@ -1,5 +1,5 @@
 import constate from "constate"
-import { cloneElement, useRef, useState } from "react"
+import { cloneElement, ReactElement, ReactNode, useRef, useState } from "react"
 import { FocusOn } from "react-focus-on"
 import { apply, tw } from "twind"
 import { css } from "twind/css"
@@ -13,7 +13,7 @@ const [MenuProvider, useMenuContext] = constate(function useMenu() {
 	return { isOpen, open, close, toggle, triggerRef }
 })
 
-export function Menu({ children }: { children: React.ReactNode }) {
+export function Menu({ children }: { children: ReactNode }) {
 	return (
 		<MenuProvider>
 			<div className={tw`relative`}>{children}</div>
@@ -21,7 +21,7 @@ export function Menu({ children }: { children: React.ReactNode }) {
 	)
 }
 
-export function MenuTrigger({ children }: { children: React.ReactElement }) {
+export function MenuTrigger({ children }: { children: ReactElement }) {
 	const menu = useMenuContext()
 	return cloneElement(children, {
 		onClick: (...args: unknown[]) => {
@@ -32,7 +32,7 @@ export function MenuTrigger({ children }: { children: React.ReactElement }) {
 	})
 }
 
-export function MenuItems({ children }: { children: React.ReactNode }) {
+export function MenuItems({ children }: { children: ReactNode }) {
 	const menu = useMenuContext()
 	return (
 		<FocusOn
@@ -73,7 +73,7 @@ export function MenuItems({ children }: { children: React.ReactNode }) {
 	)
 }
 
-export function MenuItem({ children }: { children: React.ReactElement }) {
+export function MenuItem({ children }: { children: ReactElement }) {
 	const menu = useMenuContext()
 	return cloneElement(children, {
 		className: tw`

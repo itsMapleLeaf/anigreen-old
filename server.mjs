@@ -26,7 +26,7 @@ function createAuthRouter() {
 		next()
 	})
 
-	router.get("/auth-redirect", async (req, res, next) => {
+	router.get("/auth-redirect", async (req, res) => {
 		try {
 			const response = await Axios.post(
 				"https://anilist.co/api/v2/oauth/token",

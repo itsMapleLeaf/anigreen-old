@@ -4333,6 +4333,7 @@ export type AnimeListQuery = (
       & Pick<MediaListGroup, 'name' | 'status'>
       & { entries?: Maybe<Array<Maybe<(
         { __typename?: 'MediaList' }
+        & Pick<MediaList, 'id'>
         & { media?: Maybe<(
           { __typename?: 'Media' }
           & Pick<Media, 'bannerImage'>

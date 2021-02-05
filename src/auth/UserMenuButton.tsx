@@ -25,9 +25,14 @@ export default function UserMenuButton() {
 				<button
 					type="button"
 					className={tw`rounded-full w-10 h-10 p-0.5 bg-gradient-to-br from-green-400 to-blue-400`}
+					title="User menu"
 				>
 					{avatarUrl && (
-						<img src={avatarUrl} className={tw`rounded-full w-full h-full`} />
+						<img
+							src={avatarUrl}
+							alt=""
+							className={tw`rounded-full w-full h-full`}
+						/>
 					)}
 				</button>
 			</MenuTrigger>

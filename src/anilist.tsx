@@ -13,7 +13,7 @@ class AnilistError extends Error {
 	}
 }
 
-export function useAnilistQuery<Data, Variables = object>({
+export function useAnilistQuery<Data, Variables = { [key: string]: unknown }>({
 	queryKey,
 	query,
 	variables,
