@@ -1,4 +1,4 @@
-import reactRefresh from "@vitejs/plugin-react-refresh"
+import prefresh from "@prefresh/vite"
 import { defineConfig } from "vite"
 
 // https://vitejs.dev/config/
@@ -8,6 +8,10 @@ export default defineConfig({
 		jsxFactory: `jsx.createElement`,
 		jsxFragment: `jsx.Fragment`,
 	},
-	plugins: [reactRefresh()],
+	plugins: [prefresh()],
 	clearScreen: false,
+	alias: {
+		react: "preact/compat",
+		"react-dom": "preact/compat",
+	},
 })

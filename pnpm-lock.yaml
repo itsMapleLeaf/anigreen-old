@@ -1,6 +1,8 @@
 dependencies:
   constate: 3.1.0_react@17.0.1
   focus-visible: 5.2.0
+  lodash-es: 4.17.20
+  preact: 10.5.12
   react: 17.0.1
   react-dom: 17.0.1_react@17.0.1
   react-focus-on: 3.5.1_@types+react@17.0.1+react@17.0.1
@@ -10,6 +12,7 @@ devDependencies:
   '@graphql-codegen/cli': 1.20.1_graphql@15.5.0+typescript@4.1.3
   '@graphql-codegen/typescript': 1.20.2_graphql@15.5.0
   '@graphql-codegen/typescript-operations': 1.17.14_graphql@15.5.0
+  '@prefresh/vite': 2.0.4_e400f90aee5454bc5f1507eabe7541b5
   '@twind/typescript-plugin': 0.1.0
   '@types/jest': 26.0.20
   '@types/lodash-es': 4.17.4
@@ -17,7 +20,6 @@ devDependencies:
   '@types/react-dom': 17.0.0
   '@typescript-eslint/eslint-plugin': 4.14.2_e5f964fa93e839b7a7927397f6cb9cb1
   '@typescript-eslint/parser': 4.14.2_eslint@7.19.0+typescript@4.1.3
-  '@vitejs/plugin-react-refresh': 1.2.2
   axios: 0.21.1
   concurrently: 5.3.0
   cookie-session: 1.4.0
@@ -31,7 +33,6 @@ devDependencies:
   express: 4.17.1
   graphql: 15.5.0
   jest: 26.6.3
-  lodash-es: 4.17.20
   nodemon: 2.0.7
   ts-jest: 26.5.0_jest@26.6.3+typescript@4.1.3
   typescript: 4.1.3
@@ -55,10 +56,10 @@ packages:
   /@babel/core/7.12.13:
     dependencies:
       '@babel/code-frame': 7.12.13
-      '@babel/generator': 7.12.13
+      '@babel/generator': 7.12.15
       '@babel/helper-module-transforms': 7.12.13
       '@babel/helpers': 7.12.13
-      '@babel/parser': 7.12.13
+      '@babel/parser': 7.12.15
       '@babel/template': 7.12.13
       '@babel/traverse': 7.12.13
       '@babel/types': 7.12.13
@@ -579,7 +580,7 @@ packages:
   /@babel/template/7.12.13:
     dependencies:
       '@babel/code-frame': 7.12.13
-      '@babel/parser': 7.12.13
+      '@babel/parser': 7.12.15
       '@babel/types': 7.12.13
     dev: true
     resolution:
@@ -1279,6 +1280,36 @@ packages:
       node: '>= 8'
     resolution:
       integrity: sha512-8Broas6vTtW4GIXTAHDoE32hnN2M5ykgCpWGbuXHQ15vEMqr23pB76e/GZcYsZCHALv50ktd24qhEyKr6wBtow==
+  /@prefresh/babel-plugin/0.4.0:
+    dev: true
+    resolution:
+      integrity: sha512-fFwyfIHm/B8BBY7HL4j9iJl7KFk/5yVIWE+aozRRPPxI8lRFkyXMAgUFtTSmP3/jiMA6jyOcBeYUhWsyEUynpQ==
+  /@prefresh/core/1.3.0_preact@10.5.12:
+    dependencies:
+      preact: 10.5.12
+    dev: true
+    peerDependencies:
+      preact: ^10.0.0
+    resolution:
+      integrity: sha512-8upcMgA2143mGP0ZCX4Qrt4P+uco5y4KBfDWUVbX4XheGhTk1EbGfdZcdXaHsT8VhnlJem0PWeVDD/f3PijFqA==
+  /@prefresh/utils/1.1.1:
+    dev: true
+    resolution:
+      integrity: sha512-MUhT5m2XNN5NsZl4GnpuvlzLo6VSTa/+wBfBd3fiWUvHGhv0GF9hnA1pd//v0uJaKwUnVRQ1hYElxCV7DtYsCQ==
+  /@prefresh/vite/2.0.4_e400f90aee5454bc5f1507eabe7541b5:
+    dependencies:
+      '@babel/core': 7.12.13
+      '@prefresh/babel-plugin': 0.4.0
+      '@prefresh/core': 1.3.0_preact@10.5.12
+      '@prefresh/utils': 1.1.1
+      preact: 10.5.12
+      vite: 2.0.0-beta.65
+    dev: true
+    peerDependencies:
+      preact: ^10.4.0
+      vite: '>=2.0.0-beta.3'
+    resolution:
+      integrity: sha512-t9Mr8+eLgsN+/2Ud4pnwxDpKZnAymk5BniVGZIQM3ArQcdiriIT8U/i+zMmEPxdlKrTBZ9SRHSSvNyIVeerOcw==
   /@samverschueren/stream-to-observable/0.3.1_rxjs@6.6.3:
     dependencies:
       any-observable: 0.3.0
@@ -1593,16 +1624,6 @@ packages:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
     resolution:
       integrity: sha512-KBB+xLBxnBdTENs/rUgeUKO0UkPBRs2vD09oMRRIkj5BEN8PX1ToXV532desXfpQnZsYTyLLviS7JrPhdL154w==
-  /@vitejs/plugin-react-refresh/1.2.2:
-    dependencies:
-      '@babel/core': 7.12.13
-      '@babel/plugin-syntax-import-meta': 7.10.4_@babel+core@7.12.13
-      react-refresh: 0.9.0
-    dev: true
-    engines:
-      node: '>=12.0.0'
-    resolution:
-      integrity: sha512-MEVSqncF/u1nvfeZsBJtPc3pLZWccN77CjY0itW7/Vji5BMmttW25a1kjSmooE+4JK4kaF3ElwF3LbV2kiVZWw==
   /abab/2.0.5:
     dev: true
     resolution:
@@ -5608,7 +5629,7 @@ packages:
     resolution:
       integrity: sha512-t7hw9pI+WvuwNJXwk5zVHpyhIqzg2qTlklJOf0mVxGSbe3Fp2VieZcduNYjaLDoy6p9uGpQEGWG87WpMKlNq8g==
   /lodash-es/4.17.20:
-    dev: true
+    dev: false
     resolution:
       integrity: sha512-JD1COMZsq8maT6mnuz1UMV0jvYD0E0aUsSOdrr1/nAG3dhqQXwRRgeW0cSqH1U43INKcqxaiVIQNOUDld7gRDA==
   /lodash.get/4.4.2:
@@ -6561,6 +6582,10 @@ packages:
       node: ^10 || ^12 || >=14
     resolution:
       integrity: sha512-kRFftRoExRVXZlwUuay9iC824qmXPcQQVzAjbCCgjpXnkdMCJYBu2gTwAaFBzv8ewND6O8xFb3aELmEkh9zTzg==
+  /preact/10.5.12:
+    dev: false
+    resolution:
+      integrity: sha512-r6siDkuD36oszwlCkcqDJCAKBQxGoeEGytw2DGMD5A/GGdu5Tymw+N2OBXwvOLxg6d1FeY8MgMV3cc5aVQo4Cg==
   /prelude-ls/1.1.2:
     dev: true
     engines:
@@ -6796,12 +6821,6 @@ packages:
         optional: true
     resolution:
       integrity: sha512-n9Ld5UUzCWqqDDPvdRN45tvTYSBjuWHex2ninxIu+tD20pwfHR8QzPnntYPkc/h/wW4Q48m68FgXVi/co/1CKg==
-  /react-refresh/0.9.0:
-    dev: true
-    engines:
-      node: '>=0.10.0'
-    resolution:
-      integrity: sha512-Gvzk7OZpiqKSkxsQvO/mbTN1poglhmAV7gR/DdIrRrSMXraRQQlfikRJOr3Nb9GTMPC5kof948Zy6jJZIFtDvQ==
   /react-remove-scroll-bar/2.1.1_@types+react@17.0.1+react@17.0.1:
     dependencies:
       '@types/react': 17.0.1
@@ -8672,6 +8691,7 @@ specifiers:
   '@graphql-codegen/cli': 1.20.1
   '@graphql-codegen/typescript': 1.20.2
   '@graphql-codegen/typescript-operations': 1.17.14
+  '@prefresh/vite': ^2.0.4
   '@twind/typescript-plugin': ^0.1.0
   '@types/jest': ^26.0.20
   '@types/lodash-es': ^4.17.4
@@ -8679,7 +8699,6 @@ specifiers:
   '@types/react-dom': ^17.0.0
   '@typescript-eslint/eslint-plugin': ^4.14.2
   '@typescript-eslint/parser': ^4.14.2
-  '@vitejs/plugin-react-refresh': ^1.2.2
   axios: ^0.21.1
   concurrently: ^5.3.0
   constate: ^3.1.0
@@ -8697,6 +8716,7 @@ specifiers:
   jest: ^26.6.3
   lodash-es: ^4.17.20
   nodemon: ^2.0.7
+  preact: ^10.5.12
   react: ^17.0.1
   react-dom: ^17.0.1
   react-focus-on: ^3.5.1
