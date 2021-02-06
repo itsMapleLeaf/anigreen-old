@@ -20,7 +20,7 @@ setup({
 	},
 	preflight: {
 		"body": css(apply`bg-gray-900 text-gray-100`, {
-			wordWrap: "break-word",
+			wordBreak: "break-word",
 		}),
 		".js-focus-visible :focus:not(.focus-visible)": {
 			outline: "none",
@@ -31,5 +31,8 @@ setup({
 	},
 	variants: {
 		"focus-visible": `&[data-focus-visible-added]`,
+	},
+	plugins: {
+		"backdrop-blur": { backdropFilter: `blur(4px)` },
 	},
 })
