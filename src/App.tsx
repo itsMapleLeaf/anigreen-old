@@ -1,3 +1,4 @@
+import { compact, uniq } from "lodash-es"
 import { tw } from "twind"
 import { useAnilistQuery } from "./anilist"
 import AuthButton from "./auth/AuthButton"
@@ -7,7 +8,6 @@ import {
 	ViewerQuery,
 } from "./generated/graphql"
 import { gql } from "./gql"
-import { unique } from "./helpers/unique"
 
 export default function App() {
 	const viewerQuery = useAnilistQuery<ViewerQuery>({
@@ -77,10 +77,12 @@ export default function App() {
 							}}
 						>
 							{list?.entries?.map((entry) => {
-								const titles = unique([
-									entry?.media?.title?.english,
-									entry?.media?.title?.romaji,
-								]).filter(Boolean)
+								const titles = compact(
+									uniq([
+										entry?.media?.title?.english,
+										entry?.media?.title?.romaji,
+									]),
+								)
 
 								return (
 									<div

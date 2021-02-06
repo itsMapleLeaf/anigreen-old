@@ -11,6 +11,7 @@
 	"dependencies": {
 		"constate": "^3.1.0",
 		"focus-visible": "^5.2.0",
+		"lodash-es": "^4.17.20",
 		"react": "^17.0.1",
 		"react-dom": "^17.0.1",
 		"react-focus-on": "^3.5.1",
@@ -23,6 +24,7 @@
 		"@graphql-codegen/typescript-operations": "1.17.14",
 		"@twind/typescript-plugin": "^0.1.0",
 		"@types/jest": "^26.0.20",
+		"@types/lodash-es": "^4.17.4",
 		"@types/react": "^17.0.1",
 		"@types/react-dom": "^17.0.0",
 		"@typescript-eslint/eslint-plugin": "^4.14.2",
