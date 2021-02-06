@@ -4,8 +4,8 @@ dependencies:
   react: 17.0.1
   react-dom: 17.0.1_react@17.0.1
   react-focus-on: 3.5.1_@types+react@17.0.1+react@17.0.1
-  react-query: 3.6.0_react-dom@17.0.1+react@17.0.1
-  twind: 0.14.5_typescript@4.1.3
+  react-query: 3.7.1_react-dom@17.0.1+react@17.0.1
+  twind: 0.14.6_typescript@4.1.3
 devDependencies:
   '@graphql-codegen/cli': 1.20.1_graphql@15.5.0+typescript@4.1.3
   '@graphql-codegen/typescript': 1.20.2_graphql@15.5.0
@@ -30,7 +30,7 @@ devDependencies:
   graphql: 15.5.0
   nodemon: 2.0.7
   typescript: 4.1.3
-  vite: 2.0.0-beta.64
+  vite: 2.0.0-beta.65
 lockfileVersion: 5.2
 packages:
   /@ardatan/aggregate-error/0.0.6:
@@ -4686,7 +4686,7 @@ packages:
   /react-is/16.13.1:
     resolution:
       integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
-  /react-query/3.6.0_react-dom@17.0.1+react@17.0.1:
+  /react-query/3.7.1_react-dom@17.0.1+react@17.0.1:
     dependencies:
       '@babel/runtime': 7.12.13
       match-sorter: 6.2.0
@@ -4703,7 +4703,7 @@ packages:
       react-native:
         optional: true
     resolution:
-      integrity: sha512-39ptLt4qaKO1DE+ta6SpPutweEgDvUQj/KlebC+okJ9Nxbs5ExxKV8RYlLeop6vdDFyiMmwYrt1POiF8oWGh1A==
+      integrity: sha512-n9Ld5UUzCWqqDDPvdRN45tvTYSBjuWHex2ninxIu+tD20pwfHR8QzPnntYPkc/h/wW4Q48m68FgXVi/co/1CKg==
   /react-refresh/0.9.0:
     dev: true
     engines:
@@ -5524,7 +5524,7 @@ packages:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
     resolution:
       integrity: sha512-RYbuQuvkhuqVeXweWT3tJLKOEJ/UUw9GjNEZGWdrLLlM+611o1gwLHBpxoFJKKl25fLprp2eVthtKs5JOrNeXg==
-  /twind/0.14.5_typescript@4.1.3:
+  /twind/0.14.6_typescript@4.1.3:
     dependencies:
       csstype: 3.0.6
       node-html-parser: 2.1.0
@@ -5539,7 +5539,7 @@ packages:
       typescript:
         optional: true
     resolution:
-      integrity: sha512-uLNJD63eq02T/gf5DU4o1D5P2/vPXH+5p/bdRCwa5KJQaCBz5xbZ0dnvkKN6fo4nSU7au8dfvI0YB5cJL/0+Fg==
+      integrity: sha512-NiwCyAP+qmqp+WVq2PwzW0YJN53Gq3iJsNqdFCj6jCw5yWEhdg15Llyanv7WTQ2CeS+xcmpPdcD13mxk8qEWRw==
   /type-check/0.4.0:
     dependencies:
       prelude-ls: 1.2.1
@@ -5745,7 +5745,7 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
-  /vite/2.0.0-beta.64:
+  /vite/2.0.0-beta.65:
     dependencies:
       esbuild: 0.8.39
       postcss: 8.2.4
@@ -5758,7 +5758,7 @@ packages:
     optionalDependencies:
       fsevents: 2.1.3
     resolution:
-      integrity: sha512-/dR5rOXohhdXfkAIBAjmwX7JmoMWhQc7+VI6/EjyqXQCQzREmfBztLgTk/rPkmsNY87Cd71u9b+nlbcYK4TDCA==
+      integrity: sha512-mdHNTP6fGeb8m8lWAM3UbSPw1+un1lUv0i4MQJcNiK2/P01RHIY02VjQeXBv3NemkExkgLji88LN9ySFMUQpIw==
   /vscode-languageserver-types/3.16.0:
     dev: true
     resolution:
@@ -5999,7 +5999,7 @@ specifiers:
   react: ^17.0.1
   react-dom: ^17.0.1
   react-focus-on: ^3.5.1
-  react-query: ^3.6.0
-  twind: ^0.14.5
+  react-query: ^3.7.1
+  twind: ^0.14.6
   typescript: ^4.1.3
-  vite: ^2.0.0-beta.64
+  vite: ^2.0.0-beta.65
