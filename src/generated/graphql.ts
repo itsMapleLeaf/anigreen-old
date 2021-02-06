@@ -4350,6 +4350,20 @@ export type AnimeListQuery = (
   )> }
 );
 
+export type QueryOptionsDummyQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type QueryOptionsDummyQuery = (
+  { __typename?: 'Query' }
+  & { Media?: Maybe<(
+    { __typename?: 'Media' }
+    & { title?: Maybe<(
+      { __typename?: 'MediaTitle' }
+      & Pick<MediaTitle, 'english'>
+    )> }
+  )> }
+);
+
 export type UserButtonQueryVariables = Exact<{ [key: string]: never; }>;
 
 
