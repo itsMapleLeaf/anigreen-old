@@ -1,23 +1,9 @@
 import { tw } from "twind"
-import { useAnilistQuery } from "../anilist/useAnilistQuery"
-import { UserButtonQuery } from "../generated/graphql"
-import { gql } from "../gql"
+import { useViewerQuery } from "../generated/graphql"
 import { Menu, MenuItem, MenuItems, MenuTrigger } from "../ui/menu"
 
 export default function UserMenuButton() {
-	const query = useAnilistQuery<UserButtonQuery>({
-		queryKey: "userButton",
-		query: gql`
-			query UserButton {
-				Viewer {
-					avatar {
-						medium
-					}
-				}
-			}
-		`,
-	})
-
+	const query = useViewerQuery()
 	const avatarUrl = query.data?.Viewer?.avatar?.medium
 	return (
 		<Menu>

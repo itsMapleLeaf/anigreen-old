@@ -1,7 +1,27 @@
+import { useQuery, UseQueryOptions } from 'react-query';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+
+function fetcher<TData, TVariables>(query: string, variables?: TVariables) {
+  return async (): Promise<TData> => {
+    const res = await fetch('/anilist' as string, {
+      method: "POST",
+      body: JSON.stringify({ query, variables }),
+    });
+    
+    const json = await res.json();
+
+    if (json.errors) {
+      const { message } = json.errors[0];
+
+      throw new Error(message);
+    }
+
+    return json.data;
+  }
+}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -4308,17 +4328,6 @@ export type UserModData = {
   counts?: Maybe<Scalars['Json']>;
 };
 
-export type ViewerQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ViewerQuery = (
-  { __typename?: 'Query' }
-  & { Viewer?: Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, 'id'>
-  )> }
-);
-
 export type AnimeListQueryVariables = Exact<{
   userId: Scalars['Int'];
 }>;
@@ -4350,30 +4359,81 @@ export type AnimeListQuery = (
   )> }
 );
 
-export type QueryOptionsDummyQueryVariables = Exact<{ [key: string]: never; }>;
+export type ViewerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type QueryOptionsDummyQuery = (
-  { __typename?: 'Query' }
-  & { Media?: Maybe<(
-    { __typename?: 'Media' }
-    & { title?: Maybe<(
-      { __typename?: 'MediaTitle' }
-      & Pick<MediaTitle, 'english'>
-    )> }
-  )> }
-);
-
-export type UserButtonQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type UserButtonQuery = (
+export type ViewerQuery = (
   { __typename?: 'Query' }
   & { Viewer?: Maybe<(
     { __typename?: 'User' }
+    & Pick<User, 'id' | 'name'>
     & { avatar?: Maybe<(
       { __typename?: 'UserAvatar' }
-      & Pick<UserAvatar, 'medium'>
+      & Pick<UserAvatar, 'medium' | 'large'>
     )> }
   )> }
 );
+
+
+export const AnimeListDocument = `
+    query AnimeList($userId: Int!) {
+  MediaListCollection(userId: $userId, type: ANIME, sort: STATUS) {
+    lists {
+      name
+      status
+      entries {
+        id
+        media {
+          title {
+            english
+            romaji
+            native
+          }
+          coverImage {
+            extraLarge
+            large
+            color
+          }
+          bannerImage
+        }
+      }
+    }
+  }
+}
+    `;
+export const useAnimeListQuery = <
+      TData = AnimeListQuery,
+      TError = unknown
+    >(
+      variables: AnimeListQueryVariables, 
+      options?: UseQueryOptions<AnimeListQuery, TError, TData>
+    ) => 
+    useQuery<AnimeListQuery, TError, TData>(
+      ['AnimeList', variables],
+      fetcher<AnimeListQuery, AnimeListQueryVariables>(AnimeListDocument, variables),
+      options
+    );
+export const ViewerDocument = `
+    query Viewer {
+  Viewer {
+    id
+    name
+    avatar {
+      medium
+      large
+    }
+  }
+}
+    `;
+export const useViewerQuery = <
+      TData = ViewerQuery,
+      TError = unknown
+    >(
+      variables?: ViewerQueryVariables, 
+      options?: UseQueryOptions<ViewerQuery, TError, TData>
+    ) => 
+    useQuery<ViewerQuery, TError, TData>(
+      ['Viewer', variables],
+      fetcher<ViewerQuery, ViewerQueryVariables>(ViewerDocument, variables),
+      options
+    );

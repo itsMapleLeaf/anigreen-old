@@ -23,6 +23,7 @@
 		"@graphql-codegen/cli": "1.20.1",
 		"@graphql-codegen/typescript": "1.20.2",
 		"@graphql-codegen/typescript-operations": "1.17.14",
+		"@graphql-codegen/typescript-react-query": "^1.1.0",
 		"@prefresh/vite": "^2.0.4",
 		"@testing-library/jest-dom": "^5.11.9",
 		"@testing-library/react": "^11.2.5",

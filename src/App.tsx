@@ -1,60 +1,16 @@
 import { compact, uniq } from "lodash-es"
 import { tw } from "twind"
-import { useAnilistQuery } from "./anilist/useAnilistQuery"
 import AuthButton from "./auth/AuthButton"
-import {
-	AnimeListQuery,
-	AnimeListQueryVariables,
-	ViewerQuery,
-} from "./generated/graphql"
-import { gql } from "./gql"
+import { useAnimeListQuery, useViewerQuery } from "./generated/graphql"
 
 export default function App() {
-	const viewerQuery = useAnilistQuery<ViewerQuery>({
-		queryKey: "viewer",
-		query: gql`
-			query Viewer {
-				Viewer {
-					id
-				}
-			}
-		`,
-	})
+	const viewerQuery = useViewerQuery()
+	const viewerId = viewerQuery.data?.Viewer?.id
 
-	const animeListQuery = useAnilistQuery<
-		AnimeListQuery,
-		AnimeListQueryVariables
-	>({
-		queryKey: "anime",
-		variables: { userId: viewerQuery.data?.Viewer?.id! },
-		enabled: !!viewerQuery.data?.Viewer?.id,
-		query: gql`
-			query AnimeList($userId: Int!) {
-				MediaListCollection(userId: $userId, type: ANIME, sort: STATUS) {
-					lists {
-						name
-						status
-						entries {
-							id
-							media {
-								title {
-									english
-									romaji
-									native
-								}
-								coverImage {
-									extraLarge
-									large
-									color
-								}
-								bannerImage
-							}
-						}
-					}
-				}
-			}
-		`,
-	})
+	const animeListQuery = useAnimeListQuery(
+		{ userId: viewerId! },
+		{ enabled: !!viewerId },
+	)
 
 	return (
 		<>
