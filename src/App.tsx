@@ -1,6 +1,6 @@
 import { compact, uniq } from "lodash-es"
 import { tw } from "twind"
-import { useAnilistQuery } from "./anilist"
+import { useAnilistQuery } from "./anilist/useAnilistQuery"
 import AuthButton from "./auth/AuthButton"
 import {
 	AnimeListQuery,

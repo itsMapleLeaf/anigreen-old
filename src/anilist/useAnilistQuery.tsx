@@ -1,27 +1,17 @@
 import { QueryKey, useQuery, UseQueryOptions } from "react-query"
-import { GqlString } from "./gql"
-
-class AnilistError extends Error {
-	errors
-
-	constructor(
-		status: number,
-		errors: readonly { status: number; message: string }[],
-	) {
-		super(`Api request failed with status ${status}`)
-		this.errors = errors
-	}
-}
+import { GqlString } from "../gql"
+import { AnilistError } from "./AnilistError"
 
 export function useAnilistQuery<Data, Variables = { [key: string]: unknown }>({
 	queryKey,
 	query,
 	variables,
+	...options
 }: {
 	queryKey: QueryKey
 	query: GqlString
 	variables?: Variables
-} & UseQueryOptions<Data, unknown, Variables>) {
+} & UseQueryOptions<Data, unknown>) {
 	return useQuery<Data, unknown>({
 		queryKey: [queryKey, variables],
 		queryFn: async () => {
@@ -45,5 +35,6 @@ export function useAnilistQuery<Data, Variables = { [key: string]: unknown }>({
 
 			return json.data
 		},
+		...options,
 	})
 }

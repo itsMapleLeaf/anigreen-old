@@ -13,6 +13,8 @@ devDependencies:
   '@graphql-codegen/typescript': 1.20.2_graphql@15.5.0
   '@graphql-codegen/typescript-operations': 1.17.14_graphql@15.5.0
   '@prefresh/vite': 2.0.4_e400f90aee5454bc5f1507eabe7541b5
+  '@testing-library/react': 11.2.5_react-dom@17.0.1+react@17.0.1
+  '@testing-library/react-hooks': 5.0.3_react-dom@17.0.1+react@17.0.1
   '@twind/typescript-plugin': 0.1.0
   '@types/jest': 26.0.20
   '@types/lodash-es': 4.17.4
@@ -1353,6 +1355,57 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-XIB2XbzHTN6ieIjfIMV9hlVcfPU26s2vafYWQcZHWXHOxiaRZYEDKEwdl129Zyg50+foYV2jCgtrqSA6qNuNSA==
+  /@testing-library/dom/7.29.4:
+    dependencies:
+      '@babel/code-frame': 7.12.13
+      '@babel/runtime': 7.12.13
+      '@types/aria-query': 4.2.1
+      aria-query: 4.2.2
+      chalk: 4.1.0
+      dom-accessibility-api: 0.5.4
+      lz-string: 1.4.4
+      pretty-format: 26.6.2
+    dev: true
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-CtrJRiSYEfbtNGtEsd78mk1n1v2TUbeABlNIcOCJdDfkN5/JTOwQEbbQpoSRxGqzcWPgStMvJ4mNolSuBRv1NA==
+  /@testing-library/react-hooks/5.0.3_react-dom@17.0.1+react@17.0.1:
+    dependencies:
+      '@babel/runtime': 7.12.13
+      '@types/react': 17.0.1
+      '@types/react-dom': 17.0.0
+      '@types/react-test-renderer': 17.0.0
+      filter-console: 0.1.1
+      react: 17.0.1
+      react-dom: 17.0.1_react@17.0.1
+      react-error-boundary: 3.1.0_react@17.0.1
+    dev: true
+    peerDependencies:
+      react: '>=16.9.0'
+      react-dom: '>=16.9.0'
+      react-test-renderer: '>=16.9.0'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-test-renderer:
+        optional: true
+    resolution:
+      integrity: sha512-UrnnRc5II7LMH14xsYNm/WRch/67cBafmrSQcyFh0v+UUmSf1uzfB7zn5jQXSettGwOSxJwdQUN7PgkT0w22Lg==
+  /@testing-library/react/11.2.5_react-dom@17.0.1+react@17.0.1:
+    dependencies:
+      '@babel/runtime': 7.12.13
+      '@testing-library/dom': 7.29.4
+      react: 17.0.1
+      react-dom: 17.0.1_react@17.0.1
+    dev: true
+    engines:
+      node: '>=10'
+    peerDependencies:
+      react: '*'
+      react-dom: '*'
+    resolution:
+      integrity: sha512-yEx7oIa/UWLe2F2dqK0FtMF9sJWNXD+2PPtp39BvE0Kh9MJ9Kl0HrZAgEuhUJR+Lx8Di6Xz+rKwSdEPY2UV8ZQ==
   /@tootallnate/once/1.1.2:
     dev: true
     engines:
@@ -1369,6 +1422,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-ojn1rER7SIwrBec3GObxasDRCd71mKSeFiiPuekSKUkdyLpwI0RwZ+CY1Xt7t0R3NA/gVg8AfU9nIdfXIX70JQ==
+  /@types/aria-query/4.2.1:
+    dev: true
+    resolution:
+      integrity: sha512-S6oPal772qJZHoRZLFc/XoZW2gFvwXusYUmXPXkgxJLuEk2vOt7jc4Yo6z/vtI0EBkbPBVrJJ0B+prLIKiWqHg==
   /@types/babel__core/7.1.12:
     dependencies:
       '@babel/parser': 7.12.15
@@ -1491,6 +1548,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-lUqY7OlkF/RbNtD5nIq7ot8NquXrdFrjSOR6+w9a9RFQevGi1oZO1dcJbXMeONAPKtZ2UrZOEJ5UOCVsxbLk/g==
+  /@types/react-test-renderer/17.0.0:
+    dependencies:
+      '@types/react': 17.0.1
+    dev: true
+    resolution:
+      integrity: sha512-nvw+F81OmyzpyIE1S0xWpLonLUZCMewslPuA8BtjSKc5XEbn8zEQBXS7KuOLHTNnSOEM2Pum50gHOoZ62tqTRg==
   /@types/react/17.0.1:
     dependencies:
       '@types/prop-types': 15.7.3
@@ -3038,6 +3101,10 @@ packages:
       node: '>=6.0.0'
     resolution:
       integrity: sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==
+  /dom-accessibility-api/0.5.4:
+    dev: true
+    resolution:
+      integrity: sha512-TvrjBckDy2c6v6RLxPv5QXOnU+SmF9nBII5621Ve5fu6Z/BDrENurBEvlC1f44lKEUVqOpK4w9E5Idc5/EgkLQ==
   /domexception/2.0.1:
     dependencies:
       webidl-conversions: 5.0.0
@@ -3684,6 +3751,12 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==
+  /filter-console/0.1.1:
+    dev: true
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-zrXoV1Uaz52DqPs+qEwNJWJFAWZpYJ47UNmpN9q4j+/EYsz85uV0DC9k8tRND5kYmoVzL0W+Y75q4Rg8sRJCdg==
   /finalhandler/1.1.2:
     dependencies:
       debug: 2.6.9
@@ -5740,6 +5813,11 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
+  /lz-string/1.4.4:
+    dev: true
+    hasBin: true
+    resolution:
+      integrity: sha1-wNjq82BZ9wV5bh40SBHPTEmNOiY=
   /make-dir/3.1.0:
     dependencies:
       semver: 6.3.0
@@ -6760,6 +6838,18 @@ packages:
       react: 17.0.1
     resolution:
       integrity: sha512-6eV150oJZ9U2t9svnsspTMrWNyHc6chX0KzDeAOXftRa8bNeOKTTfCJ7KorIwenkHd2xqVTBTCZd79yk/lx/Ug==
+  /react-error-boundary/3.1.0_react@17.0.1:
+    dependencies:
+      '@babel/runtime': 7.12.13
+      react: 17.0.1
+    dev: true
+    engines:
+      node: '>=10'
+      npm: '>=6'
+    peerDependencies:
+      react: '>=16.13.1'
+    resolution:
+      integrity: sha512-lmPrdi5SLRJR+AeJkqdkGlW/CRkAUvZnETahK58J4xb5wpbfDngasEGu+w0T1iXEhVrYBJZeW+c4V1hILCnMWQ==
   /react-focus-lock/2.5.0_@types+react@17.0.1+react@17.0.1:
     dependencies:
       '@babel/runtime': 7.12.13
@@ -8692,6 +8782,8 @@ specifiers:
   '@graphql-codegen/typescript': 1.20.2
   '@graphql-codegen/typescript-operations': 1.17.14
   '@prefresh/vite': ^2.0.4
+  '@testing-library/react': ^11.2.5
+  '@testing-library/react-hooks': ^5.0.3
   '@twind/typescript-plugin': ^0.1.0
   '@types/jest': ^26.0.20
   '@types/lodash-es': ^4.17.4

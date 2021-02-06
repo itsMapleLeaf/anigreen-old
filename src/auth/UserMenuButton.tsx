@@ -1,5 +1,5 @@
 import { tw } from "twind"
-import { useAnilistQuery } from "../anilist"
+import { useAnilistQuery } from "../anilist/useAnilistQuery"
 import { UserButtonQuery } from "../generated/graphql"
 import { gql } from "../gql"
 import { Menu, MenuItem, MenuItems, MenuTrigger } from "../ui/menu"
