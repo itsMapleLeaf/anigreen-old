@@ -1,23 +1,42 @@
 import { compact, uniq } from "lodash-es"
+import React, { useCallback } from "react"
 import { tw } from "twind"
 import AuthButton from "./auth/AuthButton"
+import { useScrollSelector } from "./dom/useScrollSelector"
 import { useAnimeListQuery, useViewerQuery } from "./generated/graphql"
 
 export default function App() {
-	const viewerQuery = useViewerQuery()
-	const viewerId = viewerQuery.data?.Viewer?.id
+	const viewerId = useViewerQuery().data?.Viewer?.id
 
 	const animeListQuery = useAnimeListQuery(
 		{ userId: viewerId! },
 		{ enabled: !!viewerId },
 	)
 
+	const isAtTop = useScrollSelector(useCallback((scroll) => scroll === 0, []))
+
 	return (
 		<>
 			<header
-				className={tw`flex justify-between items-center p-4 bg-gray-800 shadow sticky top-0 h-20 z-20`}
+				className={tw`
+					flex justify-between items-center
+					p-4
+					shadow
+					sticky top-0 z-20
+					transition duration-300
+					${isAtTop ? `bg-gray-800` : `bg(black opacity-75)`}
+				`}
+				style={{
+					backdropFilter: `blur(4px)`,
+				}}
 			>
-				<h1 className={tw`text-3xl`}>hi lol</h1>
+				<a href="/">
+					<h1 className={tw`text-3xl leading-none mb-1`}>
+						<span className={tw`text-blue-300`}>ani</span>
+						<span className={tw`text-green-300`}>green</span>
+					</h1>
+					<p className={tw`text-sm opacity-50`}>name pending</p>
+				</a>
 				<AuthButton />
 			</header>
 
