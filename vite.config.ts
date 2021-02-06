@@ -11,7 +11,7 @@ export default defineConfig({
 	plugins: [prefresh()],
 	clearScreen: false,
 	alias: {
-		react: "preact/compat",
+		"react": "preact/compat",
 		"react-dom": "preact/compat",
 	},
 })

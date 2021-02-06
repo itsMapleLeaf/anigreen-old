@@ -19,7 +19,7 @@ setup({
 		},
 	},
 	preflight: {
-		body: css(apply`bg-gray-900 text-gray-100`, {
+		"body": css(apply`bg-gray-900 text-gray-100`, {
 			wordWrap: "break-word",
 		}),
 		".js-focus-visible :focus:not(.focus-visible)": {
