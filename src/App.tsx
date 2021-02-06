@@ -70,7 +70,12 @@ export default function App() {
 					<div key={list?.name}>
 						<h2 className={tw`font-light text-3xl py-2 z-10`}>{list?.name}</h2>
 
-						<div className={tw`grid gap-2 mt-2`}>
+						<div
+							className={tw`grid gap-2 mt-2`}
+							style={{
+								gridTemplateColumns: `repeat(auto-fill, minmax(12rem, 1fr))`,
+							}}
+						>
 							{list?.entries?.map((entry) => {
 								const titles = unique([
 									entry?.media?.title?.english,
@@ -86,14 +91,10 @@ export default function App() {
 											className={tw`w-full object-cover`}
 											alt=""
 											style={{
-												aspectRatio: "2.2/1",
+												aspectRatio: "3/4",
 												backgroundColor: `${entry?.media?.coverImage?.color}`,
 											}}
-											src={
-												entry?.media?.bannerImage ||
-												entry?.media?.coverImage?.extraLarge ||
-												""
-											}
+											src={entry?.media?.coverImage?.large || ""}
 											loading="lazy"
 										/>
 										<div
