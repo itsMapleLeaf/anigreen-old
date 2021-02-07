@@ -1,5 +1,6 @@
 import { tw } from "twind"
 import { useViewerQuery } from "../generated/graphql"
+import Image from "../ui/Image"
 import { Menu, MenuItem, MenuItems, MenuTrigger } from "../ui/menu"
 
 export default function UserMenuButton() {
@@ -10,15 +11,11 @@ export default function UserMenuButton() {
 			<MenuTrigger>
 				<button
 					type="button"
-					className={tw`rounded-full w-10 h-10 p-0.5 bg-gradient-to-br from-green-400 to-blue-400`}
+					className={tw`rounded-full w-10 h-10 p-0.5 bg-gradient-to-br from-green-400 to-blue-400 block`}
 					title="User menu"
 				>
 					{avatarUrl && (
-						<img
-							src={avatarUrl}
-							alt=""
-							className={tw`rounded-full w-full h-full`}
-						/>
+						<Image src={avatarUrl} className={tw`rounded-full w-full h-full`} />
 					)}
 				</button>
 			</MenuTrigger>
