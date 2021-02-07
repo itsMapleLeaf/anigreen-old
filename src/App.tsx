@@ -151,15 +151,18 @@ function NavDrawerHeader() {
 				className={tw`absolute inset-0 object-cover`}
 			/>
 			<div
-				className={tw`relative p-2 flex items-center space-x-3 transform scale-100 bg(black opacity-75)`}
+				className={tw`relative px-2 py-4 flex items-center bg(black opacity-75)`}
 			>
 				<Image
 					src={viewer?.avatar?.large}
-					className={tw`w-12 h-12 shadow rounded-full`}
+					className={tw`w-10 h-10 shadow rounded-full`}
 				/>
-				<span className={tw`text-xl font-light tracking-wide`}>
+				<p
+					aria-label="Username"
+					className={tw`text-lg font-light tracking-wide ml-3`}
+				>
 					{viewer?.name}
-				</span>
+				</p>
 			</div>
 		</div>
 	)
