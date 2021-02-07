@@ -1,11 +1,16 @@
 import { compact, uniq } from "lodash-es"
-import React, { ReactNode, useCallback } from "react"
+import React, { cloneElement, ReactElement, useCallback } from "react"
 import { tw } from "twind"
-import AuthButton from "./auth/AuthButton"
 import { useScrollSelector } from "./dom/useScrollSelector"
 import { useAnimeListQuery, useViewerQuery } from "./generated/graphql"
-import Drawer from "./ui/Drawer"
-import { BookmarkIcon, MenuIcon, PlayIcon, SearchIcon } from "./ui/icons"
+import Drawer, { DrawerItem } from "./ui/Drawer"
+import {
+	BookmarkIcon,
+	LogoutIcon,
+	MenuIcon,
+	PlayIcon,
+	SearchIcon,
+} from "./ui/icons"
 import Image from "./ui/Image"
 
 export default function App() {
@@ -17,6 +22,12 @@ export default function App() {
 	)
 
 	const isAtTop = useScrollSelector(useCallback((scroll) => scroll === 0, []))
+
+	const loginUrl =
+		`https://anilist.co/api/v2/oauth/authorize` +
+		`?client_id=${import.meta.env.VITE_ANILIST_APP_ID}` +
+		`&redirect_uri=${import.meta.env.VITE_ANILIST_REDIRECT_URL}` +
+		`&response_type=code`
 
 	return (
 		<>
@@ -33,31 +44,64 @@ export default function App() {
 				<Drawer trigger={<MenuButton />}>
 					<div className={tw`w-64 space-y-2 p-2`}>
 						<nav className={tw`space-y-2`}>
-							<NavDrawerHeader />
-							<NavDrawerLink active>
-								<BookmarkIcon />
-								<span>Watching</span>
-							</NavDrawerLink>
-							<NavDrawerLink>
-								<PlayIcon />
-								<span>Current Season</span>
-							</NavDrawerLink>
-							<NavDrawerLink>
-								<SearchIcon />
-								<span>Search</span>
-							</NavDrawerLink>
+							{viewerId && <NavDrawerHeader />}
+
+							{viewerId ? null : (
+								<DrawerItem>
+									<NavDrawerItem>
+										<a href={loginUrl}>
+											<LogoutIcon />
+											<span>Log in with Anilist</span>
+										</a>
+									</NavDrawerItem>
+								</DrawerItem>
+							)}
+
+							{viewerId ? (
+								<DrawerItem>
+									<NavDrawerItem active>
+										<button type="button">
+											<BookmarkIcon />
+											<span>Watching</span>
+										</button>
+									</NavDrawerItem>
+								</DrawerItem>
+							) : null}
+
+							<DrawerItem>
+								<NavDrawerItem>
+									<button type="button">
+										<PlayIcon />
+										<span>Current Season</span>
+									</button>
+								</NavDrawerItem>
+							</DrawerItem>
+
+							<DrawerItem>
+								<NavDrawerItem>
+									<button type="button">
+										<SearchIcon />
+										<span>Search</span>
+									</button>
+								</NavDrawerItem>
+							</DrawerItem>
+
+							{viewerId ? (
+								<DrawerItem>
+									<NavDrawerItem>
+										<a href="/logout">
+											<LogoutIcon />
+											<span>Log out</span>
+										</a>
+									</NavDrawerItem>
+								</DrawerItem>
+							) : null}
 						</nav>
 					</div>
 				</Drawer>
 
 				<div className={tw`py-2`}>
 					<AppLogoLink />
-				</div>
-
-				<div className={tw`flex-1`} />
-
-				<div className={tw`px-4`}>
-					<AuthButton />
 				</div>
 			</header>
 
@@ -175,22 +219,21 @@ function NavDrawerHeader() {
 	)
 }
 
-function NavDrawerLink({
+function NavDrawerItem({
 	children,
 	active,
+	onClick,
 }: {
-	children: ReactNode
+	children: ReactElement
 	active?: boolean
+	onClick?: () => void
 }) {
-	const baseStyle = tw`flex items-center rounded-lg space-x-1 p-2 font-medium transition leading-none`
+	const baseStyle = tw`flex items-center w-full rounded-lg space-x-1 p-2 font-medium transition leading-none`
 	const activeStyle = tw`text-green-400 bg(black opacity-25)`
 	const inactiveStyle = tw`opacity-50 hactive:(opacity-75 bg(black opacity-25))`
-	return (
-		<a
-			href="#test"
-			className={tw`${baseStyle} ${active ? activeStyle : inactiveStyle}`}
-		>
-			{children}
-		</a>
-	)
+
+	return cloneElement(children, {
+		onClick,
+		className: tw`${baseStyle} ${active ? activeStyle : inactiveStyle}`,
+	})
 }
