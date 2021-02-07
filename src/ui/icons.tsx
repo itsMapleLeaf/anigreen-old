@@ -39,7 +39,6 @@ export const SearchIcon = createIconComponent(
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 20 20"
 		fill="currentColor"
-		className={tw`w-6`}
 	>
 		<path
 			fillRule="evenodd"
@@ -55,7 +54,6 @@ export const MenuIcon = createIconComponent(
 		fill="none"
 		viewBox="0 0 24 24"
 		stroke="currentColor"
-		className={tw`w-6`}
 	>
 		<path
 			strokeLinecap="round"
