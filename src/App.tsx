@@ -1,16 +1,12 @@
 import { compact, uniq } from "lodash-es"
-import React, { cloneElement, ReactElement, useCallback } from "react"
+import React, { useCallback } from "react"
 import { tw } from "twind"
+import { AppLogoLink } from "./app/AppLogoLink"
+import { NavDrawerContent } from "./app/NavDrawerContent"
 import { useScrollSelector } from "./dom/useScrollSelector"
 import { useAnimeListQuery, useViewerQuery } from "./generated/graphql"
-import Drawer, { DrawerItem } from "./ui/Drawer"
-import {
-	BookmarkIcon,
-	LogoutIcon,
-	MenuIcon,
-	PlayIcon,
-	SearchIcon,
-} from "./ui/icons"
+import Drawer from "./ui/Drawer"
+import { MenuIcon } from "./ui/icons"
 import Image from "./ui/Image"
 
 export default function App() {
@@ -22,12 +18,6 @@ export default function App() {
 	)
 
 	const isAtTop = useScrollSelector(useCallback((scroll) => scroll === 0, []))
-
-	const loginUrl =
-		`https://anilist.co/api/v2/oauth/authorize` +
-		`?client_id=${import.meta.env.VITE_ANILIST_APP_ID}` +
-		`&redirect_uri=${import.meta.env.VITE_ANILIST_REDIRECT_URL}` +
-		`&response_type=code`
 
 	return (
 		<>
@@ -42,62 +32,7 @@ export default function App() {
 				`}
 			>
 				<Drawer trigger={<MenuButton />}>
-					<div className={tw`w-64 space-y-2 p-2`}>
-						<nav className={tw`space-y-2`}>
-							{viewerId && <NavDrawerHeader />}
-
-							{viewerId ? null : (
-								<DrawerItem>
-									<NavDrawerItem>
-										<a href={loginUrl}>
-											<LogoutIcon />
-											<span>Log in with Anilist</span>
-										</a>
-									</NavDrawerItem>
-								</DrawerItem>
-							)}
-
-							{viewerId ? (
-								<DrawerItem>
-									<NavDrawerItem active>
-										<button type="button">
-											<BookmarkIcon />
-											<span>Watching</span>
-										</button>
-									</NavDrawerItem>
-								</DrawerItem>
-							) : null}
-
-							<DrawerItem>
-								<NavDrawerItem>
-									<button type="button">
-										<PlayIcon />
-										<span>Current Season</span>
-									</button>
-								</NavDrawerItem>
-							</DrawerItem>
-
-							<DrawerItem>
-								<NavDrawerItem>
-									<button type="button">
-										<SearchIcon />
-										<span>Search</span>
-									</button>
-								</NavDrawerItem>
-							</DrawerItem>
-
-							{viewerId ? (
-								<DrawerItem>
-									<NavDrawerItem>
-										<a href="/logout">
-											<LogoutIcon />
-											<span>Log out</span>
-										</a>
-									</NavDrawerItem>
-								</DrawerItem>
-							) : null}
-						</nav>
-					</div>
+					<NavDrawerContent />
 				</Drawer>
 
 				<div className={tw`py-2`}>
@@ -163,77 +98,10 @@ export default function App() {
 	)
 }
 
-function AppLogoLink() {
-	return (
-		<a href="/" className={tw`space-y-1`}>
-			<h1 className={tw`text-3xl leading-none`}>
-				<span className={tw`text-blue-300`}>ani</span>
-				<span className={tw`text-green-300`}>green</span>
-			</h1>
-			<p className={tw`text-sm opacity-50`}>name pending</p>
-		</a>
-	)
-}
-
 function MenuButton({ onClick }: { onClick?: () => void }) {
 	return (
 		<button type="button" title="Menu" className={tw`p-3`} onClick={onClick}>
 			<MenuIcon />
 		</button>
 	)
-}
-
-function NavDrawerHeader() {
-	const viewer = useViewerQuery().data?.Viewer
-
-	return (
-		<div className={tw`relative overflow-hidden`}>
-			<div
-				className={tw`absolute inset-0 rounded-lg overflow-hidden bg-gray-900`}
-			>
-				<Image
-					src={viewer?.bannerImage}
-					className={tw`w-full h-full object-cover`}
-					style={{
-						transform: `scale(1.1)`, // prevents dark corners
-						filter: "brightness(30%) blur(2px)",
-					}}
-				/>
-			</div>
-			<div
-				className={tw`relative px-2 py-4 flex items-center`}
-				style={{ boxSizing: "content-box" }}
-			>
-				<Image
-					src={viewer?.avatar?.large}
-					className={tw`w-10 h-10 shadow rounded-full`}
-				/>
-				<p
-					aria-label="Username"
-					className={tw`text-lg font-light tracking-wide ml-3`}
-				>
-					{viewer?.name}
-				</p>
-			</div>
-		</div>
-	)
-}
-
-function NavDrawerItem({
-	children,
-	active,
-	onClick,
-}: {
-	children: ReactElement
-	active?: boolean
-	onClick?: () => void
-}) {
-	const baseStyle = tw`flex items-center w-full rounded-lg space-x-1 p-2 font-medium transition leading-none`
-	const activeStyle = tw`text-green-400 bg(black opacity-25)`
-	const inactiveStyle = tw`opacity-50 hactive:(opacity-75 bg(black opacity-25))`
-
-	return cloneElement(children, {
-		onClick,
-		className: tw`${baseStyle} ${active ? activeStyle : inactiveStyle}`,
-	})
 }
