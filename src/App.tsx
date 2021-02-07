@@ -32,10 +32,8 @@ export default function App() {
 			>
 				<Drawer trigger={<MenuButton />}>
 					<div className={tw`w-64 space-y-2 p-2`}>
-						<div className={tw`overflow-hidden`}>
+						<nav className={tw`space-y-2`}>
 							<NavDrawerHeader />
-						</div>
-						<nav className={tw`space-y-1`}>
 							<NavDrawerLink active>
 								<BookmarkIcon />
 								<span>Watching</span>
@@ -146,12 +144,21 @@ function NavDrawerHeader() {
 
 	return (
 		<div className={tw`relative overflow-hidden`}>
-			<Image
-				src={viewer?.bannerImage}
-				className={tw`absolute inset-0 object-cover`}
-			/>
 			<div
-				className={tw`relative px-2 py-4 flex items-center bg(black opacity-75)`}
+				className={tw`absolute inset-0 rounded-lg overflow-hidden bg-gray-900`}
+			>
+				<Image
+					src={viewer?.bannerImage}
+					className={tw`w-full h-full object-cover`}
+					style={{
+						transform: `scale(1.1)`, // prevents dark corners
+						filter: "brightness(30%) blur(2px)",
+					}}
+				/>
+			</div>
+			<div
+				className={tw`relative px-2 py-4 flex items-center`}
+				style={{ boxSizing: "content-box" }}
 			>
 				<Image
 					src={viewer?.avatar?.large}
@@ -175,7 +182,7 @@ function NavDrawerLink({
 	children: ReactNode
 	active?: boolean
 }) {
-	const baseStyle = tw`flex items-center rounded-md space-x-1 p-2 font-medium transition leading-none`
+	const baseStyle = tw`flex items-center rounded-lg space-x-1 p-2 font-medium transition leading-none`
 	const activeStyle = tw`text-green-400 bg(black opacity-25)`
 	const inactiveStyle = tw`opacity-50 hactive:(opacity-75 bg(black opacity-25))`
 	return (
