@@ -1,4 +1,4 @@
-import React, { cloneElement, ReactElement } from "react"
+import { cloneElement, ReactElement } from "react"
 import { tw } from "twind"
 import { useViewerQuery } from "../generated/graphql"
 import { DrawerItem } from "../ui/Drawer"

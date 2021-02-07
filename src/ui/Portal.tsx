@@ -1,10 +1,10 @@
-import React from "react"
-import ReactDOM from "react-dom"
+import { PropsWithChildren, useLayoutEffect, useState } from "react"
+import { createPortal } from "react-dom"
 
-function Portal({ children }: React.PropsWithChildren<{}>) {
-	const [container, setContainer] = React.useState<Element>()
+function Portal({ children }: PropsWithChildren<{}>) {
+	const [container, setContainer] = useState<Element>()
 
-	React.useLayoutEffect(() => {
+	useLayoutEffect(() => {
 		const el = document.createElement("react-portal")
 		document.body.append(el)
 		setContainer(el)
@@ -12,7 +12,7 @@ function Portal({ children }: React.PropsWithChildren<{}>) {
 		return () => el.remove()
 	}, [])
 
-	return container ? ReactDOM.createPortal(children, container) : null
+	return container ? createPortal(children, container) : null
 }
 
 export default Portal
