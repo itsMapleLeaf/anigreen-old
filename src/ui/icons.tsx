@@ -1,9 +1,14 @@
 import { cloneElement, ReactElement, SVGProps } from "react"
 import { apply, tw } from "twind"
 
-const createIconComponent = (element: ReactElement) => (
-	props: SVGProps<SVGSVGElement>,
-) => cloneElement(element, { className: tw(apply`w-6`, props.className) })
+const createIconComponent = (element: ReactElement) => ({
+	className,
+	...props
+}: SVGProps<SVGSVGElement>) =>
+	cloneElement(element, {
+		className: tw`${apply`w-6`} ${className}`,
+		...props,
+	})
 
 export const BookmarkIcon = createIconComponent(
 	<svg
