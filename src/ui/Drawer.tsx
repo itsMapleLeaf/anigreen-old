@@ -1,7 +1,19 @@
-import { cloneElement, ReactElement, ReactNode, useState } from "react"
+import {
+	cloneElement,
+	createContext,
+	ReactElement,
+	ReactNode,
+	useContext,
+	useState,
+} from "react"
 import { FocusOn } from "react-focus-on"
 import { tw } from "twind"
 import Portal from "./Portal"
+
+const Context = createContext({
+	open: false,
+	setOpen(newOpen: boolean) {},
+})
 
 export default function Drawer(props: {
 	trigger: ReactElement
@@ -39,10 +51,22 @@ export default function Drawer(props: {
 						onClickOutside={() => setOpen(false)}
 						onEscapeKey={() => setOpen(false)}
 					>
-						{props.children}
+						<Context.Provider value={{ open, setOpen }}>
+							{props.children}
+						</Context.Provider>
 					</FocusOn>
 				</div>
 			</Portal>
 		</>
 	)
+}
+
+export function DrawerItem({ children }: { children: ReactElement }) {
+	const drawer = useContext(Context)
+	return cloneElement(children, {
+		onClick: (...args: unknown[]) => {
+			children.props.onClick?.(...args)
+			drawer.setOpen(false)
+		},
+	})
 }
