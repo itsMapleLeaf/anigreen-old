@@ -10,4 +10,7 @@ export default defineConfig({
 	},
 	plugins: [reactRefresh()],
 	clearScreen: false,
+	build: {
+		sourcemap: true,
+	},
 })
