@@ -1,9 +1,12 @@
 import { compact, uniq } from "lodash-es"
-import React, { useCallback } from "react"
+import React, { ReactNode, useCallback } from "react"
 import { tw } from "twind"
 import AuthButton from "./auth/AuthButton"
 import { useScrollSelector } from "./dom/useScrollSelector"
 import { useAnimeListQuery, useViewerQuery } from "./generated/graphql"
+import Drawer from "./ui/Drawer"
+import { BookmarkIcon, MenuIcon, PlayIcon, SearchIcon } from "./ui/icons"
+import Image from "./ui/Image"
 
 export default function App() {
 	const viewerId = useViewerQuery().data?.Viewer?.id
@@ -19,25 +22,45 @@ export default function App() {
 		<>
 			<header
 				className={tw`
-					flex justify-between items-center
-					p-4
+					flex items-center
 					shadow
 					sticky top-0 z-20
 					transition duration-300
+					backdrop-blur
 					${isAtTop ? `bg-gray-800` : `bg(black opacity-75)`}
 				`}
-				style={{
-					backdropFilter: `blur(4px)`,
-				}}
 			>
-				<a href="/">
-					<h1 className={tw`text-3xl leading-none mb-1`}>
-						<span className={tw`text-blue-300`}>ani</span>
-						<span className={tw`text-green-300`}>green</span>
-					</h1>
-					<p className={tw`text-sm opacity-50`}>name pending</p>
-				</a>
-				<AuthButton />
+				<Drawer trigger={<MenuButton />}>
+					<div className={tw`w-64 space-y-2 p-2`}>
+						<div className={tw`overflow-hidden`}>
+							<NavDrawerHeader />
+						</div>
+						<nav className={tw`space-y-1`}>
+							<NavDrawerLink active>
+								<BookmarkIcon />
+								<span>Watching</span>
+							</NavDrawerLink>
+							<NavDrawerLink>
+								<PlayIcon />
+								<span>Current Season</span>
+							</NavDrawerLink>
+							<NavDrawerLink>
+								<SearchIcon />
+								<span>Search</span>
+							</NavDrawerLink>
+						</nav>
+					</div>
+				</Drawer>
+
+				<div className={tw`py-2`}>
+					<AppLogoLink />
+				</div>
+
+				<div className={tw`flex-1`} />
+
+				<div className={tw`px-4`}>
+					<AuthButton />
+				</div>
 			</header>
 
 			<main className={tw`mx-auto max-w-screen-md px-2`}>
@@ -62,20 +85,19 @@ export default function App() {
 								return (
 									<div
 										key={entry?.id}
-										className={tw`relative shadow rounded overflow-hidden`}
+										className={tw`relative shadow`}
+										style={{
+											backgroundColor:
+												entry?.media?.coverImage?.color || undefined,
+										}}
 									>
-										<img
+										<Image
 											className={tw`w-full object-cover`}
-											alt=""
-											style={{
-												aspectRatio: "3/4",
-												backgroundColor: `${entry?.media?.coverImage?.color}`,
-											}}
+											style={{ aspectRatio: "3/4" }}
 											src={entry?.media?.coverImage?.large || ""}
-											loading="lazy"
 										/>
 										<div
-											className={tw`absolute inset-x-0 bottom-0 bg(black opacity-75) p-2`}
+											className={tw`absolute inset-x-0 bottom-0 bg(black opacity-75) p-2 backdrop-blur`}
 										>
 											<h3 className={tw`font-light`}>{titles[0]}</h3>
 											{titles[1] && (
@@ -96,5 +118,69 @@ export default function App() {
 				{animeListQuery.isError && <p>An error occured :(</p>}
 			</main>
 		</>
+	)
+}
+
+function AppLogoLink() {
+	return (
+		<a href="/" className={tw`space-y-1`}>
+			<h1 className={tw`text-3xl leading-none`}>
+				<span className={tw`text-blue-300`}>ani</span>
+				<span className={tw`text-green-300`}>green</span>
+			</h1>
+			<p className={tw`text-sm opacity-50`}>name pending</p>
+		</a>
+	)
+}
+
+function MenuButton({ onClick }: { onClick?: () => void }) {
+	return (
+		<button type="button" title="Menu" className={tw`p-3`} onClick={onClick}>
+			<MenuIcon />
+		</button>
+	)
+}
+
+function NavDrawerHeader() {
+	const viewer = useViewerQuery().data?.Viewer
+
+	return (
+		<div className={tw`relative overflow-hidden`}>
+			<Image
+				src={viewer?.bannerImage}
+				className={tw`absolute inset-0 object-cover`}
+			/>
+			<div
+				className={tw`relative p-2 flex items-center space-x-3 transform scale-100 bg(black opacity-75)`}
+			>
+				<Image
+					src={viewer?.avatar?.large}
+					className={tw`w-12 h-12 shadow rounded-full`}
+				/>
+				<span className={tw`text-xl font-light tracking-wide`}>
+					{viewer?.name}
+				</span>
+			</div>
+		</div>
+	)
+}
+
+function NavDrawerLink({
+	children,
+	active,
+}: {
+	children: ReactNode
+	active?: boolean
+}) {
+	const baseStyle = tw`flex items-center rounded-md space-x-1 p-2 font-medium transition leading-none`
+	const activeStyle = tw`text-green-400 bg(black opacity-25)`
+	const inactiveStyle = tw`opacity-50 hactive:(opacity-75 bg(black opacity-25))`
+	return (
+		<a
+			href="#test"
+			className={tw`${baseStyle} ${active ? activeStyle : inactiveStyle}`}
+		>
+			{children}
+		</a>
 	)
 }

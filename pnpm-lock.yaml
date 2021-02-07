@@ -1,4 +1,5 @@
 dependencies:
+  '@twind/line-clamp': 0.1.1_twind@0.14.6+typescript@4.1.3
   constate: 3.1.0_react@17.0.1
   focus-visible: 5.2.0
   lodash-es: 4.17.20
@@ -1428,6 +1429,21 @@ packages:
       node: '>= 6'
     resolution:
       integrity: sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==
+  /@twind/line-clamp/0.1.1_twind@0.14.6+typescript@4.1.3:
+    dependencies:
+      twind: 0.14.6_typescript@4.1.3
+      typescript: 4.1.3
+    dev: false
+    engines:
+      node: '>=10.13'
+    peerDependencies:
+      twind: '>=0.14.4'
+      typescript: ^4.1.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    resolution:
+      integrity: sha512-OAbGo1traJ5KmTSlIGPAAg8RnQx3XCGriKyPJA2L6yuO0bO1DwDm6oIAAYuLuV792NDyfWeZNcwKUfBXWSnDVQ==
   /@twind/typescript-plugin/0.1.0:
     dependencies:
       dlv: 1.1.3
@@ -8869,6 +8885,7 @@ specifiers:
   '@testing-library/react': ^11.2.5
   '@testing-library/react-hooks': ^5.0.3
   '@testing-library/user-event': ^12.6.3
+  '@twind/line-clamp': ^0.1.1
   '@twind/typescript-plugin': ^0.1.0
   '@types/jest': ^26.0.20
   '@types/lodash-es': ^4.17.4

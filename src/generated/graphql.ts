@@ -4366,7 +4366,7 @@ export type ViewerQuery = (
   { __typename?: 'Query' }
   & { Viewer?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'name'>
+    & Pick<User, 'id' | 'name' | 'bannerImage'>
     & { avatar?: Maybe<(
       { __typename?: 'UserAvatar' }
       & Pick<UserAvatar, 'medium' | 'large'>
@@ -4422,6 +4422,7 @@ export const ViewerDocument = `
       medium
       large
     }
+    bannerImage
   }
 }
     `;

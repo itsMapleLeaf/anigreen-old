@@ -6,5 +6,6 @@ query Viewer {
 			medium
 			large
 		}
+		bannerImage
 	}
 }
