@@ -3,11 +3,12 @@ import React, { ReactNode, useCallback } from "react"
 import { tw } from "twind"
 import { AppLogoLink } from "./app/AppLogoLink"
 import { NavDrawerContent } from "./app/NavDrawerContent"
+import NyaaSearchButton from "./app/NyaaSearchButton"
 import { useScrollSelector } from "./dom/useScrollSelector"
 import { useAnimeListQuery, useViewerQuery } from "./generated/graphql"
 import Button from "./ui/Button"
 import Drawer from "./ui/Drawer"
-import { MenuIcon, PlusIcon, SearchIcon } from "./ui/icons"
+import { MenuIcon, PlusIcon } from "./ui/icons"
 import Image from "./ui/Image"
 
 export default function App() {
@@ -84,7 +85,13 @@ export default function App() {
 												1 ? (
 												<Button label="Add Progress" icon={<PlusIcon />} />
 											) : null}
-											<Button label="Nyaa Search" icon={<SearchIcon />} />
+											<NyaaSearchButton
+												query={
+													entry?.media?.title?.romaji ||
+													entry?.media?.title?.english ||
+													""
+												}
+											/>
 										</>
 									}
 								/>

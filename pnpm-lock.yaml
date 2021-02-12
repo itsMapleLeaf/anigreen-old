@@ -1,4 +1,5 @@
 dependencies:
+  '@headlessui/react': 0.3.1_react@17.0.1
   '@twind/line-clamp': 0.1.1_twind@0.15.0+typescript@4.1.5
   constate: 3.1.0_react@17.0.1
   focus-visible: 5.2.0
@@ -1122,6 +1123,16 @@ packages:
       graphql: ^14.0.0 || ^15.0.0
     resolution:
       integrity: sha512-KCWBXsDfvG46GNUawRltJL4j9BMGoOG7oo3WEyCQP+SByWXiTe5cBF45SLDVQgdjljGNZhZ4Lq/7avIkF7/zDQ==
+  /@headlessui/react/0.3.1_react@17.0.1:
+    dependencies:
+      react: 17.0.1
+    dev: false
+    engines:
+      node: '>=10'
+    peerDependencies:
+      react: '>=16'
+    resolution:
+      integrity: sha512-GnAVXCLmDs3CFvmvYo4Iu/LqAWVIoS+bGo+eMADnbWgF8BeMX13sWMyb8eOdj7N9nqY9QA2AsMzqYdAIbbsRIw==
   /@iarna/toml/2.2.5:
     dev: true
     resolution:
@@ -9055,6 +9066,7 @@ specifiers:
   '@graphql-codegen/typescript': 1.21.0
   '@graphql-codegen/typescript-operations': 1.17.14
   '@graphql-codegen/typescript-react-query': ^1.2.0
+  '@headlessui/react': ^0.3.1
   '@testing-library/jest-dom': ^5.11.9
   '@testing-library/react': ^11.2.5
   '@testing-library/react-hooks': ^5.0.3
