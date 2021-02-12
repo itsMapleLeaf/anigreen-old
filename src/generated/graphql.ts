@@ -4342,11 +4342,14 @@ export type AnimeListQuery = (
       & Pick<MediaListGroup, 'name' | 'status'>
       & { entries?: Maybe<Array<Maybe<(
         { __typename?: 'MediaList' }
-        & Pick<MediaList, 'id'>
+        & Pick<MediaList, 'id' | 'progress' | 'score'>
         & { media?: Maybe<(
           { __typename?: 'Media' }
-          & Pick<Media, 'bannerImage'>
-          & { title?: Maybe<(
+          & Pick<Media, 'format' | 'episodes' | 'bannerImage'>
+          & { nextAiringEpisode?: Maybe<(
+            { __typename?: 'AiringSchedule' }
+            & Pick<AiringSchedule, 'airingAt' | 'episode'>
+          )>, title?: Maybe<(
             { __typename?: 'MediaTitle' }
             & Pick<MediaTitle, 'english' | 'romaji' | 'native'>
           )>, coverImage?: Maybe<(
@@ -4383,7 +4386,16 @@ export const AnimeListDocument = `
       status
       entries {
         id
+        progress
+        score
         media {
+          format
+          episodes
+          nextAiringEpisode {
+            airingAt
+            episode
+          }
+          bannerImage
           title {
             english
             romaji
@@ -4394,7 +4406,6 @@ export const AnimeListDocument = `
             large
             color
           }
-          bannerImage
         }
       }
     }

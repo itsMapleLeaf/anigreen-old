@@ -5,7 +5,16 @@ query AnimeList($userId: Int!) {
 			status
 			entries {
 				id
+				progress
+				score
 				media {
+					format
+					episodes
+					nextAiringEpisode {
+						airingAt
+						episode
+					}
+					bannerImage
 					title {
 						english
 						romaji
@@ -16,7 +25,6 @@ query AnimeList($userId: Int!) {
 						large
 						color
 					}
-					bannerImage
 				}
 			}
 		}

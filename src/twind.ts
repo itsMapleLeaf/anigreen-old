@@ -7,8 +7,8 @@ setup({
 	darkMode: "class",
 	theme: {
 		boxShadow: {
-			DEFAULT: "0px 3px 12px rgba(0, 0, 0, 0.5)",
-			inset: "0 0 8px inset rgba(0, 0, 0, 0.5)",
+			DEFAULT: "0px 3px 8px rgba(0, 0, 0, 0.3)",
+			inset: "0 0 8px inset rgba(0, 0, 0, 0.3)",
 		},
 		extend: {
 			colors: {
