@@ -1,15 +1,17 @@
-import { ReactNode, useEffect, useRef } from "react"
+import { ReactNode, useLayoutEffect, useMemo } from "react"
 import { createPortal } from "react-dom"
 
 export default function Portal({ children }: { children: ReactNode }) {
-	const containerRef = useRef<Element>()
+	const container = useMemo(() => {
+		return document.createElement("react-portal")
+	}, [])
 
-	if (!containerRef.current) {
-		containerRef.current = document.createElement("react-portal")
-		document.body.append(containerRef.current)
-	}
+	useLayoutEffect(() => {
+		document.body.append(container)
+		return () => {
+			container.remove()
+		}
+	}, [container])
 
-	useEffect(() => () => containerRef.current!.remove(), [])
-
-	return createPortal(children, containerRef.current)
+	return createPortal(children, container)
 }
