@@ -16,7 +16,7 @@ export default function Button(props: {
 	className?: string
 	label?: string
 	icon?: ReactNode
-	onClick?: () => {}
+	onClick?: () => void
 }) {
 	return (
 		<button
