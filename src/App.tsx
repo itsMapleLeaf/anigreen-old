@@ -108,10 +108,7 @@ export default function App() {
 	)
 }
 
-function formatNextEpisode(
-	episode?: number | null,
-	airingTimeSeconds?: number | null,
-) {
+function formatNextEpisode(episode?: number, airingTimeSeconds?: number) {
 	if (episode && airingTimeSeconds) {
 		const date = new Date(Number(airingTimeSeconds) * 1000)
 		const dateString = date.toLocaleDateString()
@@ -123,14 +120,14 @@ function formatNextEpisode(
 	}
 }
 
-function formatProgress(progress?: number | null, episodes?: number | null) {
+function formatProgress(progress?: number, episodes?: number) {
 	progress ??= 0
 	if (progress === episodes) return "Complete"
 	if (episodes == null) return `${progress}`
 	return `${progress}/${episodes}`
 }
 
-function formatScore(score?: number | null) {
+function formatScore(score?: number) {
 	if (score != null && score > 0) return `${Math.round(score)}/10`
 	return "None"
 }
@@ -144,11 +141,11 @@ function MenuButton({ onClick }: { onClick?: () => void }) {
 }
 
 function WatchingAnimeCard(props: {
-	englishTitle?: string | null
-	romajiTitle?: string | null
-	bannerImageUrl?: string | null
-	coverImageUrl?: string | null
-	mediaFormat?: string | null
+	englishTitle?: string
+	romajiTitle?: string
+	bannerImageUrl?: string
+	coverImageUrl?: string
+	mediaFormat?: string
 	fields: React.ReactNode
 	actions: React.ReactNode
 	footerText: React.ReactNode

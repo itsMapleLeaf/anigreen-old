@@ -6,9 +6,7 @@ export default function Image({
 	src,
 	className,
 	...props
-}: Omit<ComponentPropsWithoutRef<"img">, "src"> & {
-	src: string | undefined | null
-}) {
+}: ComponentPropsWithoutRef<"img">) {
 	const imageRef = useRef<HTMLImageElement>(null)
 
 	useLayoutEffect(() => {
@@ -33,7 +31,7 @@ export default function Image({
 			alt=""
 			loading="lazy"
 			ref={imageRef}
-			src={src || undefined}
+			src={src}
 			className={tw`object-cover ${className}`}
 			{...props}
 		/>

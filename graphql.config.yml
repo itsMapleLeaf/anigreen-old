@@ -11,3 +11,4 @@ generates:
 config:
   fetcher:
     endpoint: "'/anilist'"
+  maybeValue: T | undefined
