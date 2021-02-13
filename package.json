@@ -2,7 +2,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "concurrently --names 'vite,codegen' --prefix-colors 'blue,magenta' 'nodemon server.mjs' 'npm run generate -- --watch'",
-		"build": "tsc && vite build",
+		"build": "vite build",
 		"start": "cross-env NODE_ENV=production node server.mjs",
 		"generate": "graphql-codegen --config graphql.config.yml",
 		"lint": "eslint --ext 'js,ts,tsx,mjs' .",
