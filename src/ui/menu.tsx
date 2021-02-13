@@ -10,7 +10,7 @@ import {
 } from "react"
 import { usePopper } from "react-popper"
 import { apply, tw } from "twind"
-import { flipFadeTransition } from "./flip-fade-transition"
+import { css } from "twind/css"
 import Portal from "./Portal"
 
 const [MenuProvider, useMenuContext] = constate(function useMenu({
@@ -65,7 +65,7 @@ export function MenuPanel({
 		<Transition show={open}>
 			<Portal>
 				<div ref={setPopperElement} style={styles.popper}>
-					<Transition.Child {...flipFadeTransition}>
+					<Transition.Child {...flipFadeTransition()}>
 						<BaseMenu.Items
 							static
 							className={tw(apply`
@@ -119,4 +119,30 @@ export function MenuItem({
 			}
 		</BaseMenu.Item>
 	)
+}
+
+function flipFadeTransition() {
+	const outClass = tw(
+		css({
+			transform: `perspective(800px) rotateX(-30deg) `,
+			opacity: 0,
+			visibility: "hidden",
+		}),
+	)
+
+	const inClass = tw(
+		css({
+			transform: `perspective(800px)`,
+			opacity: "1",
+			visibility: "visible",
+		}),
+	)
+
+	return {
+		className: tw`transition-all origin-top`,
+		enterFrom: outClass,
+		enterTo: inClass,
+		leaveFrom: inClass,
+		leaveTo: outClass,
+	}
 }
