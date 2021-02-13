@@ -1,16 +1,14 @@
 import constate from "constate"
-import { cloneElement, ReactElement, ReactNode, useRef, useState } from "react"
+import { cloneElement, ReactElement, ReactNode, useRef } from "react"
 import { FocusOn } from "react-focus-on"
 import { apply, tw } from "twind"
 import { css } from "twind/css"
+import { useDisclosure } from "./disclosure"
 
 const [MenuProvider, useMenuContext] = constate(function useMenu() {
-	const [isOpen, setOpen] = useState(false)
+	const disclosure = useDisclosure()
 	const triggerRef = useRef<HTMLDivElement>()
-	const open = () => setOpen(true)
-	const close = () => setOpen(false)
-	const toggle = () => setOpen((open) => !open)
-	return { isOpen, open, close, toggle, triggerRef }
+	return { ...disclosure, triggerRef }
 })
 
 export function Menu({ children }: { children: ReactNode }) {
@@ -73,23 +71,39 @@ export function MenuItems({ children }: { children: ReactNode }) {
 	)
 }
 
-export function MenuItem({ children }: { children: ReactElement }) {
+export function MenuItem({
+	children,
+	icon,
+}: {
+	children: ReactElement
+	icon?: ReactNode
+}) {
 	const menu = useMenuContext()
 	return cloneElement(children, {
 		className: tw`
 			${apply`
-				py-3 pl-3 pr-6
+				p-3
 				leading-none font-medium text-left
 				transition
+				flex
 				ring(2 inset transparent)
 				hover:(bg-green-100 text-green-900)
 				focus-visible:(outline-none ring-green-400)
 			`}
+			${icon ? `pl-9` : ""}
 			${children.props.className ?? ""}
 		`,
 		onClick: (...args: unknown[]) => {
 			children.props.onClick?.(...args)
 			menu.close()
 		},
+		children: (
+			<>
+				{icon && (
+					<span className={tw`absolute left-2 self-center`}>{icon}</span>
+				)}
+				{children.props.children}
+			</>
+		),
 	})
 }

@@ -1,13 +1,16 @@
-import type { ReactNode } from "react"
+import { memo } from "react"
 import { tw } from "twind"
 import type { AnimeListEntryFragment } from "../generated/graphql"
-import { DotsVerticalIcon } from "../ui/icons"
+import { AppMenu } from "../ui/AppMenu"
+import { DotsVerticalIcon, SearchIcon } from "../ui/icons"
 import Image from "../ui/Image"
 
-export default function MediaCard({
+export default memo(function MediaCard({
 	entry,
+	onSearch,
 }: {
 	entry?: AnimeListEntryFragment
+	onSearch: (query: string) => void
 }) {
 	return (
 		<div
@@ -45,18 +48,34 @@ export default function MediaCard({
 				</div>
 
 				<div>
-					<button
-						type="button"
-						className={tw`opacity-50 hover:opacity-75`}
-						title="More actions"
-					>
-						<DotsVerticalIcon />
-					</button>
+					<AppMenu
+						button={
+							<button
+								className={tw`opacity-50 hover:opacity-75`}
+								title="More actions"
+							>
+								<DotsVerticalIcon />
+							</button>
+						}
+						options={[
+							{
+								label: "Nyaa Search",
+								icon: <SearchIcon />,
+								onClick: () =>
+									onSearch(
+										entry?.media?.title?.romaji ||
+											entry?.media?.title?.english ||
+											entry?.media?.title?.native ||
+											"",
+									),
+							},
+						]}
+					/>
 				</div>
 			</div>
 		</div>
 	)
-}
+})
 
 function formatNextEpisode(episode?: number, airingTimeSeconds?: number) {
 	if (episode && airingTimeSeconds) {
@@ -70,17 +89,4 @@ function formatNextEpisode(episode?: number, airingTimeSeconds?: number) {
 
 		return `Episode ${episode} airs on ${dateString}`
 	}
-}
-
-export function CardField(props: { title: ReactNode; content: ReactNode }) {
-	return (
-		<div className={tw`flex-1`}>
-			<h4
-				className={tw`text-xs uppercase opacity-50 font-medium tracking-wider`}
-			>
-				{props.title}
-			</h4>
-			<p className={tw`text-xl font-light`}>{props.content}</p>
-		</div>
-	)
 }

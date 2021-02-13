@@ -1,10 +1,11 @@
-import React, { useCallback } from "react"
+import React, { useCallback, useState } from "react"
 import { tw } from "twind"
 import { AppLogoLink } from "./app/AppLogoLink"
 import { NavDrawerContent } from "./app/NavDrawerContent"
 import { useScrollSelector } from "./dom/useScrollSelector"
 import { useAnimeListQuery, useViewerQuery } from "./generated/graphql"
 import MediaCard from "./media/MediaCard"
+import NyaaModal from "./nyaa/NyaaModal"
 import Drawer from "./ui/Drawer"
 import { MenuIcon } from "./ui/icons"
 
@@ -17,6 +18,8 @@ export default function App() {
 	)
 
 	const isAtTop = useScrollSelector(useCallback((scroll) => scroll === 0, []))
+
+	const [searchQuery, setSearchQuery] = useState<string>()
 
 	return (
 		<>
@@ -45,15 +48,21 @@ export default function App() {
 						<h2 className={tw`font-light text-3xl py-2 z-10`}>{list?.name}</h2>
 						<div className={tw`grid gap-4 py-4 sm:grid-cols-2`}>
 							{list?.entries?.map((entry) => (
-								<MediaCard key={entry?.id} entry={entry} />
+								<MediaCard
+									key={entry?.id}
+									entry={entry}
+									onSearch={setSearchQuery}
+								/>
 							))}
 						</div>
 					</div>
 				))}
-
 				{animeListQuery.isLoading && <p>Loading...</p>}
-
 				{animeListQuery.isError && <p>An error occured :(</p>}
+				<NyaaModal
+					query={searchQuery}
+					onClose={() => setSearchQuery(undefined)}
+				/>
 			</main>
 		</>
 	)
