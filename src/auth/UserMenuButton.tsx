@@ -1,7 +1,7 @@
 import { tw } from "twind"
 import { useViewerQuery } from "../generated/graphql"
 import Image from "../ui/Image"
-import { Menu, MenuItem, MenuItems, MenuTrigger } from "../ui/menu"
+import { Menu, MenuItem, MenuItems, MenuTrigger } from "../ui/menu.old"
 
 export default function UserMenuButton() {
 	const query = useViewerQuery()

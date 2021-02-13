@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { Menu, MenuItem, MenuItems, MenuTrigger } from "./menu"
+import { Menu, MenuItem, MenuItems, MenuTrigger } from "./menu.old"
 
 function setup() {
 	const profileOnClick = jest.fn()
