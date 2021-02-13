@@ -1,6 +1,12 @@
-import Portal from "./Portal"
 import { Menu as BaseMenu } from "@headlessui/react"
-import { Fragment, ReactNode, createContext, useContext } from "react"
+import {
+	cloneElement,
+	createContext,
+	Fragment,
+	ReactElement,
+	ReactNode,
+	useContext,
+} from "react"
 import { apply, tw } from "twind"
 import { FlipFadeTransition } from "./FlipFadeTransition"
 
@@ -25,11 +31,10 @@ export function MenuButton({ children }: { children: ReactNode }) {
 export function MenuPanel({ children }: { children: ReactNode }) {
 	const open = useContext(OpenContext)
 	return (
-		<Portal>
-			<FlipFadeTransition show={open}>
-				<BaseMenu.Items
-					static
-					className={tw(apply`
+		<FlipFadeTransition show={open}>
+			<BaseMenu.Items
+				static
+				className={tw(apply`
 					absolute top-full mt-2 right-0
 					bg-white text-gray-800
 					w-max
@@ -37,44 +42,44 @@ export function MenuPanel({ children }: { children: ReactNode }) {
 					overflow-hidden
 					shadow
 				`)}
-				>
-					{children}
-				</BaseMenu.Items>
-			</FlipFadeTransition>
-		</Portal>
+			>
+				{children}
+			</BaseMenu.Items>
+		</FlipFadeTransition>
 	)
 }
 
 export function MenuItem({
-	label,
+	children,
 	icon,
-	onClick,
 }: {
-	label: string
-	icon: ReactNode
-	onClick: () => void
+	children: ReactElement
+	icon?: ReactNode
 }) {
 	return (
 		<BaseMenu.Item>
-			{({ active }) => (
-				<button
-					type="button"
-					className={tw(
+			{({ active }) =>
+				cloneElement(children, {
+					className: tw(
 						apply`
-							p-3 pl-9
+							p-3
 							leading-none font-medium text-left
 							transition
 							flex
 							ring(2 inset transparent)
 						`,
+						icon && `pl-9`,
 						active && apply`bg-green-100 text-green-900`,
-					)}
-					onClick={onClick}
-				>
-					<span className={tw`absolute left-2 self-center`}>{icon}</span>
-					{label}
-				</button>
-			)}
+						children.props.className,
+					),
+					children: (
+						<>
+							{children.props.children}
+							<span className={tw`absolute left-2 self-center`}>{icon}</span>
+						</>
+					),
+				})
+			}
 		</BaseMenu.Item>
 	)
 }

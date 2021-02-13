@@ -12,6 +12,15 @@ export default memo(function MediaCard({
 	entry?: AnimeListEntryFragment
 	onSearch: (query: string) => void
 }) {
+	const handleNyaaSearch = () => {
+		onSearch(
+			entry?.media?.title?.romaji ||
+				entry?.media?.title?.english ||
+				entry?.media?.title?.native ||
+				"",
+		)
+	}
+
 	return (
 		<div
 			className={tw`relative overflow-hidden rounded-lg bg-black shadow flex flex-col`}
@@ -58,18 +67,11 @@ export default memo(function MediaCard({
 							</button>
 						</MenuButton>
 						<MenuPanel>
-							<MenuItem
-								label="Nyaa Search"
-								icon={<SearchIcon />}
-								onClick={() => {
-									onSearch(
-										entry?.media?.title?.romaji ||
-											entry?.media?.title?.english ||
-											entry?.media?.title?.native ||
-											"",
-									)
-								}}
-							/>
+							<MenuItem icon={<SearchIcon />}>
+								<button type="button" onClick={handleNyaaSearch}>
+									Nyaa Search
+								</button>
+							</MenuItem>
 						</MenuPanel>
 					</Menu>
 				</div>
