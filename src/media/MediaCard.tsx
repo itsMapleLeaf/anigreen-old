@@ -1,9 +1,9 @@
-import { memo } from "react"
+import React, { memo } from "react"
 import { tw } from "twind"
 import type { AnimeListEntryFragment } from "../generated/graphql"
-import { AppMenu } from "../ui/AppMenu"
 import { DotsVerticalIcon, SearchIcon } from "../ui/icons"
 import Image from "../ui/Image"
+import { Menu, MenuButton, MenuItem, MenuPanel } from "../ui/menu"
 
 export default memo(function MediaCard({
 	entry,
@@ -48,29 +48,30 @@ export default memo(function MediaCard({
 				</div>
 
 				<div>
-					<AppMenu
-						button={
+					<Menu>
+						<MenuButton>
 							<button
 								className={tw`opacity-50 hover:opacity-75`}
 								title="More actions"
 							>
 								<DotsVerticalIcon />
 							</button>
-						}
-						options={[
-							{
-								label: "Nyaa Search",
-								icon: <SearchIcon />,
-								onClick: () =>
+						</MenuButton>
+						<MenuPanel>
+							<MenuItem
+								label="Nyaa Search"
+								icon={<SearchIcon />}
+								onClick={() => {
 									onSearch(
 										entry?.media?.title?.romaji ||
 											entry?.media?.title?.english ||
 											entry?.media?.title?.native ||
 											"",
-									),
-							},
-						]}
-					/>
+									)
+								}}
+							/>
+						</MenuPanel>
+					</Menu>
 				</div>
 			</div>
 		</div>
