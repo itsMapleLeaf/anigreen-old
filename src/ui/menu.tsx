@@ -124,7 +124,7 @@ export function MenuItem({
 function flipFadeTransition() {
 	const outClass = tw(
 		css({
-			transform: `perspective(800px) rotateX(-30deg) `,
+			transform: `perspective(800px) rotateX(-30deg)`,
 			opacity: 0,
 			visibility: "hidden",
 		}),
