@@ -167,7 +167,7 @@ function WatchingAnimeCard(props: {
 				}}
 			/>
 
-			<div className={tw`p-4 relative flex gap-4`}>
+			<div className={tw`p-4 relative flex space-x-4`}>
 				<Image
 					className={tw`rounded-md shadow w-36 self-stretch hidden sm:block`}
 					src={props.coverImageUrl}
@@ -195,7 +195,9 @@ function WatchingAnimeCard(props: {
 						<p className={tw`opacity-70`}>{props.footerText}</p>
 					) : null}
 
-					<div className={tw`flex flex-wrap gap-4`}>{props.actions}</div>
+					<div className={tw`flex flex-wrap children:mr-4`}>
+						{props.actions}
+					</div>
 				</div>
 			</div>
 		</div>
