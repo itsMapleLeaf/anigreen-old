@@ -37,7 +37,6 @@ export type Scalars = {
 };
 
 export type Query = {
-  __typename?: 'Query';
   Page?: Maybe<Page>;
   /** Media query */
   Media?: Maybe<Media>;
@@ -427,7 +426,6 @@ export type QueryMarkdownArgs = {
 
 /** Page of data */
 export type Page = {
-  __typename?: 'Page';
   /** The pagination information */
   pageInfo?: Maybe<PageInfo>;
   users?: Maybe<Array<Maybe<User>>>;
@@ -763,7 +761,6 @@ export type PageLikesArgs = {
 };
 
 export type PageInfo = {
-  __typename?: 'PageInfo';
   /** The total number of items */
   total?: Maybe<Scalars['Int']>;
   /** The count on a page */
@@ -791,7 +788,6 @@ export enum UserSort {
 
 /** A user */
 export type User = {
-  __typename?: 'User';
   /** The id of the user */
   id: Scalars['Int'];
   /** The name of the user */
@@ -850,7 +846,6 @@ export type UserFavouritesArgs = {
 
 /** A user's avatars */
 export type UserAvatar = {
-  __typename?: 'UserAvatar';
   /** The avatar of user at its largest size */
   large?: Maybe<Scalars['String']>;
   /** The avatar of user at medium size */
@@ -860,7 +855,6 @@ export type UserAvatar = {
 
 /** A user's general options */
 export type UserOptions = {
-  __typename?: 'UserOptions';
   /** The language the user wants to see media titles in */
   titleLanguage?: Maybe<UserTitleLanguage>;
   /** Whether the user has enabled viewing of 18+ content */
@@ -893,7 +887,6 @@ export enum UserTitleLanguage {
 
 /** Notification option */
 export type NotificationOption = {
-  __typename?: 'NotificationOption';
   /** The type of notification */
   type?: Maybe<NotificationType>;
   /** Whether this type of notification is enabled */
@@ -934,7 +927,6 @@ export enum NotificationType {
 
 /** A user's list options */
 export type MediaListOptions = {
-  __typename?: 'MediaListOptions';
   /** The score format the user is using for media lists */
   scoreFormat?: Maybe<ScoreFormat>;
   /** The default order list rows should be displayed in */
@@ -973,7 +965,6 @@ export enum ScoreFormat {
 
 /** A user's list options for anime or manga lists */
 export type MediaListTypeOptions = {
-  __typename?: 'MediaListTypeOptions';
   /** The order each list should be displayed in */
   sectionOrder?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** If the completed sections of the list should be separated by format */
@@ -993,7 +984,6 @@ export type MediaListTypeOptions = {
 
 /** User's favourite anime, manga, characters, staff & studios */
 export type Favourites = {
-  __typename?: 'Favourites';
   /** Favourite anime */
   anime?: Maybe<MediaConnection>;
   /** Favourite manga */
@@ -1042,7 +1032,6 @@ export type FavouritesStudiosArgs = {
 };
 
 export type MediaConnection = {
-  __typename?: 'MediaConnection';
   edges?: Maybe<Array<Maybe<MediaEdge>>>;
   nodes?: Maybe<Array<Maybe<Media>>>;
   /** The pagination information */
@@ -1051,7 +1040,6 @@ export type MediaConnection = {
 
 /** Media connection edge */
 export type MediaEdge = {
-  __typename?: 'MediaEdge';
   node?: Maybe<Media>;
   /** The id of the connection */
   id?: Maybe<Scalars['Int']>;
@@ -1086,7 +1074,6 @@ export type MediaEdgeVoiceActorsArgs = {
 
 /** Anime or Manga */
 export type Media = {
-  __typename?: 'Media';
   /** The id of the media */
   id: Scalars['Int'];
   /** The mal id of the media */
@@ -1275,7 +1262,6 @@ export type MediaRecommendationsArgs = {
 
 /** The official titles of the media in various languages */
 export type MediaTitle = {
-  __typename?: 'MediaTitle';
   /** The romanization of the native language title */
   romaji?: Maybe<Scalars['String']>;
   /** The official english title */
@@ -1352,7 +1338,6 @@ export enum MediaStatus {
 
 /** Date object that allows for incomplete date values (fuzzy) */
 export type FuzzyDate = {
-  __typename?: 'FuzzyDate';
   /** Numeric Year (2017) */
   year?: Maybe<Scalars['Int']>;
   /** Numeric Month (3) */
@@ -1397,7 +1382,6 @@ export enum MediaSource {
 
 /** Media trailer or advertisement */
 export type MediaTrailer = {
-  __typename?: 'MediaTrailer';
   /** The trailer video id */
   id?: Maybe<Scalars['String']>;
   /** The site the video is hosted by (Currently either youtube or dailymotion) */
@@ -1407,7 +1391,6 @@ export type MediaTrailer = {
 };
 
 export type MediaCoverImage = {
-  __typename?: 'MediaCoverImage';
   /** The cover image url of the media at its largest size. If this size isn't available, large will be provided instead. */
   extraLarge?: Maybe<Scalars['String']>;
   /** The cover image url of the media at a large size */
@@ -1420,7 +1403,6 @@ export type MediaCoverImage = {
 
 /** A tag that describes a theme or element of the media */
 export type MediaTag = {
-  __typename?: 'MediaTag';
   /** The id of the tag */
   id: Scalars['Int'];
   /** The name of the tag */
@@ -1461,7 +1443,6 @@ export enum CharacterRole {
 }
 
 export type CharacterConnection = {
-  __typename?: 'CharacterConnection';
   edges?: Maybe<Array<Maybe<CharacterEdge>>>;
   nodes?: Maybe<Array<Maybe<Character>>>;
   /** The pagination information */
@@ -1470,7 +1451,6 @@ export type CharacterConnection = {
 
 /** Character connection edge */
 export type CharacterEdge = {
-  __typename?: 'CharacterEdge';
   node?: Maybe<Character>;
   /** The id of the connection */
   id?: Maybe<Scalars['Int']>;
@@ -1493,7 +1473,6 @@ export type CharacterEdgeVoiceActorsArgs = {
 
 /** A character that features in an anime or manga */
 export type Character = {
-  __typename?: 'Character';
   /** The id of the character */
   id: Scalars['Int'];
   /** The names of the character */
@@ -1534,7 +1513,6 @@ export type CharacterMediaArgs = {
 
 /** The names of the character */
 export type CharacterName = {
-  __typename?: 'CharacterName';
   /** The character's given name */
   first?: Maybe<Scalars['String']>;
   /** The character's surname */
@@ -1548,7 +1526,6 @@ export type CharacterName = {
 };
 
 export type CharacterImage = {
-  __typename?: 'CharacterImage';
   /** The character's image of media at its largest size */
   large?: Maybe<Scalars['String']>;
   /** The character's image of media at medium size */
@@ -1635,7 +1612,6 @@ export enum StaffSort {
 
 /** Voice actors or production staff */
 export type Staff = {
-  __typename?: 'Staff';
   /** The id of the staff member */
   id: Scalars['Int'];
   /** The names of the staff member */
@@ -1707,7 +1683,6 @@ export type StaffCharacterMediaArgs = {
 
 /** The names of the staff member */
 export type StaffName = {
-  __typename?: 'StaffName';
   /** The person's given name */
   first?: Maybe<Scalars['String']>;
   /** The person's surname */
@@ -1721,7 +1696,6 @@ export type StaffName = {
 };
 
 export type StaffImage = {
-  __typename?: 'StaffImage';
   /** The person's image of media at its largest size */
   large?: Maybe<Scalars['String']>;
   /** The person's image of media at medium size */
@@ -1729,7 +1703,6 @@ export type StaffImage = {
 };
 
 export type StaffConnection = {
-  __typename?: 'StaffConnection';
   edges?: Maybe<Array<Maybe<StaffEdge>>>;
   nodes?: Maybe<Array<Maybe<Staff>>>;
   /** The pagination information */
@@ -1738,7 +1711,6 @@ export type StaffConnection = {
 
 /** Staff connection edge */
 export type StaffEdge = {
-  __typename?: 'StaffEdge';
   node?: Maybe<Staff>;
   /** The id of the connection */
   id?: Maybe<Scalars['Int']>;
@@ -1760,7 +1732,6 @@ export enum StudioSort {
 }
 
 export type StudioConnection = {
-  __typename?: 'StudioConnection';
   edges?: Maybe<Array<Maybe<StudioEdge>>>;
   nodes?: Maybe<Array<Maybe<Studio>>>;
   /** The pagination information */
@@ -1769,7 +1740,6 @@ export type StudioConnection = {
 
 /** Studio connection edge */
 export type StudioEdge = {
-  __typename?: 'StudioEdge';
   node?: Maybe<Studio>;
   /** The id of the connection */
   id?: Maybe<Scalars['Int']>;
@@ -1781,7 +1751,6 @@ export type StudioEdge = {
 
 /** Animation or production company */
 export type Studio = {
-  __typename?: 'Studio';
   /** The id of the studio */
   id: Scalars['Int'];
   /** The name of the studio */
@@ -1810,7 +1779,6 @@ export type StudioMediaArgs = {
 
 /** Media Airing Schedule */
 export type AiringSchedule = {
-  __typename?: 'AiringSchedule';
   /** The id of the airing schedule item */
   id: Scalars['Int'];
   /** The time the episode airs at */
@@ -1826,7 +1794,6 @@ export type AiringSchedule = {
 };
 
 export type AiringScheduleConnection = {
-  __typename?: 'AiringScheduleConnection';
   edges?: Maybe<Array<Maybe<AiringScheduleEdge>>>;
   nodes?: Maybe<Array<Maybe<AiringSchedule>>>;
   /** The pagination information */
@@ -1835,7 +1802,6 @@ export type AiringScheduleConnection = {
 
 /** AiringSchedule connection edge */
 export type AiringScheduleEdge = {
-  __typename?: 'AiringScheduleEdge';
   node?: Maybe<AiringSchedule>;
   /** The id of the connection */
   id?: Maybe<Scalars['Int']>;
@@ -1860,7 +1826,6 @@ export enum MediaTrendSort {
 }
 
 export type MediaTrendConnection = {
-  __typename?: 'MediaTrendConnection';
   edges?: Maybe<Array<Maybe<MediaTrendEdge>>>;
   nodes?: Maybe<Array<Maybe<MediaTrend>>>;
   /** The pagination information */
@@ -1869,13 +1834,11 @@ export type MediaTrendConnection = {
 
 /** Media trend connection edge */
 export type MediaTrendEdge = {
-  __typename?: 'MediaTrendEdge';
   node?: Maybe<MediaTrend>;
 };
 
 /** Daily media statistics */
 export type MediaTrend = {
-  __typename?: 'MediaTrend';
   /** The id of the tag */
   mediaId: Scalars['Int'];
   /** The day the data was recorded (timestamp) */
@@ -1898,7 +1861,6 @@ export type MediaTrend = {
 
 /** An external link to another site related to the media */
 export type MediaExternalLink = {
-  __typename?: 'MediaExternalLink';
   /** The id of the external link */
   id: Scalars['Int'];
   /** The url of the external link */
@@ -1909,7 +1871,6 @@ export type MediaExternalLink = {
 
 /** Data and links to legal streaming episodes on external sites */
 export type MediaStreamingEpisode = {
-  __typename?: 'MediaStreamingEpisode';
   /** Title of the episode */
   title?: Maybe<Scalars['String']>;
   /** Url of episode image thumbnail */
@@ -1922,7 +1883,6 @@ export type MediaStreamingEpisode = {
 
 /** The ranking of a media in a particular time span and format compared to other media */
 export type MediaRank = {
-  __typename?: 'MediaRank';
   /** The id of the rank */
   id: Scalars['Int'];
   /** The numerical rank of the media */
@@ -1951,7 +1911,6 @@ export enum MediaRankType {
 
 /** List of anime or manga */
 export type MediaList = {
-  __typename?: 'MediaList';
   /** The id of the list entry */
   id: Scalars['Int'];
   /** The id of the user owner of the list entry */
@@ -2035,7 +1994,6 @@ export enum ReviewSort {
 }
 
 export type ReviewConnection = {
-  __typename?: 'ReviewConnection';
   edges?: Maybe<Array<Maybe<ReviewEdge>>>;
   nodes?: Maybe<Array<Maybe<Review>>>;
   /** The pagination information */
@@ -2044,13 +2002,11 @@ export type ReviewConnection = {
 
 /** Review connection edge */
 export type ReviewEdge = {
-  __typename?: 'ReviewEdge';
   node?: Maybe<Review>;
 };
 
 /** A Review that features in an anime or manga */
 export type Review = {
-  __typename?: 'Review';
   /** The id of the review */
   id: Scalars['Int'];
   /** The id of the review's creator */
@@ -2107,7 +2063,6 @@ export enum RecommendationSort {
 }
 
 export type RecommendationConnection = {
-  __typename?: 'RecommendationConnection';
   edges?: Maybe<Array<Maybe<RecommendationEdge>>>;
   nodes?: Maybe<Array<Maybe<Recommendation>>>;
   /** The pagination information */
@@ -2116,13 +2071,11 @@ export type RecommendationConnection = {
 
 /** Recommendation connection edge */
 export type RecommendationEdge = {
-  __typename?: 'RecommendationEdge';
   node?: Maybe<Recommendation>;
 };
 
 /** Media recommendation */
 export type Recommendation = {
-  __typename?: 'Recommendation';
   /** The id of the recommendation */
   id: Scalars['Int'];
   /** Users rating of the recommendation */
@@ -2146,7 +2099,6 @@ export enum RecommendationRating {
 
 /** A media's statistics */
 export type MediaStats = {
-  __typename?: 'MediaStats';
   scoreDistribution?: Maybe<Array<Maybe<ScoreDistribution>>>;
   statusDistribution?: Maybe<Array<Maybe<StatusDistribution>>>;
   /** @deprecated Replaced by MediaTrends */
@@ -2155,7 +2107,6 @@ export type MediaStats = {
 
 /** A user's list score distribution. */
 export type ScoreDistribution = {
-  __typename?: 'ScoreDistribution';
   score?: Maybe<Scalars['Int']>;
   /** The amount of list entries with this score */
   amount?: Maybe<Scalars['Int']>;
@@ -2163,7 +2114,6 @@ export type ScoreDistribution = {
 
 /** The distribution of the watching/reading status of media or a user's list */
 export type StatusDistribution = {
-  __typename?: 'StatusDistribution';
   /** The day the activity took place (Unix timestamp) */
   status?: Maybe<MediaListStatus>;
   /** The amount of entries with this status */
@@ -2172,7 +2122,6 @@ export type StatusDistribution = {
 
 /** Score & Watcher stats for airing anime by episode and mid-week */
 export type AiringProgression = {
-  __typename?: 'AiringProgression';
   /** The episode the stats were recorded at. .5 is the mid point between 2 episodes airing dates. */
   episode?: Maybe<Scalars['Float']>;
   /** The average score for the media */
@@ -2212,13 +2161,11 @@ export enum MediaRelation {
 }
 
 export type UserStatisticTypes = {
-  __typename?: 'UserStatisticTypes';
   anime?: Maybe<UserStatistics>;
   manga?: Maybe<UserStatistics>;
 };
 
 export type UserStatistics = {
-  __typename?: 'UserStatistics';
   count: Scalars['Int'];
   meanScore: Scalars['Float'];
   standardDeviation: Scalars['Float'];
@@ -2325,7 +2272,6 @@ export enum UserStatisticsSort {
 }
 
 export type UserFormatStatistic = {
-  __typename?: 'UserFormatStatistic';
   count: Scalars['Int'];
   meanScore: Scalars['Float'];
   minutesWatched: Scalars['Int'];
@@ -2335,7 +2281,6 @@ export type UserFormatStatistic = {
 };
 
 export type UserStatusStatistic = {
-  __typename?: 'UserStatusStatistic';
   count: Scalars['Int'];
   meanScore: Scalars['Float'];
   minutesWatched: Scalars['Int'];
@@ -2345,7 +2290,6 @@ export type UserStatusStatistic = {
 };
 
 export type UserScoreStatistic = {
-  __typename?: 'UserScoreStatistic';
   count: Scalars['Int'];
   meanScore: Scalars['Float'];
   minutesWatched: Scalars['Int'];
@@ -2355,7 +2299,6 @@ export type UserScoreStatistic = {
 };
 
 export type UserLengthStatistic = {
-  __typename?: 'UserLengthStatistic';
   count: Scalars['Int'];
   meanScore: Scalars['Float'];
   minutesWatched: Scalars['Int'];
@@ -2365,7 +2308,6 @@ export type UserLengthStatistic = {
 };
 
 export type UserReleaseYearStatistic = {
-  __typename?: 'UserReleaseYearStatistic';
   count: Scalars['Int'];
   meanScore: Scalars['Float'];
   minutesWatched: Scalars['Int'];
@@ -2375,7 +2317,6 @@ export type UserReleaseYearStatistic = {
 };
 
 export type UserStartYearStatistic = {
-  __typename?: 'UserStartYearStatistic';
   count: Scalars['Int'];
   meanScore: Scalars['Float'];
   minutesWatched: Scalars['Int'];
@@ -2385,7 +2326,6 @@ export type UserStartYearStatistic = {
 };
 
 export type UserGenreStatistic = {
-  __typename?: 'UserGenreStatistic';
   count: Scalars['Int'];
   meanScore: Scalars['Float'];
   minutesWatched: Scalars['Int'];
@@ -2395,7 +2335,6 @@ export type UserGenreStatistic = {
 };
 
 export type UserTagStatistic = {
-  __typename?: 'UserTagStatistic';
   count: Scalars['Int'];
   meanScore: Scalars['Float'];
   minutesWatched: Scalars['Int'];
@@ -2405,7 +2344,6 @@ export type UserTagStatistic = {
 };
 
 export type UserCountryStatistic = {
-  __typename?: 'UserCountryStatistic';
   count: Scalars['Int'];
   meanScore: Scalars['Float'];
   minutesWatched: Scalars['Int'];
@@ -2415,7 +2353,6 @@ export type UserCountryStatistic = {
 };
 
 export type UserVoiceActorStatistic = {
-  __typename?: 'UserVoiceActorStatistic';
   count: Scalars['Int'];
   meanScore: Scalars['Float'];
   minutesWatched: Scalars['Int'];
@@ -2426,7 +2363,6 @@ export type UserVoiceActorStatistic = {
 };
 
 export type UserStaffStatistic = {
-  __typename?: 'UserStaffStatistic';
   count: Scalars['Int'];
   meanScore: Scalars['Float'];
   minutesWatched: Scalars['Int'];
@@ -2436,7 +2372,6 @@ export type UserStaffStatistic = {
 };
 
 export type UserStudioStatistic = {
-  __typename?: 'UserStudioStatistic';
   count: Scalars['Int'];
   meanScore: Scalars['Float'];
   minutesWatched: Scalars['Int'];
@@ -2447,7 +2382,6 @@ export type UserStudioStatistic = {
 
 /** A user's statistics */
 export type UserStats = {
-  __typename?: 'UserStats';
   /** The amount of anime the user has watched in minutes */
   watchedTime?: Maybe<Scalars['Int']>;
   /** The amount of manga chapters the user has read */
@@ -2471,7 +2405,6 @@ export type UserStats = {
 
 /** A user's activity history stats. */
 export type UserActivityHistory = {
-  __typename?: 'UserActivityHistory';
   /** The day the activity took place (Unix timestamp) */
   date?: Maybe<Scalars['Int']>;
   /** The amount of activity on the day */
@@ -2482,14 +2415,12 @@ export type UserActivityHistory = {
 
 /** User's list score statistics */
 export type ListScoreStats = {
-  __typename?: 'ListScoreStats';
   meanScore?: Maybe<Scalars['Int']>;
   standardDeviation?: Maybe<Scalars['Int']>;
 };
 
 /** User's genre statistics */
 export type GenreStats = {
-  __typename?: 'GenreStats';
   genre?: Maybe<Scalars['String']>;
   amount?: Maybe<Scalars['Int']>;
   meanScore?: Maybe<Scalars['Int']>;
@@ -2499,7 +2430,6 @@ export type GenreStats = {
 
 /** User's tag statistics */
 export type TagStats = {
-  __typename?: 'TagStats';
   tag?: Maybe<MediaTag>;
   amount?: Maybe<Scalars['Int']>;
   meanScore?: Maybe<Scalars['Int']>;
@@ -2509,7 +2439,6 @@ export type TagStats = {
 
 /** User's staff statistics */
 export type StaffStats = {
-  __typename?: 'StaffStats';
   staff?: Maybe<Staff>;
   amount?: Maybe<Scalars['Int']>;
   meanScore?: Maybe<Scalars['Int']>;
@@ -2519,7 +2448,6 @@ export type StaffStats = {
 
 /** User's studio statistics */
 export type StudioStats = {
-  __typename?: 'StudioStats';
   studio?: Maybe<Studio>;
   amount?: Maybe<Scalars['Int']>;
   meanScore?: Maybe<Scalars['Int']>;
@@ -2529,7 +2457,6 @@ export type StudioStats = {
 
 /** User's year statistics */
 export type YearStats = {
-  __typename?: 'YearStats';
   year?: Maybe<Scalars['Int']>;
   amount?: Maybe<Scalars['Int']>;
   meanScore?: Maybe<Scalars['Int']>;
@@ -2537,7 +2464,6 @@ export type YearStats = {
 
 /** User's format statistics */
 export type FormatStats = {
-  __typename?: 'FormatStats';
   format?: Maybe<MediaFormat>;
   amount?: Maybe<Scalars['Int']>;
 };
@@ -2594,7 +2520,6 @@ export type NotificationUnion = AiringNotification | FollowingNotification | Act
 
 /** Notification for when an episode of anime airs */
 export type AiringNotification = {
-  __typename?: 'AiringNotification';
   /** The id of the Notification */
   id: Scalars['Int'];
   /** The type of notification */
@@ -2613,7 +2538,6 @@ export type AiringNotification = {
 
 /** Notification for when the authenticated user is followed by another user */
 export type FollowingNotification = {
-  __typename?: 'FollowingNotification';
   /** The id of the Notification */
   id: Scalars['Int'];
   /** The id of the user who followed the authenticated user */
@@ -2630,7 +2554,6 @@ export type FollowingNotification = {
 
 /** Notification for when a user is send an activity message */
 export type ActivityMessageNotification = {
-  __typename?: 'ActivityMessageNotification';
   /** The id of the Notification */
   id: Scalars['Int'];
   /** The if of the user who send the message */
@@ -2651,7 +2574,6 @@ export type ActivityMessageNotification = {
 
 /** User message activity */
 export type MessageActivity = {
-  __typename?: 'MessageActivity';
   /** The id of the activity */
   id: Scalars['Int'];
   /** The user id of the activity's recipient */
@@ -2710,7 +2632,6 @@ export enum ActivityType {
 
 /** Replay to an activity item */
 export type ActivityReply = {
-  __typename?: 'ActivityReply';
   /** The id of the reply */
   id: Scalars['Int'];
   /** The id of the replies creator */
@@ -2739,7 +2660,6 @@ export type ActivityReplyTextArgs = {
 
 /** Notification for when authenticated user is @ mentioned in activity or reply */
 export type ActivityMentionNotification = {
-  __typename?: 'ActivityMentionNotification';
   /** The id of the Notification */
   id: Scalars['Int'];
   /** The id of the user who mentioned the authenticated user */
@@ -2763,7 +2683,6 @@ export type ActivityUnion = TextActivity | ListActivity | MessageActivity;
 
 /** User text activity */
 export type TextActivity = {
-  __typename?: 'TextActivity';
   /** The id of the activity */
   id: Scalars['Int'];
   /** The user id of the activity's creator */
@@ -2802,7 +2721,6 @@ export type TextActivityTextArgs = {
 
 /** User list activity (anime & manga updates) */
 export type ListActivity = {
-  __typename?: 'ListActivity';
   /** The id of the activity */
   id: Scalars['Int'];
   /** The user id of the activity's creator */
@@ -2839,7 +2757,6 @@ export type ListActivity = {
 
 /** Notification for when a user replies to the authenticated users activity */
 export type ActivityReplyNotification = {
-  __typename?: 'ActivityReplyNotification';
   /** The id of the Notification */
   id: Scalars['Int'];
   /** The id of the user who replied to the activity */
@@ -2860,7 +2777,6 @@ export type ActivityReplyNotification = {
 
 /** Notification for when a user replies to activity the authenticated user has replied to */
 export type ActivityReplySubscribedNotification = {
-  __typename?: 'ActivityReplySubscribedNotification';
   /** The id of the Notification */
   id: Scalars['Int'];
   /** The id of the user who replied to the activity */
@@ -2881,7 +2797,6 @@ export type ActivityReplySubscribedNotification = {
 
 /** Notification for when a activity is liked */
 export type ActivityLikeNotification = {
-  __typename?: 'ActivityLikeNotification';
   /** The id of the Notification */
   id: Scalars['Int'];
   /** The id of the user who liked to the activity */
@@ -2902,7 +2817,6 @@ export type ActivityLikeNotification = {
 
 /** Notification for when a activity reply is liked */
 export type ActivityReplyLikeNotification = {
-  __typename?: 'ActivityReplyLikeNotification';
   /** The id of the Notification */
   id: Scalars['Int'];
   /** The id of the user who liked to the activity reply */
@@ -2923,7 +2837,6 @@ export type ActivityReplyLikeNotification = {
 
 /** Notification for when authenticated user is @ mentioned in a forum thread comment */
 export type ThreadCommentMentionNotification = {
-  __typename?: 'ThreadCommentMentionNotification';
   /** The id of the Notification */
   id: Scalars['Int'];
   /** The id of the user who mentioned the authenticated user */
@@ -2946,7 +2859,6 @@ export type ThreadCommentMentionNotification = {
 
 /** Forum Thread */
 export type Thread = {
-  __typename?: 'Thread';
   /** The id of the thread */
   id: Scalars['Int'];
   /** The title of the thread */
@@ -3001,7 +2913,6 @@ export type ThreadBodyArgs = {
 
 /** A forum thread category */
 export type ThreadCategory = {
-  __typename?: 'ThreadCategory';
   /** The id of the category */
   id: Scalars['Int'];
   /** The name of the category */
@@ -3010,7 +2921,6 @@ export type ThreadCategory = {
 
 /** Forum Thread Comment */
 export type ThreadComment = {
-  __typename?: 'ThreadComment';
   /** The id of the comment */
   id: Scalars['Int'];
   /** The user id of the comment's owner */
@@ -3047,7 +2957,6 @@ export type ThreadCommentCommentArgs = {
 
 /** Notification for when a user replies to your forum thread comment */
 export type ThreadCommentReplyNotification = {
-  __typename?: 'ThreadCommentReplyNotification';
   /** The id of the Notification */
   id: Scalars['Int'];
   /** The id of the user who create the comment reply */
@@ -3070,7 +2979,6 @@ export type ThreadCommentReplyNotification = {
 
 /** Notification for when a user replies to a subscribed forum thread */
 export type ThreadCommentSubscribedNotification = {
-  __typename?: 'ThreadCommentSubscribedNotification';
   /** The id of the Notification */
   id: Scalars['Int'];
   /** The id of the user who commented on the thread */
@@ -3093,7 +3001,6 @@ export type ThreadCommentSubscribedNotification = {
 
 /** Notification for when a thread comment is liked */
 export type ThreadCommentLikeNotification = {
-  __typename?: 'ThreadCommentLikeNotification';
   /** The id of the Notification */
   id: Scalars['Int'];
   /** The id of the user who liked to the activity */
@@ -3116,7 +3023,6 @@ export type ThreadCommentLikeNotification = {
 
 /** Notification for when a thread is liked */
 export type ThreadLikeNotification = {
-  __typename?: 'ThreadLikeNotification';
   /** The id of the Notification */
   id: Scalars['Int'];
   /** The id of the user who liked to the activity */
@@ -3139,7 +3045,6 @@ export type ThreadLikeNotification = {
 
 /** Notification for when new media is added to the site */
 export type RelatedMediaAdditionNotification = {
-  __typename?: 'RelatedMediaAdditionNotification';
   /** The id of the Notification */
   id: Scalars['Int'];
   /** The type of notification */
@@ -3196,7 +3101,6 @@ export enum LikeableType {
 
 /** List of anime or manga */
 export type MediaListCollection = {
-  __typename?: 'MediaListCollection';
   /** Grouped media list entries */
   lists?: Maybe<Array<Maybe<MediaListGroup>>>;
   /** The owner of the list */
@@ -3229,7 +3133,6 @@ export type MediaListCollectionCustomListsArgs = {
 
 /** List group of anime or manga entries */
 export type MediaListGroup = {
-  __typename?: 'MediaListGroup';
   /** Media list entries */
   entries?: Maybe<Array<Maybe<MediaList>>>;
   name?: Maybe<Scalars['String']>;
@@ -3240,20 +3143,17 @@ export type MediaListGroup = {
 
 /** Provides the parsed markdown as html */
 export type ParsedMarkdown = {
-  __typename?: 'ParsedMarkdown';
   /** The parsed markdown as html */
   html?: Maybe<Scalars['String']>;
 };
 
 export type AniChartUser = {
-  __typename?: 'AniChartUser';
   user?: Maybe<User>;
   settings?: Maybe<Scalars['Json']>;
   highlights?: Maybe<Scalars['Json']>;
 };
 
 export type SiteStatistics = {
-  __typename?: 'SiteStatistics';
   users?: Maybe<SiteTrendConnection>;
   anime?: Maybe<SiteTrendConnection>;
   manga?: Maybe<SiteTrendConnection>;
@@ -3323,7 +3223,6 @@ export enum SiteTrendSort {
 }
 
 export type SiteTrendConnection = {
-  __typename?: 'SiteTrendConnection';
   edges?: Maybe<Array<Maybe<SiteTrendEdge>>>;
   nodes?: Maybe<Array<Maybe<SiteTrend>>>;
   /** The pagination information */
@@ -3332,13 +3231,11 @@ export type SiteTrendConnection = {
 
 /** Site trend connection edge */
 export type SiteTrendEdge = {
-  __typename?: 'SiteTrendEdge';
   node?: Maybe<SiteTrend>;
 };
 
 /** Daily site statistics */
 export type SiteTrend = {
-  __typename?: 'SiteTrend';
   /** The day the data was recorded (timestamp) */
   date: Scalars['Int'];
   count: Scalars['Int'];
@@ -3347,7 +3244,6 @@ export type SiteTrend = {
 };
 
 export type Mutation = {
-  __typename?: 'Mutation';
   UpdateUser?: Maybe<User>;
   /** Create or update a media list entry */
   SaveMediaListEntry?: Maybe<MediaList>;
@@ -3670,7 +3566,6 @@ export type FuzzyDateInput = {
 
 /** Deleted data type */
 export type Deleted = {
-  __typename?: 'Deleted';
   /** If an item has been successfully deleted */
   deleted?: Maybe<Scalars['Boolean']>;
 };
@@ -3685,7 +3580,6 @@ export type AniChartHighlightInput = {
 
 /** Page of data (Used for internal use only) */
 export type InternalPage = {
-  __typename?: 'InternalPage';
   mediaSubmissions?: Maybe<Array<Maybe<MediaSubmission>>>;
   characterSubmissions?: Maybe<Array<Maybe<CharacterSubmission>>>;
   staffSubmissions?: Maybe<Array<Maybe<StaffSubmission>>>;
@@ -4088,7 +3982,6 @@ export enum SubmissionSort {
 
 /** Media submission */
 export type MediaSubmission = {
-  __typename?: 'MediaSubmission';
   /** The id of the submission */
   id: Scalars['Int'];
   /** User submitter of the submission */
@@ -4111,7 +4004,6 @@ export type MediaSubmission = {
 
 /** Media submission with comparison to current data */
 export type MediaSubmissionComparison = {
-  __typename?: 'MediaSubmissionComparison';
   submission?: Maybe<MediaSubmissionEdge>;
   character?: Maybe<MediaCharacter>;
   staff?: Maybe<StaffEdge>;
@@ -4119,7 +4011,6 @@ export type MediaSubmissionComparison = {
 };
 
 export type MediaSubmissionEdge = {
-  __typename?: 'MediaSubmissionEdge';
   /** The id of the direct submission */
   id?: Maybe<Scalars['Int']>;
   characterRole?: Maybe<CharacterRole>;
@@ -4137,7 +4028,6 @@ export type MediaSubmissionEdge = {
 
 /** Internal - Media characters separated */
 export type MediaCharacter = {
-  __typename?: 'MediaCharacter';
   /** The id of the connection */
   id?: Maybe<Scalars['Int']>;
   /** The characters role in the media */
@@ -4150,7 +4040,6 @@ export type MediaCharacter = {
 
 /** A submission for a character that features in an anime or manga */
 export type CharacterSubmission = {
-  __typename?: 'CharacterSubmission';
   /** The id of the submission */
   id: Scalars['Int'];
   /** Character that the submission is referencing */
@@ -4169,7 +4058,6 @@ export type CharacterSubmission = {
 
 /** A submission for a staff that features in an anime or manga */
 export type StaffSubmission = {
-  __typename?: 'StaffSubmission';
   /** The id of the submission */
   id: Scalars['Int'];
   /** Staff that the submission is referencing */
@@ -4188,7 +4076,6 @@ export type StaffSubmission = {
 
 /** Feed of mod edit activity */
 export type RevisionHistory = {
-  __typename?: 'RevisionHistory';
   /** The id of the media */
   id: Scalars['Int'];
   /** The action taken on the objects */
@@ -4216,7 +4103,6 @@ export enum RevisionHistoryAction {
 }
 
 export type Report = {
-  __typename?: 'Report';
   id: Scalars['Int'];
   reporter?: Maybe<User>;
   reported?: Maybe<User>;
@@ -4226,7 +4112,6 @@ export type Report = {
 };
 
 export type ModAction = {
-  __typename?: 'ModAction';
   /** The id of the action */
   id: Scalars['Int'];
   user?: Maybe<User>;
@@ -4288,7 +4173,6 @@ export type CharacterNameInput = {
 };
 
 export type CharacterSubmissionConnection = {
-  __typename?: 'CharacterSubmissionConnection';
   edges?: Maybe<Array<Maybe<CharacterSubmissionEdge>>>;
   nodes?: Maybe<Array<Maybe<CharacterSubmission>>>;
   /** The pagination information */
@@ -4297,7 +4181,6 @@ export type CharacterSubmissionConnection = {
 
 /** CharacterSubmission connection edge */
 export type CharacterSubmissionEdge = {
-  __typename?: 'CharacterSubmissionEdge';
   node?: Maybe<CharacterSubmission>;
   /** The characters role in the media */
   role?: Maybe<CharacterRole>;
@@ -4321,7 +4204,6 @@ export type StaffNameInput = {
 
 /** User data for moderators */
 export type UserModData = {
-  __typename?: 'UserModData';
   alts?: Maybe<Array<Maybe<User>>>;
   bans?: Maybe<Scalars['Json']>;
   ip?: Maybe<Scalars['Json']>;
@@ -4333,85 +4215,67 @@ export type AnimeListQueryVariables = Exact<{
 }>;
 
 
-export type AnimeListQuery = (
-  { __typename?: 'Query' }
-  & { MediaListCollection?: Maybe<(
-    { __typename?: 'MediaListCollection' }
-    & { lists?: Maybe<Array<Maybe<(
-      { __typename?: 'MediaListGroup' }
-      & Pick<MediaListGroup, 'name' | 'status'>
-      & { entries?: Maybe<Array<Maybe<(
-        { __typename?: 'MediaList' }
-        & Pick<MediaList, 'id' | 'progress' | 'score'>
-        & { media?: Maybe<(
-          { __typename?: 'Media' }
-          & Pick<Media, 'format' | 'episodes' | 'bannerImage'>
-          & { nextAiringEpisode?: Maybe<(
-            { __typename?: 'AiringSchedule' }
-            & Pick<AiringSchedule, 'airingAt' | 'episode'>
-          )>, title?: Maybe<(
-            { __typename?: 'MediaTitle' }
-            & Pick<MediaTitle, 'english' | 'romaji' | 'native'>
-          )>, coverImage?: Maybe<(
-            { __typename?: 'MediaCoverImage' }
-            & Pick<MediaCoverImage, 'extraLarge' | 'large' | 'color'>
-          )> }
-        )> }
-      )>>> }
-    )>>> }
+export type AnimeListQuery = { MediaListCollection?: Maybe<{ lists?: Maybe<Array<Maybe<(
+      Pick<MediaListGroup, 'name' | 'status'>
+      & { entries?: Maybe<Array<Maybe<AnimeListEntryFragment>>> }
+    )>>> }> };
+
+export type AnimeListEntryFragment = (
+  Pick<MediaList, 'id' | 'progress' | 'score'>
+  & { media?: Maybe<(
+    Pick<Media, 'format' | 'episodes' | 'bannerImage'>
+    & { nextAiringEpisode?: Maybe<Pick<AiringSchedule, 'airingAt' | 'episode'>>, title?: Maybe<Pick<MediaTitle, 'english' | 'romaji' | 'native' | 'userPreferred'>>, coverImage?: Maybe<Pick<MediaCoverImage, 'extraLarge' | 'large' | 'color'>> }
   )> }
 );
 
 export type ViewerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ViewerQuery = (
-  { __typename?: 'Query' }
-  & { Viewer?: Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'name' | 'bannerImage'>
-    & { avatar?: Maybe<(
-      { __typename?: 'UserAvatar' }
-      & Pick<UserAvatar, 'medium' | 'large'>
-    )> }
-  )> }
-);
+export type ViewerQuery = { Viewer?: Maybe<(
+    Pick<User, 'id' | 'name' | 'bannerImage'>
+    & { avatar?: Maybe<Pick<UserAvatar, 'medium' | 'large'>> }
+  )> };
 
-
-export const AnimeListDocument = `
-    query AnimeList($userId: Int!) {
-  MediaListCollection(userId: $userId, type: ANIME, sort: STATUS) {
-    lists {
-      name
-      status
-      entries {
-        id
-        progress
-        score
-        media {
-          format
-          episodes
-          nextAiringEpisode {
-            airingAt
-            episode
-          }
-          bannerImage
-          title {
-            english
-            romaji
-            native
-          }
-          coverImage {
-            extraLarge
-            large
-            color
-          }
-        }
-      }
+export const AnimeListEntryFragmentDoc = `
+    fragment animeListEntry on MediaList {
+  id
+  progress
+  score
+  media {
+    format
+    episodes
+    nextAiringEpisode {
+      airingAt
+      episode
+    }
+    bannerImage
+    title {
+      english
+      romaji
+      native
+      userPreferred
+    }
+    coverImage {
+      extraLarge
+      large
+      color
     }
   }
 }
     `;
+export const AnimeListDocument = `
+    query AnimeList($userId: Int!) {
+  MediaListCollection(userId: $userId, type: ANIME, sort: STATUS, status: CURRENT) {
+    lists {
+      name
+      status
+      entries {
+        ...animeListEntry
+      }
+    }
+  }
+}
+    ${AnimeListEntryFragmentDoc}`;
 export const useAnimeListQuery = <
       TData = AnimeListQuery,
       TError = unknown

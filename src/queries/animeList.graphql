@@ -1,32 +1,42 @@
 query AnimeList($userId: Int!) {
-	MediaListCollection(userId: $userId, type: ANIME, sort: STATUS) {
+	MediaListCollection(
+		userId: $userId
+		type: ANIME
+		sort: STATUS
+		status: CURRENT
+	) {
 		lists {
 			name
 			status
 			entries {
-				id
-				progress
-				score
-				media {
-					format
-					episodes
-					nextAiringEpisode {
-						airingAt
-						episode
-					}
-					bannerImage
-					title {
-						english
-						romaji
-						native
-					}
-					coverImage {
-						extraLarge
-						large
-						color
-					}
-				}
+				...animeListEntry
 			}
+		}
+	}
+}
+
+fragment animeListEntry on MediaList {
+	id
+	progress
+	score
+	media {
+		format
+		episodes
+		nextAiringEpisode {
+			airingAt
+			episode
+		}
+		bannerImage
+		title {
+			english
+			romaji
+			native
+			userPreferred
+		}
+		coverImage {
+			extraLarge
+			large
+			color
 		}
 	}
 }

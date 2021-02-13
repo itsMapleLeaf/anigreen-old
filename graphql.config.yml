@@ -12,3 +12,4 @@ config:
   fetcher:
     endpoint: "'/anilist'"
   maybeValue: T | undefined
+  skipTypename: true
