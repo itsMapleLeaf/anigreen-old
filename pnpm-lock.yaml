@@ -1,5 +1,6 @@
 dependencies:
   '@headlessui/react': 0.3.1_react@17.0.1
+  '@popperjs/core': 2.6.0
   '@twind/line-clamp': 0.1.1_twind@0.15.0+typescript@4.1.5
   constate: 3.1.0_react@17.0.1
   focus-visible: 5.2.0
@@ -7,6 +8,7 @@ dependencies:
   react: 17.0.1
   react-dom: 17.0.1_react@17.0.1
   react-focus-on: 3.5.1_@types+react@17.0.1+react@17.0.1
+  react-popper: 2.2.4_3da0a162a96308e0a1fa93a02ed91581
   react-query: 3.8.3_react-dom@17.0.1+react@17.0.1
   twind: 0.15.0_typescript@4.1.5
 devDependencies:
@@ -1361,6 +1363,10 @@ packages:
       node: '>= 8'
     resolution:
       integrity: sha512-8Broas6vTtW4GIXTAHDoE32hnN2M5ykgCpWGbuXHQ15vEMqr23pB76e/GZcYsZCHALv50ktd24qhEyKr6wBtow==
+  /@popperjs/core/2.6.0:
+    dev: false
+    resolution:
+      integrity: sha512-cPqjjzuFWNK3BSKLm0abspP0sp/IGOli4p5I5fKFAzdS8fvjdOwDCfZqAaIiXd9lPkOWi3SUUfZof3hEb7J/uw==
   /@samverschueren/stream-to-observable/0.3.1_rxjs@6.6.3:
     dependencies:
       any-observable: 0.3.0
@@ -7061,6 +7067,10 @@ packages:
       react: '>=16.13.1'
     resolution:
       integrity: sha512-lmPrdi5SLRJR+AeJkqdkGlW/CRkAUvZnETahK58J4xb5wpbfDngasEGu+w0T1iXEhVrYBJZeW+c4V1hILCnMWQ==
+  /react-fast-compare/3.2.0:
+    dev: false
+    resolution:
+      integrity: sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
   /react-focus-lock/2.5.0_@types+react@17.0.1+react@17.0.1:
     dependencies:
       '@babel/runtime': 7.12.13
@@ -7104,6 +7114,18 @@ packages:
     dev: true
     resolution:
       integrity: sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
+  /react-popper/2.2.4_3da0a162a96308e0a1fa93a02ed91581:
+    dependencies:
+      '@popperjs/core': 2.6.0
+      react: 17.0.1
+      react-fast-compare: 3.2.0
+      warning: 4.0.3
+    dev: false
+    peerDependencies:
+      '@popperjs/core': ^2.0.0
+      react: ^16.8.0 || ^17
+    resolution:
+      integrity: sha512-NacOu4zWupdQjVXq02XpTD3yFPSfg5a7fex0wa3uGKVkFK7UN6LvVxgcb+xYr56UCuWiNPMH20tntdVdJRwYew==
   /react-query/3.8.3_react-dom@17.0.1+react@17.0.1:
     dependencies:
       '@babel/runtime': 7.12.13
@@ -8792,6 +8814,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-L3+bj9ENZ3JisYqITijRlhjgKPs=
+  /warning/4.0.3:
+    dependencies:
+      loose-envify: 1.4.0
+    dev: false
+    resolution:
+      integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==
   /webidl-conversions/5.0.0:
     dev: true
     engines:
@@ -9067,6 +9095,7 @@ specifiers:
   '@graphql-codegen/typescript-operations': 1.17.14
   '@graphql-codegen/typescript-react-query': ^1.2.0
   '@headlessui/react': ^0.3.1
+  '@popperjs/core': ^2.6.0
   '@testing-library/jest-dom': ^5.11.9
   '@testing-library/react': ^11.2.5
   '@testing-library/react-hooks': ^5.0.3
@@ -9101,6 +9130,7 @@ specifiers:
   react: ^17.0.1
   react-dom: ^17.0.1
   react-focus-on: ^3.5.1
+  react-popper: ^2.2.4
   react-query: ^3.8.3
   source-map-explorer: ^2.5.2
   ts-jest: ^26.5.1

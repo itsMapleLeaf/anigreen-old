@@ -1,51 +1,87 @@
-import { Menu as BaseMenu } from "@headlessui/react"
+import { Menu as BaseMenu, Transition } from "@headlessui/react"
+import type { Placement } from "@popperjs/core"
+import constate from "constate"
 import {
 	cloneElement,
-	createContext,
 	Fragment,
 	ReactElement,
 	ReactNode,
-	useContext,
+	useState,
 } from "react"
+import { usePopper } from "react-popper"
 import { apply, tw } from "twind"
-import { FlipFadeTransition } from "./FlipFadeTransition"
+import { flipFadeTransition } from "./flip-fade-transition"
+import Portal from "./Portal"
 
-const OpenContext = createContext(false)
+const [MenuProvider, useMenuContext] = constate(function useMenu({
+	open,
+}: {
+	open: boolean
+}) {
+	const [buttonElement, setButtonElement] = useState<HTMLElement | null>()
+	return { open, buttonElement, setButtonElement }
+})
 
 export function Menu({ children }: { children: ReactNode }) {
 	return (
 		<BaseMenu>
 			{({ open }) => (
 				<div className={tw`relative`}>
-					<OpenContext.Provider value={open}>{children}</OpenContext.Provider>
+					<MenuProvider open={open}>{children}</MenuProvider>
 				</div>
 			)}
 		</BaseMenu>
 	)
 }
 
-export function MenuButton({ children }: { children: ReactNode }) {
-	return <BaseMenu.Button as={Fragment}>{children}</BaseMenu.Button>
+export function MenuButton({ children }: { children: ReactElement }) {
+	const { setButtonElement } = useMenuContext()
+	return (
+		// @ts-expect-error
+		<BaseMenu.Button as={Fragment} ref={setButtonElement}>
+			{children}
+		</BaseMenu.Button>
+	)
 }
 
-export function MenuPanel({ children }: { children: ReactNode }) {
-	const open = useContext(OpenContext)
+export function MenuPanel({
+	children,
+	placement,
+	offset = [0, 10],
+}: {
+	children: ReactNode
+	placement?: Placement
+	offset?: [horizontal: number, vertical: number]
+}) {
+	const { open, buttonElement } = useMenuContext()
+	const [popperElement, setPopperElement] = useState<HTMLElement | null>()
+
+	const { styles } = usePopper(buttonElement, popperElement, {
+		placement,
+		modifiers: [{ name: "offset", options: { offset } }],
+	})
+
 	return (
-		<FlipFadeTransition show={open}>
-			<BaseMenu.Items
-				static
-				className={tw(apply`
-					absolute top-full mt-2 right-0
-					bg-white text-gray-800
-					w-max
-					rounded
-					overflow-hidden
-					shadow
-				`)}
-			>
-				{children}
-			</BaseMenu.Items>
-		</FlipFadeTransition>
+		<Transition show={open}>
+			<Portal>
+				<div ref={setPopperElement} style={styles.popper}>
+					<Transition.Child {...flipFadeTransition}>
+						<BaseMenu.Items
+							static
+							className={tw(apply`
+								bg-white text-gray-800
+								w-max
+								rounded
+								overflow-hidden
+								shadow
+							`)}
+						>
+							{children}
+						</BaseMenu.Items>
+					</Transition.Child>
+				</div>
+			</Portal>
+		</Transition>
 	)
 }
 
