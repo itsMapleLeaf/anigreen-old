@@ -43,7 +43,7 @@ export default function App() {
 				{animeListQuery.data?.MediaListCollection?.lists?.map((list) => (
 					<div key={list?.name}>
 						<h2 className={tw`font-light text-3xl py-2 z-10`}>{list?.name}</h2>
-						<div className={tw`grid gap-4 py-4`}>
+						<div className={tw`grid gap-4 py-4 sm:grid-cols-2`}>
 							{list?.entries?.map((entry) => (
 								<MediaCard key={entry?.id} entry={entry} />
 							))}

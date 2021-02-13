@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import { tw } from "twind"
 import type { AnimeListEntryFragment } from "../generated/graphql"
-import { DotsVerticalIcon, PlusIcon } from "../ui/icons"
+import { DotsVerticalIcon } from "../ui/icons"
 import Image from "../ui/Image"
 
 export default function MediaCard({
@@ -10,53 +10,37 @@ export default function MediaCard({
 	entry?: AnimeListEntryFragment
 }) {
 	return (
-		<div className={tw`relative rounded-lg overflow-hidden shadow bg-gray-800`}>
+		<div
+			className={tw`relative rounded-lg overflow-hidden shadow bg-gray-800 flex flex-col`}
+		>
 			<Image
 				src={entry?.media?.bannerImage}
-				className={tw`absolute w-full h-full transform scale-110`}
-				style={{ filter: `brightness(0.15) blur(6px)` }}
+				className={tw`w-full`}
+				style={{ aspectRatio: "2/1" }}
 			/>
 
-			<div className={tw`p-4 relative flex`}>
-				<Image
-					className={tw`rounded-md shadow w-32 h-40 hidden mr-4 sm:block`}
-					src={entry?.media?.coverImage?.large}
-				/>
+			<div className={tw`flex-1 flex py-4 pl-3 pr-2`}>
+				<div className={tw`flex flex-col flex-1`}>
+					<h3 className={tw`font-light text-2xl flex-1 -mt-2`}>
+						{entry?.media?.title?.userPreferred}
+					</h3>
+					<p>{entry?.progress || "No"} episodes watched</p>
+					<p>
+						{formatNextEpisode(
+							entry?.media?.nextAiringEpisode?.episode,
+							entry?.media?.nextAiringEpisode?.airingAt,
+						)}
+					</p>
+				</div>
 
-				<div className={tw`flex-1 flex flex-col space-y-2`}>
-					<div className={tw`flex-1`}>
-						<div className={tw`float-right flex space-x-2`}>
-							<button
-								type="button"
-								className={tw`opacity-50 hover:opacity-75 transition`}
-								title="Add progress"
-							>
-								<PlusIcon />
-							</button>
-							<button
-								type="button"
-								className={tw`opacity-50 hover:opacity-75 transition`}
-								title="More actions"
-							>
-								<DotsVerticalIcon />
-							</button>
-						</div>
-						<h3 className={tw`font-light text-3xl`}>
-							{entry?.media?.title?.userPreferred}
-						</h3>
-					</div>
-
-					<div
-						className={tw`flex flex-col opacity-75 font-light text-lg leading-6`}
+				<div>
+					<button
+						type="button"
+						className={tw`opacity-50 hover:opacity-75`}
+						title="More actions"
 					>
-						<p>{entry?.progress || "No"} episodes watched</p>
-						<p>
-							{formatNextEpisode(
-								entry?.media?.nextAiringEpisode?.episode,
-								entry?.media?.nextAiringEpisode?.airingAt,
-							)}
-						</p>
-					</div>
+						<DotsVerticalIcon />
+					</button>
 				</div>
 			</div>
 		</div>
