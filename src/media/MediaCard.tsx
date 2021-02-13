@@ -20,9 +20,9 @@ export default function MediaCard({
 				/>
 			</div>
 
-			<div className={tw`relative flex flex-1 pt-4 pb-3 pl-3 pr-2`}>
+			<div className={tw`relative flex flex-1 p-2 pl-3`}>
 				<div className={tw`flex flex-col flex-1 space-y-3`}>
-					<h3 className={tw`font-light text-2xl flex-1 -mt-2`}>
+					<h3 className={tw`font-light text-2xl font-condensed`}>
 						{entry?.media?.title?.userPreferred}
 					</h3>
 
@@ -38,7 +38,7 @@ export default function MediaCard({
 
 					<button
 						type="button"
-						className={tw`opacity-50 hover:opacity-100 transition font-medium uppercase text-sm text-left py-1`}
+						className={tw`opacity-50 hover:opacity-100 transition font-medium uppercase text-sm text-left`}
 					>
 						Show More
 					</button>

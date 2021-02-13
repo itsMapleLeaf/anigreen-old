@@ -11,6 +11,10 @@ setup({
 			inset: "0 0 8px inset rgba(0, 0, 0, 0.3)",
 		},
 		extend: {
+			fontFamily: {
+				sans: `"Fira Sans", sans-serif`,
+				condensed: `"Fira Sans Condensed", sans-serif`,
+			},
 			colors: {
 				gray: colors.gray,
 			},
