@@ -4223,7 +4223,7 @@ export type AnimeListQuery = { MediaListCollection?: Maybe<{ lists?: Maybe<Array
 export type AnimeListEntryFragment = (
   Pick<MediaList, 'id' | 'progress' | 'score'>
   & { media?: Maybe<(
-    Pick<Media, 'format' | 'episodes' | 'bannerImage'>
+    Pick<Media, 'id' | 'format' | 'episodes' | 'bannerImage'>
     & { nextAiringEpisode?: Maybe<Pick<AiringSchedule, 'airingAt' | 'episode'>>, title?: Maybe<Pick<MediaTitle, 'english' | 'romaji' | 'native' | 'userPreferred'>>, coverImage?: Maybe<Pick<MediaCoverImage, 'extraLarge' | 'large' | 'color'>> }
   )> }
 );
@@ -4242,6 +4242,7 @@ export const AnimeListEntryFragmentDoc = `
   progress
   score
   media {
+    id
     format
     episodes
     nextAiringEpisode {

@@ -1,7 +1,7 @@
 import { cloneElement, ReactElement, SVGProps } from "react"
 import { apply, tw } from "twind"
 
-const defaultIconClass = tw(apply(`w-6`))
+const defaultIconClass = tw(apply(`w-5`))
 
 function createIconComponent(element: ReactElement) {
 	return function Icon({ className = "", ...props }: SVGProps<SVGSVGElement>) {
@@ -69,15 +69,13 @@ export const MenuIcon = createIconComponent(
 export const LogoutIcon = createIconComponent(
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		viewBox="0 0 24 24"
-		stroke="currentColor"
+		viewBox="0 0 20 20"
+		fill="currentColor"
 	>
 		<path
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			strokeWidth={2}
-			d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+			fillRule="evenodd"
+			d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
+			clipRule="evenodd"
 		/>
 	</svg>,
 )
@@ -127,5 +125,16 @@ export const DotsVerticalIcon = createIconComponent(
 			strokeWidth={2}
 			d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
 		/>
+	</svg>,
+)
+
+export const ExternalLinkIcon = createIconComponent(
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		viewBox="0 0 20 20"
+		fill="currentColor"
+	>
+		<path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+		<path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
 	</svg>,
 )

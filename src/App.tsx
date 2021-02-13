@@ -71,31 +71,7 @@ export default function App() {
 function MenuButton({ onClick }: { onClick?: () => void }) {
 	return (
 		<button type="button" title="Menu" className={tw`p-3`} onClick={onClick}>
-			<MenuIcon />
+			<MenuIcon className={tw`w-6`} />
 		</button>
 	)
-}
-
-function formatNextEpisode(episode?: number, airingTimeSeconds?: number) {
-	if (episode && airingTimeSeconds) {
-		const date = new Date(Number(airingTimeSeconds) * 1000)
-		const dateString = date.toLocaleDateString()
-		const timeString = date.toLocaleTimeString(undefined, {
-			// @ts-expect-error
-			timeStyle: "short",
-		})
-		return `Episode ${episode} airs on ${dateString} at ${timeString}`
-	}
-}
-
-function formatProgress(progress?: number, episodes?: number) {
-	progress ??= 0
-	if (progress === episodes) return "Complete"
-	if (episodes == null) return `${progress}`
-	return `${progress}/${episodes}`
-}
-
-function formatScore(score?: number) {
-	if (score != null && score > 0) return `${Math.round(score)}/10`
-	return "None"
 }

@@ -20,6 +20,7 @@ fragment animeListEntry on MediaList {
 	progress
 	score
 	media {
+		id
 		format
 		episodes
 		nextAiringEpisode {

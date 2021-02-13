@@ -62,13 +62,14 @@ export function MenuItem({
 				cloneElement(children, {
 					className: tw(
 						apply`
-							p-3
+							py-3 px-4
+							w-full
 							leading-none font-medium text-left
 							transition
 							flex
 							ring(2 inset transparent)
 						`,
-						icon && `pl-9`,
+						icon && `pl-8`,
 						active && apply`bg-green-100 text-green-900`,
 						children.props.className,
 					),

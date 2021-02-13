@@ -121,7 +121,7 @@ function NavItem({
 	active?: boolean
 	onClick?: () => void
 }) {
-	const baseStyle = tw`flex items-center w-full rounded-lg space-x-1 p-2 font-medium transition leading-none`
+	const baseStyle = tw`flex items-center w-full rounded-lg space-x-2 p-2 font-medium transition leading-none`
 	const activeStyle = tw`text-green-400 bg(black opacity-25)`
 	const inactiveStyle = tw`opacity-50 hactive:(opacity-75 bg(black opacity-25))`
 
