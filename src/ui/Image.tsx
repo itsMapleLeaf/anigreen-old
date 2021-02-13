@@ -11,15 +11,16 @@ export default function Image({
 
 	useLayoutEffect(() => {
 		const image = imageRef.current!
-
 		image.style.opacity = "0"
-		image.style.transition = "0.3s"
 
 		if (image.complete) {
 			image.style.opacity = "1"
 		} else {
 			const handleLoad = () => {
-				image.style.opacity = "1"
+				image.animate([{ opacity: 0 }, { opacity: 1 }], {
+					duration: 300,
+					fill: "forwards",
+				})
 			}
 			image.addEventListener("load", handleLoad)
 			return () => image.removeEventListener("load", handleLoad)
