@@ -1,6 +1,5 @@
 import "focus-visible"
 import { apply, setup } from "twind"
-import * as colors from "twind/colors"
 import { css } from "twind/css"
 
 setup({
@@ -14,9 +13,6 @@ setup({
 			fontFamily: {
 				sans: `"Fira Sans", sans-serif`,
 				condensed: `"Fira Sans Condensed", sans-serif`,
-			},
-			colors: {
-				gray: colors.gray,
 			},
 			transitionDuration: {
 				DEFAULT: "0.2s",
