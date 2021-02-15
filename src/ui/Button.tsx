@@ -11,7 +11,10 @@ const baseStyle = apply`
 	shadow
 `
 
-export default function Button(props: {
+export default function Button({
+	className = "",
+	...props
+}: {
 	title?: string
 	className?: string
 	label?: string
@@ -21,7 +24,7 @@ export default function Button(props: {
 	return (
 		<button
 			type="button"
-			className={tw`${baseStyle} ${props.className}`}
+			className={tw`${baseStyle} ${className}`}
 			title={props.title}
 			onClick={props.onClick}
 		>
