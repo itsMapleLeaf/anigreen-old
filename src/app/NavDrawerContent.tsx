@@ -8,12 +8,6 @@ import Image from "../ui/Image"
 export function NavDrawerContent() {
 	const viewerId = useViewerQuery().data?.Viewer?.id
 
-	const loginUrl =
-		`https://anilist.co/api/v2/oauth/authorize` +
-		`?client_id=${import.meta.env.VITE_ANILIST_APP_ID}` +
-		`&redirect_uri=${import.meta.env.VITE_ANILIST_REDIRECT_URL}` +
-		`&response_type=code`
-
 	return (
 		<>
 			<div className={tw`w-64 space-y-2 p-2`}>
@@ -23,7 +17,7 @@ export function NavDrawerContent() {
 					{viewerId ? null : (
 						<DrawerItem>
 							<NavItem>
-								<a href={loginUrl}>
+								<a href="/login">
 									<LogoutIcon />
 									<span>Log in with Anilist</span>
 								</a>

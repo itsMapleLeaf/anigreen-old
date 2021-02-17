@@ -32,9 +32,9 @@ function createAuthRouter() {
 				"https://anilist.co/api/v2/oauth/token",
 				{
 					grant_type: "authorization_code",
-					client_id: process.env.VITE_ANILIST_APP_ID,
+					client_id: process.env.ANILIST_APP_ID,
 					client_secret: process.env.ANILIST_APP_SECRET,
-					redirect_uri: process.env.VITE_ANILIST_REDIRECT_URL,
+					redirect_uri: process.env.ANILIST_REDIRECT_URL,
 					code: req.query.code,
 				},
 			)
@@ -49,6 +49,15 @@ function createAuthRouter() {
 			res.redirect("/auth-error")
 			console.error(error)
 		}
+	})
+
+	router.get("/login", async (req, res) => {
+		res.redirect(
+			`https://anilist.co/api/v2/oauth/authorize` +
+				`?client_id=${process.env.ANILIST_APP_ID}` +
+				`&redirect_uri=${process.env.ANILIST_REDIRECT_URL}` +
+				`&response_type=code`,
+		)
 	})
 
 	router.get("/logout", async (req, res) => {
