@@ -1,8 +1,9 @@
 {
 	"private": true,
+	"type": "module",
 	"scripts": {
-		"dev": "nodemon src/main.mjs",
-		"start": "cross-env NODE_ENV=production node src/main.mjs"
+		"dev": "nodemon src/main",
+		"start": "cross-env NODE_ENV=production node src/main"
 	},
 	"dependencies": {
 		"axios": "^0.21.1",
