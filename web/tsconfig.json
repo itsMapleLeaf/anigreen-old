@@ -15,8 +15,7 @@
 		"isolatedModules": true,
 		"noEmit": true,
 		"importsNotUsedAsValues": "error",
-		"jsx": "react-jsx",
-		"plugins": [{ "name": "@twind/typescript-plugin", "tags": ["tw", "apply"] }]
+		"jsx": "react-jsx"
 	},
 	"include": ["src"]
 }
