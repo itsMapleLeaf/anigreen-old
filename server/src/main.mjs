@@ -1,7 +1,7 @@
 // @ts-check
 import Axios from "axios"
 import cookieSession from "cookie-session"
-import { config } from "dotenv"
+import "dotenv/config.js"
 import express, { Router } from "express"
 import { readFile } from "fs/promises"
 import { request } from "https"
@@ -11,10 +11,7 @@ import { createServer as createViteServer } from "vite"
 
 // @ts-expect-error
 const __dirname = dirname(fileURLToPath(import.meta.url))
-
-config({
-	path: join(__dirname, ".env.local"),
-})
+const webRoot = join(__dirname, "../../web")
 
 function createAuthRouter() {
 	const router = Router()
@@ -100,7 +97,12 @@ function createAuthRouter() {
 async function createDevRouter() {
 	const router = Router()
 
-	const vite = await createViteServer({ server: { middlewareMode: true } })
+	const vite = await createViteServer({
+		root: webRoot,
+		server: {
+			middlewareMode: true,
+		},
+	})
 
 	router.use(vite.middlewares)
 
@@ -108,7 +110,7 @@ async function createDevRouter() {
 		const url = req.originalUrl
 
 		try {
-			const template = await readFile(resolve(__dirname, "index.html"), "utf-8")
+			const template = await readFile(resolve(webRoot, "index.html"), "utf-8")
 
 			const transformed = await vite.transformIndexHtml(url, template)
 
@@ -138,7 +140,7 @@ async function createServer() {
 	app.use(createAuthRouter())
 
 	if (process.env.NODE_ENV === "production") {
-		app.use(express.static(join(__dirname, "dist")))
+		app.use(express.static(join(webRoot, "dist")))
 	} else {
 		app.use(await createDevRouter())
 	}
