@@ -1,5 +1,5 @@
 import constate from "constate"
-import { ElementType, ReactNode, useMemo } from "react"
+import { ElementType, forwardRef, ReactNode, Ref, useMemo } from "react"
 import type { PolymorphicPropsWithoutRef } from "react-polymorphic-types"
 import {
 	Menu as BaseMenu,
@@ -34,15 +34,23 @@ export function Menu({
 	return <MenuProvider {...options}>{children}</MenuProvider>
 }
 
-export function MenuButton<T extends ElementType = "button">({
-	as,
-	...props
-}: PolymorphicPropsWithoutRef<{ icon?: ReactNode }, T>) {
+export const MenuButton = forwardRef(function MenuButton<
+	T extends ElementType = "button"
+>(
+	{ as, ...props }: PolymorphicPropsWithoutRef<{ icon?: ReactNode }, T>,
+	ref: Ref<HTMLButtonElement>,
+) {
 	const { menu, buttonId } = useMenuContext()
 	return (
-		<BaseMenuButton {...menu} id={buttonId} {...props} as={as ?? "button"} />
+		<BaseMenuButton
+			{...menu}
+			id={buttonId}
+			{...props}
+			as={as ?? "button"}
+			ref={ref}
+		/>
 	)
-}
+})
 
 export function MenuPanel({
 	children,

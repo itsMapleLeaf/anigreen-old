@@ -34,7 +34,6 @@ export default function Drawer(props: {
 						fixed inset-0
 						bg(black opacity-75)
 						transition-all duration-300
-						z-20
 						${open ? `opacity-100 visible` : `opacity-0 invisible`}
 					`}
 				>

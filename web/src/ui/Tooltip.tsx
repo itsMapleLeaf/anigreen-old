@@ -1,4 +1,4 @@
-import type { ReactNode } from "react"
+import { cloneElement, ReactElement } from "react"
 import {
 	Tooltip as BaseTooltip,
 	TooltipReference,
@@ -6,14 +6,15 @@ import {
 } from "reakit"
 import { apply, tw } from "twind"
 
-export default function Tooltip({
-	text,
-	children,
-}: {
+type Props = {
 	text: string
-	children: ReactNode
-}) {
-	const tooltip = useTooltipState({ animated: 200 })
+	children: ReactElement
+}
+
+export default function Tooltip({ text, children }: Props) {
+	const tooltip = useTooltipState({
+		animated: 200,
+	})
 
 	const tooltipStyle = apply`
 		bg-white text-gray-900 rounded shadow p-1.5 text-sm leading-none font-medium
@@ -23,8 +24,8 @@ export default function Tooltip({
 
 	return (
 		<>
-			<TooltipReference {...tooltip} className={tw`cursor-help`}>
-				{children}
+			<TooltipReference {...tooltip} ref={children.ref}>
+				{(referenceProps) => cloneElement(children, referenceProps)}
 			</TooltipReference>
 			<BaseTooltip {...tooltip}>
 				<div className={tw(tooltipStyle)}>{text}</div>

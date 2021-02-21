@@ -1,14 +1,22 @@
 import React, { memo } from "react"
+import { useQueryClient } from "react-query"
 import { tw } from "twind"
+import Button from "../dom/Button"
 import ExternalLink from "../dom/ExternalLink"
-import type { AnimeListEntryFragment } from "../generated/graphql"
+import {
+	AnimeListEntryFragment,
+	useUpdateMediaListProgressMutation,
+} from "../generated/graphql"
 import { relativeTime } from "../helpers/relativeTime"
+import { clearIconButtonStyle } from "../ui/components"
 import {
 	DotsVerticalIcon,
 	ExternalLinkIcon,
 	InfoIcon,
+	PlusIcon,
 	SearchIcon,
 } from "../ui/icons"
+import IconWithText from "../ui/IconWithText"
 import Image from "../ui/Image"
 import { Menu, MenuButton, MenuItem, MenuPanel } from "../ui/menu"
 import Tooltip from "../ui/Tooltip"
@@ -17,10 +25,19 @@ export default memo(function MediaCard({
 	entry,
 	onSearch,
 }: {
-	entry?: AnimeListEntryFragment
+	entry: AnimeListEntryFragment
 	onSearch: (query: string) => void
 }) {
-	const handleNyaaSearch = () => {
+	const { nextAiringEpisode } = entry?.media ?? {}
+
+	const client = useQueryClient()
+	const updateProgressMutation = useUpdateMediaListProgressMutation({
+		async onSuccess() {
+			await client.invalidateQueries("AnimeList")
+		},
+	})
+
+	function handleNyaaSearch() {
 		onSearch(
 			entry?.media?.title?.romaji ||
 				entry?.media?.title?.english ||
@@ -29,7 +46,49 @@ export default memo(function MediaCard({
 		)
 	}
 
-	const { nextAiringEpisode } = entry?.media ?? {}
+	function advanceProgress() {
+		updateProgressMutation.mutate({
+			id: entry.id,
+			progress: (entry.progress ?? 0) + 1,
+		})
+	}
+
+	const moreMenu = (
+		<Menu>
+			<MenuButton className={tw(clearIconButtonStyle)}>
+				<DotsVerticalIcon />
+			</MenuButton>
+			<MenuPanel>
+				<MenuItem onClick={handleNyaaSearch}>
+					<IconWithText iconLeft={<SearchIcon />} text="Nyaa Search" />
+				</MenuItem>
+				<MenuItem
+					as={ExternalLink}
+					href={`https://anilist.co/anime/${entry?.media?.id}`}
+				>
+					<IconWithText
+						iconLeft={<ExternalLinkIcon />}
+						text="View on AniList"
+					/>
+				</MenuItem>
+			</MenuPanel>
+		</Menu>
+	)
+
+	const nextEpisodeAirDate =
+		nextAiringEpisode?.episode && nextAiringEpisode?.airingAt ? (
+			<Tooltip text={formatNextEpisodeExactDate(nextAiringEpisode.airingAt)}>
+				<div className={tw`flex space-x-1 items-center`}>
+					<p>
+						{formatNextEpisodeRelativeDate(
+							nextAiringEpisode.episode,
+							nextAiringEpisode.airingAt,
+						)}
+					</p>
+					<InfoIcon />
+				</div>
+			</Tooltip>
+		) : null
 
 	return (
 		<div
@@ -50,45 +109,20 @@ export default memo(function MediaCard({
 
 					<div className={tw`opacity-70 flex-1 grid justify-items-start`}>
 						<p>{entry?.progress || "No"} episodes watched</p>
-						{nextAiringEpisode?.episode && nextAiringEpisode?.airingAt && (
-							<Tooltip
-								text={formatNextEpisodeExactDate(nextAiringEpisode.airingAt)}
-							>
-								<div className={tw`flex space-x-1 items-center`}>
-									<p>
-										{formatNextEpisodeRelativeDate(
-											nextAiringEpisode.episode,
-											nextAiringEpisode.airingAt,
-										)}
-									</p>
-									<InfoIcon />
-								</div>
-							</Tooltip>
-						)}
+						{nextEpisodeAirDate}
 					</div>
 				</div>
 
-				<div>
-					<Menu>
-						<MenuButton
-							className={tw`opacity-50 hover:opacity-75`}
-							title="More actions"
-						>
-							<DotsVerticalIcon className={tw`w-6`} />
-						</MenuButton>
-						<MenuPanel>
-							<MenuItem icon={<SearchIcon />} onClick={handleNyaaSearch}>
-								Nyaa Search
-							</MenuItem>
-							<MenuItem
-								as={ExternalLink}
-								href={`https://anilist.co/anime/${entry?.media?.id}`}
-								icon={<ExternalLinkIcon />}
-							>
-								View on AniList
-							</MenuItem>
-						</MenuPanel>
-					</Menu>
+				<div className={tw`flex flex-col justify-between`}>
+					{moreMenu}
+
+					<Button
+						className={tw(clearIconButtonStyle)}
+						onClick={advanceProgress}
+						loading={updateProgressMutation.isLoading}
+					>
+						<PlusIcon />
+					</Button>
 				</div>
 			</div>
 		</div>

@@ -1,4 +1,4 @@
-import { useQuery, UseQueryOptions } from 'react-query';
+import { useQuery, UseQueryOptions, useMutation, UseMutationOptions } from 'react-query';
 export type Maybe<T> = T | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -4228,6 +4228,14 @@ export type AnimeListEntryFragment = (
   )> }
 );
 
+export type UpdateMediaListProgressMutationVariables = Exact<{
+  id: Scalars['Int'];
+  progress: Scalars['Int'];
+}>;
+
+
+export type UpdateMediaListProgressMutation = { SaveMediaListEntry?: Maybe<Pick<MediaList, 'id'>> };
+
 export type ViewerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -4287,6 +4295,21 @@ export const useAnimeListQuery = <
     useQuery<AnimeListQuery, TError, TData>(
       ['AnimeList', variables],
       fetcher<AnimeListQuery, AnimeListQueryVariables>(AnimeListDocument, variables),
+      options
+    );
+export const UpdateMediaListProgressDocument = `
+    mutation UpdateMediaListProgress($id: Int!, $progress: Int!) {
+  SaveMediaListEntry(id: $id, progress: $progress) {
+    id
+  }
+}
+    `;
+export const useUpdateMediaListProgressMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<UpdateMediaListProgressMutation, TError, UpdateMediaListProgressMutationVariables, TContext>) => 
+    useMutation<UpdateMediaListProgressMutation, TError, UpdateMediaListProgressMutationVariables, TContext>(
+      (variables?: UpdateMediaListProgressMutationVariables) => fetcher<UpdateMediaListProgressMutation, UpdateMediaListProgressMutationVariables>(UpdateMediaListProgressDocument, variables)(),
       options
     );
 export const ViewerDocument = `

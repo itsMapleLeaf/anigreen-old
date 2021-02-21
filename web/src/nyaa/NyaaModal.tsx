@@ -15,7 +15,7 @@ export default function NyaaModal({
 		<Transition show={query != null}>
 			<Portal>
 				<Transition.Child
-					className={tw`transition duration-300 relative z-20`}
+					className={tw`transition duration-300 relative`}
 					enterFrom={tw`opacity-0`}
 					enterTo={tw`opacity-100`}
 					leaveFrom={tw`opacity-100`}
