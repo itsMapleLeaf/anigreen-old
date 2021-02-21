@@ -82,22 +82,19 @@ export function MenuPanel({
 export function MenuItem<T extends ElementType = "button">({
 	as,
 	children,
-	icon,
 	className,
 	id: idProp,
 	...props
-}: PolymorphicPropsWithoutRef<{ icon?: ReactNode; id?: string }, T>) {
+}: PolymorphicPropsWithoutRef<{ id?: string }, T>) {
 	const { menu } = useMenuContext()
 	const id = useMemo(() => idProp ?? `menu-button-${Math.random()}`, [idProp])
 
 	const baseStyle = apply`
-		py-3 px-4
-		w-full
+		block
+		p-3 w-full
 		leading-none font-medium text-left
 		transition
-		flex
 		ring(2 inset transparent)
-		${icon && `pl-8`}
 	`
 
 	const activeStyle = apply`bg-green-100 text-green-900`
@@ -110,8 +107,7 @@ export function MenuItem<T extends ElementType = "button">({
 			id={id}
 			className={tw(baseStyle, menu.currentId === id && activeStyle, className)}
 		>
-			<span>{children}</span>
-			<span className={tw`absolute left-2 self-center`}>{icon}</span>
+			{children}
 		</BaseMenuItem>
 	)
 }

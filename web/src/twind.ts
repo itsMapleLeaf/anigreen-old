@@ -33,6 +33,7 @@ setup({
 	variants: {
 		"focus-visible": `&[data-focus-visible-added]`,
 		"hactive": `&:hover, &:active`,
+		"hocus": `&:hover, &:focus`,
 		"reakit-transition-enter": `&[data-enter]`,
 		"reakit-transition-child-enter": `[data-enter] &`,
 	},

@@ -1,12 +1,14 @@
 import { cloneElement, ReactElement, SVGProps } from "react"
 import { apply, tw } from "twind"
 
-const defaultIconClass = tw(apply(`w-5`))
+const defaultIconClass = tw(apply(`w-5 h-5`))
 
 function createIconComponent(element: ReactElement) {
 	return function Icon({ className = "", ...props }: SVGProps<SVGSVGElement>) {
 		return cloneElement(element, {
-			className: `${defaultIconClass} ${className}`,
+			className: `${defaultIconClass} ${
+				element.props.className ?? ""
+			} ${className}`,
 			...props,
 		})
 	}
@@ -56,6 +58,7 @@ export const MenuIcon = createIconComponent(
 		fill="none"
 		viewBox="0 0 24 24"
 		stroke="currentColor"
+		className={tw`w-6 h-6`}
 	>
 		<path
 			strokeLinecap="round"
@@ -83,15 +86,13 @@ export const LogoutIcon = createIconComponent(
 export const PlusIcon = createIconComponent(
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		viewBox="0 0 24 24"
-		stroke="currentColor"
+		viewBox="0 0 20 20"
+		fill="currentColor"
 	>
 		<path
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			strokeWidth={2}
-			d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+			fillRule="evenodd"
+			d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+			clipRule="evenodd"
 		/>
 	</svg>,
 )
@@ -102,6 +103,7 @@ export const CloseIcon = createIconComponent(
 		fill="none"
 		viewBox="0 0 24 24"
 		stroke="currentColor"
+		className={tw`w-6 h-6`}
 	>
 		<path
 			strokeLinecap="round"
@@ -115,16 +117,10 @@ export const CloseIcon = createIconComponent(
 export const DotsVerticalIcon = createIconComponent(
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		viewBox="0 0 24 24"
-		stroke="currentColor"
+		viewBox="0 0 20 20"
+		fill="currentColor"
 	>
-		<path
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			strokeWidth={2}
-			d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-		/>
+		<path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
 	</svg>,
 )
 
