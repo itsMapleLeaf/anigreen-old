@@ -48,6 +48,7 @@ importers:
       react-focus-on: 3.5.1_@types+react@17.0.2+react@17.0.1
       react-popper: 2.2.4_457fb48bda80fde1b412c737dde90dcf
       react-query: 3.9.8_react-dom@17.0.1+react@17.0.1
+      reakit: 1.3.5_react-dom@17.0.1+react@17.0.1
       twind: 0.15.4_typescript@4.1.5
     devDependencies:
       '@graphql-codegen/cli': 1.20.1_graphql@15.5.0+typescript@4.1.5
@@ -98,6 +99,7 @@ importers:
       react-polymorphic-types: ^1.0.3
       react-popper: ^2.2.4
       react-query: ^3.9.8
+      reakit: ^1.3.5
       source-map-explorer: ^2.5.2
       ts-jest: ^26.5.1
       twind: ^0.15.4
@@ -2845,6 +2847,10 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha512-dhEPs72UPbDnAQJ9ZKMNTP6ptJaionhP5cBb541nXPlW60Jepo9RV/a4fX4XWW9CuFNK22krhrj1+rgzifNCsw==
+  /body-scroll-lock/3.1.5:
+    dev: false
+    resolution:
+      integrity: sha512-Yi1Xaml0EvNA0OYWxXiYNqY24AfWkbA6w5vxE7GWxtKfzIbZM+Qw+aSmkgsbWzbHiy/RCSkUZBplVxTA+E4jJg==
   /boxen/4.2.0:
     dependencies:
       ansi-align: 3.0.0
@@ -7608,6 +7614,52 @@ packages:
       node: '>=8.10.0'
     resolution:
       integrity: sha512-cMhu7c/8rdhkHXWsY+osBhfSy0JikwpHK/5+imo+LpeasTF8ouErHrlYkwT0++njiyuDvc7OFY5T3ukvZ8qmFQ==
+  /reakit-system/0.15.1_react-dom@17.0.1+react@17.0.1:
+    dependencies:
+      react: 17.0.1
+      react-dom: 17.0.1_react@17.0.1
+      reakit-utils: 0.15.1_react-dom@17.0.1+react@17.0.1
+    dev: false
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0
+      react-dom: ^16.8.0 || ^17.0.0
+    resolution:
+      integrity: sha512-PkqfAyEohtcEu/gUvKriCv42NywDtUgvocEN3147BI45dOFAB89nrT7wRIbIcKJiUT598F+JlPXAZZVLWhc1Kg==
+  /reakit-utils/0.15.1_react-dom@17.0.1+react@17.0.1:
+    dependencies:
+      react: 17.0.1
+      react-dom: 17.0.1_react@17.0.1
+    dev: false
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0
+      react-dom: ^16.8.0 || ^17.0.0
+    resolution:
+      integrity: sha512-6cZgKGvOkAMQgkwU9jdYbHfkuIN1Pr+vwcB19plLvcTfVN0Or10JhIuj9X+JaPZyI7ydqTDFaKNdUcDP69o/+Q==
+  /reakit-warning/0.6.1_react-dom@17.0.1+react@17.0.1:
+    dependencies:
+      react: 17.0.1
+      reakit-utils: 0.15.1_react-dom@17.0.1+react@17.0.1
+    dev: false
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0
+      react-dom: '*'
+    resolution:
+      integrity: sha512-poFUV0EyxB+CcV9uTNBAFmcgsnR2DzAbOTkld4Ul+QOKSeEHZB3b3+MoZQgcYHmbvG19Na1uWaM7ES+/Eyr8tQ==
+  /reakit/1.3.5_react-dom@17.0.1+react@17.0.1:
+    dependencies:
+      '@popperjs/core': 2.8.2
+      body-scroll-lock: 3.1.5
+      react: 17.0.1
+      react-dom: 17.0.1_react@17.0.1
+      reakit-system: 0.15.1_react-dom@17.0.1+react@17.0.1
+      reakit-utils: 0.15.1_react-dom@17.0.1+react@17.0.1
+      reakit-warning: 0.6.1_react-dom@17.0.1+react@17.0.1
+    dev: false
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0
+      react-dom: ^16.8.0 || ^17.0.0
+    resolution:
+      integrity: sha512-Luv1RPBFlWhRG32Ysjd86KC+vLoz5da3X0O8rqClaNEv259nWmnw5fG6BIUSYJwTG6PPxTidPlS+9bS6nLstfA==
   /redent/3.0.0:
     dependencies:
       indent-string: 4.0.0

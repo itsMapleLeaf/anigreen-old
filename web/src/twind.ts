@@ -33,6 +33,8 @@ setup({
 	variants: {
 		"focus-visible": `&[data-focus-visible-added]`,
 		"hactive": `&:hover, &:active`,
+		"reakit-transition-enter": `&[data-enter]`,
+		"reakit-transition-child-enter": `[data-enter] &`,
 	},
 	plugins: {
 		"backdrop-blur": { backdropFilter: `blur(4px)` },

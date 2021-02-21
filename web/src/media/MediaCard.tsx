@@ -3,9 +3,15 @@ import { tw } from "twind"
 import ExternalLink from "../dom/ExternalLink"
 import type { AnimeListEntryFragment } from "../generated/graphql"
 import { relativeTime } from "../helpers/relativeTime"
-import { DotsVerticalIcon, ExternalLinkIcon, SearchIcon } from "../ui/icons"
+import {
+	DotsVerticalIcon,
+	ExternalLinkIcon,
+	InfoIcon,
+	SearchIcon,
+} from "../ui/icons"
 import Image from "../ui/Image"
 import { Menu, MenuButton, MenuItem, MenuPanel } from "../ui/menu"
+import Tooltip from "../ui/Tooltip"
 
 export default memo(function MediaCard({
 	entry,
@@ -22,6 +28,8 @@ export default memo(function MediaCard({
 				"",
 		)
 	}
+
+	const { nextAiringEpisode } = entry?.media ?? {}
 
 	return (
 		<div
@@ -40,22 +48,24 @@ export default memo(function MediaCard({
 						{entry?.media?.title?.userPreferred}
 					</h3>
 
-					<div className={tw`opacity-70 flex-1`}>
+					<div className={tw`opacity-70 flex-1 grid justify-items-start`}>
 						<p>{entry?.progress || "No"} episodes watched</p>
-						<p>
-							{formatNextEpisode(
-								entry?.media?.nextAiringEpisode?.episode,
-								entry?.media?.nextAiringEpisode?.airingAt,
-							)}
-						</p>
+						{nextAiringEpisode?.episode && nextAiringEpisode?.airingAt && (
+							<Tooltip
+								text={formatNextEpisodeExactDate(nextAiringEpisode.airingAt)}
+							>
+								<div className={tw`flex space-x-1 items-center`}>
+									<p>
+										{formatNextEpisodeRelativeDate(
+											nextAiringEpisode.episode,
+											nextAiringEpisode.airingAt,
+										)}
+									</p>
+									<InfoIcon />
+								</div>
+							</Tooltip>
+						)}
 					</div>
-
-					<button
-						type="button"
-						className={tw`opacity-50 hover:opacity-100 transition font-medium uppercase text-sm text-left`}
-					>
-						Show More
-					</button>
 				</div>
 
 				<div>
@@ -85,8 +95,21 @@ export default memo(function MediaCard({
 	)
 })
 
-function formatNextEpisode(episode?: number, airingTimeSeconds?: number) {
+function formatNextEpisodeRelativeDate(
+	episode?: number,
+	airingTimeSeconds?: number,
+) {
 	if (episode && airingTimeSeconds) {
 		return `Episode ${episode} airs ${relativeTime(airingTimeSeconds * 1000)}`
 	}
+}
+
+function formatNextEpisodeExactDate(airingTimeSeconds: number) {
+	return new Date(airingTimeSeconds * 1000).toLocaleString(undefined, {
+		weekday: "long",
+		month: "long",
+		day: "numeric",
+		hour: "numeric",
+		minute: "numeric",
+	})
 }
