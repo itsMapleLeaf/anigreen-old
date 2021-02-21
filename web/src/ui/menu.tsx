@@ -1,79 +1,81 @@
-import { Menu as BaseMenu, Transition } from "@headlessui/react"
-import type { Placement } from "@popperjs/core"
 import constate from "constate"
-import { ElementType, ReactNode, useState } from "react"
+import { ElementType, ReactNode, useMemo } from "react"
 import type { PolymorphicPropsWithoutRef } from "react-polymorphic-types"
-import { usePopper } from "react-popper"
+import {
+	Menu as BaseMenu,
+	MenuButton as BaseMenuButton,
+	MenuInitialState,
+	MenuItem as BaseMenuItem,
+	useMenuState,
+} from "reakit"
 import { apply, tw } from "twind"
 import { css } from "twind/css"
-import Portal from "./Portal"
 
-const [MenuProvider, useMenuContext] = constate(function useMenu({
-	open,
-}: {
-	open: boolean
-}) {
-	const [buttonElement, setButtonElement] = useState<HTMLElement | null>()
-	return { open, buttonElement, setButtonElement }
+const [MenuProvider, useMenuContext] = constate(function useMenu(
+	options?: MenuInitialState,
+) {
+	const menu = useMenuState({
+		modal: true,
+		placement: "bottom",
+		gutter: 8,
+		animated: 200,
+		...options,
+	})
+
+	const buttonId = useMemo(() => `menu-button-${Math.random()}`, [])
+
+	return { menu, buttonId }
 })
 
-export function Menu({ children }: { children: ReactNode }) {
-	return (
-		<BaseMenu>
-			{({ open }) => (
-				<div className={tw`relative`}>
-					<MenuProvider open={open}>{children}</MenuProvider>
-				</div>
-			)}
-		</BaseMenu>
-	)
+export function Menu({
+	children,
+	...options
+}: { children: ReactNode } & Partial<MenuInitialState>) {
+	return <MenuProvider {...options}>{children}</MenuProvider>
 }
 
 export function MenuButton<T extends ElementType = "button">({
+	as,
 	...props
 }: PolymorphicPropsWithoutRef<{ icon?: ReactNode }, T>) {
-	const { setButtonElement } = useMenuContext()
-	return <BaseMenu.Button {...props} ref={setButtonElement} />
+	const { menu, buttonId } = useMenuContext()
+	return (
+		<BaseMenuButton {...menu} id={buttonId} {...props} as={as ?? "button"} />
+	)
 }
 
 export function MenuPanel({
 	children,
-	placement,
-	offset = [0, 10],
+	className,
 }: {
 	children: ReactNode
-	placement?: Placement
-	offset?: [horizontal: number, vertical: number]
+	className?: string
 }) {
-	const { open, buttonElement } = useMenuContext()
-	const [popperElement, setPopperElement] = useState<HTMLElement | null>()
+	const { menu, buttonId } = useMenuContext()
 
-	const { styles } = usePopper(buttonElement, popperElement, {
-		placement,
-		modifiers: [{ name: "offset", options: { offset } }],
+	const enterStyle = css({
+		transform: `perspective(800px)`,
+		opacity: "1",
+		visibility: "visible",
 	})
 
+	const exitStyle = css({
+		transform: `perspective(800px) rotateX(-30deg)`,
+		opacity: 0,
+		visibility: "hidden",
+	})
+
+	const baseStyle = apply`
+		bg-white text-gray-800 w-max rounded overflow-hidden shadow
+		transition-all duration-200 origin-top
+		${exitStyle}
+		reakit-transition-child-enter:${enterStyle}
+	`
+
 	return (
-		<Transition show={open}>
-			<Portal>
-				<div ref={setPopperElement} style={styles.popper}>
-					<Transition.Child {...flipFadeTransition()}>
-						<BaseMenu.Items
-							static
-							className={tw(apply`
-								bg-white text-gray-800
-								w-max
-								rounded
-								overflow-hidden
-								shadow
-							`)}
-						>
-							{children}
-						</BaseMenu.Items>
-					</Transition.Child>
-				</div>
-			</Portal>
-		</Transition>
+		<BaseMenu {...menu} aria-labelledby={buttonId}>
+			<div className={tw(baseStyle, className)}>{children}</div>
+		</BaseMenu>
 	)
 }
 
@@ -82,8 +84,12 @@ export function MenuItem<T extends ElementType = "button">({
 	children,
 	icon,
 	className,
+	id: idProp,
 	...props
-}: PolymorphicPropsWithoutRef<{ icon?: ReactNode }, T>) {
+}: PolymorphicPropsWithoutRef<{ icon?: ReactNode; id?: string }, T>) {
+	const { menu } = useMenuContext()
+	const id = useMemo(() => idProp ?? `menu-button-${Math.random()}`, [idProp])
+
 	const baseStyle = apply`
 		py-3 px-4
 		w-full
@@ -96,45 +102,16 @@ export function MenuItem<T extends ElementType = "button">({
 
 	const activeStyle = apply`bg-green-100 text-green-900`
 
-	const Component = as ?? "button"
-
 	return (
-		<BaseMenu.Item>
-			{({ active }) => (
-				<Component
-					{...props}
-					className={tw(baseStyle, active && activeStyle, className)}
-				>
-					<span>{children}</span>
-					<span className={tw`absolute left-2 self-center`}>{icon}</span>
-				</Component>
-			)}
-		</BaseMenu.Item>
+		<BaseMenuItem
+			{...menu}
+			{...props}
+			as={as ?? "button"}
+			id={id}
+			className={tw(baseStyle, menu.currentId === id && activeStyle, className)}
+		>
+			<span>{children}</span>
+			<span className={tw`absolute left-2 self-center`}>{icon}</span>
+		</BaseMenuItem>
 	)
-}
-
-function flipFadeTransition() {
-	const outClass = tw(
-		css({
-			transform: `perspective(800px) rotateX(-30deg)`,
-			opacity: 0,
-			visibility: "hidden",
-		}),
-	)
-
-	const inClass = tw(
-		css({
-			transform: `perspective(800px)`,
-			opacity: "1",
-			visibility: "visible",
-		}),
-	)
-
-	return {
-		className: tw`transition-all origin-top`,
-		enterFrom: outClass,
-		enterTo: inClass,
-		leaveFrom: inClass,
-		leaveTo: outClass,
-	}
 }

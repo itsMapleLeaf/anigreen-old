@@ -76,7 +76,7 @@ export default memo(function MediaCard({
 						>
 							<DotsVerticalIcon className={tw`w-6`} />
 						</MenuButton>
-						<MenuPanel placement="bottom-end">
+						<MenuPanel>
 							<MenuItem icon={<SearchIcon />} onClick={handleNyaaSearch}>
 								Nyaa Search
 							</MenuItem>
