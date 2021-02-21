@@ -11,7 +11,7 @@
 		"cookie-session": "^1.4.0",
 		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
-		"vite": "^2.0.0-beta.69"
+		"vite": "^2.0.1"
 	},
 	"devDependencies": {
 		"nodemon": "^2.0.7"
