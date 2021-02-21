@@ -1,8 +1,9 @@
-// @ts-check
+import assert from "assert"
 import Axios from "axios"
 import cookieSession from "cookie-session"
 import "dotenv/config.js"
-import express, { Router } from "express"
+import express from "express"
+import Router from "express-promise-router"
 import { readFile } from "fs/promises"
 import { request } from "https"
 import { dirname, join, resolve } from "path"
@@ -16,6 +17,8 @@ function createAuthRouter() {
 	const router = Router()
 
 	router.use((req, res, next) => {
+		assert(req.session)
+
 		if (req.session.user && Date.now() > req.session.user.expiresAt) {
 			req.session.user = undefined
 		}
@@ -23,6 +26,8 @@ function createAuthRouter() {
 	})
 
 	router.get("/auth-redirect", async (req, res) => {
+		assert(req.session)
+
 		try {
 			const response = await Axios.post(
 				"https://anilist.co/api/v2/oauth/token",
@@ -57,15 +62,22 @@ function createAuthRouter() {
 	})
 
 	router.get("/logout", async (req, res) => {
+		assert(req.session)
+
 		req.session.user = undefined
 		res.redirect("/")
 	})
 
 	router.get("/session", async (req, res) => {
+		assert(req.session)
+
 		return res.json({ authenticated: !!req.session.user })
 	})
 
 	router.post("/anilist", async (req, res) => {
+		assert(req.session)
+
+		/** @type {{ [name: string]: string }} */
 		const headers = {
 			"Content-Type": "application/json",
 			"Accept": "application/json",
@@ -82,7 +94,7 @@ function createAuthRouter() {
 				headers,
 			},
 			(apiResponse) => {
-				res.status(apiResponse.statusCode)
+				res.status(apiResponse.statusCode ?? 500)
 				apiResponse.setEncoding("utf-8").pipe(res, { end: true })
 			},
 		)
@@ -110,14 +122,12 @@ async function createDevRouter() {
 
 		try {
 			const template = await readFile(resolve(webRoot, "index.html"), "utf-8")
-
 			const transformed = await vite.transformIndexHtml(url, template)
-
 			res.status(200).set({ "Content-Type": "text/html" }).end(transformed)
-		} catch (e) {
-			vite.ssrFixStacktrace(e)
-			console.error(e)
-			res.status(500).end(e.message)
+		} catch (error) {
+			vite.ssrFixStacktrace(error)
+			console.error(error)
+			res.status(500).end({ error: error.message })
 		}
 	})
 
