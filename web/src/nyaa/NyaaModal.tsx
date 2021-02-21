@@ -30,7 +30,7 @@ export default function NyaaModal({
 							onEscapeKey={onClose}
 						>
 							<Transition.Child
-								className={tw`flex flex-col gap-4 h-full transition transform`}
+								className={tw`flex flex-col space-y-4 h-full transition transform`}
 								enterFrom={tw`scale-95`}
 								enterTo={tw`scale-100`}
 								leaveFrom={tw`scale-100`}
