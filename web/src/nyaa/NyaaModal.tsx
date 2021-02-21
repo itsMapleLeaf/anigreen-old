@@ -2,6 +2,7 @@ import { Transition } from "@headlessui/react"
 import { FocusOn } from "react-focus-on"
 import { tw } from "twind"
 import { CloseIcon } from "../ui/icons"
+import LoadingPlaceholder from "../ui/LoadingPlaceholder"
 import Portal from "../ui/Portal"
 
 export default function NyaaModal({
@@ -44,11 +45,15 @@ export default function NyaaModal({
 									<CloseIcon />
 								</button>
 								<div
-									className={tw`flex-1 bg-gray-800 rounded-lg overflow-hidden shadow`}
+									className={tw`flex-1 bg-gray-800 rounded-lg overflow-hidden shadow relative grid place-items-center`}
 								>
+									<div className={tw``}>
+										<LoadingPlaceholder />
+									</div>
 									<iframe
 										title="Nyaa Search"
 										src={`https://nyaa.si/?f=1&c=1_2&q=${query}`}
+										className={tw`absolute`}
 										width="100%"
 										height="100%"
 										frameBorder="0"

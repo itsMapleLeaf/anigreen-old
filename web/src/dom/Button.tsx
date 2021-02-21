@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef, forwardRef, Ref } from "react"
 import { apply, tw } from "twind"
+import { LoadingIcon } from "../ui/icons"
 
 export type ForwardRefButtonComponent = (
 	props: ComponentPropsWithoutRef<"button"> & { loading?: boolean },
@@ -17,7 +18,7 @@ const Button: ForwardRefButtonComponent = (
 		ref={ref}
 		{...props}
 	>
-		{loading ? "Loading..." : children}
+		{loading ? <LoadingIcon /> : children}
 	</button>
 )
 

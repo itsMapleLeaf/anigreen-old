@@ -9,6 +9,7 @@ import NyaaModal from "./nyaa/NyaaModal"
 import { clearIconButtonStyle } from "./ui/components"
 import Drawer from "./ui/Drawer"
 import { MenuIcon } from "./ui/icons"
+import QueryRenderer from "./ui/QueryRenderer"
 
 export default function App() {
 	const viewerId = useViewerQuery().data?.Viewer?.id
@@ -23,50 +24,61 @@ export default function App() {
 	const [searchQuery, setSearchQuery] = useState<string>()
 
 	return (
-		<div className={tw`grid h-screen`} style={{ gridTemplateRows: "auto 1fr" }}>
-			<header
-				className={tw`
+		<>
+			<div
+				className={tw`grid h-screen`}
+				style={{ gridTemplateRows: "auto 1fr" }}
+			>
+				<header
+					className={tw`
 					flex items-center space-x-2 px-2
 					shadow transition duration-300 backdrop-blur
 					${isAtTop ? `bg-gray-800` : `bg(black opacity-75)`}
 				`}
-			>
-				<Drawer trigger={<MenuButton />}>
-					<NavDrawerContent />
-				</Drawer>
+				>
+					<Drawer trigger={<MenuButton />}>
+						<NavDrawerContent />
+					</Drawer>
 
-				<div className={tw`py-2`}>
-					<AppLogoLink />
+					<div className={tw`py-2`}>
+						<AppLogoLink />
+					</div>
+				</header>
+
+				<div className={tw`overflow-y-auto`}>
+					<main
+						className={tw`mx-auto max-w-screen-md px-2 relative grid gap-4 p-4`}
+					>
+						<QueryRenderer
+							{...animeListQuery}
+							renderData={(data) =>
+								data?.MediaListCollection?.lists?.map((list) => (
+									<div
+										key={list?.name}
+										className={tw`grid gap-4 sm:grid-cols-2`}
+									>
+										{list?.entries?.map((entry) =>
+											entry ? (
+												<MediaCard
+													key={entry.id}
+													entry={entry}
+													onSearch={setSearchQuery}
+												/>
+											) : null,
+										)}
+									</div>
+								))
+							}
+						/>
+					</main>
 				</div>
-			</header>
-
-			<div className={tw`overflow-y-auto`}>
-				<main className={tw`mx-auto max-w-screen-md px-2 relative`}>
-					{animeListQuery.data?.MediaListCollection?.lists?.map((list) => (
-						<div
-							key={list?.name}
-							className={tw`grid gap-4 py-4 sm:grid-cols-2`}
-						>
-							{list?.entries?.map((entry) =>
-								entry ? (
-									<MediaCard
-										key={entry.id}
-										entry={entry}
-										onSearch={setSearchQuery}
-									/>
-								) : null,
-							)}
-						</div>
-					))}
-					{animeListQuery.isLoading && <p>Loading...</p>}
-					{animeListQuery.isError && <p>An error occured :(</p>}
-					<NyaaModal
-						query={searchQuery}
-						onClose={() => setSearchQuery(undefined)}
-					/>
-				</main>
 			</div>
-		</div>
+
+			<NyaaModal
+				query={searchQuery}
+				onClose={() => setSearchQuery(undefined)}
+			/>
+		</>
 	)
 }
 
