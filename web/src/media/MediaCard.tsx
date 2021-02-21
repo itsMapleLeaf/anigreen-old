@@ -9,6 +9,7 @@ import {
 } from "../generated/graphql"
 import { relativeTime } from "../helpers/relativeTime"
 import { clearIconButtonStyle } from "../ui/components"
+import { Dialog, DialogButton, FullScreenModalDialog } from "../ui/dialog"
 import {
 	DotsVerticalIcon,
 	ExternalLinkIcon,
@@ -18,15 +19,14 @@ import {
 } from "../ui/icons"
 import IconWithText from "../ui/IconWithText"
 import Image from "../ui/Image"
+import LoadingPlaceholder from "../ui/LoadingPlaceholder"
 import { Menu, MenuButton, MenuItem, MenuPanel } from "../ui/menu"
 import Tooltip from "../ui/Tooltip"
 
 export default memo(function MediaCard({
 	entry,
-	onSearch,
 }: {
 	entry: AnimeListEntryFragment
-	onSearch: (query: string) => void
 }) {
 	const { nextAiringEpisode } = entry?.media ?? {}
 
@@ -37,14 +37,11 @@ export default memo(function MediaCard({
 		},
 	})
 
-	function handleNyaaSearch() {
-		onSearch(
-			entry?.media?.title?.romaji ||
-				entry?.media?.title?.english ||
-				entry?.media?.title?.native ||
-				"",
-		)
-	}
+	const nyaaSearchQuery =
+		entry?.media?.title?.romaji ||
+		entry?.media?.title?.english ||
+		entry?.media?.title?.native ||
+		""
 
 	function advanceProgress() {
 		updateProgressMutation.mutate({
@@ -59,9 +56,27 @@ export default memo(function MediaCard({
 				<DotsVerticalIcon />
 			</MenuButton>
 			<MenuPanel>
-				<MenuItem onClick={handleNyaaSearch}>
-					<IconWithText iconLeft={<SearchIcon />} text="Nyaa Search" />
-				</MenuItem>
+				<Dialog>
+					<DialogButton>
+						<MenuItem keepOpen>
+							<IconWithText iconLeft={<SearchIcon />} text="Nyaa Search" />
+						</MenuItem>
+					</DialogButton>
+					<FullScreenModalDialog>
+						<div className={tw`relative grid place-items-center h-full`}>
+							<LoadingPlaceholder />
+							<iframe
+								title="Nyaa Search"
+								src={`https://nyaa.si/?f=1&c=1_2&q=${nyaaSearchQuery}`}
+								className={tw`absolute`}
+								width="100%"
+								height="100%"
+								frameBorder="0"
+							/>
+						</div>
+					</FullScreenModalDialog>
+				</Dialog>
+
 				<MenuItem
 					as={ExternalLink}
 					href={`https://anilist.co/anime/${entry?.media?.id}`}

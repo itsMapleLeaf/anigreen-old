@@ -68,18 +68,26 @@ export function MenuPanel({
 
 	return (
 		<BaseMenu {...menu} aria-labelledby={buttonId}>
-			<div className={tw(baseStyle, className)}>{children}</div>
+			<div className={tw(baseStyle, className)}>
+				{menu.visible || menu.animating ? children : null}
+			</div>
 		</BaseMenu>
 	)
 }
 
-export function MenuItem<T extends ElementType = "button">({
-	as,
-	children,
-	className,
-	id: idProp,
-	...props
-}: PolymorphicPropsWithoutRef<{ id?: string }, T>) {
+export const MenuItem = forwardRef(function MenuItem<
+	T extends ElementType = "button"
+>(
+	{
+		as,
+		children,
+		className,
+		id: idProp,
+		keepOpen,
+		...props
+	}: PolymorphicPropsWithoutRef<{ id?: string; keepOpen?: boolean }, T>,
+	ref: Ref<any>,
+) {
 	const { menu } = useMenuContext()
 	const id = useMemo(() => idProp ?? `menu-button-${Math.random()}`, [idProp])
 
@@ -100,8 +108,13 @@ export function MenuItem<T extends ElementType = "button">({
 			as={as ?? "button"}
 			id={id}
 			className={tw(baseStyle, menu.currentId === id && activeStyle, className)}
+			ref={ref}
+			onClick={(...args: unknown[]) => {
+				if (!keepOpen) menu.hide()
+				props.onClick?.(...args)
+			}}
 		>
 			{children}
 		</BaseMenuItem>
 	)
-}
+})
