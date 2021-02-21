@@ -2,6 +2,7 @@ import React, { memo } from "react"
 import { tw } from "twind"
 import ExternalLink from "../dom/ExternalLink"
 import type { AnimeListEntryFragment } from "../generated/graphql"
+import { relativeTime } from "../helpers/relativeTime"
 import { DotsVerticalIcon, ExternalLinkIcon, SearchIcon } from "../ui/icons"
 import Image from "../ui/Image"
 import { Menu, MenuButton, MenuItem, MenuPanel } from "../ui/menu"
@@ -86,14 +87,6 @@ export default memo(function MediaCard({
 
 function formatNextEpisode(episode?: number, airingTimeSeconds?: number) {
 	if (episode && airingTimeSeconds) {
-		const date = new Date(Number(airingTimeSeconds) * 1000)
-
-		const dateString = date.toLocaleDateString(undefined, {
-			weekday: "long",
-			day: "numeric",
-			month: "long",
-		})
-
-		return `Episode ${episode} airs on ${dateString}`
+		return `Episode ${episode} airs ${relativeTime(airingTimeSeconds * 1000)}`
 	}
 }

@@ -38,6 +38,7 @@ importers:
       vite: ^2.0.1
   web:
     dependencies:
+      '@formatjs/intl-utils': 3.8.4
       '@headlessui/react': 0.3.1_react@17.0.1
       '@popperjs/core': 2.8.2
       constate: 3.1.0_react@17.0.1
@@ -71,6 +72,7 @@ importers:
       vite: 2.0.1
       vite-plugin-pwa: 0.5.2
     specifiers:
+      '@formatjs/intl-utils': ^3.8.4
       '@graphql-codegen/cli': 1.20.1
       '@graphql-codegen/typescript': 1.21.0
       '@graphql-codegen/typescript-operations': 1.17.14
@@ -1166,6 +1168,12 @@ packages:
       node: ^10.12.0 || >=12.0.0
     resolution:
       integrity: sha512-1JTKgrOKAHVivSvOYw+sJOunkBjUOvjqWk1DPja7ZFhIS2mX/4EgTT8M7eTK9jrKhL/FvXXEbQwIs3pg1xp3dg==
+  /@formatjs/intl-utils/3.8.4:
+    dependencies:
+      emojis-list: 3.0.0
+    dev: false
+    resolution:
+      integrity: sha512-j5C6NyfKevIxsfLK8KwO1C0vvP7k1+h4A9cFpc+cr6mEwCc1sPkr17dzh0Ke6k9U5pQccAQoXdcNBl3IYa4+ZQ==
   /@graphql-codegen/cli/1.20.1_graphql@15.5.0+typescript@4.1.5:
     dependencies:
       '@graphql-codegen/core': 1.17.9_graphql@15.5.0
@@ -3839,6 +3847,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-117l1H6U4X3Krn+MrzYrL57d5H7siRHWraBs7s+LjRuFK7Fe7hJqnJ0skWlinqsycVLU5YAo6L8CsEYQ0V5prg==
+  /emojis-list/3.0.0:
+    dev: false
+    engines:
+      node: '>= 4'
+    resolution:
+      integrity: sha512-/kyM18EfinwXZbno9FyUGeFh87KC8HRQBQGildHZbEuRyWFOmv1U10o9BBp8XVZDVNNuQKyIGIu5ZYAAXJ0V2Q==
   /encodeurl/1.0.2:
     dev: false
     engines:
