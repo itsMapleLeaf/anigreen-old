@@ -9,7 +9,6 @@ import {
 	useMenuState,
 } from "reakit"
 import { apply, tw } from "twind"
-import { css } from "twind/css"
 
 const [MenuProvider, useMenuContext] = constate(function useMenu(
 	options?: MenuInitialState,
@@ -61,23 +60,10 @@ export function MenuPanel({
 }) {
 	const { menu, buttonId } = useMenuContext()
 
-	const enterStyle = css({
-		transform: `perspective(800px)`,
-		opacity: "1",
-		visibility: "visible",
-	})
-
-	const exitStyle = css({
-		transform: `perspective(800px) rotateX(-30deg)`,
-		opacity: 0,
-		visibility: "hidden",
-	})
-
 	const baseStyle = apply`
 		bg-white text-gray-800 w-max rounded overflow-hidden shadow
-		transition-all duration-200 origin-top
-		${exitStyle}
-		reakit-transition-child-enter:${enterStyle}
+		transition duration-200 opacity-0 scale-95 
+		reakit-transition-child-enter:(opacity-100 scale-100)
 	`
 
 	return (
