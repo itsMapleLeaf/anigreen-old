@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"scripts": {
-		"dev": "graphql-codegen --config graphql.config.yml --watch",
+		"dev": "graphql-codegen --config ../graphql.config.yml --watch",
 		"build": "vite build",
 		"test": "jest",
 		"analyze": "source-map-explorer './dist/**/*.js'"
