@@ -1,5 +1,6 @@
 import React, { memo } from "react"
 import { tw } from "twind"
+import ExternalLink from "../dom/ExternalLink"
 import type { AnimeListEntryFragment } from "../generated/graphql"
 import { DotsVerticalIcon, ExternalLinkIcon, SearchIcon } from "../ui/icons"
 import Image from "../ui/Image"
@@ -58,29 +59,22 @@ export default memo(function MediaCard({
 
 				<div>
 					<Menu>
-						<MenuButton>
-							<button
-								className={tw`opacity-50 hover:opacity-75`}
-								title="More actions"
-							>
-								<DotsVerticalIcon className={tw`w-6`} />
-							</button>
+						<MenuButton
+							className={tw`opacity-50 hover:opacity-75`}
+							title="More actions"
+						>
+							<DotsVerticalIcon className={tw`w-6`} />
 						</MenuButton>
 						<MenuPanel placement="bottom-end">
-							<MenuItem icon={<SearchIcon />}>
-								<button type="button" onClick={handleNyaaSearch}>
-									Nyaa Search
-								</button>
+							<MenuItem icon={<SearchIcon />} onClick={handleNyaaSearch}>
+								Nyaa Search
 							</MenuItem>
-							<MenuItem icon={<ExternalLinkIcon />}>
-								<a
-									href={`https://anilist.co/anime/${entry?.media?.id}`}
-									target="_blank"
-									rel="noopener noreferrer"
-									onClick={handleNyaaSearch}
-								>
-									View on AniList
-								</a>
+							<MenuItem
+								as={ExternalLink}
+								href={`https://anilist.co/anime/${entry?.media?.id}`}
+								icon={<ExternalLinkIcon />}
+							>
+								View on AniList
 							</MenuItem>
 						</MenuPanel>
 					</Menu>

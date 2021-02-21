@@ -1,13 +1,8 @@
 import { Menu as BaseMenu, Transition } from "@headlessui/react"
 import type { Placement } from "@popperjs/core"
 import constate from "constate"
-import {
-	cloneElement,
-	Fragment,
-	ReactElement,
-	ReactNode,
-	useState,
-} from "react"
+import { ElementType, ReactNode, useState } from "react"
+import type { PolymorphicPropsWithoutRef } from "react-polymorphic-types"
 import { usePopper } from "react-popper"
 import { apply, tw } from "twind"
 import { css } from "twind/css"
@@ -34,14 +29,11 @@ export function Menu({ children }: { children: ReactNode }) {
 	)
 }
 
-export function MenuButton({ children }: { children: ReactElement }) {
+export function MenuButton<T extends ElementType = "button">({
+	...props
+}: PolymorphicPropsWithoutRef<{ icon?: ReactNode }, T>) {
 	const { setButtonElement } = useMenuContext()
-	return (
-		// @ts-expect-error
-		<BaseMenu.Button as={Fragment} ref={setButtonElement}>
-			{children}
-		</BaseMenu.Button>
-	)
+	return <BaseMenu.Button {...props} ref={setButtonElement} />
 }
 
 export function MenuPanel({
@@ -85,38 +77,38 @@ export function MenuPanel({
 	)
 }
 
-export function MenuItem({
+export function MenuItem<T extends ElementType = "button">({
+	as,
 	children,
 	icon,
-}: {
-	children: ReactElement
-	icon?: ReactNode
-}) {
+	className,
+	...props
+}: PolymorphicPropsWithoutRef<{ icon?: ReactNode }, T>) {
+	const baseStyle = apply`
+		py-3 px-4
+		w-full
+		leading-none font-medium text-left
+		transition
+		flex
+		ring(2 inset transparent)
+		${icon && `pl-8`}
+	`
+
+	const activeStyle = apply`bg-green-100 text-green-900`
+
+	const Component = as ?? "button"
+
 	return (
 		<BaseMenu.Item>
-			{({ active }) =>
-				cloneElement(children, {
-					className: tw(
-						apply`
-							py-3 px-4
-							w-full
-							leading-none font-medium text-left
-							transition
-							flex
-							ring(2 inset transparent)
-						`,
-						icon && `pl-8`,
-						active && apply`bg-green-100 text-green-900`,
-						children.props.className,
-					),
-					children: (
-						<>
-							{children.props.children}
-							<span className={tw`absolute left-2 self-center`}>{icon}</span>
-						</>
-					),
-				})
-			}
+			{({ active }) => (
+				<Component
+					{...props}
+					className={tw(baseStyle, active && activeStyle, className)}
+				>
+					<span>{children}</span>
+					<span className={tw`absolute left-2 self-center`}>{icon}</span>
+				</Component>
+			)}
 		</BaseMenu.Item>
 	)
 }
