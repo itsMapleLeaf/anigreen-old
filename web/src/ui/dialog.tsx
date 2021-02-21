@@ -11,7 +11,9 @@ import { clearIconButtonStyle } from "./components"
 import { CloseIcon } from "./icons"
 
 export const [DialogProvider, useDialogContext] = constate(() => {
-	const dialog = useDialogState()
+	const dialog = useDialogState({
+		animated: true,
+	})
 	return { dialog }
 })
 
@@ -33,11 +35,11 @@ export function FullScreenModalDialog({ children }: { children: ReactNode }) {
 	return (
 		<DialogBackdrop
 			{...dialog}
-			className={tw`fixed inset-0 bg-black bg-opacity-75 flex flex-col p-4`}
+			className={tw`fixed inset-0 bg-black bg-opacity-75 flex flex-col p-4 transition-opacity opacity-0 reakit-transition-enter:opacity-100`}
 		>
 			<BaseDialog
 				{...dialog}
-				className={tw`flex flex-col space-y-4 h-full pointer-events-none`}
+				className={tw`flex flex-col space-y-4 h-full pointer-events-none transition-transform transform scale-95 reakit-transition-enter:scale-100`}
 				aria-label="Nyaa Search"
 			>
 				<button
