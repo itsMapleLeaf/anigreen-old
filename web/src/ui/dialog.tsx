@@ -1,5 +1,5 @@
 import constate from "constate"
-import React, { cloneElement, ReactElement, ReactNode } from "react"
+import React, { cloneElement, ReactElement, ReactNode, useMemo } from "react"
 import {
 	Dialog as BaseDialog,
 	DialogBackdrop,
@@ -11,10 +11,9 @@ import { clearIconButtonStyle } from "./components"
 import { CloseIcon } from "./icons"
 
 export const [DialogProvider, useDialogContext] = constate(() => {
-	const dialog = useDialogState({
-		animated: true,
-	})
-	return { dialog }
+	const dialog = useDialogState({ animated: true })
+	const buttonId = useMemo(() => `dialog-button-${Math.random()}`, [])
+	return { dialog, buttonId }
 })
 
 export function Dialog({ children }: { children: ReactNode }) {
@@ -22,16 +21,16 @@ export function Dialog({ children }: { children: ReactNode }) {
 }
 
 export function DialogButton({ children }: { children: ReactElement }) {
-	const { dialog } = useDialogContext()
+	const { dialog, buttonId } = useDialogContext()
 	return (
-		<DialogDisclosure {...dialog}>
+		<DialogDisclosure {...dialog} id={buttonId}>
 			{(disclosureProps) => cloneElement(children, disclosureProps)}
 		</DialogDisclosure>
 	)
 }
 
 export function FullScreenModalDialog({ children }: { children: ReactNode }) {
-	const { dialog } = useDialogContext()
+	const { dialog, buttonId } = useDialogContext()
 	return (
 		<DialogBackdrop
 			{...dialog}
@@ -40,17 +39,17 @@ export function FullScreenModalDialog({ children }: { children: ReactNode }) {
 			<BaseDialog
 				{...dialog}
 				className={tw`flex flex-col space-y-4 h-full pointer-events-none transition-transform transform scale-95 reakit-transition-enter:scale-100`}
-				aria-label="Nyaa Search"
+				aria-labelledby={buttonId}
 			>
 				<button
 					type="button"
 					onClick={() => dialog.hide()}
-					className={tw(clearIconButtonStyle, "self-end")}
+					className={tw(clearIconButtonStyle, "pointer-events-auto self-end")}
 				>
 					<CloseIcon />
 				</button>
 				<div
-					className={tw`flex-1 bg-gray-800 rounded-lg overflow-y-auto shadow`}
+					className={tw`flex-1 bg-gray-800 rounded-lg overflow-y-auto shadow pointer-events-auto`}
 				>
 					{dialog.visible || dialog.animating ? children : null}
 				</div>
