@@ -1,13 +1,22 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react"
+import { ComponentPropsWithoutRef, forwardRef, ReactNode, Ref } from "react"
 
-export default function ExternalLink({
-	href,
-	children,
-	...props
-}: ComponentPropsWithoutRef<"a"> & { href: string; children: ReactNode }) {
+export default forwardRef(function ExternalLink(
+	{
+		href,
+		children,
+		...props
+	}: ComponentPropsWithoutRef<"a"> & { href: string; children: ReactNode },
+	ref: Ref<HTMLAnchorElement>,
+) {
 	return (
-		<a href={href} target="_blank" rel="noopener noreferrer" {...props}>
+		<a
+			href={href}
+			target="_blank"
+			rel="noopener noreferrer"
+			{...props}
+			ref={ref}
+		>
 			{children}
 		</a>
 	)
-}
+})
