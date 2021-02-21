@@ -32,7 +32,8 @@ eslint-plugin-react-hooks
 	"rules": {
 		"no-undef": "off",
 		"no-unused-vars": "off",
-		"react/react-in-jsx-scope": ["off"]
+		"react/react-in-jsx-scope": ["off"],
+		"react/prop-types": ["off"]
 	},
 	"ignorePatterns": ["**/node_modules/**", "**/dist/**", "src/generated/**"],
 	"settings": {
