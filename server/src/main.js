@@ -9,7 +9,6 @@ import { dirname, join, resolve } from "path"
 import { fileURLToPath } from "url"
 import { createServer as createViteServer } from "vite"
 
-// @ts-expect-error
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const webRoot = join(__dirname, "../../web")
 
