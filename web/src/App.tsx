@@ -5,7 +5,11 @@ import { tw } from "twind"
 import { AppLogoLink } from "./app/AppLogoLink"
 import { NavDrawerContent } from "./app/NavDrawerContent"
 import { useScrollSelector } from "./dom/useScrollSelector"
-import { useAnimeListQuery, useViewerQuery } from "./generated/graphql"
+import {
+	AnimeListEntryFragment,
+	useAnimeListQuery,
+	useViewerQuery,
+} from "./generated/graphql"
 import { mod } from "./helpers/mod"
 import MediaCard from "./media/MediaCard"
 import { clearIconButtonStyle } from "./ui/components"
@@ -54,43 +58,50 @@ export default function App() {
 								),
 							)
 
-							const listsByDay = groupBy(entries, (entry) => {
-								const airingTimeSeconds =
-									entry?.media?.nextAiringEpisode?.airingAt
-
-								if (airingTimeSeconds) {
-									return new Date(airingTimeSeconds * 1000).getDay()
-								}
-
-								return Infinity
-							})
-
-							const sortedListsByDay = sortBy(
-								Object.entries(listsByDay).map(([day, entries]) => ({
-									day: Number(day),
-									entries,
-								})),
-								(list) => mod(list.day - 1, 7),
-							)
-
-							return sortedListsByDay.map(({ day, entries }) => (
-								<div key={day} className={tw`grid gap-2`}>
-									<h2 className={tw`font-condensed text-xl`}>
-										{Number.isFinite(day) ? getWeekday(day) : "Not Airing"}
-									</h2>
-									<div className={tw`grid gap-4 sm:grid-cols-2`}>
-										{entries.map((entry) => (
-											<MediaCard key={entry.id} entry={entry} />
-										))}
-									</div>
-								</div>
-							))
+							return <SectionedAnimeList entries={entries} />
 						}}
 					/>
 				</main>
 			</div>
 		</div>
 	)
+}
+
+function SectionedAnimeList({
+	entries,
+}: {
+	entries: AnimeListEntryFragment[]
+}) {
+	const listsByDay = groupBy(entries, (entry) => {
+		const airingTimeSeconds = entry?.media?.nextAiringEpisode?.airingAt
+
+		if (airingTimeSeconds) {
+			return new Date(airingTimeSeconds * 1000).getDay()
+		}
+
+		return Infinity
+	})
+
+	const sortedListsByDay = sortBy(
+		Object.entries(listsByDay).map(([day, entries]) => ({
+			day: Number(day),
+			entries,
+		})),
+		(list) => mod(list.day - 1, 7),
+	)
+
+	return sortedListsByDay.map(({ day, entries }) => (
+		<div key={day} className={tw`grid gap-2`}>
+			<h2 className={tw`font-condensed text-xl`}>
+				{Number.isFinite(day) ? getWeekday(day) : "Not Airing"}
+			</h2>
+			<div className={tw`grid gap-4 sm:grid-cols-2`}>
+				{entries.map((entry) => (
+					<MediaCard key={entry.id} entry={entry} />
+				))}
+			</div>
+		</div>
+	)) as any
 }
 
 function MenuButton({ onClick }: { onClick?: () => void }) {
