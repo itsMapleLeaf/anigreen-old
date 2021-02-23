@@ -1,4 +1,4 @@
-import React, { memo } from "react"
+import { memo } from "react"
 import { useQueryClient } from "react-query"
 import { tw } from "twind"
 import Button from "../dom/Button"
@@ -8,6 +8,7 @@ import {
 	useUpdateMediaListProgressMutation,
 } from "../generated/graphql"
 import { relativeTime } from "../helpers/relativeTime"
+import AspectBox from "../ui/AspectBox"
 import { clearIconButtonStyle } from "../ui/components"
 import { Dialog, DialogButton, FullScreenModalDialog } from "../ui/dialog"
 import {
@@ -130,38 +131,53 @@ export default memo(function MediaCard({
 
 	return (
 		<div
-			className={tw`relative overflow-hidden rounded-lg bg-black shadow flex flex-col`}
+			className={tw`relative overflow-hidden rounded-lg shadow flex flex-col`}
 		>
-			<div className={tw`opacity-10`}>
-				<Image
-					src={entry?.media?.bannerImage}
-					className={tw`w-full h-full absolute`}
-				/>
+			<div className={tw`bg-black p-2 relative`}>
+				<div className={tw`absolute inset-0 opacity-50`}>
+					<Image
+						src={entry?.media?.bannerImage}
+						className={tw`w-full h-full`}
+					/>
+				</div>
+
+				<div
+					className={tw`absolute inset-0 bg-gradient-to-t opacity-75 from-black to-transparent p-2`}
+				></div>
+
+				<div className={tw`w-1/3`}>
+					<AspectBox ratio={3 / 4}>
+						<Image
+							src={entry.media?.coverImage?.large}
+							className={tw`w-full h-full rounded-md shadow`}
+						/>
+					</AspectBox>
+				</div>
+
+				<div className={tw`absolute right-2 bottom-2`}>{moreMenu}</div>
 			</div>
 
-			<div className={tw`relative flex flex-1 p-2 pl-3`}>
-				<div className={tw`flex flex-col flex-1 space-y-3`}>
-					<h3 className={tw`font-light text-2xl font-condensed`}>
+			<div className={tw`relative flex flex-1 p-2 pl-3 bg-gray-800`}>
+				<div className={tw`flex flex-col flex-1`}>
+					<h3 className={tw`font-light text-xl font-condensed flex-1`}>
 						{entry?.media?.title?.userPreferred}
 					</h3>
-
-					<div className={tw`opacity-70 flex-1 flex flex-col justify-end`}>
+					<div className={tw`flex-1`} />
+					<div className={tw`opacity-70 mt-2`}>
 						{episodesWatched}
 						{nextEpisodeAirDate}
 					</div>
 				</div>
+			</div>
 
-				<div className={tw`flex flex-col justify-between`}>
-					{moreMenu}
-
-					<Button
-						className={tw(clearIconButtonStyle)}
-						onClick={advanceProgress}
-						loading={updateProgressMutation.isLoading}
-					>
-						<PlusIcon />
-					</Button>
-				</div>
+			<div className={tw`absolute bottom-2 right-2`}>
+				<Button
+					className={tw(clearIconButtonStyle)}
+					onClick={advanceProgress}
+					loading={updateProgressMutation.isLoading}
+				>
+					<PlusIcon />
+				</Button>
 			</div>
 		</div>
 	)

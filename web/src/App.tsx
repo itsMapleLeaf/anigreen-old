@@ -95,7 +95,7 @@ function SectionedAnimeList({
 			<h2 className={tw`font-condensed text-xl`}>
 				{Number.isFinite(day) ? getWeekday(day) : "Not Airing"}
 			</h2>
-			<div className={tw`grid gap-4 sm:grid-cols-2`}>
+			<div className={tw`grid gap-4 items-start sm:grid-cols-2`}>
 				{entries.map((entry) => (
 					<MediaCard key={entry.id} entry={entry} />
 				))}
