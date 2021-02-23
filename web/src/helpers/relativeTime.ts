@@ -1,10 +1,5 @@
-import { selectUnit } from "@formatjs/intl-utils"
-
-const formatter = new Intl.RelativeTimeFormat(undefined, {
-	numeric: "auto",
-})
+import { formatDistanceToNow } from "date-fns"
 
 export function relativeTime(date: Date | number) {
-	const { value, unit } = selectUnit(date)
-	return formatter.format(value, unit)
+	return formatDistanceToNow(date, { addSuffix: true })
 }
