@@ -15,7 +15,7 @@
 		"react": "^17.0.1",
 		"react-dom": "^17.0.1",
 		"react-focus-on": "^3.5.1",
-		"react-query": "^3.9.9",
+		"react-query": "^3.9.8",
 		"reakit": "https://pkg.csb.dev/reakit/reakit/commit/8757436a/reakit",
 		"twind": "^0.15.4"
 	},
@@ -27,7 +27,7 @@
 		"@testing-library/jest-dom": "^5.11.9",
 		"@testing-library/react": "^11.2.5",
 		"@testing-library/react-hooks": "^5.0.3",
-		"@testing-library/user-event": "^12.7.2",
+		"@testing-library/user-event": "^12.7.1",
 		"@types/jest": "^26.0.20",
 		"@types/lodash-es": "^4.17.4",
 		"@types/react": "^17.0.2",
@@ -41,7 +41,7 @@
 		"ts-jest": "^26.5.1",
 		"typescript": "^4.2.1-rc",
 		"typesync": "latest",
-		"vite": "^2.0.2",
-		"vite-plugin-pwa": "^0.5.3"
+		"vite": "^2.0.1",
+		"vite-plugin-pwa": "^0.5.2"
 	}
 }
