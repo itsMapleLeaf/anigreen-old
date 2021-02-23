@@ -90,6 +90,29 @@ export default memo(function MediaCard({
 		</Menu>
 	)
 
+	const progress = entry.progress ?? 0
+
+	const nextAiringEpisodeNumber = entry.media?.nextAiringEpisode?.episode
+
+	const maxEpisodes = nextAiringEpisodeNumber
+		? nextAiringEpisodeNumber - 1
+		: entry.media?.episodes ?? 1
+
+	const progressLag = maxEpisodes - progress
+
+	const progressLagStyle =
+		progressLag === 0
+			? tw`text-green-400`
+			: progressLag <= 3
+			? tw`text-yellow-400`
+			: tw`text-red-400`
+
+	const episodesWatched = (
+		<p className={progressLagStyle}>
+			{progress}/{maxEpisodes} episodes watched
+		</p>
+	)
+
 	const nextEpisodeAirDate =
 		nextAiringEpisode?.episode && nextAiringEpisode?.airingAt ? (
 			<Tooltip text={formatNextEpisodeExactDate(nextAiringEpisode.airingAt)}>
@@ -122,8 +145,8 @@ export default memo(function MediaCard({
 						{entry?.media?.title?.userPreferred}
 					</h3>
 
-					<div className={tw`opacity-70 flex-1 grid justify-items-start`}>
-						<p>{entry?.progress || "No"} episodes watched</p>
+					<div className={tw`opacity-70 flex-1 flex flex-col justify-end`}>
+						{episodesWatched}
 						{nextEpisodeAirDate}
 					</div>
 				</div>
