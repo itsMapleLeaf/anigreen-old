@@ -5,7 +5,7 @@
 		"build": "vite build",
 		"test": "jest",
 		"analyze": "source-map-explorer './dist/**/*.js'",
-		"postinstall": "typesync"
+		"prepare": "typesync"
 	},
 	"dependencies": {
 		"constate": "^3.1.0",
