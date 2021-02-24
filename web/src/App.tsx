@@ -47,7 +47,7 @@ export default function App() {
 
 			<div className={tw`overflow-y-auto`}>
 				<main
-					className={tw`mx-auto max-w-screen-md px-2 relative grid gap-4 p-4`}
+					className={tw`mx-auto max-w-screen-xl px-2 relative grid gap-8 px-4 py-6`}
 				>
 					<QueryRenderer
 						{...animeListQuery}
@@ -91,11 +91,14 @@ function SectionedAnimeList({
 	)
 
 	return sortedListsByDay.map(({ day, entries }) => (
-		<div key={day} className={tw`grid gap-2`}>
-			<h2 className={tw`font-condensed text-xl`}>
+		<div key={day} className={tw`grid gap-3`}>
+			<h2 className={tw`font-condensed text-2xl`}>
 				{Number.isFinite(day) ? getWeekday(day) : "Not Airing"}
 			</h2>
-			<div className={tw`grid gap-4 items-start sm:grid-cols-2`}>
+			<div
+				className={tw`grid gap-4 items-start`}
+				style={{ gridTemplateColumns: `repeat(auto-fill, minmax(16rem, 1fr))` }}
+			>
 				{entries.map((entry) => (
 					<MediaCard key={entry.id} entry={entry} />
 				))}
