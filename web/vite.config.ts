@@ -17,6 +17,7 @@ export default defineConfig({
 		reactRefresh(),
 		VitePWA({
 			manifest: {
+				start_url: "/",
 				icons: [
 					{
 						sizes: "192x192",
