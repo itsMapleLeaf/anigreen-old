@@ -5,7 +5,8 @@
 		"build": "vite build",
 		"test": "jest",
 		"analyze": "source-map-explorer './dist/**/*.js'",
-		"prepare": "typesync"
+		"prepare": "typesync",
+		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
 		"constate": "^3.1.0",

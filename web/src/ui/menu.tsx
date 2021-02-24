@@ -1,6 +1,13 @@
 import constate from "constate"
-import { ElementType, forwardRef, ReactNode, Ref, useMemo } from "react"
-import type { PolymorphicPropsWithoutRef } from "react-polymorphic-types"
+import {
+	cloneElement,
+	ComponentPropsWithoutRef,
+	forwardRef,
+	ReactElement,
+	ReactNode,
+	Ref,
+	useMemo,
+} from "react"
 import {
 	Menu as BaseMenu,
 	MenuButton as BaseMenuButton,
@@ -9,6 +16,7 @@ import {
 	useMenuState,
 } from "reakit"
 import { apply, tw } from "twind"
+import type { Merge } from "../helpers/types"
 
 const [MenuProvider, useMenuContext] = constate(function useMenu(
 	options?: MenuInitialState,
@@ -33,21 +41,15 @@ export function Menu({
 	return <MenuProvider {...options}>{children}</MenuProvider>
 }
 
-export const MenuButton = forwardRef(function MenuButton<
-	T extends ElementType = "button"
->(
-	{ as, ...props }: PolymorphicPropsWithoutRef<{ icon?: ReactNode }, T>,
+export const MenuButton = forwardRef(function MenuButton(
+	props: { children: ReactElement },
 	ref: Ref<HTMLButtonElement>,
 ) {
 	const { menu, buttonId } = useMenuContext()
 	return (
-		<BaseMenuButton
-			{...menu}
-			id={buttonId}
-			{...props}
-			as={as ?? "button"}
-			ref={ref}
-		/>
+		<BaseMenuButton {...menu} id={buttonId} ref={ref}>
+			{(buttonProps) => cloneElement(props.children, buttonProps)}
+		</BaseMenuButton>
 	)
 })
 
@@ -75,21 +77,20 @@ export function MenuPanel({
 	)
 }
 
-export const MenuItem = forwardRef(function MenuItem<
-	T extends ElementType = "button"
->(
+type MenuItemProps = Merge<
+	ComponentPropsWithoutRef<"button">,
 	{
-		as,
-		children,
-		className,
-		id: idProp,
-		keepOpen,
-		...props
-	}: PolymorphicPropsWithoutRef<{ id?: string; keepOpen?: boolean }, T>,
-	ref: Ref<any>,
+		children: ReactElement
+		keepOpen?: boolean
+	}
+>
+
+export const MenuItem = forwardRef(function MenuItem(
+	{ children, className, onClick, keepOpen, ...props }: MenuItemProps,
+	ref: Ref<HTMLButtonElement>,
 ) {
 	const { menu } = useMenuContext()
-	const id = useMemo(() => idProp ?? `menu-button-${Math.random()}`, [idProp])
+	const id = useMemo(() => `menu-button-${Math.random()}`, [])
 
 	const baseStyle = apply`
 		block
@@ -105,16 +106,15 @@ export const MenuItem = forwardRef(function MenuItem<
 		<BaseMenuItem
 			{...menu}
 			{...props}
-			as={as ?? "button"}
 			id={id}
 			className={tw(baseStyle, menu.currentId === id && activeStyle, className)}
 			ref={ref}
-			onClick={(...args: unknown[]) => {
+			onClick={(event) => {
 				if (!keepOpen) menu.hide()
-				props.onClick?.(...args)
+				onClick?.(event)
 			}}
 		>
-			{children}
+			{(menuItemProps) => cloneElement(children, menuItemProps)}
 		</BaseMenuItem>
 	)
 })

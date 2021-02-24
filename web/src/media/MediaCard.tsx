@@ -53,16 +53,21 @@ export default memo(function MediaCard({
 
 	const moreMenu = (
 		<Menu>
-			<MenuButton className={tw(clearIconButtonStyle)}>
-				<DotsVerticalIcon />
+			<MenuButton>
+				<Button className={tw(clearIconButtonStyle)}>
+					<DotsVerticalIcon />
+				</Button>
 			</MenuButton>
 			<MenuPanel>
 				<Dialog>
 					<DialogButton>
 						<MenuItem keepOpen>
-							<IconWithText iconLeft={<SearchIcon />} text="Nyaa Search" />
+							<Button>
+								<IconWithText iconLeft={<SearchIcon />} text="Nyaa Search" />
+							</Button>
 						</MenuItem>
 					</DialogButton>
+
 					<FullScreenModalDialog>
 						<div className={tw`relative grid place-items-center h-full`}>
 							<LoadingPlaceholder />
@@ -78,14 +83,13 @@ export default memo(function MediaCard({
 					</FullScreenModalDialog>
 				</Dialog>
 
-				<MenuItem
-					as={ExternalLink}
-					href={`https://anilist.co/anime/${entry?.media?.id}`}
-				>
-					<IconWithText
-						iconLeft={<ExternalLinkIcon />}
-						text="View on AniList"
-					/>
+				<MenuItem>
+					<ExternalLink href={`https://anilist.co/anime/${entry?.media?.id}`}>
+						<IconWithText
+							iconLeft={<ExternalLinkIcon />}
+							text="View on AniList"
+						/>
+					</ExternalLink>
 				</MenuItem>
 			</MenuPanel>
 		</Menu>

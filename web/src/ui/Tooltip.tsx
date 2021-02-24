@@ -24,7 +24,7 @@ export default function Tooltip({ text, children }: Props) {
 
 	return (
 		<>
-			<TooltipReference {...tooltip} ref={children.ref}>
+			<TooltipReference {...tooltip}>
 				{(referenceProps) => cloneElement(children, referenceProps)}
 			</TooltipReference>
 			<BaseTooltip {...tooltip}>
