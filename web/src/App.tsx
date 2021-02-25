@@ -28,11 +28,13 @@ export default function App() {
 	const isAtTop = useScrollSelector(useCallback((scroll) => scroll === 0, []))
 
 	return (
-		<div className={tw`grid h-screen`} style={{ gridTemplateRows: "auto 1fr" }}>
+		<div style={{ isolation: "isolate" }}>
 			<header
 				className={tw`
+					sticky top-0 z-10
 					flex items-center space-x-2 px-2
-					shadow transition duration-300 backdrop-blur
+					transition duration-300
+					shadow backdrop-blur
 					${isAtTop ? `bg-gray-800` : `bg(black opacity-75)`}
 				`}
 			>
@@ -45,24 +47,20 @@ export default function App() {
 				</div>
 			</header>
 
-			<div className={tw`overflow-y-auto`}>
-				<main
-					className={tw`mx-auto max-w-screen-xl px-2 relative grid gap-8 px-4 py-6`}
-				>
-					<QueryRenderer
-						{...animeListQuery}
-						renderData={(data) => {
-							const entries = compact(
-								data?.MediaListCollection?.lists?.flatMap(
-									(list) => list?.entries,
-								),
-							)
+			<main className={tw`mx-auto max-w-screen-xl grid gap-8 px-4 py-6`}>
+				<QueryRenderer
+					{...animeListQuery}
+					renderData={(data) => {
+						const entries = compact(
+							data?.MediaListCollection?.lists?.flatMap(
+								(list) => list?.entries,
+							),
+						)
 
-							return <SectionedAnimeList entries={entries} />
-						}}
-					/>
-				</main>
-			</div>
+						return <SectionedAnimeList entries={entries} />
+					}}
+				/>
+			</main>
 		</div>
 	)
 }
