@@ -2,7 +2,7 @@ import { StrictMode } from "react"
 import { render } from "react-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
 // import { ReactQueryDevtools } from "react-query/devtools"
-import App from "./App"
+import App from "./app/App"
 
 const client = new QueryClient({
 	defaultOptions: {

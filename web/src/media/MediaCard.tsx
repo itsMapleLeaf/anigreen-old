@@ -1,138 +1,17 @@
-import { memo } from "react"
-import { useQueryClient } from "react-query"
 import { tw } from "twind"
-import Button from "../dom/Button"
-import ExternalLink from "../dom/ExternalLink"
-import {
-	AnimeListEntryFragment,
-	useUpdateMediaListProgressMutation,
-} from "../generated/graphql"
-import { relativeTime } from "../helpers/relativeTime"
+import type { AnimeListEntryFragment } from "../generated/graphql"
 import AspectBox from "../ui/AspectBox"
-import { clearIconButtonStyle } from "../ui/components"
-import { Dialog, DialogButton, FullScreenModalDialog } from "../ui/dialog"
-import {
-	DotsVerticalIcon,
-	ExternalLinkIcon,
-	InfoIcon,
-	PlusIcon,
-	SearchIcon,
-} from "../ui/icons"
-import IconWithText from "../ui/IconWithText"
 import Image from "../ui/Image"
-import LoadingPlaceholder from "../ui/LoadingPlaceholder"
-import { Menu, MenuButton, MenuItem, MenuPanel } from "../ui/menu"
-import Tooltip from "../ui/Tooltip"
+import MediaCardAdvanceProgressButton from "./MediaCardAdvanceProgressButton"
+import MediaCardMenu from "./MediaCardMenu"
+import MediaCardNextEpisode from "./MediaCardNextEpisode"
+import MediaCardProgress from "./MediaCardProgress"
 
-export default memo(function MediaCard({
+export default function MediaCard({
 	entry,
 }: {
 	entry: AnimeListEntryFragment
 }) {
-	const { nextAiringEpisode } = entry?.media ?? {}
-
-	const client = useQueryClient()
-	const updateProgressMutation = useUpdateMediaListProgressMutation({
-		async onSuccess() {
-			await client.invalidateQueries("AnimeList")
-		},
-	})
-
-	const nyaaSearchQuery =
-		entry?.media?.title?.romaji ||
-		entry?.media?.title?.english ||
-		entry?.media?.title?.native ||
-		""
-
-	function advanceProgress() {
-		updateProgressMutation.mutate({
-			id: entry.id,
-			progress: (entry.progress ?? 0) + 1,
-		})
-	}
-
-	const moreMenu = (
-		<Menu>
-			<MenuButton>
-				<Button className={tw(clearIconButtonStyle)}>
-					<DotsVerticalIcon />
-				</Button>
-			</MenuButton>
-			<MenuPanel>
-				<Dialog>
-					<DialogButton>
-						<MenuItem keepOpen>
-							<Button>
-								<IconWithText iconLeft={<SearchIcon />} text="Nyaa Search" />
-							</Button>
-						</MenuItem>
-					</DialogButton>
-
-					<FullScreenModalDialog>
-						<div className={tw`relative grid place-items-center h-full`}>
-							<LoadingPlaceholder />
-							<iframe
-								title="Nyaa Search"
-								src={`https://nyaa.si/?f=1&c=1_2&q=${nyaaSearchQuery}`}
-								className={tw`absolute`}
-								width="100%"
-								height="100%"
-								frameBorder="0"
-							/>
-						</div>
-					</FullScreenModalDialog>
-				</Dialog>
-
-				<MenuItem>
-					<ExternalLink href={`https://anilist.co/anime/${entry?.media?.id}`}>
-						<IconWithText
-							iconLeft={<ExternalLinkIcon />}
-							text="View on AniList"
-						/>
-					</ExternalLink>
-				</MenuItem>
-			</MenuPanel>
-		</Menu>
-	)
-
-	const progress = entry.progress ?? 0
-
-	const nextAiringEpisodeNumber = entry.media?.nextAiringEpisode?.episode
-
-	const maxEpisodes = nextAiringEpisodeNumber
-		? nextAiringEpisodeNumber - 1
-		: entry.media?.episodes ?? 1
-
-	const progressLag = maxEpisodes - progress
-
-	const progressLagStyle =
-		progressLag === 0
-			? tw`text-green-400`
-			: progressLag <= 3
-			? tw`text-yellow-400`
-			: tw`text-red-400`
-
-	const episodesWatched = (
-		<p className={progressLagStyle}>
-			{progress}/{maxEpisodes} episodes watched
-		</p>
-	)
-
-	const nextEpisodeAirDate =
-		nextAiringEpisode?.episode && nextAiringEpisode?.airingAt ? (
-			<Tooltip text={formatNextEpisodeExactDate(nextAiringEpisode.airingAt)}>
-				<div className={tw`flex space-x-1 items-center`}>
-					<p>
-						{formatNextEpisodeRelativeDate(
-							nextAiringEpisode.episode,
-							nextAiringEpisode.airingAt,
-						)}
-					</p>
-					<InfoIcon />
-				</div>
-			</Tooltip>
-		) : null
-
 	return (
 		<div
 			className={tw`relative overflow-hidden rounded-lg shadow flex flex-col`}
@@ -158,7 +37,9 @@ export default memo(function MediaCard({
 					</AspectBox>
 				</div>
 
-				<div className={tw`absolute right-2 bottom-2`}>{moreMenu}</div>
+				<div className={tw`absolute right-2 bottom-2`}>
+					<MediaCardMenu entry={entry} />
+				</div>
 			</div>
 
 			<div className={tw`relative flex flex-1 p-2 pl-3 bg-gray-800`}>
@@ -167,41 +48,16 @@ export default memo(function MediaCard({
 						{entry?.media?.title?.userPreferred}
 					</h3>
 					<div className={tw`flex-1`} />
-					<div className={tw`opacity-70 mt-2`}>
-						{episodesWatched}
-						{nextEpisodeAirDate}
+					<div className={tw`opacity-70 mt-2 pr-6`}>
+						<MediaCardProgress entry={entry} />
+						<MediaCardNextEpisode entry={entry} />
 					</div>
 				</div>
 			</div>
 
 			<div className={tw`absolute bottom-2 right-2`}>
-				<Button
-					className={tw(clearIconButtonStyle)}
-					onClick={advanceProgress}
-					loading={updateProgressMutation.isLoading}
-				>
-					<PlusIcon />
-				</Button>
+				<MediaCardAdvanceProgressButton entry={entry} />
 			</div>
 		</div>
 	)
-})
-
-function formatNextEpisodeRelativeDate(
-	episode?: number,
-	airingTimeSeconds?: number,
-) {
-	if (episode && airingTimeSeconds) {
-		return `Episode ${episode} airs ${relativeTime(airingTimeSeconds * 1000)}`
-	}
-}
-
-function formatNextEpisodeExactDate(airingTimeSeconds: number) {
-	return new Date(airingTimeSeconds * 1000).toLocaleString(undefined, {
-		weekday: "long",
-		month: "long",
-		day: "numeric",
-		hour: "numeric",
-		minute: "numeric",
-	})
 }
