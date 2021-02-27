@@ -2,34 +2,8 @@ import * as RadixDialog from "@radix-ui/react-dialog"
 import { Slot } from "@radix-ui/react-slot"
 import { ReactElement, ReactNode, useState } from "react"
 import { tw } from "twind"
-import { apply, css, keyframes } from "twind/css"
-
-// @ts-expect-error
-const fade = keyframes({
-	from: apply`opacity-0`,
-	to: apply`opacity-100`,
-})
-
-const slideLeft = keyframes({
-	from: { transform: `translateX(-100%)` },
-	to: { transform: `translateX(0)` },
-})
-
-function radixTransition(animationName: ReturnType<typeof keyframes>) {
-	return css({
-		"&[data-state='open']": {
-			animationDuration: "2s",
-			animationName,
-			animationFillMode: "forwards",
-		},
-		"&[data-state='closed']": {
-			animationDuration: "2s",
-			animationName,
-			animationFillMode: "forwards",
-			animationDirection: "reverse",
-		},
-	})
-}
+import { radixTransition } from "./helpers"
+import { fade, slideLeft } from "./keyframes"
 
 export default function Drawer(props: {
 	trigger: ReactElement
