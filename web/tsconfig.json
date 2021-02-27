@@ -15,7 +15,8 @@
 		"isolatedModules": true,
 		"noEmit": true,
 		"importsNotUsedAsValues": "error",
-		"jsx": "react-jsx"
+		"jsx": "react-jsx",
+		"noUncheckedIndexedAccess": true
 	},
 	"include": ["src"]
 }
