@@ -1,120 +1,59 @@
-import constate from "constate"
-import {
-	cloneElement,
-	ComponentPropsWithoutRef,
-	forwardRef,
-	ReactElement,
-	ReactNode,
-	Ref,
-	useMemo,
-} from "react"
-import {
-	Menu as BaseMenu,
-	MenuButton as BaseMenuButton,
-	MenuInitialState,
-	MenuItem as BaseMenuItem,
-	useMenuState,
-} from "reakit"
+import * as RadixMenu from "@radix-ui/react-dropdown-menu"
+import { Slot } from "@radix-ui/react-slot"
+import { forwardRef, ReactElement, ReactNode, Ref } from "react"
 import { apply, tw } from "twind"
-import type { Merge } from "../helpers/types"
+import { css } from "twind/css"
+import { radixTransitionCustom } from "./helpers"
 
-const [MenuProvider, useMenuContext] = constate(function useMenu(
-	options?: MenuInitialState,
-) {
-	const menu = useMenuState({
-		modal: true,
-		placement: "bottom",
-		gutter: 8,
-		animated: 200,
-		...options,
-	})
-
-	const buttonId = useMemo(() => `menu-button-${Math.random()}`, [])
-
-	return { menu, buttonId }
-})
-
-export function Menu({
-	children,
-	...options
-}: { children: ReactNode } & Partial<MenuInitialState>) {
-	return <MenuProvider {...options}>{children}</MenuProvider>
+export function Menu({ children }: { children: ReactNode }) {
+	return <RadixMenu.Root>{children}</RadixMenu.Root>
 }
 
 export const MenuButton = forwardRef(function MenuButton(
 	props: { children: ReactElement },
-	ref: Ref<HTMLButtonElement>,
+	ref: Ref<unknown>,
 ) {
-	const { menu, buttonId } = useMenuContext()
 	return (
-		<BaseMenuButton {...menu} id={buttonId} ref={ref}>
-			{(buttonProps) => cloneElement(props.children, buttonProps)}
-		</BaseMenuButton>
+		<RadixMenu.Trigger as={Slot} ref={ref as any}>
+			{props.children}
+		</RadixMenu.Trigger>
 	)
 })
 
-export function MenuPanel({
-	children,
-	className,
-}: {
-	children: ReactNode
-	className?: string
-}) {
-	const { menu, buttonId } = useMenuContext()
-
+export function MenuPanel({ children }: { children: ReactNode }) {
 	const baseStyle = apply`
 		bg-white text-gray-800 w-max rounded overflow-hidden shadow
-		transition duration-200 opacity-0 scale-95 
-		reakit-transition-child-enter:(opacity-100 scale-100)
+		${radixTransitionCustom({
+			start: apply`opacity-0 ${css({ transform: `scale(0.9)` })}`,
+			end: apply`opacity-100 ${css({ transform: `scale(1.0)` })}`,
+		})}
 	`
-
 	return (
-		<BaseMenu {...menu} aria-labelledby={buttonId}>
-			<div className={tw(baseStyle, className)}>
-				{menu.visible || menu.animating ? children : null}
-			</div>
-		</BaseMenu>
+		<RadixMenu.Content className={tw(baseStyle)}>{children}</RadixMenu.Content>
 	)
 }
 
-type MenuItemProps = Merge<
-	ComponentPropsWithoutRef<"button">,
-	{
-		children: ReactElement
-		keepOpen?: boolean
-	}
->
-
 export const MenuItem = forwardRef(function MenuItem(
-	{ children, className, onClick, keepOpen, ...props }: MenuItemProps,
-	ref: Ref<HTMLButtonElement>,
+	{ children, onClick }: { children: ReactNode; onClick?: () => void },
+	ref: Ref<unknown>,
 ) {
-	const { menu } = useMenuContext()
-	const id = useMemo(() => `menu-button-${Math.random()}`, [])
-
 	const baseStyle = apply`
 		block
 		p-3 w-full
 		leading-none font-medium text-left
 		transition
 		ring(2 inset transparent)
+		hocus:(bg-green-100 text-green-900)
 	`
 
-	const activeStyle = apply`bg-green-100 text-green-900`
-
 	return (
-		<BaseMenuItem
-			{...menu}
-			{...props}
-			id={id}
-			className={tw(baseStyle, menu.currentId === id && activeStyle, className)}
-			ref={ref}
-			onClick={(event) => {
-				if (!keepOpen) menu.hide()
-				onClick?.(event)
-			}}
+		<RadixMenu.Item
+			as={Slot as any}
+			ref={ref as any}
+			className={tw(baseStyle)}
+			onClick={onClick}
 		>
-			{(menuItemProps) => cloneElement(children, menuItemProps)}
-		</BaseMenuItem>
+			{children}
+		</RadixMenu.Item>
 	)
 })

@@ -1,9 +1,8 @@
 import * as RadixDialog from "@radix-ui/react-dialog"
 import { Slot } from "@radix-ui/react-slot"
 import { ReactElement, ReactNode, useState } from "react"
-import { tw } from "twind"
-import { radixTransition } from "./helpers"
-import { fade, slideLeft } from "./keyframes"
+import { apply, tw } from "twind"
+import { radixTransitionCustom } from "./helpers"
 
 export default function Drawer(props: {
 	trigger: ReactElement
@@ -14,13 +13,19 @@ export default function Drawer(props: {
 		<RadixDialog.Root open={open} onOpenChange={setOpen}>
 			<RadixDialog.Trigger as={Slot}>{props.trigger}</RadixDialog.Trigger>
 			<RadixDialog.Overlay
-				className={tw`fixed inset-0 bg(black opacity-75) ${radixTransition(
-					fade,
+				className={tw`fixed inset-0 bg(black opacity-75) ${radixTransitionCustom(
+					{
+						start: apply`opacity-0`,
+						end: apply`opacity-100`,
+					},
 				)}`}
 			/>
 			<RadixDialog.Content
-				className={tw`fixed inset-y-0 left-0 bg-gray-800 shadow transform ${radixTransition(
-					slideLeft,
+				className={tw`fixed inset-y-0 left-0 bg-gray-800 shadow transform ${radixTransitionCustom(
+					{
+						start: { transform: `translateX(-100%)` },
+						end: { transform: `translateX(0)` },
+					},
 				)}`}
 			>
 				{props.children}

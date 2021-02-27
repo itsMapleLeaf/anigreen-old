@@ -1,17 +1,25 @@
-import { css } from "twind/css"
-import type { KeyframeTransition } from "./keyframes"
+import type { CSSProperties, CSSRules, Directive } from "twind"
+import { css, keyframes } from "twind/css"
 
-export function radixTransition(transition: KeyframeTransition) {
+export function radixTransitionCustom({
+	start,
+	end,
+}: {
+	start: Directive<CSSProperties | CSSRules> | CSSProperties | CSSRules
+	end: Directive<CSSProperties | CSSRules> | CSSProperties | CSSRules
+}) {
 	return css({
 		"&": {
-			animationDuration: "0.3s",
+			animationDuration: "0.25s",
 			animationFillMode: "forwards",
 		},
 		"&[data-state='open']": {
-			animationName: transition.in,
+			// @ts-expect-error
+			animationName: keyframes({ from: start, to: end }),
 		},
 		"&[data-state='closed']": {
-			animationName: transition.out,
+			// @ts-expect-error
+			animationName: keyframes({ from: end, to: start }),
 		},
 	})
 }

@@ -10,6 +10,7 @@
 	},
 	"dependencies": {
 		"@radix-ui/react-dialog": "^0.0.6",
+		"@radix-ui/react-dropdown-menu": "^0.0.8",
 		"@radix-ui/react-slot": "^0.0.3",
 		"constate": "^3.1.0",
 		"date-fns": "^2.17.0",
