@@ -1,5 +1,5 @@
 import constate from "constate"
-import React, { cloneElement, ReactElement, ReactNode, useMemo } from "react"
+import { cloneElement, ReactElement, ReactNode, useMemo } from "react"
 import {
 	Dialog as BaseDialog,
 	DialogBackdrop,

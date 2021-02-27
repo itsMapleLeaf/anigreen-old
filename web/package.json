@@ -9,6 +9,8 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@radix-ui/react-dialog": "^0.0.6",
+		"@radix-ui/react-slot": "^0.0.3",
 		"constate": "^3.1.0",
 		"date-fns": "^2.17.0",
 		"focus-visible": "^5.2.0",
@@ -18,7 +20,7 @@
 		"react-focus-on": "^3.5.1",
 		"react-query": "^3.12.0",
 		"reakit": "https://pkg.csb.dev/reakit/reakit/commit/8757436a/reakit",
-		"twind": "^0.15.4"
+		"twind": "^0.15.6"
 	},
 	"devDependencies": {
 		"@graphql-codegen/cli": "1.20.1",

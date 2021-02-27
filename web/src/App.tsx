@@ -38,7 +38,17 @@ export default function App() {
 					${isAtTop ? `bg-gray-800` : `bg(black opacity-75)`}
 				`}
 			>
-				<Drawer trigger={<MenuButton />}>
+				<Drawer
+					trigger={
+						<button
+							type="button"
+							title="Menu"
+							className={tw(clearIconButtonStyle)}
+						>
+							<MenuIcon className={tw`w-6`} />
+						</button>
+					}
+				>
 					<NavDrawerContent />
 				</Drawer>
 
@@ -50,15 +60,15 @@ export default function App() {
 			<main className={tw`mx-auto max-w-screen-xl grid gap-8 px-4 py-6`}>
 				<QueryRenderer
 					{...animeListQuery}
-					renderData={(data) => {
-						const entries = compact(
-							data?.MediaListCollection?.lists?.flatMap(
-								(list) => list?.entries,
-							),
-						)
-
-						return <SectionedAnimeList entries={entries} />
-					}}
+					renderData={(data) => (
+						<SectionedAnimeList
+							entries={compact(
+								data?.MediaListCollection?.lists?.flatMap(
+									(list) => list?.entries,
+								),
+							)}
+						/>
+					)}
 				/>
 			</main>
 		</div>
@@ -103,19 +113,6 @@ function SectionedAnimeList({
 			</div>
 		</div>
 	)) as any
-}
-
-function MenuButton({ onClick }: { onClick?: () => void }) {
-	return (
-		<button
-			type="button"
-			title="Menu"
-			className={tw(clearIconButtonStyle)}
-			onClick={onClick}
-		>
-			<MenuIcon className={tw`w-6`} />
-		</button>
-	)
 }
 
 function getWeekday(day: number) {

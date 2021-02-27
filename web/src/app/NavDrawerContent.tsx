@@ -1,4 +1,5 @@
-import { cloneElement, ReactElement } from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { forwardRef, ReactElement, Ref } from "react"
 import { tw } from "twind"
 import { useViewerQuery } from "../generated/graphql"
 import { DrawerItem } from "../ui/Drawer"
@@ -106,21 +107,28 @@ function NavDrawerHeader() {
 	)
 }
 
-function NavItem({
-	children,
-	active,
-	onClick,
-}: {
-	children: ReactElement
-	active?: boolean
-	onClick?: () => void
-}) {
+const NavItem = forwardRef(function NavItem(
+	{
+		children,
+		active,
+		...props
+	}: {
+		children: ReactElement
+		active?: boolean
+	},
+	ref: Ref<unknown>,
+) {
 	const baseStyle = tw`flex items-center w-full rounded-lg space-x-2 p-2 font-medium transition leading-none`
 	const activeStyle = tw`text-green-400 bg(black opacity-25)`
 	const inactiveStyle = tw`opacity-50 hactive:(opacity-75 bg(black opacity-25))`
 
-	return cloneElement(children, {
-		onClick,
-		className: tw`${baseStyle} ${active ? activeStyle : inactiveStyle}`,
-	})
-}
+	return (
+		<Slot
+			className={tw(baseStyle, active ? activeStyle : inactiveStyle)}
+			ref={ref}
+			{...props}
+		>
+			{children}
+		</Slot>
+	)
+})

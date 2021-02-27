@@ -1,19 +1,35 @@
-import {
-	cloneElement,
-	createContext,
-	ReactElement,
-	ReactNode,
-	useContext,
-	useState,
-} from "react"
-import { FocusOn } from "react-focus-on"
+import * as RadixDialog from "@radix-ui/react-dialog"
+import { Slot } from "@radix-ui/react-slot"
+import { ReactElement, ReactNode, useState } from "react"
 import { tw } from "twind"
-import Portal from "./Portal"
+import { apply, css, keyframes } from "twind/css"
 
-const Context = createContext({
-	open: false,
-	setOpen(newOpen: boolean) {},
+// @ts-expect-error
+const fade = keyframes({
+	from: apply`opacity-0`,
+	to: apply`opacity-100`,
 })
+
+const slideLeft = keyframes({
+	from: { transform: `translateX(-100%)` },
+	to: { transform: `translateX(0)` },
+})
+
+function radixTransition(animationName: ReturnType<typeof keyframes>) {
+	return css({
+		"&[data-state='open']": {
+			animationDuration: "2s",
+			animationName,
+			animationFillMode: "forwards",
+		},
+		"&[data-state='closed']": {
+			animationDuration: "2s",
+			animationName,
+			animationFillMode: "forwards",
+			animationDirection: "reverse",
+		},
+	})
+}
 
 export default function Drawer(props: {
 	trigger: ReactElement
@@ -21,51 +37,24 @@ export default function Drawer(props: {
 }) {
 	const [open, setOpen] = useState(false)
 	return (
-		<>
-			{cloneElement(props.trigger, {
-				onClick: (...args: unknown[]) => {
-					setOpen((open) => !open)
-					props.trigger.props.onClick?.(...args)
-				},
-			})}
-			<Portal>
-				<div
-					className={tw`
-						fixed inset-0
-						bg(black opacity-75)
-						transition-all duration-300
-						${open ? `opacity-100 visible` : `opacity-0 invisible`}
-					`}
-				>
-					<FocusOn
-						className={tw`
-							w-max h-full
-							bg-gray-800
-							shadow
-							transition duration-300
-							transform
-							${open ? `translate-x-0` : `-translate-x-full`}
-						`}
-						enabled={open}
-						onClickOutside={() => setOpen(false)}
-						onEscapeKey={() => setOpen(false)}
-					>
-						<Context.Provider value={{ open, setOpen }}>
-							{props.children}
-						</Context.Provider>
-					</FocusOn>
-				</div>
-			</Portal>
-		</>
+		<RadixDialog.Root open={open} onOpenChange={setOpen}>
+			<RadixDialog.Trigger as={Slot}>{props.trigger}</RadixDialog.Trigger>
+			<RadixDialog.Overlay
+				className={tw`fixed inset-0 bg(black opacity-75) ${radixTransition(
+					fade,
+				)}`}
+			/>
+			<RadixDialog.Content
+				className={tw`fixed inset-y-0 left-0 bg-gray-800 shadow transform ${radixTransition(
+					slideLeft,
+				)}`}
+			>
+				{props.children}
+			</RadixDialog.Content>
+		</RadixDialog.Root>
 	)
 }
 
 export function DrawerItem({ children }: { children: ReactElement }) {
-	const drawer = useContext(Context)
-	return cloneElement(children, {
-		onClick: (...args: unknown[]) => {
-			children.props.onClick?.(...args)
-			drawer.setOpen(false)
-		},
-	})
+	return <RadixDialog.Close as={Slot}>{children}</RadixDialog.Close>
 }
