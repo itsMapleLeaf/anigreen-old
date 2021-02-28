@@ -4,6 +4,7 @@ import { ReactElement, ReactNode, useState } from "react"
 import { apply, tw } from "twind"
 import { radixTransitionCustom } from "./helpers"
 
+// TODO: have this use dialog component
 export default function Drawer(props: {
 	trigger: ReactElement
 	children: ReactNode

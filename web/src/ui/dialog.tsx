@@ -1,59 +1,52 @@
-import constate from "constate"
-import { cloneElement, ReactElement, ReactNode, useMemo } from "react"
-import {
-	Dialog as BaseDialog,
-	DialogBackdrop,
-	DialogDisclosure,
-	useDialogState,
-} from "reakit"
-import { tw } from "twind"
+import * as RadixDialog from "@radix-ui/react-dialog"
+import { Slot } from "@radix-ui/react-slot"
+import type { ReactElement, ReactNode } from "react"
+import { apply, tw } from "twind"
+import { css } from "twind/css"
 import { clearIconButtonStyle } from "./components"
+import { radixTransitionCustom } from "./helpers"
 import { CloseIcon } from "./icons"
 
-export const [DialogProvider, useDialogContext] = constate(() => {
-	const dialog = useDialogState({ animated: true })
-	const buttonId = useMemo(() => `dialog-button-${Math.random()}`, [])
-	return { dialog, buttonId }
-})
-
 export function Dialog({ children }: { children: ReactNode }) {
-	return <DialogProvider>{children}</DialogProvider>
+	return <RadixDialog.Root>{children}</RadixDialog.Root>
 }
 
 export function DialogButton({ children }: { children: ReactElement }) {
-	const { dialog, buttonId } = useDialogContext()
-	return (
-		<DialogDisclosure {...dialog} id={buttonId}>
-			{(disclosureProps) => cloneElement(children, disclosureProps)}
-		</DialogDisclosure>
-	)
+	return <RadixDialog.Trigger as={Slot}>{children}</RadixDialog.Trigger>
 }
 
 export function FullScreenModalDialog({ children }: { children: ReactNode }) {
-	const { dialog, buttonId } = useDialogContext()
 	return (
-		<DialogBackdrop
-			{...dialog}
-			className={tw`fixed inset-0 bg-black bg-opacity-75 flex flex-col p-4 transition-opacity opacity-0 reakit-transition-enter:opacity-100`}
-		>
-			<BaseDialog
-				{...dialog}
-				className={tw`flex flex-col space-y-4 h-full pointer-events-none transition-transform transform scale-95 reakit-transition-enter:scale-100`}
-				aria-labelledby={buttonId}
+		<>
+			<RadixDialog.Overlay
+				className={tw`fixed inset-0 bg(black opacity-75) ${radixTransitionCustom(
+					{
+						start: apply`opacity-0`,
+						end: apply`opacity-100`,
+					},
+				)}`}
+			/>
+			<RadixDialog.Content
+				className={tw`
+					fixed inset-0 p-4 flex flex-col space-y-4 pointer-events-none
+					${radixTransitionCustom({
+						start: apply`opacity-0 ${css({ transform: `scale(0.9)` })}`,
+						end: apply`opacity-100 ${css({ transform: `scale(1.0)` })}`,
+					})}
+				`}
 			>
-				<button
+				<RadixDialog.Close
 					type="button"
-					onClick={() => dialog.hide()}
 					className={tw(clearIconButtonStyle, "pointer-events-auto self-end")}
 				>
 					<CloseIcon />
-				</button>
+				</RadixDialog.Close>
 				<div
 					className={tw`flex-1 bg-gray-800 rounded-lg overflow-y-auto shadow pointer-events-auto`}
 				>
-					{dialog.visible || dialog.animating ? children : null}
+					{children}
 				</div>
-			</BaseDialog>
-		</DialogBackdrop>
+			</RadixDialog.Content>
+		</>
 	)
 }
