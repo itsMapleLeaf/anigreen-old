@@ -7,8 +7,20 @@ import { clearIconButtonStyle } from "./components"
 import { radixTransitionCustom } from "./helpers"
 import { CloseIcon } from "./icons"
 
-export function Dialog({ children }: { children: ReactNode }) {
-	return <RadixDialog.Root>{children}</RadixDialog.Root>
+export function Dialog({
+	children,
+	isOpen,
+	onOpenChange,
+}: {
+	children: ReactNode
+	isOpen?: boolean
+	onOpenChange?: (isOpen: boolean) => void
+}) {
+	return (
+		<RadixDialog.Root open={isOpen} onOpenChange={onOpenChange}>
+			{children}
+		</RadixDialog.Root>
+	)
 }
 
 export function DialogButton({ children }: { children: ReactElement }) {
@@ -30,7 +42,7 @@ export function FullScreenModalDialog({ children }: { children: ReactNode }) {
 				className={tw`
 					fixed inset-0 p-4 flex flex-col space-y-4 pointer-events-none
 					${radixTransitionCustom({
-						start: apply`opacity-0 ${css({ transform: `scale(0.9)` })}`,
+						start: apply`opacity-0 ${css({ transform: `scale(0.95)` })}`,
 						end: apply`opacity-100 ${css({ transform: `scale(1.0)` })}`,
 					})}
 				`}
