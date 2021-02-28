@@ -1,10 +1,9 @@
-import { cloneElement, ReactElement } from "react"
-import {
-	Tooltip as BaseTooltip,
-	TooltipReference,
-	useTooltipState,
-} from "reakit"
+import { Slot } from "@radix-ui/react-slot"
+import { Arrow, Content, Root, Trigger } from "@radix-ui/react-tooltip"
+import type { ReactElement } from "react"
 import { apply, tw } from "twind"
+import { css } from "twind/css"
+import { radixTransitionCustom } from "./helpers"
 
 type Props = {
 	text: string
@@ -12,24 +11,21 @@ type Props = {
 }
 
 export default function Tooltip({ text, children }: Props) {
-	const tooltip = useTooltipState({
-		animated: 200,
-	})
-
 	const tooltipStyle = apply`
 		bg-white text-gray-900 rounded shadow p-1.5 text-sm leading-none font-medium
-		transition duration-200 opacity-0 scale-90
-		reakit-transition-child-enter:(opacity-100 scale-100)
+		${radixTransitionCustom({
+			start: apply`opacity-0 ${css({ transform: `scale(0.9)` })}`,
+			end: apply`opacity-100 ${css({ transform: `scale(1.0)` })}`,
+		})}
 	`
 
 	return (
-		<>
-			<TooltipReference {...tooltip}>
-				{(referenceProps) => cloneElement(children, referenceProps)}
-			</TooltipReference>
-			<BaseTooltip {...tooltip}>
-				<div className={tw(tooltipStyle)}>{text}</div>
-			</BaseTooltip>
-		</>
+		<Root>
+			<Trigger as={Slot}>{children}</Trigger>
+			<Content className={tw(tooltipStyle)} side="top" sideOffset={8}>
+				<Arrow className={tw`fill-current text-white`} />
+				{text}
+			</Content>
+		</Root>
 	)
 }
