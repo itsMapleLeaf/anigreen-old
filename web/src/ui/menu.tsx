@@ -1,20 +1,21 @@
 import * as RadixMenu from "@radix-ui/react-dropdown-menu"
 import { Slot } from "@radix-ui/react-slot"
-import { forwardRef, ReactElement, ReactNode, Ref } from "react"
+import type { ReactElement, ReactNode, Ref } from "react"
 import { apply, tw } from "twind"
 import { css } from "twind/css"
+import { autoRef } from "../react/helpers"
 import { radixTransitionCustom } from "./helpers"
 
 export function Menu({ children }: { children: ReactNode }) {
 	return <RadixMenu.Root>{children}</RadixMenu.Root>
 }
 
-export const MenuButton = forwardRef(function MenuButton(
-	props: { children: ReactElement },
-	ref: Ref<unknown>,
-) {
+export const MenuButton = autoRef(function MenuButton(props: {
+	children: ReactElement
+	ref: Ref<unknown>
+}) {
 	return (
-		<RadixMenu.Trigger as={Slot} ref={ref as any}>
+		<RadixMenu.Trigger as={Slot} ref={props.ref as any}>
 			{props.children}
 		</RadixMenu.Trigger>
 	)
@@ -33,10 +34,15 @@ export function MenuPanel({ children }: { children: ReactNode }) {
 	)
 }
 
-export const MenuItem = forwardRef(function MenuItem(
-	{ children, onClick }: { children: ReactNode; onClick?: () => void },
-	ref: Ref<unknown>,
-) {
+export const MenuItem = autoRef(function MenuItem({
+	children,
+	onClick,
+	ref,
+}: {
+	children: ReactNode
+	onClick?: () => void
+	ref: Ref<unknown>
+}) {
 	const baseStyle = apply`
 		block
 		p-3 w-full

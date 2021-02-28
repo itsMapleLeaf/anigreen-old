@@ -1,25 +1,26 @@
-import { ComponentPropsWithoutRef, forwardRef, Ref } from "react"
+import type { ComponentProps } from "react"
 import { apply, tw } from "twind"
+import { autoRef } from "../react/helpers"
 import { LoadingIcon } from "../ui/icons"
 
-export type ForwardRefButtonComponent = (
-	props: ComponentPropsWithoutRef<"button"> & { loading?: boolean },
-	ref: Ref<HTMLButtonElement>,
-) => JSX.Element
+type Props = ComponentProps<"button"> & {
+	loading?: boolean
+}
 
-const Button: ForwardRefButtonComponent = (
-	{ loading, children, className, ...props },
-	ref,
-) => (
-	<button
-		type="button"
-		disabled={loading}
-		className={tw`${loading && apply`opacity-50`} ${className}`}
-		ref={ref}
-		{...props}
-	>
-		{loading ? <LoadingIcon /> : children}
-	</button>
-)
-
-export default forwardRef(Button)
+export default autoRef(function Button({
+	loading,
+	children,
+	className,
+	...props
+}: Props) {
+	return (
+		<button
+			type="button"
+			disabled={loading}
+			className={tw`${loading && apply`opacity-50`} ${className}`}
+			{...props}
+		>
+			{loading ? <LoadingIcon /> : children}
+		</button>
+	)
+})
