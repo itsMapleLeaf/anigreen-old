@@ -37,6 +37,6 @@ eslint-plugin-react-hooks
 	},
 	"ignorePatterns": ["**/node_modules/**", "**/dist/**", "src/generated/**"],
 	"settings": {
-		"react": { "version": "detect" }
+		"react": { "version": "latest" }
 	}
 }
