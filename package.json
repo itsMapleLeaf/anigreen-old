@@ -3,8 +3,8 @@
 	"description": "a cute and sleek extension to anilist ✨",
 	"private": true,
 	"scripts": {
-		"dev": "pnpm run dev --recursive",
-		"start": "pnpm run start --recursive",
+		"dev": "pnpm run dev --recursive --parallel --color",
+		"start": "pnpm run start --recursive --parallel --color",
 		"lint": "eslint --ext \"js,ts,tsx,mjs\" .",
 		"format": "prettier --write .",
 		"deploy": "pnpm run build --recursive && flyctl deploy"
