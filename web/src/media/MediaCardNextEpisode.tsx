@@ -1,4 +1,4 @@
-import { tw } from "twind"
+import "@twind/macro"
 import type { AnimeListEntryFragment } from "../generated/graphql"
 import { relativeTime } from "../helpers/relativeTime"
 import { InfoIcon } from "../ui/icons"
@@ -28,7 +28,7 @@ export default function MediaCardNextEpisode({
 			<p>
 				{`Episode ${episode} airs ${relativeTime(airingAt * 1000)}`}{" "}
 				<InfoIcon
-					className={tw`inline-block opacity-50`}
+					tw="inline-block opacity-50"
 					style={{ verticalAlign: "text-top" }}
 				/>
 			</p>

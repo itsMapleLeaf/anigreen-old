@@ -1,5 +1,5 @@
+import "@twind/macro"
 import type { ReactNode } from "react"
-import { tw } from "twind"
 
 export default function AspectBox({
 	ratio,
@@ -10,10 +10,10 @@ export default function AspectBox({
 }) {
 	return (
 		<div
-			className={tw`w-full relative`}
+			tw="w-full relative"
 			style={{ paddingBottom: `${(1 / ratio) * 100}%` }}
 		>
-			<div className={tw`absolute inset-0`}>{children}</div>
+			<div tw="absolute inset-0">{children}</div>
 		</div>
 	)
 }
