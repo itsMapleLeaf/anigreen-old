@@ -52,8 +52,8 @@ importers:
       '@radix-ui/react-dropdown-menu': 0.0.8_54f0cdf50b81d00d581db00613065534
       '@radix-ui/react-slot': 0.0.3_react@17.0.1
       '@radix-ui/react-tooltip': 0.0.7_react-dom@17.0.1+react@17.0.1
-      constate: 3.1.0_react@17.0.1
-      date-fns: 2.17.0
+      constate: 3.2.0_react@17.0.1
+      date-fns: 2.18.0
       focus-visible: 5.2.0
       lodash-es: 4.17.21
       react: 17.0.1
@@ -65,11 +65,11 @@ importers:
       '@graphql-codegen/typescript': 1.21.0_graphql@15.5.0
       '@graphql-codegen/typescript-operations': 1.17.14_graphql@15.5.0
       '@graphql-codegen/typescript-react-query': 1.2.2_graphql@15.5.0
-      '@itsmapleleaf/vite-plugin-babel-macros': 1.0.1_vite@2.0.4
+      '@itsmapleleaf/vite-plugin-babel-macros': 1.0.2_vite@2.0.4
       '@testing-library/jest-dom': 5.11.9
       '@testing-library/react': 11.2.5_react-dom@17.0.1+react@17.0.1
-      '@testing-library/react-hooks': 5.0.3_react-dom@17.0.1+react@17.0.1
-      '@testing-library/user-event': 12.7.3
+      '@testing-library/react-hooks': 5.1.0_react-dom@17.0.1+react@17.0.1
+      '@testing-library/user-event': 12.8.0
       '@twind/macro': 0.1.2_twind@0.15.6
       '@types/jest': 26.0.20
       '@types/lodash-es': 4.17.4
@@ -84,21 +84,21 @@ importers:
       typescript: 4.2.2
       typesync: 0.8.0
       vite: 2.0.4
-      vite-plugin-pwa: 0.5.5
+      vite-plugin-pwa: 0.5.6
     specifiers:
       '@graphql-codegen/cli': 1.20.1
       '@graphql-codegen/typescript': 1.21.0
       '@graphql-codegen/typescript-operations': 1.17.14
       '@graphql-codegen/typescript-react-query': ^1.2.2
-      '@itsmapleleaf/vite-plugin-babel-macros': ^1.0.1
+      '@itsmapleleaf/vite-plugin-babel-macros': ^1.0.2
       '@radix-ui/react-dialog': ^0.0.6
       '@radix-ui/react-dropdown-menu': ^0.0.8
       '@radix-ui/react-slot': ^0.0.3
       '@radix-ui/react-tooltip': ^0.0.7
       '@testing-library/jest-dom': ^5.11.9
       '@testing-library/react': ^11.2.5
-      '@testing-library/react-hooks': ^5.0.3
-      '@testing-library/user-event': ^12.7.3
+      '@testing-library/react-hooks': ^5.1.0
+      '@testing-library/user-event': ^12.8.0
       '@twind/macro': ^0.1.2
       '@types/jest': ^26.0.20
       '@types/lodash-es': ^4.17.4
@@ -106,8 +106,8 @@ importers:
       '@types/react-dom': ^17.0.1
       '@types/testing-library__jest-dom': ^5.9.5
       '@vitejs/plugin-react-refresh': ^1.3.1
-      constate: ^3.1.0
-      date-fns: ^2.17.0
+      constate: ^3.2.0
+      date-fns: ^2.18.0
       focus-visible: ^5.2.0
       graphql: ^15.5.0
       jest: ^26.6.3
@@ -121,7 +121,7 @@ importers:
       typescript: ^4.2.2
       typesync: latest
       vite: ^2.0.4
-      vite-plugin-pwa: ^0.5.5
+      vite-plugin-pwa: ^0.5.6
 lockfileVersion: 5.2
 packages:
   /@ardatan/aggregate-error/0.0.6:
@@ -1109,7 +1109,7 @@ packages:
       babel-plugin-polyfill-corejs2: 0.1.8_@babel+core@7.13.8
       babel-plugin-polyfill-corejs3: 0.1.6_@babel+core@7.13.8
       babel-plugin-polyfill-regenerator: 0.1.5_@babel+core@7.13.8
-      core-js-compat: 3.9.0
+      core-js-compat: 3.9.1
       semver: 6.3.0
     dev: true
     peerDependencies:
@@ -1131,7 +1131,7 @@ packages:
       integrity: sha512-J36NhwnfdzpmH41M1DrnkkgAqhZaqr/NBdPfQ677mLzlaXo+oDiv1deyCDtgAhz8p328otdob0Du7+xgHGZbKg==
   /@babel/runtime-corejs3/7.13.8:
     dependencies:
-      core-js-pure: 3.9.0
+      core-js-pure: 3.9.1
       regenerator-runtime: 0.13.7
     dev: true
     resolution:
@@ -1455,7 +1455,7 @@ packages:
       integrity: sha512-DLuQmYeNNdPo8oWus8EePxWCfCAyUXPZ/p1PWqjrX/NGPyH2ZObdqtDAfRHztljt0F/qkBHbGHCEk2TKbRZTRw==
   /@graphql-tools/graphql-file-loader/6.2.7_graphql@15.5.0:
     dependencies:
-      '@graphql-tools/import': 6.2.6_graphql@15.5.0
+      '@graphql-tools/import': 6.3.0_graphql@15.5.0
       '@graphql-tools/utils': 7.5.0_graphql@15.5.0
       graphql: 15.5.0
       tslib: 2.1.0
@@ -1477,7 +1477,7 @@ packages:
       graphql: ^14.0.0 || ^15.0.0
     resolution:
       integrity: sha512-7qkm82iFmcpb8M6/yRgzjShtW6Qu2OlCSZp8uatA3J0eMl87TxyJoUmL3M3UMMOSundAK8GmoyNVFUrueueV5Q==
-  /@graphql-tools/import/6.2.6_graphql@15.5.0:
+  /@graphql-tools/import/6.3.0_graphql@15.5.0:
     dependencies:
       graphql: 15.5.0
       resolve-from: 5.0.0
@@ -1486,7 +1486,7 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0
     resolution:
-      integrity: sha512-/0H/bDjNK1MnKonk8fMbB7wIYU6QLCwbQOHtSHbFJ4j2qki5CqfAxpF+fGX6KovDtkdigcgRMvSKKi14oiuHPA==
+      integrity: sha512-zmaVhJ3UPjzJSb005Pjn2iWvH+9AYRXI4IUiTi14uPupiXppJP3s7S25Si3+DbHpFwurDF2nWRxBLiFPWudCqw==
   /@graphql-tools/json-file-loader/6.2.6_graphql@15.5.0:
     dependencies:
       '@graphql-tools/utils': 7.5.0_graphql@15.5.0
@@ -1706,7 +1706,7 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==
-  /@itsmapleleaf/vite-plugin-babel-macros/1.0.1_vite@2.0.4:
+  /@itsmapleleaf/vite-plugin-babel-macros/1.0.2_vite@2.0.4:
     dependencies:
       '@babel/core': 7.13.8
       '@babel/plugin-syntax-jsx': 7.12.13_@babel+core@7.13.8
@@ -1719,7 +1719,7 @@ packages:
     peerDependencies:
       vite: '>=2'
     resolution:
-      integrity: sha512-mmGs6X8J3xMARgIeDtaqOPewP9pZdxxMVSxMXGpPl1O2Q4MCCTfQkfjBzMpfXeMZ2vEREVC8GYVBgRQ5Dvxpjw==
+      integrity: sha512-mEH5nI9Apxy430dbQskA7MuGvmvFO21bCpTscNllvuXTi5wKO2H99BPhKXk/SFtNzQoqPIQdiuc008bX6eBWSg==
   /@jest/console/26.6.2:
     dependencies:
       '@jest/types': 26.6.2
@@ -2286,7 +2286,7 @@ packages:
       yarn: '>=1'
     resolution:
       integrity: sha512-Mn2gnA9d1wStlAIT2NU8J15LNob0YFBVjs2aEQ3j8rsfRQo+lAs7/ui1i2TGaJjapLmuNPLTsrm+nPjmZDwpcQ==
-  /@testing-library/react-hooks/5.0.3_react-dom@17.0.1+react@17.0.1:
+  /@testing-library/react-hooks/5.1.0_react-dom@17.0.1+react@17.0.1:
     dependencies:
       '@babel/runtime': 7.13.8
       '@types/react': 17.0.2
@@ -2307,7 +2307,7 @@ packages:
       react-test-renderer:
         optional: true
     resolution:
-      integrity: sha512-UrnnRc5II7LMH14xsYNm/WRch/67cBafmrSQcyFh0v+UUmSf1uzfB7zn5jQXSettGwOSxJwdQUN7PgkT0w22Lg==
+      integrity: sha512-ChRyyA14e0CeVkWGp24v8q/IiWUqH+B8daRx4lGZme4dsudmMNWz+Qo2Q2NzbD2O5rAVXh2hSbS/KTKeqHYhkw==
   /@testing-library/react/11.2.5_react-dom@17.0.1+react@17.0.1:
     dependencies:
       '@babel/runtime': 7.13.8
@@ -2322,7 +2322,7 @@ packages:
       react-dom: '*'
     resolution:
       integrity: sha512-yEx7oIa/UWLe2F2dqK0FtMF9sJWNXD+2PPtp39BvE0Kh9MJ9Kl0HrZAgEuhUJR+Lx8Di6Xz+rKwSdEPY2UV8ZQ==
-  /@testing-library/user-event/12.7.3:
+  /@testing-library/user-event/12.8.0:
     dependencies:
       '@babel/runtime': 7.13.8
     dev: true
@@ -2332,7 +2332,7 @@ packages:
     peerDependencies:
       '@testing-library/dom': '>=7.21.4'
     resolution:
-      integrity: sha512-IdSHkWfbeSSJRFlldvHDWfVX0U18TbXIvLSGII+JbqkJrsflFr4OWlQIua0TvcVVJNna3BNrNvRSvpQ0yvSXlA==
+      integrity: sha512-5+k4U3X6XaFDSBSu6tsD02HVfzuOiPcygQmmYFE2aQQ0e5wRSxWRoU80UH1msa9Q6wuxa0BQsAmwAAAMydcscg==
   /@tootallnate/once/1.1.2:
     dev: true
     engines:
@@ -3136,7 +3136,7 @@ packages:
     dependencies:
       '@babel/core': 7.13.8
       '@babel/helper-define-polyfill-provider': 0.1.4_@babel+core@7.13.8
-      core-js-compat: 3.9.0
+      core-js-compat: 3.9.1
     dev: true
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -3296,7 +3296,7 @@ packages:
       camelcase: 5.3.1
       chalk: 3.0.0
       cli-boxes: 2.2.1
-      string-width: 4.2.1
+      string-width: 4.2.2
       term-size: 2.2.1
       type-fest: 0.8.1
       widest-line: 3.1.0
@@ -3636,7 +3636,7 @@ packages:
       integrity: sha512-FxqpkPPwu1HjuN93Omfm4h8uIanXofW0RxVEW3k5RKx+mJJYSthzNhp32Kzxxy3YAEZ/Dc/EWN1vZRY0+kOhbw==
   /cliui/6.0.0:
     dependencies:
-      string-width: 4.2.1
+      string-width: 4.2.2
       strip-ansi: 6.0.0
       wrap-ansi: 6.2.0
     dev: true
@@ -3644,7 +3644,7 @@ packages:
       integrity: sha512-t6wbgtoCXvAzst7QgXxJYqPt0usEfbgQdftEPbLL/cvv6HPE5VgvqCuAIDR0NgU52ds6rFwqrgakNLrHEjCbrQ==
   /cliui/7.0.4:
     dependencies:
-      string-width: 4.2.1
+      string-width: 4.2.2
       strip-ansi: 6.0.0
       wrap-ansi: 7.0.0
     dev: true
@@ -3767,14 +3767,14 @@ packages:
     dev: true
     resolution:
       integrity: sha512-I2hSBi7Vvs7BEuJDr5dDHfzb/Ruj3FyvFyh7KLilAjNQw3Be+xgqUBA2W6scVEcL0hL1dwPRtIqEPVUCKkSsyQ==
-  /constate/3.1.0_react@17.0.1:
+  /constate/3.2.0_react@17.0.1:
     dependencies:
       react: 17.0.1
     dev: false
     peerDependencies:
       react: ^16.8.0 || ^17.0.0
     resolution:
-      integrity: sha512-a8hPXRJzcllP5D/9twMRI2VkAiZwgcY/fXyTHQqvv8EBZxzjEh6cAFlsHqnBQ7GtPWlNK11zD4pbIqO1jP0ReA==
+      integrity: sha512-hP7sj9jt+KwVRoFlzaJuv3kBvchE9hNMAYJEH1weKZYD7+UAWRSo7oXARrfhipVLP3XZxIkmD+E9zXU+5RYKCQ==
   /content-disposition/0.5.3:
     dependencies:
       safe-buffer: 5.1.2
@@ -3828,18 +3828,18 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
-  /core-js-compat/3.9.0:
+  /core-js-compat/3.9.1:
     dependencies:
       browserslist: 4.16.3
       semver: 7.0.0
     dev: true
     resolution:
-      integrity: sha512-YK6fwFjCOKWwGnjFUR3c544YsnA/7DoLL0ysncuOJ4pwbriAtOpvM2bygdlcXbvQCQZ7bBU9CL4t7tGl7ETRpQ==
-  /core-js-pure/3.9.0:
+      integrity: sha512-jXAirMQxrkbiiLsCx9bQPJFA6llDadKMpYrBJQJ3/c4/vsPP/fAf29h24tviRlvwUL6AmY5CHLu2GvjuYviQqA==
+  /core-js-pure/3.9.1:
     dev: true
     requiresBuild: true
     resolution:
-      integrity: sha512-3pEcmMZC9Cq0D4ZBh3pe2HLtqxpGNJBLXF/kZ2YzK17RbKp94w0HFbdbSx8H8kAlZG5k76hvLrkPm57Uyef+kg==
+      integrity: sha512-laz3Zx0avrw9a4QEIdmIblnVuJz8W51leY9iLThatCsFawWxC3sE4guASC78JbCin+DkwMpCdp1AVAuzL/GN7A==
   /core-util-is/1.0.2:
     dev: true
     resolution:
@@ -3983,12 +3983,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
-  /date-fns/2.17.0:
+  /date-fns/2.18.0:
     dev: false
     engines:
       node: '>=0.11'
     resolution:
-      integrity: sha512-ZEhqxUtEZeGgg9eHNSOAJ8O9xqSgiJdrL0lzSSfMF54x6KXWJiOH/xntSJ9YomJPrYH/p08t6gWjGWq1SDJlSA==
+      integrity: sha512-NYyAg4wRmGVU4miKq5ivRACOODdZRY3q5WLmOJSq8djyzftYphU7dTHLcEtLqEvfqMKQ0jVv91P4BAwIjsXIcw==
   /debounce/1.2.0:
     dev: true
     resolution:
@@ -4394,11 +4394,11 @@ packages:
       node: '>= 0.4'
     resolution:
       integrity: sha512-QCOllgZJtaUo9miYBcLChTUaHNjJF3PYs1VidD7AwiEj1kYxKeQTctLAezAOH5ZKRH0g2IgPn6KwB4IT8iRpvA==
-  /esbuild/0.8.53:
+  /esbuild/0.8.54:
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-GIaYGdMukH58hu+lf07XWAeESBYFAsz8fXnrylHDCbBXKOSNtFmoYA8PhSeSF+3/qzeJ0VjzV9AkLURo5yfu3g==
+      integrity: sha512-DJH38OiTgXJxFb/EhHrCrY8eGmtdkTtWymHpN9IYN9AF+4jykT0dQArr7wzFejpVbaB0TMIq2+vfNRWr3LXpvw==
   /escalade/3.1.1:
     dev: true
     engines:
@@ -5644,7 +5644,7 @@ packages:
       mute-stream: 0.0.8
       run-async: 2.4.1
       rxjs: 6.6.6
-      string-width: 4.2.1
+      string-width: 4.2.2
       strip-ansi: 6.0.0
       through: 2.3.8
     dev: true
@@ -8935,7 +8935,7 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-vafcv6KjVZKSgz06oM/H6GDBrAtz8vdhQakGjFIvNrHA6y3HCF1CInLy+QLq8dTJPQ1b+KDUqDFctkdRW44e1w==
-  /string-width/4.2.1:
+  /string-width/4.2.2:
     dependencies:
       emoji-regex: 8.0.0
       is-fullwidth-code-point: 3.0.0
@@ -8944,7 +8944,7 @@ packages:
     engines:
       node: '>=8'
     resolution:
-      integrity: sha512-LL0OLyN6AnfV9xqGQpDBwedT2Rt63737LxvsRxbcwpa2aIeynBApG2Sm//F3TaLHIR1aJBN52DWklc06b94o5Q==
+      integrity: sha512-XBJbT3N4JhVumXE0eoLU9DCjcaF92KLNqTmFCnG1pf8duUxFGwtP6AD6nkjw9a3IdiRtL3E2w3JDiE/xi3vOeA==
   /string.prototype.matchall/4.0.4:
     dependencies:
       call-bind: 1.0.2
@@ -9122,7 +9122,7 @@ packages:
       ajv: 7.1.1
       lodash: 4.17.21
       slice-ansi: 4.0.0
-      string-width: 4.2.1
+      string-width: 4.2.2
     dev: true
     engines:
       node: '>=10.0.0'
@@ -9752,7 +9752,7 @@ packages:
       '0': node >=0.6.0
     resolution:
       integrity: sha1-OhBcoXBTr1XW4nDB+CiGguGNpAA=
-  /vite-plugin-pwa/0.5.5:
+  /vite-plugin-pwa/0.5.6:
     dependencies:
       debug: 4.3.2
       fast-glob: 3.2.5
@@ -9760,10 +9760,10 @@ packages:
       workbox-build: 6.1.1
     dev: true
     resolution:
-      integrity: sha512-gwPg+pDm87iMOLORz/fOZiNNWNXhHFrMPW34XpX3F9JLl6ytcNZ6cJMYJ1FRKQPtVADqkbZjk3g3AOi1oI6HKQ==
+      integrity: sha512-CQjfKdSm0YMRRdMkfdI1RqJyrCjOFUl61+puGfMNAUMM5tex9rjF9gHxqDV5pN/2jFMQoTKkLLQ7HOYM0VbF2w==
   /vite/2.0.4:
     dependencies:
-      esbuild: 0.8.53
+      esbuild: 0.8.54
       postcss: 8.2.6
       resolve: 1.20.0
       rollup: 2.40.0
@@ -9869,7 +9869,7 @@ packages:
       integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==
   /widest-line/3.1.0:
     dependencies:
-      string-width: 4.2.1
+      string-width: 4.2.2
     dev: true
     engines:
       node: '>=8'
@@ -10034,7 +10034,7 @@ packages:
   /wrap-ansi/6.2.0:
     dependencies:
       ansi-styles: 4.3.0
-      string-width: 4.2.1
+      string-width: 4.2.2
       strip-ansi: 6.0.0
     dev: true
     engines:
@@ -10044,7 +10044,7 @@ packages:
   /wrap-ansi/7.0.0:
     dependencies:
       ansi-styles: 4.3.0
-      string-width: 4.2.1
+      string-width: 4.2.2
       strip-ansi: 6.0.0
     dev: true
     engines:
@@ -10139,7 +10139,7 @@ packages:
       require-directory: 2.1.1
       require-main-filename: 2.0.0
       set-blocking: 2.0.0
-      string-width: 4.2.1
+      string-width: 4.2.2
       which-module: 2.0.0
       y18n: 4.0.1
       yargs-parser: 18.1.3
@@ -10154,7 +10154,7 @@ packages:
       escalade: 3.1.1
       get-caller-file: 2.0.5
       require-directory: 2.1.1
-      string-width: 4.2.1
+      string-width: 4.2.2
       y18n: 5.0.5
       yargs-parser: 20.2.6
     dev: true
