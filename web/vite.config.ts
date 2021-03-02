@@ -1,6 +1,6 @@
-import macrosPlugin from "@itsmapleleaf/vite-plugin-babel-macros"
 import reactRefresh from "@vitejs/plugin-react-refresh"
-import { defineConfig } from "vite"
+import { defineConfig, Plugin } from "vite"
+import macrosPlugin from "vite-plugin-babel-macros"
 import { VitePWA } from "vite-plugin-pwa"
 
 // https://vitejs.dev/config/
@@ -16,6 +16,7 @@ export default defineConfig({
 	},
 	plugins: [
 		reactRefresh(),
+		inject({ prefix: `import "@twind/macro";` }),
 		macrosPlugin(),
 		VitePWA({
 			manifest: {
@@ -38,3 +39,15 @@ export default defineConfig({
 		}),
 	],
 })
+
+function inject(options: { prefix?: string; postfix?: string }): Plugin {
+	return {
+		name: "inject",
+		enforce: "pre",
+		transform(source, filename) {
+			if (/\.(j|t)sx?$/i.test(filename) && !filename.includes("node_modules")) {
+				return `${options.prefix ?? ""}${source}${options.postfix ?? ""}`
+			}
+		},
+	}
+}
