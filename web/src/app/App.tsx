@@ -7,8 +7,8 @@ import { clearIconButtonStyle } from "../ui/components"
 import Drawer from "../ui/Drawer"
 import { MenuIcon } from "../ui/icons"
 import QueryRenderer from "../ui/QueryRenderer"
-import { AppLogoLink } from "./AppLogoLink"
-import { NavDrawerContent } from "./NavDrawerContent"
+import AppLogoLink from "./AppLogoLink"
+import NavDrawerContent from "./NavDrawerContent"
 
 export default function App() {
 	const viewerId = useViewerQuery().data?.Viewer?.id

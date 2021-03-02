@@ -1,4 +1,4 @@
-export function AppLogoLink() {
+export default function AppLogoLink() {
 	return (
 		<a href="/" tw="space-y-1">
 			<h1 tw="text-3xl leading-none">

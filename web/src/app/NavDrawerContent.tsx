@@ -7,7 +7,7 @@ import { DrawerItem } from "../ui/Drawer"
 import { BookmarkIcon, LogoutIcon, PlayIcon, SearchIcon } from "../ui/icons"
 import Image from "../ui/Image"
 
-export function NavDrawerContent() {
+export default function NavDrawerContent() {
 	const viewerId = useViewerQuery().data?.Viewer?.id
 
 	return (
