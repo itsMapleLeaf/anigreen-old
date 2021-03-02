@@ -1,6 +1,5 @@
 import { addDays, startOfWeek } from "date-fns"
 import { groupBy, sortBy } from "lodash-es"
-import { tw } from "twind"
 import type { AnimeListEntryFragment } from "../generated/graphql"
 import { mod } from "../helpers/mod"
 import MediaCard from "./MediaCard"
@@ -29,12 +28,12 @@ export default function SectionedMediaCardList({
 	)
 
 	return sortedListsByDay.map(({ day, entries }) => (
-		<div key={day} className={tw`grid gap-3`}>
-			<h2 className={tw`font-condensed text-2xl`}>
+		<div key={day} tw="grid gap-3">
+			<h2 tw="font-condensed text-2xl">
 				{Number.isFinite(day) ? getWeekday(day) : "Not Airing"}
 			</h2>
 			<div
-				className={tw`grid gap-4 items-start`}
+				tw="grid gap-4 items-start"
 				style={{ gridTemplateColumns: `repeat(auto-fill, minmax(16rem, 1fr))` }}
 			>
 				{entries.map((entry) => (

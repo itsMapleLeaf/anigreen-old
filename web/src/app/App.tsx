@@ -1,6 +1,5 @@
 import { compact } from "lodash-es"
 import { useCallback } from "react"
-import { tw } from "twind"
 import { useScrollSelector } from "../dom/useScrollSelector"
 import { useAnimeListQuery, useViewerQuery } from "../generated/graphql"
 import SectionedMediaCardList from "../media/SectionedMediaCardList"
@@ -24,7 +23,7 @@ export default function App() {
 	return (
 		<div style={{ isolation: "isolate" }}>
 			<header
-				className={tw`
+				tw={`
 					sticky top-0 z-10
 					flex items-center space-x-2 px-2
 					transition duration-300
@@ -34,24 +33,20 @@ export default function App() {
 			>
 				<Drawer
 					trigger={
-						<button
-							type="button"
-							title="Menu"
-							className={tw(clearIconButtonStyle)}
-						>
-							<MenuIcon className={tw`w-6`} />
+						<button type="button" title="Menu" tw={clearIconButtonStyle}>
+							<MenuIcon tw="w-6" />
 						</button>
 					}
 				>
 					<NavDrawerContent />
 				</Drawer>
 
-				<div className={tw`py-2`}>
+				<div tw="py-2">
 					<AppLogoLink />
 				</div>
 			</header>
 
-			<main className={tw`mx-auto max-w-screen-xl grid gap-8 px-4 py-6`}>
+			<main tw="mx-auto max-w-screen-xl grid gap-8 px-4 py-6">
 				<QueryRenderer
 					{...animeListQuery}
 					renderData={(data) => (

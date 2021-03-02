@@ -53,9 +53,7 @@ export function FullScreenModalDialog({ children }: { children: ReactNode }) {
 				>
 					<CloseIcon />
 				</RadixDialog.Close>
-				<div
-					className={tw`flex-1 bg-gray-800 rounded-lg overflow-y-auto shadow pointer-events-auto`}
-				>
+				<div tw="flex-1 bg-gray-800 rounded-lg overflow-y-auto shadow pointer-events-auto">
 					{children}
 				</div>
 			</RadixDialog.Content>

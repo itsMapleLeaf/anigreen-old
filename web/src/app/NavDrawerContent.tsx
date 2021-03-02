@@ -12,8 +12,8 @@ export function NavDrawerContent() {
 
 	return (
 		<>
-			<div className={tw`w-64 space-y-2 p-2`}>
-				<nav className={tw`space-y-2`}>
+			<div tw="w-64 space-y-2 p-2">
+				<nav tw="space-y-2">
 					{viewerId && <NavDrawerHeader />}
 
 					{viewerId ? null : (
@@ -76,13 +76,11 @@ function NavDrawerHeader() {
 	const viewer = useViewerQuery().data?.Viewer
 
 	return (
-		<div className={tw`relative overflow-hidden`}>
-			<div
-				className={tw`absolute inset-0 rounded-lg overflow-hidden bg-gray-900`}
-			>
+		<div tw="relative overflow-hidden">
+			<div tw="absolute inset-0 rounded-lg overflow-hidden bg-gray-900">
 				<Image
 					src={viewer?.bannerImage}
-					className={tw`w-full h-full object-cover`}
+					tw="w-full h-full object-cover"
 					style={{
 						transform: `scale(1.1)`,
 						filter: "brightness(30%) blur(2px)",
@@ -90,17 +88,11 @@ function NavDrawerHeader() {
 				/>
 			</div>
 			<div
-				className={tw`relative px-2 py-4 flex items-center`}
+				tw="relative px-2 py-4 flex items-center"
 				style={{ boxSizing: "content-box" }}
 			>
-				<Image
-					src={viewer?.avatar?.large}
-					className={tw`w-10 h-10 shadow rounded-full`}
-				/>
-				<p
-					aria-label="Username"
-					className={tw`text-lg font-light tracking-wide ml-3`}
-				>
+				<Image src={viewer?.avatar?.large} tw="w-10 h-10 shadow rounded-full" />
+				<p aria-label="Username" tw="text-lg font-light tracking-wide ml-3">
 					{viewer?.name}
 				</p>
 			</div>

@@ -59,7 +59,7 @@ export const MenuIcon = createIconComponent(
 		fill="none"
 		viewBox="0 0 24 24"
 		stroke="currentColor"
-		className={tw`w-6 h-6`}
+		tw="w-6 h-6"
 	>
 		<path
 			strokeLinecap="round"
@@ -104,7 +104,7 @@ export const CloseIcon = createIconComponent(
 		fill="none"
 		viewBox="0 0 24 24"
 		stroke="currentColor"
-		className={tw`w-6 h-6`}
+		tw="w-6 h-6"
 	>
 		<path
 			strokeLinecap="round"

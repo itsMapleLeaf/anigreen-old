@@ -23,7 +23,7 @@ export default function Tooltip({ text, children }: Props) {
 		<Root>
 			<Trigger as={Slot}>{children}</Trigger>
 			<Content className={tw(tooltipStyle)} side="top" sideOffset={8}>
-				<Arrow className={tw`fill-current text-white`} />
+				<Arrow tw="fill-current text-white" />
 				{text}
 			</Content>
 		</Root>
