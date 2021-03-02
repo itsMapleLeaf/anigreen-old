@@ -141,8 +141,8 @@ async function createServer() {
 		cookieSession({
 			name: "session",
 			secret: process.env.COOKIE_SECRET,
-			path: "/",
 			httpOnly: true,
+			sameSite: "lax",
 		}),
 	)
 
