@@ -1,5 +1,4 @@
 import { useQueryClient } from "react-query"
-import { tw } from "twind"
 import Button from "../dom/Button"
 import {
 	AnimeListEntryFragment,
@@ -29,7 +28,7 @@ export default function MediaCardAdvanceProgressButton({
 
 	return (
 		<Button
-			className={tw(clearIconButtonStyle)}
+			tw={clearIconButtonStyle}
 			onClick={advanceProgress}
 			loading={updateProgressMutation.isLoading}
 		>

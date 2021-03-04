@@ -1,7 +1,7 @@
 import * as RadixMenu from "@radix-ui/react-dropdown-menu"
 import { Slot } from "@radix-ui/react-slot"
 import type { ReactElement, ReactNode, Ref } from "react"
-import { apply, tw } from "twind"
+import { apply } from "twind"
 import { css } from "twind/css"
 import { autoRef } from "../react/helpers"
 import { radixTransitionCustom } from "./helpers"
@@ -29,9 +29,7 @@ export function MenuPanel({ children }: { children: ReactNode }) {
 			end: apply`opacity-100 ${css({ transform: `scale(1.0)` })}`,
 		})}
 	`
-	return (
-		<RadixMenu.Content className={tw(baseStyle)}>{children}</RadixMenu.Content>
-	)
+	return <RadixMenu.Content tw={baseStyle}>{children}</RadixMenu.Content>
 }
 
 export const MenuItem = autoRef(function MenuItem({
@@ -50,13 +48,14 @@ export const MenuItem = autoRef(function MenuItem({
 		transition
 		ring(2 inset transparent)
 		hocus:(bg-green-100 text-green-900)
+		focus:ring-green-500
 	`
 
 	return (
 		<RadixMenu.Item
 			as={Slot as any}
 			ref={ref as any}
-			className={tw(baseStyle)}
+			tw={baseStyle}
 			onClick={onClick}
 		>
 			{children}
