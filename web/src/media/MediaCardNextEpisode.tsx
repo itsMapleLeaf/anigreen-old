@@ -1,4 +1,3 @@
-import "@twind/macro"
 import type { AnimeListEntryFragment } from "../generated/graphql"
 import { relativeTime } from "../helpers/relativeTime"
 import { InfoIcon } from "../ui/icons"

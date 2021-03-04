@@ -1,4 +1,3 @@
-import "@twind/macro"
 import type { ReactNode } from "react"
 
 export default function AspectBox({
