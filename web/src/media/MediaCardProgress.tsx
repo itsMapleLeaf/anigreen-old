@@ -1,4 +1,4 @@
-import { tw } from "twind"
+import { apply } from "twind/css"
 import type { AnimeListEntryFragment } from "../generated/graphql"
 
 export default function MediaCardProgress({
@@ -14,17 +14,15 @@ export default function MediaCardProgress({
 		? nextAiringEpisodeNumber - 1
 		: entry.media?.episodes ?? 1
 
-	const progressLag = maxEpisodes - progress
-
-	const progressLagStyle =
-		progressLag === 0
-			? tw`text-green-400`
-			: progressLag <= 3
-			? tw`text-yellow-400`
-			: tw`text-red-400`
+	const progressLagStyle = (() => {
+		const progressLag = maxEpisodes - progress
+		if (progressLag === 0) return apply`text-green-400`
+		if (progressLag <= 3) return apply`text-yellow-400`
+		return apply`text-red-400`
+	})()
 
 	return (
-		<p className={progressLagStyle}>
+		<p tw={progressLagStyle}>
 			{progress}/{maxEpisodes} episodes watched
 		</p>
 	)

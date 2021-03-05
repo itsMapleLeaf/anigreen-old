@@ -5,11 +5,15 @@ import { animation } from "twind/css"
 const defaultIconClass = tw(apply(`w-5 h-5`))
 
 function createIconComponent(element: ReactElement) {
-	return function Icon({ className = "", ...props }: SVGProps<SVGSVGElement>) {
+	return function Icon({
+		tw: twProp,
+		className = "",
+		...props
+	}: SVGProps<SVGSVGElement>) {
 		return cloneElement(element, {
 			className: `${defaultIconClass} ${
 				element.props.className ?? ""
-			} ${className}`,
+			} ${className} ${tw(twProp)}`,
 			...props,
 		})
 	}
