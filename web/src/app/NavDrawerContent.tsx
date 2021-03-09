@@ -1,10 +1,10 @@
 import { Slot } from "@radix-ui/react-slot"
-import type { ReactElement, Ref } from "react"
+import type { ReactElement, ReactNode } from "react"
+import { Link, useMatch } from "react-router-dom"
 import { tw } from "twind"
 import { useViewerQuery } from "../generated/graphql"
-import { autoRef } from "../react/helpers"
 import { DrawerItem } from "../ui/Drawer"
-import { BookmarkIcon, LogoutIcon, PlayIcon, SearchIcon } from "../ui/icons"
+import { BookmarkIcon, LogoutIcon, SearchIcon } from "../ui/icons"
 import Image from "../ui/Image"
 
 export default function NavDrawerContent() {
@@ -14,58 +14,37 @@ export default function NavDrawerContent() {
 		<>
 			<div tw="w-64 space-y-2 p-2">
 				<nav tw="space-y-2">
-					{viewerId && <NavDrawerHeader />}
-
-					{viewerId ? null : (
-						<DrawerItem>
-							<NavItem>
-								<a href="/login">
-									<LogoutIcon />
-									<span>Log in with Anilist</span>
-								</a>
-							</NavItem>
-						</DrawerItem>
-					)}
-
 					{viewerId ? (
-						<DrawerItem>
-							<NavItem active>
-								<button type="button">
-									<BookmarkIcon />
-									<span>Watching</span>
-								</button>
-							</NavItem>
-						</DrawerItem>
-					) : null}
+						<>
+							<NavDrawerHeader />
 
-					<DrawerItem>
-						<NavItem>
-							<button type="button">
-								<PlayIcon />
-								<span>Current Season</span>
-							</button>
-						</NavItem>
-					</DrawerItem>
+							<NavRouterLink to="/watching">
+								<BookmarkIcon />
+								<span>Watching</span>
+							</NavRouterLink>
 
-					<DrawerItem>
-						<NavItem>
-							<button type="button">
+							<NavRouterLink to="/search">
 								<SearchIcon />
-								<span>Search</span>
-							</button>
-						</NavItem>
-					</DrawerItem>
+								<span>Download Search</span>
+							</NavRouterLink>
 
-					{viewerId ? (
-						<DrawerItem>
 							<NavItem>
 								<a href="/logout">
 									<LogoutIcon />
 									<span>Log out</span>
 								</a>
 							</NavItem>
-						</DrawerItem>
-					) : null}
+						</>
+					) : (
+						<>
+							<NavItem>
+								<a href="/login">
+									<LogoutIcon />
+									<span>Log in with Anilist</span>
+								</a>
+							</NavItem>
+						</>
+					)}
 				</nav>
 			</div>
 		</>
@@ -100,25 +79,32 @@ function NavDrawerHeader() {
 	)
 }
 
-const NavItem = autoRef(function NavItem({
-	children,
+function NavRouterLink({ children, to }: { children: ReactNode; to: string }) {
+	const match = useMatch(to)
+	return (
+		<NavItem active={match != null}>
+			<Link to={to}>{children}</Link>
+		</NavItem>
+	)
+}
+
+function NavItem({
 	active,
-	className,
-	ref,
+	children,
 }: {
-	children: ReactElement
 	active?: boolean
-	className?: string
-	ref?: Ref<unknown>
+	children: ReactElement
 }) {
 	const baseStyle = tw`flex items-center w-full rounded-lg space-x-2 p-2 font-medium transition leading-none`
 	const activeStyle = tw`text-green-400 bg(black opacity-25)`
 	const inactiveStyle = tw`opacity-50 hactive:(opacity-75 bg(black opacity-25))`
 
-	const slotProps = {
-		className: tw(baseStyle, active ? activeStyle : inactiveStyle, className),
-		ref: ref as any,
-	}
-
-	return <Slot {...slotProps}>{children}</Slot>
-})
+	return (
+		<DrawerItem>
+			{/* @ts-expect-error */}
+			<Slot tw={[baseStyle, active ? activeStyle : inactiveStyle]}>
+				{children}
+			</Slot>
+		</DrawerItem>
+	)
+}

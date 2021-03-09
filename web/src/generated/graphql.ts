@@ -867,6 +867,8 @@ export type UserOptions = {
   notificationOptions?: Maybe<Array<Maybe<NotificationOption>>>;
   /** The user's timezone offset (Auth user only) */
   timezone?: Maybe<Scalars['String']>;
+  /** Minutes between activity for them to be merged together. 0 is Never, Above 2 weeks (20160 mins) is Always. */
+  activityMergeTime?: Maybe<Scalars['Int']>;
 };
 
 /** The language the user wants to see media titles in */
@@ -3314,6 +3316,7 @@ export type MutationUpdateUserArgs = {
   donatorBadge?: Maybe<Scalars['String']>;
   notificationOptions?: Maybe<Array<Maybe<NotificationOptionInput>>>;
   timezone?: Maybe<Scalars['String']>;
+  activityMergeTime?: Maybe<Scalars['Int']>;
   animeListOptions?: Maybe<MediaListOptionsInput>;
   mangaListOptions?: Maybe<MediaListOptionsInput>;
 };

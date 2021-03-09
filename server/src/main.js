@@ -134,6 +134,12 @@ async function createDevRouter() {
 	return router
 }
 
+function redirects() {
+	const router = Router()
+	router.get("/", (_, res) => res.redirect("/watching"))
+	return router
+}
+
 async function createServer() {
 	const app = express()
 
@@ -147,6 +153,8 @@ async function createServer() {
 	)
 
 	app.use(createAuthRouter())
+
+	app.use(redirects())
 
 	if (process.env.NODE_ENV === "production") {
 		app.use(express.static(join(webRoot, "dist")))

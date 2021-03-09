@@ -2,8 +2,10 @@ import { StrictMode } from "react"
 import { render } from "react-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
-import App from "./app/App"
-import { NyaaSearchRoot } from "./nyaa/nyaa-search"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import AppLayout from "./app/AppLayout"
+import WatchingPage from "./app/WatchingPage"
+import { NyaaSearchPage } from "./nyaa/nyaa-search"
 
 const client = new QueryClient({
 	defaultOptions: {
@@ -14,13 +16,18 @@ const client = new QueryClient({
 })
 
 render(
-	<StrictMode>
-		<QueryClientProvider client={client}>
-			<NyaaSearchRoot>
-				<App />
-			</NyaaSearchRoot>
+	<QueryClientProvider client={client}>
+		<StrictMode>
+			<BrowserRouter>
+				<Routes>
+					<Route element={<AppLayout />}>
+						<Route path="/watching" element={<WatchingPage />} />
+						<Route path="/search" element={<NyaaSearchPage />} />
+					</Route>
+				</Routes>
+			</BrowserRouter>
 			<ReactQueryDevtools />
-		</QueryClientProvider>
-	</StrictMode>,
+		</StrictMode>
+	</QueryClientProvider>,
 	document.getElementById("root"),
 )

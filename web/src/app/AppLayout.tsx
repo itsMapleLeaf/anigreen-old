@@ -1,30 +1,22 @@
-import { compact } from "lodash-es"
-import { useCallback } from "react"
+import React, { useCallback } from "react"
+import { Outlet } from "react-router-dom"
 import { useScrollSelector } from "../dom/useScrollSelector"
-import { useAnimeListQuery, useViewerQuery } from "../generated/graphql"
-import SectionedMediaCardList from "../media/SectionedMediaCardList"
 import { clearIconButtonStyle } from "../ui/components"
 import Drawer from "../ui/Drawer"
 import { MenuIcon } from "../ui/icons"
-import QueryRenderer from "../ui/QueryRenderer"
 import AppLogoLink from "./AppLogoLink"
 import NavDrawerContent from "./NavDrawerContent"
 
-export default function App() {
-	const viewerId = useViewerQuery().data?.Viewer?.id
-
-	const animeListQuery = useAnimeListQuery(
-		{ userId: viewerId! },
-		{ enabled: !!viewerId },
-	)
-
+export default function AppLayout() {
 	const isAtTop = useScrollSelector(useCallback((scroll) => scroll === 0, []))
 
 	return (
-		<div style={{ isolation: "isolate" }}>
+		<div tw="pt-16 h-screen" style={{ isolation: "isolate" }}>
 			<header
 				tw={`
-					sticky top-0 z-10
+					z-10
+					fixed inset-x-0 top-0
+					h-16
 					flex items-center space-x-2 px-2
 					transition duration-300
 					shadow backdrop-blur
@@ -46,19 +38,8 @@ export default function App() {
 				</div>
 			</header>
 
-			<main tw="mx-auto max-w-screen-xl grid gap-8 px-4 py-6">
-				<QueryRenderer
-					{...animeListQuery}
-					renderData={(data) => (
-						<SectionedMediaCardList
-							entries={compact(
-								data?.MediaListCollection?.lists?.flatMap(
-									(list) => list?.entries,
-								),
-							)}
-						/>
-					)}
-				/>
+			<main tw="h-full w-full mx-auto max-w-screen-xl">
+				<Outlet />
 			</main>
 		</div>
 	)

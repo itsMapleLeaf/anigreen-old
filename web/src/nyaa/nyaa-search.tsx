@@ -1,49 +1,31 @@
 import { Slot } from "@radix-ui/react-slot"
-import constate from "constate"
-import { ReactElement, Ref, useState } from "react"
+import type { ReactElement, Ref } from "react"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import { autoRef } from "../react/helpers"
-import { Dialog, FullScreenModalDialog } from "../ui/dialog"
 import LoadingPlaceholder from "../ui/LoadingPlaceholder"
 
-const [NyaaSearchProvider, useNyaaSearchContext] = constate(() => {
-	const [query, setQuery] = useState<string>()
-	return { query, setQuery }
-})
+export function NyaaSearchPage() {
+	const [params] = useSearchParams()
+	const query = params.get("query")
 
-export function NyaaSearchRoot({ children }: { children: ReactElement }) {
-	return (
-		<NyaaSearchProvider>
-			{children}
-			<NyaaSearchDialog />
-		</NyaaSearchProvider>
-	)
-}
-
-function NyaaSearchDialog() {
-	const { query, setQuery } = useNyaaSearchContext()
-
-	function handleOpenChange(open: boolean) {
-		if (!open) {
-			setQuery(undefined)
-		}
+	const url = new URL(`https://nyaa.si/?f=1&c=1_2`)
+	if (query) {
+		url.searchParams.set("q", query)
 	}
 
 	return (
-		<Dialog isOpen={!!query} onOpenChange={handleOpenChange}>
-			<FullScreenModalDialog>
-				<div tw="relative grid place-items-center h-full">
-					<LoadingPlaceholder />
-					<iframe
-						title="Nyaa Search"
-						src={`https://nyaa.si/?f=1&c=1_2&q=${query}`}
-						tw="absolute"
-						width="100%"
-						height="100%"
-						frameBorder="0"
-					/>
-				</div>
-			</FullScreenModalDialog>
-		</Dialog>
+		<div tw="relative grid place-items-center w-full h-full p-4">
+			<LoadingPlaceholder />
+			<div tw="absolute inset-4">
+				<iframe
+					title="Nyaa Search"
+					src={url.toString()}
+					width="100%"
+					height="100%"
+					frameBorder="0"
+				/>
+			</div>
+		</div>
 	)
 }
 
@@ -56,13 +38,13 @@ export const NyaaSearchDialogButton = autoRef(function NyaaSearchDialogButton({
 	query: string
 	ref: Ref<unknown>
 }) {
-	const { setQuery } = useNyaaSearchContext()
+	const navigate = useNavigate()
 	return (
 		<Slot
 			ref={ref as any}
 			// @ts-expect-error
 			onClick={(...args) => {
-				setQuery(query)
+				navigate(`/search?query=${query}`)
 				children.props.onClick?.(...args)
 			}}
 		>

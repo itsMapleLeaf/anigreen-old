@@ -27,21 +27,27 @@ export default function SectionedMediaCardList({
 		(list) => mod(list.day - 1, 7),
 	)
 
-	return sortedListsByDay.map(({ day, entries }) => (
-		<div key={day} tw="grid gap-3">
-			<h2 tw="font-condensed text-2xl">
-				{Number.isFinite(day) ? getWeekday(day) : "Not Airing"}
-			</h2>
-			<div
-				tw="grid gap-4 items-start"
-				style={{ gridTemplateColumns: `repeat(auto-fill, minmax(16rem, 1fr))` }}
-			>
-				{entries.map((entry) => (
-					<MediaCard key={entry.id} entry={entry} />
-				))}
-			</div>
+	return (
+		<div tw="grid gap-8 p-4">
+			{sortedListsByDay.map(({ day, entries }) => (
+				<div key={day} tw="grid gap-3">
+					<h2 tw="font-condensed text-2xl">
+						{Number.isFinite(day) ? getWeekday(day) : "Not Airing"}
+					</h2>
+					<div
+						tw="grid gap-4 items-start"
+						style={{
+							gridTemplateColumns: `repeat(auto-fill, minmax(16rem, 1fr))`,
+						}}
+					>
+						{entries.map((entry) => (
+							<MediaCard key={entry.id} entry={entry} />
+						))}
+					</div>
+				</div>
+			))}
 		</div>
-	)) as any
+	)
 }
 
 function getWeekday(day: number) {
