@@ -158,6 +158,7 @@ async function createServer() {
 
 	if (process.env.NODE_ENV === "production") {
 		app.use(express.static(join(webRoot, "dist")))
+		app.get("*", (req, res) => res.sendFile(join(webRoot, "dist/index.html")))
 	} else {
 		app.use(await createDevRouter())
 	}
