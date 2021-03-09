@@ -16,7 +16,7 @@ export function NyaaSearchPage() {
 	return (
 		<div tw="relative grid place-items-center w-full h-full p-4">
 			<LoadingPlaceholder />
-			<div tw="absolute inset-4">
+			<div tw="absolute inset-4 rounded-lg overflow-hidden shadow">
 				<iframe
 					title="Nyaa Search"
 					src={url.toString()}
