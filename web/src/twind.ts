@@ -24,7 +24,7 @@ setup({
 			wordBreak: "break-word",
 		}),
 		"button, [type=button], [type=reset], [type=submit]": {
-			backgroundColor: "transparent",
+			appearance: "none",
 		},
 		".js-focus-visible :focus:not(.focus-visible)": {
 			outline: "none",
