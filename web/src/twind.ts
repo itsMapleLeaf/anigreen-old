@@ -23,6 +23,9 @@ setup({
 		"body": css(apply`bg-gray-900 text-gray-100`, {
 			wordBreak: "break-word",
 		}),
+		"button, [type=button], [type=reset], [type=submit]": {
+			backgroundColor: "transparent",
+		},
 		".js-focus-visible :focus:not(.focus-visible)": {
 			outline: "none",
 		},
