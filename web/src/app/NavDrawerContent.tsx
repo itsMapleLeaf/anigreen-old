@@ -40,7 +40,7 @@ export default function NavDrawerContent() {
 							<NavItem>
 								<a href="/login">
 									<LogoutIcon />
-									<span>Log in with Anilist</span>
+									<span>Log in with AniList</span>
 								</a>
 							</NavItem>
 						</>

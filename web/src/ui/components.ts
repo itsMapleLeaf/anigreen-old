@@ -11,8 +11,9 @@ export const clearIconButtonStyle = apply`
 `
 
 export const solidButtonStyle = apply`
-	h-10 px-2 rounded shadow
+	flex items-center
+	h-10 px-3 rounded shadow
+	leading-none text-white 
 	transition-color
 	bg-green-700 hover:bg-green-800
-	leading-none text-sm text-white font-medium uppercase
 `
