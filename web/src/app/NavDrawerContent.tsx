@@ -98,7 +98,6 @@ function NavItem({
 
 	return (
 		<DrawerItem>
-			{/* @ts-expect-error */}
 			<Slot tw={[baseStyle, active ? activeStyle : inactiveStyle]}>
 				{children}
 			</Slot>
