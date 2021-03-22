@@ -14,6 +14,6 @@ export const solidButtonStyle = apply`
 	flex items-center
 	h-10 px-3 rounded shadow
 	leading-none text-white 
-	transition-color
+	transition-colors
 	bg-green-700 hover:bg-green-800
 `

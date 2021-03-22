@@ -11,7 +11,7 @@ export default function AppLayout() {
 	const isAtTop = useScrollSelector(useCallback((scroll) => scroll === 0, []))
 
 	return (
-		<div tw="pt-16 h-screen" style={{ isolation: "isolate" }}>
+		<div tw="pt-16 h-screen isolate">
 			<header
 				tw={`
 					z-10

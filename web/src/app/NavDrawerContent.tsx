@@ -66,10 +66,7 @@ function NavDrawerHeader() {
 					}}
 				/>
 			</div>
-			<div
-				tw="relative px-2 py-4 flex items-center"
-				style={{ boxSizing: "content-box" }}
-			>
+			<div tw="relative px-2 py-4 flex items-center box-content">
 				<Image src={viewer?.avatar?.large} tw="w-10 h-10 shadow rounded-full" />
 				<p aria-label="Username" tw="text-lg font-light tracking-wide ml-3">
 					{viewer?.name}
