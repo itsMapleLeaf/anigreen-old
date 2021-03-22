@@ -15,7 +15,8 @@
 		"noEmit": true,
 		"importsNotUsedAsValues": "error",
 		"jsx": "react-jsx",
-		"noUncheckedIndexedAccess": true
+		"noUncheckedIndexedAccess": true,
+		"plugins": [{ "name": "@twind/typescript-plugin" }]
 	},
 	"exclude": ["dist", "node_modules"]
 }
