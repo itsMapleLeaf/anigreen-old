@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react"
-import { apply, tw } from "twind"
+import { apply } from "twind"
 import { autoRef } from "../react/helpers"
 import LoadingIcon from "../ui/LoadingIcon"
 
@@ -17,7 +17,8 @@ export default autoRef(function Button({
 		<button
 			type="button"
 			disabled={loading}
-			className={tw`${loading && apply`opacity-50`} ${className}`}
+			tw={loading && apply`opacity-50`}
+			className={className}
 			{...props}
 		>
 			{loading ? <LoadingIcon /> : children}

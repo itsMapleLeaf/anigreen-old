@@ -3,7 +3,6 @@ import {
 	ExternalLinkIcon,
 	SearchIcon,
 } from "@heroicons/react/solid"
-import { tw } from "twind"
 import Button from "../dom/Button"
 import ExternalLink from "../dom/ExternalLink"
 import type { AnimeListEntryFragment } from "../generated/graphql"
@@ -26,7 +25,7 @@ export default function MediaCardMenu({
 	return (
 		<Menu>
 			<MenuButton>
-				<Button className={tw(clearIconButtonStyle)}>
+				<Button tw={clearIconButtonStyle}>
 					<DotsVerticalIcon tw="w-5" />
 				</Button>
 			</MenuButton>
