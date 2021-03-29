@@ -25,10 +25,7 @@ export default function MediaCardNextEpisode({
 	return (
 		<Tooltip text={nextEpisodeDate}>
 			Episode {episode} airs {relativeTime(airingAt * 1000)}{" "}
-			<InformationCircleIcon
-				tw="inline-block w-5 opacity-50"
-				style={{ verticalAlign: "text-top" }}
-			/>
+			<InformationCircleIcon tw="inline-block w-5 align-text-top opacity-50" />
 		</Tooltip>
 	)
 }
