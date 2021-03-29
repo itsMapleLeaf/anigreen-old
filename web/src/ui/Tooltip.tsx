@@ -1,13 +1,12 @@
-import { Slot } from "@radix-ui/react-slot"
 import { Arrow, Content, Root, Trigger } from "@radix-ui/react-tooltip"
-import type { ReactElement } from "react"
-import { apply, tw } from "twind"
+import type { ReactNode } from "react"
+import { apply } from "twind"
 import { css } from "twind/css"
 import { radixTransitionCustom } from "./helpers"
 
 type Props = {
 	text: string
-	children: ReactElement
+	children: ReactNode
 }
 
 export default function Tooltip({ text, children }: Props) {
@@ -20,10 +19,10 @@ export default function Tooltip({ text, children }: Props) {
 	`
 
 	return (
-		<Root>
-			<Trigger as={Slot}>{children}</Trigger>
-			<Content className={tw(tooltipStyle)} side="top" sideOffset={8}>
-				<Arrow className={tw`fill-current text-white`} />
+		<Root delayDuration={300}>
+			<Trigger tw={css({ textAlign: "inherit" })}>{children}</Trigger>
+			<Content tw={tooltipStyle} side="top" sideOffset={8}>
+				<Arrow tw="text-white fill-current" />
 				{text}
 			</Content>
 		</Root>
