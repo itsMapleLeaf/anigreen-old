@@ -47,8 +47,8 @@ export const MenuItem = autoRef(function MenuItem({
 		leading-none font-medium text-left
 		transition
 		ring(2 inset transparent)
-		hocus:(bg-green-100 text-green-900)
-		focus:ring-green-500
+		hover:(bg-green-100 text-green-900)
+		focus:(ring-green-500 outline-none)
 	`
 
 	return (

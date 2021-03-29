@@ -1,4 +1,4 @@
-import { LoadingIcon } from "./icons"
+import LoadingIcon from "./LoadingIcon"
 
 export default function LoadingPlaceholder() {
 	return (

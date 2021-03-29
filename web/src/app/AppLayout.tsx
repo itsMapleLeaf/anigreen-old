@@ -1,9 +1,9 @@
+import { MenuIcon } from "@heroicons/react/solid"
 import React, { useCallback } from "react"
 import { Outlet } from "react-router-dom"
 import { useScrollSelector } from "../dom/useScrollSelector"
 import { clearIconButtonStyle } from "../ui/components"
 import Drawer from "../ui/Drawer"
-import { MenuIcon } from "../ui/icons"
 import AppLogoLink from "./AppLogoLink"
 import NavDrawerContent from "./NavDrawerContent"
 

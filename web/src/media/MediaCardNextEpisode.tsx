@@ -1,6 +1,6 @@
+import { InformationCircleIcon } from "@heroicons/react/solid"
 import type { AnimeListEntryFragment } from "../generated/graphql"
 import { relativeTime } from "../helpers/relativeTime"
-import { InfoIcon } from "../ui/icons"
 import Tooltip from "../ui/Tooltip"
 
 export default function MediaCardNextEpisode({
@@ -26,8 +26,8 @@ export default function MediaCardNextEpisode({
 		<Tooltip text={nextEpisodeDate}>
 			<p>
 				{`Episode ${episode} airs ${relativeTime(airingAt * 1000)}`}{" "}
-				<InfoIcon
-					tw="inline-block opacity-50"
+				<InformationCircleIcon
+					tw="inline-block w-5 opacity-50"
 					style={{ verticalAlign: "text-top" }}
 				/>
 			</p>

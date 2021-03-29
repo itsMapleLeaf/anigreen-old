@@ -1,3 +1,4 @@
+import { PlusIcon } from "@heroicons/react/solid"
 import { useQueryClient } from "react-query"
 import Button from "../dom/Button"
 import {
@@ -5,7 +6,6 @@ import {
 	useUpdateMediaListProgressMutation,
 } from "../generated/graphql"
 import { clearIconButtonStyle } from "../ui/components"
-import { PlusIcon } from "../ui/icons"
 
 export default function MediaCardAdvanceProgressButton({
 	entry,
@@ -32,7 +32,7 @@ export default function MediaCardAdvanceProgressButton({
 			onClick={advanceProgress}
 			loading={updateProgressMutation.isLoading}
 		>
-			<PlusIcon />
+			<PlusIcon tw="w-5" />
 		</Button>
 	)
 }

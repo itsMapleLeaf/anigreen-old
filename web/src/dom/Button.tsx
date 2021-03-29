@@ -1,7 +1,7 @@
 import type { ComponentProps } from "react"
 import { apply, tw } from "twind"
 import { autoRef } from "../react/helpers"
-import { LoadingIcon } from "../ui/icons"
+import LoadingIcon from "../ui/LoadingIcon"
 
 type Props = ComponentProps<"button"> & {
 	loading?: boolean

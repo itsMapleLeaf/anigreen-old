@@ -1,11 +1,11 @@
+import { XIcon } from "@heroicons/react/solid"
 import * as RadixDialog from "@radix-ui/react-dialog"
 import { Slot } from "@radix-ui/react-slot"
 import type { ReactElement, ReactNode } from "react"
-import { apply, tw } from "twind"
+import { apply } from "twind"
 import { css } from "twind/css"
 import { clearIconButtonStyle } from "./components"
 import { radixTransitionCustom } from "./helpers"
-import { CloseIcon } from "./icons"
 
 export function Dialog({
 	children,
@@ -31,15 +31,13 @@ export function FullScreenModalDialog({ children }: { children: ReactNode }) {
 	return (
 		<>
 			<RadixDialog.Overlay
-				className={tw`fixed inset-0 bg(black opacity-75) ${radixTransitionCustom(
-					{
-						start: apply`opacity-0`,
-						end: apply`opacity-100`,
-					},
-				)}`}
+				tw={`fixed inset-0 bg(black opacity-75) ${radixTransitionCustom({
+					start: apply`opacity-0`,
+					end: apply`opacity-100`,
+				})}`}
 			/>
 			<RadixDialog.Content
-				className={tw`
+				tw={`
 					fixed inset-0 p-4 flex flex-col space-y-4 pointer-events-none
 					${radixTransitionCustom({
 						start: apply`opacity-0 ${css({ transform: `scale(0.95)` })}`,
@@ -49,11 +47,11 @@ export function FullScreenModalDialog({ children }: { children: ReactNode }) {
 			>
 				<RadixDialog.Close
 					type="button"
-					className={tw(clearIconButtonStyle, "pointer-events-auto self-end")}
+					tw={[clearIconButtonStyle, "pointer-events-auto self-end"]}
 				>
-					<CloseIcon />
+					<XIcon />
 				</RadixDialog.Close>
-				<div tw="flex-1 bg-gray-800 rounded-lg overflow-y-auto shadow pointer-events-auto">
+				<div tw="flex-1 overflow-y-auto bg-gray-800 rounded-lg shadow pointer-events-auto">
 					{children}
 				</div>
 			</RadixDialog.Content>

@@ -1,10 +1,10 @@
+import { BookmarkIcon, LogoutIcon, SearchIcon } from "@heroicons/react/solid"
 import { Slot } from "@radix-ui/react-slot"
 import type { ReactElement, ReactNode } from "react"
 import { Link, useMatch } from "react-router-dom"
 import { tw } from "twind"
 import { useViewerQuery } from "../generated/graphql"
 import { DrawerItem } from "../ui/Drawer"
-import { BookmarkIcon, LogoutIcon, SearchIcon } from "../ui/icons"
 import Image from "../ui/Image"
 
 export default function NavDrawerContent() {
@@ -19,18 +19,18 @@ export default function NavDrawerContent() {
 							<NavDrawerHeader />
 
 							<NavRouterLink to="/watching">
-								<BookmarkIcon />
+								<BookmarkIcon tw="w-5" />
 								<span>Watching</span>
 							</NavRouterLink>
 
 							<NavRouterLink to="/search">
-								<SearchIcon />
+								<SearchIcon tw="w-5" />
 								<span>Download Search</span>
 							</NavRouterLink>
 
 							<NavItem>
 								<a href="/logout">
-									<LogoutIcon />
+									<LogoutIcon tw="w-5" />
 									<span>Log out</span>
 								</a>
 							</NavItem>
