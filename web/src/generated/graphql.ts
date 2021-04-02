@@ -1,27 +1,9 @@
 import { useQuery, UseQueryOptions, useMutation, UseMutationOptions } from 'react-query';
+import { createFetcher } from '../network/createFetcher';
 export type Maybe<T> = T | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-
-function fetcher<TData, TVariables>(query: string, variables?: TVariables) {
-  return async (): Promise<TData> => {
-    const res = await fetch('/anilist' as string, {
-      method: "POST",
-      body: JSON.stringify({ query, variables }),
-    });
-    
-    const json = await res.json();
-
-    if (json.errors) {
-      const { message } = json.errors[0];
-
-      throw new Error(message);
-    }
-
-    return json.data;
-  }
-}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -4297,7 +4279,7 @@ export const useAnimeListQuery = <
     ) => 
     useQuery<AnimeListQuery, TError, TData>(
       ['AnimeList', variables],
-      fetcher<AnimeListQuery, AnimeListQueryVariables>(AnimeListDocument, variables),
+      createFetcher<AnimeListQuery, AnimeListQueryVariables>(AnimeListDocument, variables),
       options
     );
 export const UpdateMediaListProgressDocument = `
@@ -4312,7 +4294,7 @@ export const useUpdateMediaListProgressMutation = <
       TContext = unknown
     >(options?: UseMutationOptions<UpdateMediaListProgressMutation, TError, UpdateMediaListProgressMutationVariables, TContext>) => 
     useMutation<UpdateMediaListProgressMutation, TError, UpdateMediaListProgressMutationVariables, TContext>(
-      (variables?: UpdateMediaListProgressMutationVariables) => fetcher<UpdateMediaListProgressMutation, UpdateMediaListProgressMutationVariables>(UpdateMediaListProgressDocument, variables)(),
+      (variables?: UpdateMediaListProgressMutationVariables) => createFetcher<UpdateMediaListProgressMutation, UpdateMediaListProgressMutationVariables>(UpdateMediaListProgressDocument, variables)(),
       options
     );
 export const ViewerDocument = `
@@ -4337,6 +4319,6 @@ export const useViewerQuery = <
     ) => 
     useQuery<ViewerQuery, TError, TData>(
       ['Viewer', variables],
-      fetcher<ViewerQuery, ViewerQueryVariables>(ViewerDocument, variables),
+      createFetcher<ViewerQuery, ViewerQueryVariables>(ViewerDocument, variables),
       options
     );

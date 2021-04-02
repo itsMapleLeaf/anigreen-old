@@ -10,6 +10,6 @@ generates:
       - "typescript-react-query"
 config:
   fetcher:
-    endpoint: "'/anilist'"
+    func: "../network/createFetcher#createFetcher"
   maybeValue: T | undefined
   skipTypename: true
