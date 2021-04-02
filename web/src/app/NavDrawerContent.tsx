@@ -11,43 +11,39 @@ export default function NavDrawerContent() {
 	const viewerId = useViewerQuery().data?.Viewer?.id
 
 	return (
-		<>
-			<div tw="w-64 space-y-2 p-2">
-				<nav tw="space-y-2">
-					{viewerId ? (
-						<>
-							<NavDrawerHeader />
+		<nav tw="space-y-2">
+			{viewerId ? (
+				<>
+					<NavDrawerHeader />
 
-							<NavRouterLink to="/watching">
-								<BookmarkIcon tw="w-5" />
-								<span>Watching</span>
-							</NavRouterLink>
+					<NavRouterLink to="/watching">
+						<BookmarkIcon tw="w-5" />
+						<span>Watching</span>
+					</NavRouterLink>
 
-							<NavRouterLink to="/search">
-								<SearchIcon tw="w-5" />
-								<span>Download Search</span>
-							</NavRouterLink>
+					<NavRouterLink to="/search">
+						<SearchIcon tw="w-5" />
+						<span>Download Search</span>
+					</NavRouterLink>
 
-							<NavItem>
-								<a href="/logout">
-									<LogoutIcon tw="w-5" />
-									<span>Log out</span>
-								</a>
-							</NavItem>
-						</>
-					) : (
-						<>
-							<NavItem>
-								<a href="/login">
-									<LogoutIcon />
-									<span>Log in with AniList</span>
-								</a>
-							</NavItem>
-						</>
-					)}
-				</nav>
-			</div>
-		</>
+					<NavItem>
+						<a href="/logout">
+							<LogoutIcon tw="w-5" />
+							<span>Log out</span>
+						</a>
+					</NavItem>
+				</>
+			) : (
+				<>
+					<NavItem>
+						<a href="/login">
+							<LogoutIcon />
+							<span>Log in with AniList</span>
+						</a>
+					</NavItem>
+				</>
+			)}
+		</nav>
 	)
 }
 

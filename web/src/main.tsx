@@ -12,6 +12,7 @@ const client = new QueryClient({
 		queries: {
 			staleTime: Infinity,
 			retry: false,
+			suspense: true,
 		},
 	},
 })

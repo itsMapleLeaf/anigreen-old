@@ -4,6 +4,8 @@ import { Outlet } from "react-router-dom"
 import { useScrollSelector } from "../dom/useScrollSelector"
 import { clearIconButtonStyle } from "../ui/components"
 import Drawer from "../ui/Drawer"
+import LoadingSuspense from "../ui/LoadingSuspense"
+import AppErrorBoundary from "./AppErrorBoundary"
 import AppLogoLink from "./AppLogoLink"
 import NavDrawerContent from "./NavDrawerContent"
 
@@ -30,7 +32,11 @@ export default function AppLayout() {
 						</button>
 					}
 				>
-					<NavDrawerContent />
+					<div tw="w-64 p-2">
+						<LoadingSuspense>
+							<NavDrawerContent />
+						</LoadingSuspense>
+					</div>
 				</Drawer>
 
 				<div tw="py-2">
@@ -39,7 +45,11 @@ export default function AppLayout() {
 			</header>
 
 			<main tw="h-full w-full mx-auto max-w-screen-xl">
-				<Outlet />
+				<AppErrorBoundary>
+					<LoadingSuspense>
+						<Outlet />
+					</LoadingSuspense>
+				</AppErrorBoundary>
 			</main>
 		</div>
 	)
