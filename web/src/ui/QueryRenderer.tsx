@@ -17,7 +17,7 @@ export default function QueryRenderer<Data>({
 		<>
 			{props.isError && errorElement}
 			{props.data && props.renderData(props.data)}
-			{props.isLoading && loadingElement}
+			{(props.isLoading || props.isFetching) && loadingElement}
 		</>
 	)
 }
