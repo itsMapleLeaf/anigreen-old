@@ -21,7 +21,7 @@ export default autoRef(function Button({
 			className={className}
 			{...props}
 		>
-			{loading ? <LoadingIcon /> : children}
+			{loading ? <LoadingIcon tw="w-5" /> : children}
 		</button>
 	)
 })
