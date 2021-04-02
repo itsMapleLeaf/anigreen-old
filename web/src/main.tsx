@@ -1,6 +1,7 @@
 import { StrictMode } from "react"
 import { render } from "react-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
+import { ReactQueryDevtools } from "react-query/devtools"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import AppLayout from "./app/AppLayout"
 import WatchingPage from "./app/WatchingPage"
@@ -17,7 +18,7 @@ const client = new QueryClient({
 
 render(
 	<QueryClientProvider client={client}>
-		{/* <ReactQueryDevtools /> */}
+		<ReactQueryDevtools />
 		<StrictMode>
 			<BrowserRouter>
 				<Routes>
