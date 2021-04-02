@@ -5,24 +5,28 @@ import QueryRenderer from "../ui/QueryRenderer"
 import LoginRequiredMessage from "./LoginRequiredMessage"
 
 export default function WatchingPage() {
-	const viewerId = useViewerQuery().data?.Viewer?.id
+	const viewerQuery = useViewerQuery()
 
 	const animeListQuery = useAnimeListQuery(
-		{ userId: viewerId! },
-		{ enabled: !!viewerId },
+		{ userId: viewerQuery.data?.Viewer?.id! },
+		{ enabled: !!viewerQuery.data?.Viewer?.id },
 	)
-
-	if (!viewerId) {
-		return <LoginRequiredMessage />
-	}
 
 	return (
 		<QueryRenderer
-			{...animeListQuery}
-			renderData={(data) => (
-				<SectionedMediaCardList
-					entries={compact(
-						data?.MediaListCollection?.lists?.flatMap((list) => list?.entries),
+			{...viewerQuery}
+			errorElement={<LoginRequiredMessage />}
+			renderData={() => (
+				<QueryRenderer
+					{...animeListQuery}
+					renderData={(data) => (
+						<SectionedMediaCardList
+							entries={compact(
+								data?.MediaListCollection?.lists?.flatMap(
+									(list) => list?.entries,
+								),
+							)}
+						/>
 					)}
 				/>
 			)}
