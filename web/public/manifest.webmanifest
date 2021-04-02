@@ -3,7 +3,6 @@
 	"name": "anigreen",
 	"description": "a cute and sleek extension to anilist ✨",
 	"display": "standalone",
-	"start_url": "/",
 	"background_color": "#111827",
 	"theme_color": "#047857",
 	"icons": [
