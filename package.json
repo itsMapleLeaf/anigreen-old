@@ -3,7 +3,10 @@
 	"description": "a cute and sleek extension to anilist ✨",
 	"private": true,
 	"scripts": {
-		"dev": "pnpm run dev --recursive --parallel --color",
+		"dev": "npm-run-all --parallel dev-*",
+		"dev-server": "pnpm -C server run dev",
+		"dev-generate": "graphql-codegen --config ./graphql.config.yml --watch",
+		"build": "graphql-codegen --config ./graphql.config.yml",
 		"start": "pnpm run start --recursive --parallel --color",
 		"lint": "eslint --ext \"js,ts,tsx,mjs\" .",
 		"format": "prettier --write .",
@@ -12,6 +15,10 @@
 		"depcheck": "node scripts/do-serial.js depcheck"
 	},
 	"devDependencies": {
+		"@graphql-codegen/cli": "1.21.3",
+		"@graphql-codegen/typescript": "1.21.1",
+		"@graphql-codegen/typescript-operations": "1.17.15",
+		"@graphql-codegen/typescript-react-query": "^1.2.4",
 		"@pnpm/find-workspace-packages": "^2.3.42",
 		"@pnpm/logger": "^3.2.3",
 		"@typescript-eslint/eslint-plugin": "^4.20.0",
@@ -23,6 +30,8 @@
 		"eslint-plugin-react": "^7.23.1",
 		"eslint-plugin-react-hooks": "^4.2.0",
 		"execa": "^5.0.0",
+		"graphql": "^15.5.0",
+		"npm-run-all": "^4.1.5",
 		"npm-upgrade": "^3.0.0",
 		"prettier": "^2.2.1"
 	}
