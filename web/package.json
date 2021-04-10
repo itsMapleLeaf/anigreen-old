@@ -14,7 +14,7 @@
 		"@radix-ui/react-slot": "^0.0.9",
 		"@radix-ui/react-tooltip": "^0.0.16",
 		"constate": "^3.2.0",
-		"date-fns": "^2.19.0",
+		"date-fns": "^2.20.1",
 		"focus-visible": "^5.2.0",
 		"history": "^5.0.0",
 		"lodash-es": "^4.17.21",
@@ -29,7 +29,7 @@
 		"@testing-library/jest-dom": "^5.11.10",
 		"@testing-library/react": "^11.2.6",
 		"@testing-library/react-hooks": "^5.1.1",
-		"@testing-library/user-event": "^13.1.1",
+		"@testing-library/user-event": "^13.1.2",
 		"@twind/typescript-plugin": "^0.3.4",
 		"@twind/vite-plugin-jsx": "^2.1.0",
 		"@types/jest": "^26.0.22",
@@ -42,7 +42,7 @@
 		"jest": "^26.6.3",
 		"source-map-explorer": "^2.5.2",
 		"ts-jest": "^26.5.4",
-		"typescript": "^4.2.3",
+		"typescript": "^4.2.4",
 		"typesync": "latest",
 		"vite": "^2.1.5"
 	}
