@@ -6,3 +6,4 @@ dist-ssr
 .vscode
 *.log
 *.env*
+*.code-workspace
