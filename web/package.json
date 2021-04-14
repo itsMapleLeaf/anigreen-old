@@ -14,16 +14,16 @@
 		"@radix-ui/react-slot": "^0.0.9",
 		"@radix-ui/react-tooltip": "^0.0.16",
 		"constate": "^3.2.0",
-		"date-fns": "^2.20.1",
+		"date-fns": "^2.20.3",
 		"focus-visible": "^5.2.0",
 		"history": "^5.0.0",
 		"lodash-es": "^4.17.21",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
 		"react-error-boundary": "^3.1.1",
-		"react-query": "3.12.0",
+		"react-query": "3.13.7",
 		"react-router-dom": "^6.0.0-beta.0",
-		"twind": "^0.16.10"
+		"twind": "^0.16.11"
 	},
 	"devDependencies": {
 		"@testing-library/jest-dom": "^5.11.10",
