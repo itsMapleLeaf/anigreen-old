@@ -34,12 +34,7 @@ export default function SectionedMediaCardList({
 					<h2 tw="font-condensed text-2xl">
 						{Number.isFinite(day) ? getWeekday(day) : "Not Airing"}
 					</h2>
-					<div
-						tw="grid gap-4 items-start"
-						style={{
-							gridTemplateColumns: `repeat(auto-fill, minmax(16rem, 1fr))`,
-						}}
-					>
+					<div tw="grid gap-4 items-start grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
 						{entries.map((entry) => (
 							<MediaCard key={entry.id} entry={entry} />
 						))}
