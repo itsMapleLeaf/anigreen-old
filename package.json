@@ -5,14 +5,16 @@
 	"scripts": {
 		"dev": "npm-run-all --parallel --print-label dev-*",
 		"dev-server": "pnpm -C server run dev",
-		"dev-generate": "graphql-codegen --config ./graphql.config.yml --watch",
-		"build": "graphql-codegen --config ./graphql.config.yml",
+		"dev-generate": "pnpm run codegen -- --watch",
+		"codegen": "graphql-codegen --config ./graphql.config.yml",
+		"build": "pnpm run codegen && pnpm -C web run build",
 		"start": "pnpm run start --recursive --parallel --color",
 		"lint": "eslint --ext \"js,ts,tsx,mjs\" .",
 		"format": "prettier --write .",
-		"deploy": "pnpm run build --recursive && flyctl deploy",
+		"deploy": "pnpm run build && flyctl deploy",
 		"upgrade": "node scripts/do-serial.js npm-upgrade",
-		"depcheck": "node scripts/do-serial.js depcheck"
+		"depcheck": "node scripts/do-serial.js depcheck",
+		"prepare": "pnpm run codegen"
 	},
 	"devDependencies": {
 		"@graphql-codegen/cli": "1.21.3",
