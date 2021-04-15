@@ -1,18 +1,24 @@
-import { BookmarkIcon, LogoutIcon, SearchIcon } from "@heroicons/react/solid"
-import { Slot } from "@radix-ui/react-slot"
-import type { ReactElement, ReactNode } from "react"
-import { Link, useMatch } from "react-router-dom"
-import { tw } from "twind"
+import {
+	BookmarkIcon,
+	LoginIcon,
+	LogoutIcon,
+	SearchIcon,
+} from "@heroicons/react/solid"
 import { useViewerQuery } from "../generated/graphql"
-import { DrawerItem } from "../ui/Drawer"
 import Image from "../ui/Image"
+import LoadingPlaceholder from "../ui/LoadingPlaceholder"
+import NavItem, { NavRouterLink } from "./NavItem"
 
 export default function NavDrawerContent() {
-	const viewerId = useViewerQuery().data?.Viewer?.id
+	const viewer = useViewerQuery(undefined, { suspense: false })
+
+	if (viewer.isLoading) {
+		return <LoadingPlaceholder />
+	}
 
 	return (
 		<nav tw="space-y-2">
-			{viewerId ? (
+			{viewer.data?.Viewer ? (
 				<>
 					<NavDrawerHeader />
 
@@ -37,7 +43,7 @@ export default function NavDrawerContent() {
 				<>
 					<NavItem>
 						<a href="/login">
-							<LogoutIcon />
+							<LoginIcon tw="w-5" />
 							<span>Log in with AniList</span>
 						</a>
 					</NavItem>
@@ -69,34 +75,5 @@ function NavDrawerHeader() {
 				</p>
 			</div>
 		</div>
-	)
-}
-
-function NavRouterLink({ children, to }: { children: ReactNode; to: string }) {
-	const match = useMatch(to)
-	return (
-		<NavItem active={match != null}>
-			<Link to={to}>{children}</Link>
-		</NavItem>
-	)
-}
-
-function NavItem({
-	active,
-	children,
-}: {
-	active?: boolean
-	children: ReactElement
-}) {
-	const baseStyle = tw`flex items-center w-full rounded-lg space-x-2 p-2 font-medium transition leading-none`
-	const activeStyle = tw`text-green-400 bg(black opacity-25)`
-	const inactiveStyle = tw`opacity-50 hactive:(opacity-75 bg(black opacity-25))`
-
-	return (
-		<DrawerItem>
-			<Slot tw={[baseStyle, active ? activeStyle : inactiveStyle]}>
-				{children}
-			</Slot>
-		</DrawerItem>
 	)
 }
