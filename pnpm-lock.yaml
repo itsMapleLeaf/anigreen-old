@@ -75,6 +75,7 @@ importers:
 
   web:
     specifiers:
+      '@headlessui/react': ^1.0.0
       '@heroicons/react': ^1.0.0
       '@preact/preset-vite': ^2.0.1
       '@prefresh/vite': ^2.2.1
@@ -111,6 +112,7 @@ importers:
       typesync: latest
       vite: ^2.1.5
     dependencies:
+      '@headlessui/react': 1.0.0
       '@heroicons/react': 1.0.0
       '@radix-ui/react-dialog': 0.0.15_@types+react@17.0.3
       '@radix-ui/react-dropdown-menu': 0.0.17_@types+react@17.0.3
@@ -1461,6 +1463,13 @@ packages:
       is-promise: 4.0.0
       tslib: 2.0.3
     dev: true
+
+  /@headlessui/react/1.0.0:
+    resolution: {integrity: sha512-mjqRJrgkbcHQBfAHnqH0yRxO/y/22jYrdltpE7WkurafREKZ+pj5bPBwYHMt935Sdz/n16yRcVmsSCqDFHee9A==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+    dev: false
 
   /@heroicons/react/1.0.0:
     resolution: {integrity: sha512-BHu+zsJ37B8RsspItwn2yTrph1Jj+k8YhVGV/UmAbxjhphC+RPdYMKzAJm9kGtA526loPtP+FYQM9GdMYTe13Q==}
