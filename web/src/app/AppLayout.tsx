@@ -8,10 +8,10 @@ import {
 import React, { useCallback } from "react"
 import { Outlet } from "react-router-dom"
 import { useScrollSelector } from "../dom/useScrollSelector"
-import { useViewerQuery } from "../generated/graphql"
 import { clearIconButtonStyle } from "../ui/components"
 import Drawer from "../ui/Drawer"
 import LoadingSuspense from "../ui/LoadingSuspense"
+import { useViewerQuery } from "../viewer/queries"
 import AppErrorBoundary from "./AppErrorBoundary"
 import AppLogoLink from "./AppLogoLink"
 import NavDrawerContent from "./NavDrawerContent"
@@ -73,11 +73,7 @@ export default function AppLayout() {
 }
 
 function DesktopNavItems() {
-	const viewer = useViewerQuery(undefined, { suspense: false })
-
-	if (viewer.isLoading) {
-		return null
-	}
+	const viewer = useViewerQuery()
 
 	return viewer.data?.Viewer ? (
 		<>

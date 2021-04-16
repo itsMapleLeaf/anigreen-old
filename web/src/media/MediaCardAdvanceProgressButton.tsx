@@ -1,9 +1,10 @@
 import { PlusIcon } from "@heroicons/react/solid"
-import { useQueryClient } from "react-query"
+import { useMutation, useQueryClient } from "react-query"
+import { api } from "../api"
 import Button from "../dom/Button"
-import {
+import type {
 	AnimeListEntryFragment,
-	useUpdateMediaListProgressMutation,
+	UpdateMediaListProgressMutationVariables,
 } from "../generated/graphql"
 import { clearIconButtonStyle } from "../ui/components"
 
@@ -13,11 +14,16 @@ export default function MediaCardAdvanceProgressButton({
 	entry: AnimeListEntryFragment
 }) {
 	const client = useQueryClient()
-	const updateProgressMutation = useUpdateMediaListProgressMutation({
-		async onSuccess() {
-			await client.invalidateQueries("AnimeList")
+
+	const updateProgressMutation = useMutation(
+		(variables: UpdateMediaListProgressMutationVariables) =>
+			api.UpdateMediaListProgress(variables),
+		{
+			async onSuccess() {
+				await client.invalidateQueries("AnimeList")
+			},
 		},
-	})
+	)
 
 	function advanceProgress() {
 		updateProgressMutation.mutate({

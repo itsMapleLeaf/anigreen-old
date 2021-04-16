@@ -1,21 +1,26 @@
 import { compact } from "lodash-es"
-import { useAnimeListQuery, useViewerQuery } from "../generated/graphql"
+import { useQuery } from "react-query"
+import { api } from "../api"
+import type { AnimeListQuery } from "../generated/graphql"
 import SectionedMediaCardList from "../media/SectionedMediaCardList"
+import { useViewerQuery } from "../viewer/queries"
 
 export default function WatchingPage() {
-	const viewerQuery = useViewerQuery({}, { suspense: true })
+	const viewerQuery = useViewerQuery({ required: true })
+	const userId = viewerQuery.data?.Viewer?.id
 
-	const animeListQuery = useAnimeListQuery(
-		{ userId: viewerQuery.data?.Viewer?.id! },
-		{
-			suspense: true,
-			enabled: !!viewerQuery.data?.Viewer?.id,
-			select: (data) =>
-				compact(
-					data?.MediaListCollection?.lists?.flatMap((list) => list?.entries),
-				),
+	const animeListQuery = useQuery({
+		queryKey: ["animeList"],
+		queryFn() {
+			return api.AnimeList({ userId: userId! })
 		},
-	)
+		enabled: !!userId,
+		select(data: AnimeListQuery) {
+			return compact(
+				data?.MediaListCollection?.lists?.flatMap((list) => list?.entries),
+			)
+		},
+	})
 
 	return <SectionedMediaCardList entries={animeListQuery.data ?? []} />
 }

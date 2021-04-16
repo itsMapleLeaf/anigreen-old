@@ -20,7 +20,7 @@
 		"@graphql-codegen/cli": "1.21.3",
 		"@graphql-codegen/typescript": "1.21.1",
 		"@graphql-codegen/typescript-operations": "1.17.15",
-		"@graphql-codegen/typescript-react-query": "^1.2.4",
+		"@graphql-codegen/typescript-generic-sdk": "1.17.9",
 		"@pnpm/find-workspace-packages": "^3.0.1",
 		"@pnpm/logger": "^3.2.3",
 		"@typescript-eslint/eslint-plugin": "^4.22.0",

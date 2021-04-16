@@ -1,5 +1,4 @@
-import { useQuery, UseQueryOptions, useMutation, UseMutationOptions } from 'react-query';
-import { createFetcher } from '../network/createFetcher';
+import type { DocumentNode } from 'graphql';
 export type Maybe<T> = T | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -4321,96 +4320,22 @@ export type ViewerQuery = { Viewer?: Maybe<(
     & { avatar?: Maybe<Pick<UserAvatar, 'medium' | 'large'>> }
   )> };
 
-export const AnimeListEntryFragmentDoc = `
-    fragment animeListEntry on MediaList {
-  id
-  progress
-  score
-  media {
-    id
-    format
-    episodes
-    nextAiringEpisode {
-      airingAt
-      episode
+export const AnimeListEntryFragmentDoc: DocumentNode = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"animeListEntry"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaList"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"progress"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"media"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"format"}},{"kind":"Field","name":{"kind":"Name","value":"episodes"}},{"kind":"Field","name":{"kind":"Name","value":"nextAiringEpisode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"airingAt"}},{"kind":"Field","name":{"kind":"Name","value":"episode"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bannerImage"}},{"kind":"Field","name":{"kind":"Name","value":"title"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"english"}},{"kind":"Field","name":{"kind":"Name","value":"romaji"}},{"kind":"Field","name":{"kind":"Name","value":"native"}},{"kind":"Field","name":{"kind":"Name","value":"userPreferred"}}]}},{"kind":"Field","name":{"kind":"Name","value":"coverImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"extraLarge"}},{"kind":"Field","name":{"kind":"Name","value":"large"}},{"kind":"Field","name":{"kind":"Name","value":"color"}}]}}]}}]}}]};
+export const AnimeListDocument: DocumentNode = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AnimeList"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"MediaListCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"userId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}},{"kind":"Argument","name":{"kind":"Name","value":"type"},"value":{"kind":"EnumValue","value":"ANIME"}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"EnumValue","value":"STATUS"}},{"kind":"Argument","name":{"kind":"Name","value":"status"},"value":{"kind":"EnumValue","value":"CURRENT"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lists"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"entries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"animeListEntry"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"animeListEntry"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaList"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"progress"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"media"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"format"}},{"kind":"Field","name":{"kind":"Name","value":"episodes"}},{"kind":"Field","name":{"kind":"Name","value":"nextAiringEpisode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"airingAt"}},{"kind":"Field","name":{"kind":"Name","value":"episode"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bannerImage"}},{"kind":"Field","name":{"kind":"Name","value":"title"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"english"}},{"kind":"Field","name":{"kind":"Name","value":"romaji"}},{"kind":"Field","name":{"kind":"Name","value":"native"}},{"kind":"Field","name":{"kind":"Name","value":"userPreferred"}}]}},{"kind":"Field","name":{"kind":"Name","value":"coverImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"extraLarge"}},{"kind":"Field","name":{"kind":"Name","value":"large"}},{"kind":"Field","name":{"kind":"Name","value":"color"}}]}}]}}]}}]};
+export const UpdateMediaListProgressDocument: DocumentNode = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateMediaListProgress"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"progress"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"SaveMediaListEntry"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"progress"},"value":{"kind":"Variable","name":{"kind":"Name","value":"progress"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]};
+export const ViewerDocument: DocumentNode = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"medium"}},{"kind":"Field","name":{"kind":"Name","value":"large"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bannerImage"}}]}}]}}]};
+export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
+export function getSdk<C>(requester: Requester<C>) {
+  return {
+    AnimeList(variables: AnimeListQueryVariables, options?: C): Promise<AnimeListQuery> {
+      return requester<AnimeListQuery, AnimeListQueryVariables>(AnimeListDocument, variables, options);
+    },
+    UpdateMediaListProgress(variables: UpdateMediaListProgressMutationVariables, options?: C): Promise<UpdateMediaListProgressMutation> {
+      return requester<UpdateMediaListProgressMutation, UpdateMediaListProgressMutationVariables>(UpdateMediaListProgressDocument, variables, options);
+    },
+    Viewer(variables?: ViewerQueryVariables, options?: C): Promise<ViewerQuery> {
+      return requester<ViewerQuery, ViewerQueryVariables>(ViewerDocument, variables, options);
     }
-    bannerImage
-    title {
-      english
-      romaji
-      native
-      userPreferred
-    }
-    coverImage {
-      extraLarge
-      large
-      color
-    }
-  }
+  };
 }
-    `;
-export const AnimeListDocument = `
-    query AnimeList($userId: Int!) {
-  MediaListCollection(userId: $userId, type: ANIME, sort: STATUS, status: CURRENT) {
-    lists {
-      name
-      status
-      entries {
-        ...animeListEntry
-      }
-    }
-  }
-}
-    ${AnimeListEntryFragmentDoc}`;
-export const useAnimeListQuery = <
-      TData = AnimeListQuery,
-      TError = unknown
-    >(
-      variables: AnimeListQueryVariables, 
-      options?: UseQueryOptions<AnimeListQuery, TError, TData>
-    ) => 
-    useQuery<AnimeListQuery, TError, TData>(
-      ['AnimeList', variables],
-      createFetcher<AnimeListQuery, AnimeListQueryVariables>(AnimeListDocument, variables),
-      options
-    );
-export const UpdateMediaListProgressDocument = `
-    mutation UpdateMediaListProgress($id: Int!, $progress: Int!) {
-  SaveMediaListEntry(id: $id, progress: $progress) {
-    id
-  }
-}
-    `;
-export const useUpdateMediaListProgressMutation = <
-      TError = unknown,
-      TContext = unknown
-    >(options?: UseMutationOptions<UpdateMediaListProgressMutation, TError, UpdateMediaListProgressMutationVariables, TContext>) => 
-    useMutation<UpdateMediaListProgressMutation, TError, UpdateMediaListProgressMutationVariables, TContext>(
-      (variables?: UpdateMediaListProgressMutationVariables) => createFetcher<UpdateMediaListProgressMutation, UpdateMediaListProgressMutationVariables>(UpdateMediaListProgressDocument, variables)(),
-      options
-    );
-export const ViewerDocument = `
-    query Viewer {
-  Viewer {
-    id
-    name
-    avatar {
-      medium
-      large
-    }
-    bannerImage
-  }
-}
-    `;
-export const useViewerQuery = <
-      TData = ViewerQuery,
-      TError = unknown
-    >(
-      variables?: ViewerQueryVariables, 
-      options?: UseQueryOptions<ViewerQuery, TError, TData>
-    ) => 
-    useQuery<ViewerQuery, TError, TData>(
-      ['Viewer', variables],
-      createFetcher<ViewerQuery, ViewerQueryVariables>(ViewerDocument, variables),
-      options
-    );
+export type Sdk = ReturnType<typeof getSdk>;

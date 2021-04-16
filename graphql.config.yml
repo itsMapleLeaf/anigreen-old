@@ -7,9 +7,9 @@ generates:
     plugins:
       - "typescript"
       - "typescript-operations"
-      - "typescript-react-query"
+      - "typescript-generic-sdk"
 config:
-  fetcher:
-    func: "../network/createFetcher#createFetcher"
+  documentMode: documentNode
+  useTypeImports: true
   maybeValue: T | undefined
   skipTypename: true

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import { ErrorBoundary, FallbackProps } from "react-error-boundary"
+import { ApiError } from "../api"
 import Button from "../dom/Button"
-import { FetcherError } from "../network/createFetcher"
 import { solidButtonStyle } from "../ui/components"
 import LoginRequiredMessage from "./LoginRequiredMessage"
 
@@ -16,7 +16,7 @@ export default function AppErrorBoundary({
 }
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
-	if (error instanceof FetcherError && error.status === 401) {
+	if (error instanceof ApiError && error.status === 401) {
 		return <LoginRequiredMessage />
 	}
 

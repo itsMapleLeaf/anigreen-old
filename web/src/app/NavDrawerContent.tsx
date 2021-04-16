@@ -4,17 +4,12 @@ import {
 	LogoutIcon,
 	SearchIcon,
 } from "@heroicons/react/solid"
-import { useViewerQuery } from "../generated/graphql"
 import Image from "../ui/Image"
-import LoadingPlaceholder from "../ui/LoadingPlaceholder"
+import { useViewerQuery } from "../viewer/queries"
 import NavItem, { NavRouterLink } from "./NavItem"
 
 export default function NavDrawerContent() {
-	const viewer = useViewerQuery(undefined, { suspense: false })
-
-	if (viewer.isLoading) {
-		return <LoadingPlaceholder />
-	}
+	const viewer = useViewerQuery()
 
 	return (
 		<nav className="space-y-2">
@@ -58,24 +53,24 @@ function NavDrawerHeader() {
 
 	return (
 		<div className="relative overflow-hidden">
-			<div className="absolute inset-0 rounded-lg overflow-hidden bg-gray-900">
+			<div className="absolute inset-0 overflow-hidden bg-gray-900 rounded-lg">
 				<Image
 					src={viewer?.bannerImage}
-					className="w-full h-full object-cover"
+					className="object-cover w-full h-full"
 					style={{
 						transform: `scale(1.1)`,
 						filter: "brightness(30%) blur(2px)",
 					}}
 				/>
 			</div>
-			<div className="relative px-2 py-4 flex items-center box-content">
+			<div className="box-content relative flex items-center px-2 py-4">
 				<Image
 					src={viewer?.avatar?.large}
-					className="w-10 h-10 shadow rounded-full"
+					className="w-10 h-10 rounded-full shadow"
 				/>
 				<p
 					aria-label="Username"
-					className="text-lg font-light tracking-wide ml-3"
+					className="ml-3 text-lg font-light tracking-wide"
 				>
 					{viewer?.name}
 				</p>
