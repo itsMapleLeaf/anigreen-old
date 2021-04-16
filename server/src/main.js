@@ -94,7 +94,10 @@ function createAuthRouter() {
 				headers,
 			},
 			(apiResponse) => {
-				res.status(apiResponse.statusCode ?? 500)
+				res
+					.status(apiResponse.statusCode ?? 500)
+					.header("Content-Type", "application/json")
+
 				apiResponse.setEncoding("utf-8").pipe(res, { end: true })
 			},
 		)
