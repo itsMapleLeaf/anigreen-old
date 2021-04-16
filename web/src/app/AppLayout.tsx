@@ -21,30 +21,30 @@ export default function AppLayout() {
 	const isAtTop = useScrollSelector(useCallback((scroll) => scroll === 0, []))
 
 	return (
-		<div tw="pt-16 h-screen isolate">
+		<div className="h-screen pt-16 isolate">
 			<header
-				tw={`
+				className={`
 					z-10
 					fixed inset-x-0 top-0
 					flex items-center gap-4 px-4
-					transition duration-300
-					shadow backdrop-blur
-					${isAtTop ? `bg-gray-800` : `bg(black opacity-75)`}
+					transition-colors duration-300
+					shadow backdrop-filter backdrop-blur-sm
+					${isAtTop ? `bg-gray-800` : `bg-black bg-opacity-75`}
 				`}
 			>
-				<div tw="sm:hidden">
+				<div className="sm:hidden">
 					<Drawer
 						trigger={
 							<button
 								type="button"
 								title="Menu"
-								tw={`${clearIconButtonStyle} -m-1`}
+								className={`${clearIconButtonStyle} -m-1`}
 							>
-								<MenuIcon tw="w-6" />
+								<MenuIcon className="w-6" />
 							</button>
 						}
 					>
-						<div tw="w-64 p-2">
+						<div className="w-64 p-2">
 							<LoadingSuspense>
 								<NavDrawerContent />
 							</LoadingSuspense>
@@ -52,16 +52,16 @@ export default function AppLayout() {
 					</Drawer>
 				</div>
 
-				<div tw="py-2">
+				<div className="py-2">
 					<AppLogoLink />
 				</div>
 
-				<nav tw="hidden sm:grid grid-flow-col gap-3">
+				<nav className="hidden grid-flow-col gap-3 sm:grid">
 					<DesktopNavItems />
 				</nav>
 			</header>
 
-			<main tw="h-full w-full mx-auto max-w-screen-xl">
+			<main className="w-full h-full max-w-screen-xl mx-auto">
 				<AppErrorBoundary>
 					<LoadingSuspense>
 						<Outlet />
@@ -82,18 +82,18 @@ function DesktopNavItems() {
 	return viewer.data?.Viewer ? (
 		<>
 			<NavRouterLink to="/watching">
-				<BookmarkIcon tw="w-5" />
+				<BookmarkIcon className="w-5" />
 				<span>Watching</span>
 			</NavRouterLink>
 
 			<NavRouterLink to="/search">
-				<SearchIcon tw="w-5" />
+				<SearchIcon className="w-5" />
 				<span>Download Search</span>
 			</NavRouterLink>
 
 			<NavItem>
 				<a href="/logout">
-					<LogoutIcon tw="w-5" />
+					<LogoutIcon className="w-5" />
 					<span>Log out</span>
 				</a>
 			</NavItem>
@@ -101,7 +101,7 @@ function DesktopNavItems() {
 	) : (
 		<NavItem>
 			<a href="/login">
-				<LoginIcon tw="w-5" />
+				<LoginIcon className="w-5" />
 				<span>Log in with AniList</span>
 			</a>
 		</NavItem>

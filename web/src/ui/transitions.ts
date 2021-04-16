@@ -1,20 +1,19 @@
 import type { TransitionClasses } from "@headlessui/react"
-import { tw } from "twind"
 
 export const fadeTransition: TransitionClasses = {
-	enter: tw`transition duration-300`,
-	enterFrom: tw`opacity-0`,
-	enterTo: tw`opacity-100`,
-	leave: tw`transition duration-300`,
-	leaveFrom: tw`opacity-100`,
-	leaveTo: tw`opacity-0`,
+	enter: `transition duration-300`,
+	enterFrom: `opacity-0`,
+	enterTo: `opacity-100`,
+	leave: `transition duration-300`,
+	leaveFrom: `opacity-100`,
+	leaveTo: `opacity-0`,
 }
 
 export const slideLeftTransition: TransitionClasses = {
-	enter: tw`transition transform duration-300`,
-	enterFrom: tw`-translate-x-full`,
-	enterTo: tw`translate-x-0`,
-	leave: tw`transition transform duration-300`,
-	leaveFrom: tw`translate-x-0`,
-	leaveTo: tw`-translate-x-full`,
+	enter: `transition transform duration-300`,
+	enterFrom: `-translate-x-full`,
+	enterTo: `translate-x-0`,
+	leave: `transition transform duration-300`,
+	leaveFrom: `translate-x-0`,
+	leaveTo: `-translate-x-full`,
 }

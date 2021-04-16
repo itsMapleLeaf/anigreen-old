@@ -17,24 +17,24 @@ export default function NavDrawerContent() {
 	}
 
 	return (
-		<nav tw="space-y-2">
+		<nav className="space-y-2">
 			{viewer.data?.Viewer ? (
 				<>
 					<NavDrawerHeader />
 
 					<NavRouterLink to="/watching">
-						<BookmarkIcon tw="w-5" />
+						<BookmarkIcon className="w-5" />
 						<span>Watching</span>
 					</NavRouterLink>
 
 					<NavRouterLink to="/search">
-						<SearchIcon tw="w-5" />
+						<SearchIcon className="w-5" />
 						<span>Download Search</span>
 					</NavRouterLink>
 
 					<NavItem>
 						<a href="/logout">
-							<LogoutIcon tw="w-5" />
+							<LogoutIcon className="w-5" />
 							<span>Log out</span>
 						</a>
 					</NavItem>
@@ -43,7 +43,7 @@ export default function NavDrawerContent() {
 				<>
 					<NavItem>
 						<a href="/login">
-							<LoginIcon tw="w-5" />
+							<LoginIcon className="w-5" />
 							<span>Log in with AniList</span>
 						</a>
 					</NavItem>
@@ -57,20 +57,26 @@ function NavDrawerHeader() {
 	const viewer = useViewerQuery().data?.Viewer
 
 	return (
-		<div tw="relative overflow-hidden">
-			<div tw="absolute inset-0 rounded-lg overflow-hidden bg-gray-900">
+		<div className="relative overflow-hidden">
+			<div className="absolute inset-0 rounded-lg overflow-hidden bg-gray-900">
 				<Image
 					src={viewer?.bannerImage}
-					tw="w-full h-full object-cover"
+					className="w-full h-full object-cover"
 					style={{
 						transform: `scale(1.1)`,
 						filter: "brightness(30%) blur(2px)",
 					}}
 				/>
 			</div>
-			<div tw="relative px-2 py-4 flex items-center box-content">
-				<Image src={viewer?.avatar?.large} tw="w-10 h-10 shadow rounded-full" />
-				<p aria-label="Username" tw="text-lg font-light tracking-wide ml-3">
+			<div className="relative px-2 py-4 flex items-center box-content">
+				<Image
+					src={viewer?.avatar?.large}
+					className="w-10 h-10 shadow rounded-full"
+				/>
+				<p
+					aria-label="Username"
+					className="text-lg font-light tracking-wide ml-3"
+				>
 					{viewer?.name}
 				</p>
 			</div>

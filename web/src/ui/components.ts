@@ -1,16 +1,14 @@
-import { apply } from "twind"
-
-export const clearButtonStyle = apply`
+export const clearButtonStyle = `
 	h-8 p-1 rounded-md transition
 	hover:(bg-white bg-opacity-25)
 `
 
-export const clearIconButtonStyle = apply`
+export const clearIconButtonStyle = `
 	${clearButtonStyle}
 	w-7 h-7 p-0 flex items-center justify-center
 `
 
-export const solidButtonStyle = apply`
+export const solidButtonStyle = `
 	inline-flex items-center
 	h-10 px-3 rounded shadow
 	leading-none text-white 

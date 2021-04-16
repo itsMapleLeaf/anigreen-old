@@ -16,7 +16,6 @@
 		"importsNotUsedAsValues": "error",
 		"jsx": "preserve",
 		"noUncheckedIndexedAccess": true
-		// "plugins": [{ "name": "@twind/typescript-plugin" }]
 	},
 	"exclude": ["dist", "node_modules"]
 }

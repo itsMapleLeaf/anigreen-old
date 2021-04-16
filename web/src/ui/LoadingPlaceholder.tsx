@@ -2,8 +2,8 @@ import LoadingIcon from "./LoadingIcon"
 
 export default function LoadingPlaceholder() {
 	return (
-		<div tw="grid justify-items-center p-4">
-			<LoadingIcon tw="w-12 h-12" />
+		<div className="grid justify-items-center p-4">
+			<LoadingIcon className="w-12 h-12" />
 		</div>
 	)
 }

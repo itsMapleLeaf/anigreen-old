@@ -1,7 +1,6 @@
-import { Slot } from "@radix-ui/react-slot"
 import type { ReactElement, ReactNode } from "react"
 import { Link, useMatch } from "react-router-dom"
-import { tw } from "twind"
+import Slot from "../react/Slot"
 
 export default function NavItem({
 	active,
@@ -10,14 +9,15 @@ export default function NavItem({
 	active?: boolean
 	children: ReactElement
 }) {
-	const baseStyle = tw`flex items-center w-full rounded-lg space-x-2 p-3 font-medium transition leading-none`
-	const activeStyle = tw`text-green-400 bg(black opacity-25)`
-	const inactiveStyle = tw`opacity-50 hactive:opacity-100`
+	const baseStyle = `flex items-center w-full rounded-lg space-x-2 p-3 font-medium transition leading-none`
+	const activeStyle = `text-green-400 bg-black bg-opacity-25`
+	const inactiveStyle = `opacity-50 hover:opacity-100`
 
 	return (
-		<Slot tw={[baseStyle, active ? activeStyle : inactiveStyle]}>
-			{children}
-		</Slot>
+		<Slot
+			element={children}
+			className={`${baseStyle} ${active ? activeStyle : inactiveStyle}`}
+		/>
 	)
 }
 

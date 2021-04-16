@@ -28,11 +28,11 @@ export default function MediaCardAdvanceProgressButton({
 
 	return (
 		<Button
-			tw={clearIconButtonStyle}
+			className={clearIconButtonStyle}
 			onClick={advanceProgress}
 			loading={updateProgressMutation.isLoading}
 		>
-			<PlusIcon tw="w-5" />
+			<PlusIcon className="w-5" />
 		</Button>
 	)
 }

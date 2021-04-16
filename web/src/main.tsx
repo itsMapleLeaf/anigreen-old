@@ -1,3 +1,4 @@
+import "focus-visible"
 import { StrictMode } from "react"
 import { render } from "react-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
@@ -6,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import AppLayout from "./app/AppLayout"
 import WatchingPage from "./app/WatchingPage"
 import { NyaaSearchPage } from "./nyaa/nyaa-search"
+import "./tailwind.css"
 
 const client = new QueryClient({
 	defaultOptions: {

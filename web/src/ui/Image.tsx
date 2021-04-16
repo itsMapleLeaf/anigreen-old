@@ -1,5 +1,4 @@
 import { ComponentPropsWithoutRef, useLayoutEffect, useRef } from "react"
-import { tw } from "twind"
 
 /** HTML <img> tag with defaults */
 export default function Image({
@@ -33,7 +32,7 @@ export default function Image({
 			loading="lazy"
 			ref={imageRef}
 			src={src}
-			className={tw`object-cover ${className}`}
+			className={`object-cover ${className}`}
 			{...props}
 		/>
 	)

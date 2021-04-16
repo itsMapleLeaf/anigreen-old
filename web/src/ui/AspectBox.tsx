@@ -9,10 +9,10 @@ export default function AspectBox({
 }) {
 	return (
 		<div
-			tw="w-full relative"
+			className="w-full relative"
 			style={{ paddingBottom: `${(1 / ratio) * 100}%` }}
 		>
-			<div tw="absolute inset-0">{children}</div>
+			<div className="absolute inset-0">{children}</div>
 		</div>
 	)
 }

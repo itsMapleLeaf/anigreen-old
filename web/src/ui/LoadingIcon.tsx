@@ -1,21 +1,14 @@
 import type { SVGProps } from "react"
-import { animation } from "twind/css"
-
-const spinAnimation = animation(`0.8s infinite`, {
-	from: { transform: `rotate(0deg)` },
-	to: { transform: `rotate(360deg)` },
-})
 
 export default function LoadingIcon({
-	className,
+	className = "",
 	...props
 }: SVGProps<SVGSVGElement>) {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 24 24"
-			tw={spinAnimation}
-			className={className}
+			className={`spin ${className}`}
 			{...props}
 		>
 			<path

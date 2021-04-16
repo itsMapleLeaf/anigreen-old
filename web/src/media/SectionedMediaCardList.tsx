@@ -28,13 +28,13 @@ export default function SectionedMediaCardList({
 	)
 
 	return (
-		<div tw="grid gap-8 p-4">
+		<div className="grid gap-8 p-4">
 			{sortedListsByDay.map(({ day, entries }) => (
-				<div key={day} tw="grid gap-3">
-					<h2 tw="font-condensed text-2xl">
+				<div key={day} className="grid gap-3">
+					<h2 className="font-condensed text-2xl">
 						{Number.isFinite(day) ? getWeekday(day) : "Not Airing"}
 					</h2>
-					<div tw="grid gap-4 items-start grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
+					<div className="grid gap-4 items-start grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
 						{entries.map((entry) => (
 							<MediaCard key={entry.id} entry={entry} />
 						))}

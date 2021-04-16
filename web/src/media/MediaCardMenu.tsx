@@ -25,8 +25,8 @@ export default function MediaCardMenu({
 	return (
 		<Menu>
 			<MenuButton>
-				<Button tw={clearIconButtonStyle}>
-					<DotsVerticalIcon tw="w-5" />
+				<Button className={clearIconButtonStyle}>
+					<DotsVerticalIcon className="w-5" />
 				</Button>
 			</MenuButton>
 			<MenuPanel>
@@ -34,7 +34,7 @@ export default function MediaCardMenu({
 					<MenuItem>
 						<Button>
 							<IconWithText
-								iconLeft={<SearchIcon tw="w-5" />}
+								iconLeft={<SearchIcon className="w-5" />}
 								text="Nyaa Search"
 							/>
 						</Button>
@@ -44,7 +44,7 @@ export default function MediaCardMenu({
 				<MenuItem>
 					<ExternalLink href={`https://anilist.co/anime/${entry?.media?.id}`}>
 						<IconWithText
-							iconLeft={<ExternalLinkIcon tw="w-5" />}
+							iconLeft={<ExternalLinkIcon className="w-5" />}
 							text="View on AniList"
 						/>
 					</ExternalLink>
