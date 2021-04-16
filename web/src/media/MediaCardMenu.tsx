@@ -6,7 +6,7 @@ import {
 import Button from "../dom/Button"
 import ExternalLink from "../dom/ExternalLink"
 import type { AnimeListEntryFragment } from "../generated/graphql"
-import { NyaaSearchDialogButton } from "../nyaa/nyaa-search"
+import { NyaaSearchLink } from "../nyaa/nyaa-search"
 import { clearIconButtonStyle } from "../ui/components"
 import IconWithText from "../ui/IconWithText"
 import { Menu, MenuButton, MenuItem, MenuPanel } from "../ui/menu"
@@ -30,16 +30,14 @@ export default function MediaCardMenu({
 				</Button>
 			</MenuButton>
 			<MenuPanel>
-				<NyaaSearchDialogButton query={nyaaSearchQuery}>
-					<MenuItem>
-						<Button>
-							<IconWithText
-								iconLeft={<SearchIcon className="w-5" />}
-								text="Nyaa Search"
-							/>
-						</Button>
-					</MenuItem>
-				</NyaaSearchDialogButton>
+				<MenuItem>
+					<NyaaSearchLink query={nyaaSearchQuery}>
+						<IconWithText
+							iconLeft={<SearchIcon className="w-5" />}
+							text="Nyaa Search"
+						/>
+					</NyaaSearchLink>
+				</MenuItem>
 
 				<MenuItem>
 					<ExternalLink href={`https://anilist.co/anime/${entry?.media?.id}`}>

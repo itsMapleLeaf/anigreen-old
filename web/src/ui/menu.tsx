@@ -1,55 +1,39 @@
-import * as RadixMenu from "@radix-ui/react-dropdown-menu"
-import { Slot } from "@radix-ui/react-slot"
-import type { ReactElement, ReactNode, Ref } from "react"
-import { autoRef } from "../react/helpers"
+import { Menu as BaseMenu } from "@headlessui/react"
+import { Fragment, ReactElement, ReactNode } from "react"
+import Slot from "../react/Slot"
 
 export function Menu({ children }: { children: ReactNode }) {
-	return <RadixMenu.Root>{children}</RadixMenu.Root>
+	return (
+		<BaseMenu>
+			<div className="relative">{children}</div>
+		</BaseMenu>
+	)
 }
 
-export const MenuButton = autoRef(function MenuButton(props: {
-	children: ReactElement
-	ref: Ref<unknown>
-}) {
-	return (
-		<RadixMenu.Trigger as={Slot} ref={props.ref as any}>
-			{props.children}
-		</RadixMenu.Trigger>
-	)
-})
+export function MenuButton({ children }: { children: ReactElement }) {
+	return <BaseMenu.Button as={Fragment}>{children}</BaseMenu.Button>
+}
 
 export function MenuPanel({ children }: { children: ReactNode }) {
-	const baseClass = `bg-white text-gray-800 w-max rounded overflow-hidden shadow`
-	return <RadixMenu.Content className={baseClass}>{children}</RadixMenu.Content>
+	return (
+		<BaseMenu.Items className="absolute right-0 mt-1 overflow-hidden text-gray-800 bg-white rounded shadow w-max top-full">
+			{children}
+		</BaseMenu.Items>
+	)
 }
 
-export const MenuItem = autoRef(function MenuItem({
-	children,
-	onClick,
-	ref,
-}: {
-	children: ReactNode
-	onClick?: () => void
-	ref: Ref<unknown>
-}) {
-	const baseClass = `
-		block
-		p-3 w-full
-		leading-none font-medium text-left
-		transition
-		ring-2 ring-inset ring-transparent
-		hover:bg-green-100 hover:text-green-900
-		focus:ring-green-500 focus:outline-none
-	`
+export function MenuItem({ children }: { children: ReactElement }) {
+	const baseClass = `block p-3 w-full leading-none font-medium text-left transition focus:outline-none`
+	const activeClass = `bg-green-100 text-green-900`
 
 	return (
-		<RadixMenu.Item
-			as={Slot as any}
-			ref={ref as any}
-			className={baseClass}
-			onClick={onClick}
-		>
-			{children}
-		</RadixMenu.Item>
+		<BaseMenu.Item as={Fragment}>
+			{({ active }) => (
+				<Slot
+					element={children}
+					className={`${baseClass} ${active ? activeClass : ""}`}
+				/>
+			)}
+		</BaseMenu.Item>
 	)
-})
+}

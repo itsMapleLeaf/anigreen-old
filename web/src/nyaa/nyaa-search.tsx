@@ -1,7 +1,5 @@
-import { Slot } from "@radix-ui/react-slot"
-import type { ReactElement, Ref } from "react"
-import { useNavigate, useSearchParams } from "react-router-dom"
-import { autoRef } from "../react/helpers"
+import type { ReactElement } from "react"
+import { Link, useSearchParams } from "react-router-dom"
 import LoadingPlaceholder from "../ui/LoadingPlaceholder"
 
 export function NyaaSearchPage() {
@@ -14,9 +12,9 @@ export function NyaaSearchPage() {
 	}
 
 	return (
-		<div className="relative grid place-items-center w-full h-full p-4">
+		<div className="relative grid w-full h-full p-4 place-items-center">
 			<LoadingPlaceholder />
-			<div className="absolute inset-4 rounded-lg overflow-hidden shadow">
+			<div className="absolute overflow-hidden rounded-lg shadow inset-4">
 				<iframe
 					title="Nyaa Search"
 					src={url.toString()}
@@ -29,26 +27,18 @@ export function NyaaSearchPage() {
 	)
 }
 
-export const NyaaSearchDialogButton = autoRef(function NyaaSearchDialogButton({
+export function NyaaSearchLink({
 	children,
+	className,
 	query,
-	ref,
 }: {
 	children: ReactElement
+	className?: string
 	query: string
-	ref: Ref<unknown>
 }) {
-	const navigate = useNavigate()
 	return (
-		<Slot
-			ref={ref as any}
-			// @ts-expect-error
-			onClick={(...args) => {
-				navigate(`/search?query=${query}`)
-				children.props.onClick?.(...args)
-			}}
-		>
+		<Link to={`/search?query=${query}`} className={className}>
 			{children}
-		</Slot>
+		</Link>
 	)
-})
+}
