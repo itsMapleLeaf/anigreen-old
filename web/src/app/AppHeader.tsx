@@ -134,7 +134,11 @@ function ViewerStatus() {
 
 	return (
 		<Tooltip text={`Logged in as ${viewer.name}`}>
-			<Image src={viewer.avatar?.medium} className="w-8 h-8 rounded-full" />
+			<Image
+				src={viewer.avatar?.medium}
+				alt="Your avatar"
+				className="w-8 h-8 rounded-full"
+			/>
 		</Tooltip>
 	)
 }
