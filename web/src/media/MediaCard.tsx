@@ -12,13 +12,16 @@ export default function MediaCard({
 	entry: AnimeListEntryFragment
 }) {
 	return (
-		<div className="relative overflow-hidden rounded-lg shadow flex flex-col">
-			<div className="bg-black p-2 relative">
+		<div className="relative flex flex-col rounded-lg shadow">
+			<div className="relative p-2 bg-black rounded-t-lg">
 				<div className="absolute inset-0 opacity-50">
-					<Image src={entry?.media?.bannerImage} className="w-full h-full" />
+					<Image
+						src={entry?.media?.bannerImage}
+						className="w-full h-full rounded-t-lg"
+					/>
 				</div>
 
-				<div className="absolute inset-0 bg-gradient-to-t opacity-75 from-black to-transparent p-2"></div>
+				<div className="absolute inset-0 p-2 opacity-75 bg-gradient-to-t from-black to-transparent"></div>
 
 				<div className={`w-1/3`}>
 					<AspectBox ratio={3 / 4}>
@@ -34,13 +37,13 @@ export default function MediaCard({
 				</div>
 			</div>
 
-			<div className="relative flex flex-1 p-2 pl-3 bg-gray-800">
+			<div className="flex flex-1 p-2 pl-3 bg-gray-800 rounded-b-lg">
 				<div className="flex flex-col flex-1">
-					<h3 className="font-light text-xl font-condensed flex-1">
+					<h3 className="flex-1 text-xl font-light font-condensed">
 						{entry?.media?.title?.userPreferred}
 					</h3>
 					<div className="flex-1" />
-					<div className="opacity-70 mt-2 pr-6">
+					<div className="pr-6 mt-2 opacity-70">
 						<MediaCardProgress entry={entry} />
 						<MediaCardNextEpisode entry={entry} />
 					</div>
