@@ -5,6 +5,7 @@ import {
 	LogoutIcon,
 	MenuIcon,
 	SearchIcon,
+	XIcon,
 } from "@heroicons/react/solid"
 import type { ReactElement, ReactNode } from "react"
 import { useCallback } from "react"
@@ -28,28 +29,37 @@ export default function AppHeader() {
       `}
 		>
 			<Disclosure>
-				<div className="flex items-center px-3">
-					<Disclosure.Button
-						type="button"
-						title="Menu"
-						className={`${clearIconButtonStyle} -my-1 -ml-1 sm:hidden mr-3`}
-					>
-						<MenuIcon className="w-6" />
-					</Disclosure.Button>
-					<AppLogoLink />
+				{({ open }) => (
+					<>
+						<div className="flex items-center px-3">
+							<Disclosure.Button
+								type="button"
+								className={`${clearIconButtonStyle} -my-1 -ml-1 sm:hidden mr-3`}
+							>
+								<span className="sr-only">Open main menu</span>
+								{open ? (
+									<XIcon className="w-6" />
+								) : (
+									<MenuIcon className="w-6" />
+								)}
+							</Disclosure.Button>
 
-					<nav className="items-center hidden ml-4 sm:flex">
-						<DesktopNavItems />
-					</nav>
+							<AppLogoLink />
 
-					<div className="flex-1" />
+							<nav className="items-center hidden ml-4 sm:flex">
+								<DesktopNavItems />
+							</nav>
 
-					<ViewerStatus />
-				</div>
+							<div className="flex-1" />
 
-				<Disclosure.Panel className="grid gap-1 mt-2 sm:hidden">
-					<DesktopNavItems />
-				</Disclosure.Panel>
+							<ViewerStatus />
+						</div>
+
+						<Disclosure.Panel className="grid gap-1 mt-2 sm:hidden">
+							<DesktopNavItems />
+						</Disclosure.Panel>
+					</>
+				)}
 			</Disclosure>
 		</header>
 	)
