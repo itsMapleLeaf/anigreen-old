@@ -3,9 +3,9 @@ import { StrictMode } from "react"
 import { render } from "react-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter } from "react-router-dom"
 import AppLayout from "./app/AppLayout"
-import WatchingPage from "./app/WatchingPage"
+import AppRoutes from "./app/AppRoutes"
 import "./tailwind.css"
 import LoadingSuspense from "./ui/LoadingSuspense"
 
@@ -25,11 +25,9 @@ render(
 		<StrictMode>
 			<BrowserRouter>
 				<LoadingSuspense>
-					<Routes>
-						<Route element={<AppLayout />}>
-							<Route path="/watching" element={<WatchingPage />} />
-						</Route>
-					</Routes>
+					<AppLayout>
+						<AppRoutes />
+					</AppLayout>
 				</LoadingSuspense>
 			</BrowserRouter>
 		</StrictMode>
