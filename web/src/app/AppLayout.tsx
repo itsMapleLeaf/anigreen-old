@@ -1,14 +1,16 @@
-import { useCallback } from "react"
-import { useScrollSelector } from "../dom/useScrollSelector"
+import { useState } from "react"
+import { useScrollListener } from "../dom/useScrollListener"
 import LoadingSuspense from "../ui/LoadingSuspense"
 import AppErrorBoundary from "./AppErrorBoundary"
 import AppHeader from "./AppHeader"
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
-	const isAtTop = useScrollSelector(useCallback((scroll) => scroll === 0, []))
+	const scrolledToTop = useScrolledToTop()
 
 	const headerBaseClass = `z-10 py-2 fixed inset-x-0 top-0 transition-colors duration-300 shadow backdrop-filter backdrop-blur-sm`
-	const headerScrollClass = isAtTop ? `bg-gray-800` : `bg-black bg-opacity-75`
+	const headerScrollClass = scrolledToTop
+		? `bg-gray-800`
+		: `bg-black bg-opacity-75`
 
 	return (
 		<div className="h-screen pt-16 isolate">
@@ -24,4 +26,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 			</main>
 		</div>
 	)
+}
+
+function useScrolledToTop() {
+	// scroll bounce means the scroll can be negative
+	const [scrolledToTop, setScrolledToTop] = useState(
+		typeof window !== "undefined" ? window.scrollY <= 0 : false,
+	)
+
+	useScrollListener((scroll) => setScrolledToTop(scroll <= 0))
+
+	return scrolledToTop
 }
