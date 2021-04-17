@@ -22,5 +22,9 @@ export default function WatchingPage() {
 		},
 	})
 
-	return <SectionedMediaCardList entries={animeListQuery.data ?? []} />
+	return (
+		<div className="py-4">
+			<SectionedMediaCardList entries={animeListQuery.data ?? []} />
+		</div>
+	)
 }
