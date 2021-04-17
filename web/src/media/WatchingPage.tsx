@@ -2,8 +2,8 @@ import { compact } from "lodash-es"
 import { useQuery } from "react-query"
 import { api } from "../api"
 import type { AnimeListQuery } from "../generated/graphql"
-import SectionedMediaCardList from "../media/SectionedMediaCardList"
 import { useViewerQuery } from "../viewer/queries"
+import SectionedMediaCardList from "./SectionedMediaCardList"
 
 export default function WatchingPage() {
 	const viewerQuery = useViewerQuery({ required: true })
@@ -22,9 +22,5 @@ export default function WatchingPage() {
 		},
 	})
 
-	return (
-		<div className="py-4">
-			<SectionedMediaCardList entries={animeListQuery.data ?? []} />
-		</div>
-	)
+	return <SectionedMediaCardList entries={animeListQuery.data ?? []} />
 }

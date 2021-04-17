@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom"
-import WatchingPage from "./WatchingPage"
+import WatchingPage from "../media/WatchingPage"
 
 export default function AppRoutes() {
 	return (
