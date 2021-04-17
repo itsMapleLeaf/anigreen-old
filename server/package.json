@@ -3,8 +3,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "nodemon src/main",
-		"start": "cross-env NODE_ENV=production node src/main",
-		"prepare": "typesync"
+		"start": "cross-env NODE_ENV=production node src/main"
 	},
 	"dependencies": {
 		"axios": "^0.21.1",
@@ -16,10 +15,6 @@
 		"vite": "^2.1.5"
 	},
 	"devDependencies": {
-		"@types/cookie-session": "^2.0.42",
-		"@types/express": "^4.17.11",
-		"@types/nodemon": "^1.19.0",
-		"nodemon": "^2.0.7",
-		"typesync": "latest"
+		"nodemon": "^2.0.7"
 	}
 }
