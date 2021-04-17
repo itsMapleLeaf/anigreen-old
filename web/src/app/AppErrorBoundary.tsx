@@ -21,7 +21,7 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 	}
 
 	return (
-		<div className="grid gap-4 p-4">
+		<div className="grid gap-4">
 			<p>An error occured :(</p>
 			<div>
 				<Button className={solidButtonStyle} onClick={resetErrorBoundary}>
