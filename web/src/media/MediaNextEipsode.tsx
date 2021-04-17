@@ -1,14 +1,10 @@
 import { InformationCircleIcon } from "@heroicons/react/solid"
-import type { AnimeListEntryFragment } from "../generated/graphql"
+import type { MediaFragment } from "../generated/graphql"
 import { relativeTime } from "../helpers/relativeTime"
 import Tooltip from "../ui/Tooltip"
 
-export default function MediaCardNextEpisode({
-	entry,
-}: {
-	entry: AnimeListEntryFragment
-}) {
-	const { airingAt, episode } = entry.media?.nextAiringEpisode ?? {}
+export default function MediaNextEipsode({ media }: { media: MediaFragment }) {
+	const { airingAt, episode } = media?.nextAiringEpisode ?? {}
 
 	if (!(airingAt && episode)) {
 		return null

@@ -1,0 +1,16 @@
+query ViewerWatchedMediaList($userId: Int!) {
+	MediaListCollection(
+		userId: $userId
+		type: ANIME
+		sort: STATUS
+		status: CURRENT
+	) {
+		lists {
+			name
+			status
+			entries {
+				...watchingMedia
+			}
+		}
+	}
+}

@@ -1,42 +1,41 @@
 import { addDays, startOfWeek } from "date-fns"
 import { groupBy, sortBy } from "lodash-es"
-import type { AnimeListEntryFragment } from "../generated/graphql"
+import { Fragment, Key, ReactNode } from "react"
 import { mod } from "../helpers/mod"
-import MediaCard from "./MediaCard"
 
-export default function SectionedMediaCardList({
-	entries,
+export default function WeekdaySectionedList<T>({
+	items,
+	getItemKey,
+	getItemDate,
+	renderItem,
 }: {
-	entries: AnimeListEntryFragment[]
+	items: T[]
+	getItemKey: (item: T) => Key
+	getItemDate: (item: T) => Date | undefined
+	renderItem: (item: T) => ReactNode
 }) {
-	const listsByDay = groupBy(entries, (entry) => {
-		const airingTimeSeconds = entry?.media?.nextAiringEpisode?.airingAt
-
-		if (airingTimeSeconds) {
-			return new Date(airingTimeSeconds * 1000).getDay()
-		}
-
-		return Infinity
+	const listsByDay = groupBy(items, (item) => {
+		return getItemDate(item)?.getDay() ?? Infinity
 	})
 
 	const sortedListsByDay = sortBy(
-		Object.entries(listsByDay).map(([day, entries]) => ({
+		Object.entries(listsByDay).map(([day, items]) => ({
 			day: Number(day),
-			entries,
+			items,
 		})),
 		(list) => mod(list.day - 1, 7),
 	)
 
 	return (
 		<div className="grid gap-8">
-			{sortedListsByDay.map(({ day, entries }) => (
+			{sortedListsByDay.map(({ day, items }) => (
 				<div key={day} className="grid gap-3">
 					<h2 className="text-2xl font-condensed">
 						{Number.isFinite(day) ? getWeekday(day) : "Not Airing"}
 					</h2>
 					<div className="grid gap-4 items-start grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
-						{entries.map((entry) => (
-							<MediaCard key={entry.id} entry={entry} />
+						{items.map((item) => (
+							<Fragment key={getItemKey(item)}>{renderItem(item)}</Fragment>
 						))}
 					</div>
 				</div>

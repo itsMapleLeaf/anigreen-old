@@ -1,0 +1,8 @@
+fragment watchingMedia on MediaList {
+	id
+	progress
+	score
+	media {
+		...media
+	}
+}

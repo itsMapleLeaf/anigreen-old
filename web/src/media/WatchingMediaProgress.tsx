@@ -1,17 +1,18 @@
-import type { AnimeListEntryFragment } from "../generated/graphql"
+import type { WatchingMediaFragment } from "../generated/graphql"
 
-export default function MediaCardProgress({
-	entry,
+export default function WatchingMediaProgress({
+	watchingMedia,
 }: {
-	entry: AnimeListEntryFragment
+	watchingMedia: WatchingMediaFragment
 }) {
-	const progress = entry.progress ?? 0
+	const progress = watchingMedia.progress ?? 0
 
-	const nextAiringEpisodeNumber = entry.media?.nextAiringEpisode?.episode
+	const nextAiringEpisodeNumber =
+		watchingMedia.media?.nextAiringEpisode?.episode
 
 	const maxEpisodes = nextAiringEpisodeNumber
 		? nextAiringEpisodeNumber - 1
-		: entry.media?.episodes ?? 1
+		: watchingMedia.media?.episodes ?? 1
 
 	const progressLagStyle = (() => {
 		const progressLag = maxEpisodes - progress
