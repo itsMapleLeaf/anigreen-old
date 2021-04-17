@@ -6,7 +6,6 @@ import { ReactQueryDevtools } from "react-query/devtools"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import AppLayout from "./app/AppLayout"
 import WatchingPage from "./app/WatchingPage"
-import { NyaaSearchPage } from "./nyaa/nyaa-search"
 import "./tailwind.css"
 import LoadingSuspense from "./ui/LoadingSuspense"
 
@@ -29,7 +28,6 @@ render(
 					<Routes>
 						<Route element={<AppLayout />}>
 							<Route path="/watching" element={<WatchingPage />} />
-							<Route path="/search" element={<NyaaSearchPage />} />
 						</Route>
 					</Routes>
 				</LoadingSuspense>

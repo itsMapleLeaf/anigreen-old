@@ -1,12 +1,7 @@
-import {
-	DotsVerticalIcon,
-	ExternalLinkIcon,
-	SearchIcon,
-} from "@heroicons/react/solid"
+import { DotsVerticalIcon, ExternalLinkIcon } from "@heroicons/react/solid"
 import Button from "../dom/Button"
 import ExternalLink from "../dom/ExternalLink"
 import type { AnimeListEntryFragment } from "../generated/graphql"
-import { NyaaSearchLink } from "../nyaa/nyaa-search"
 import { clearIconButtonStyle } from "../ui/components"
 import IconWithText from "../ui/IconWithText"
 import { Menu, MenuButton, MenuItem, MenuPanel } from "../ui/menu"
@@ -16,12 +11,6 @@ export default function MediaCardMenu({
 }: {
 	entry: AnimeListEntryFragment
 }) {
-	const nyaaSearchQuery =
-		entry?.media?.title?.romaji ||
-		entry?.media?.title?.english ||
-		entry?.media?.title?.native ||
-		""
-
 	return (
 		<Menu>
 			<MenuButton>
@@ -30,15 +19,6 @@ export default function MediaCardMenu({
 				</Button>
 			</MenuButton>
 			<MenuPanel>
-				<MenuItem>
-					<NyaaSearchLink query={nyaaSearchQuery}>
-						<IconWithText
-							iconLeft={<SearchIcon className="w-5" />}
-							text="Nyaa Search"
-						/>
-					</NyaaSearchLink>
-				</MenuItem>
-
 				<MenuItem>
 					<ExternalLink href={`https://anilist.co/anime/${entry?.media?.id}`}>
 						<IconWithText

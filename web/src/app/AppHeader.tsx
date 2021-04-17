@@ -2,7 +2,6 @@ import { Disclosure } from "@headlessui/react"
 import {
 	BookmarkIcon,
 	MenuIcon,
-	SearchIcon,
 	UserCircleIcon,
 	XIcon,
 } from "@heroicons/react/solid"
@@ -70,10 +69,6 @@ function NavItems() {
 			<NavRouterLink to="/watching">
 				<BookmarkIcon className="w-5" />
 				<span>Watching</span>
-			</NavRouterLink>
-			<NavRouterLink to="/search">
-				<SearchIcon className="w-5" />
-				<span>Download Search</span>
 			</NavRouterLink>
 		</>
 	)
