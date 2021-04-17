@@ -1,10 +1,9 @@
 import { Disclosure } from "@headlessui/react"
 import {
 	BookmarkIcon,
-	LoginIcon,
-	LogoutIcon,
 	MenuIcon,
 	SearchIcon,
+	UserCircleIcon,
 	XIcon,
 } from "@heroicons/react/solid"
 import type { ReactElement, ReactNode } from "react"
@@ -14,7 +13,7 @@ import { useScrollSelector } from "../dom/useScrollSelector"
 import Slot from "../react/Slot"
 import { clearIconButtonStyle } from "../ui/components"
 import Image from "../ui/Image"
-import Tooltip from "../ui/Tooltip"
+import { Menu, MenuButton, MenuItem, MenuPanel } from "../ui/menu"
 import { useViewerQuery } from "../viewer/queries"
 import AppLogoLink from "./AppLogoLink"
 
@@ -66,34 +65,17 @@ export default function AppHeader() {
 }
 
 function NavItems() {
-	const viewer = useViewerQuery()
-
-	return viewer.data?.Viewer ? (
+	return (
 		<>
 			<NavRouterLink to="/watching">
 				<BookmarkIcon className="w-5" />
 				<span>Watching</span>
 			</NavRouterLink>
-
 			<NavRouterLink to="/search">
 				<SearchIcon className="w-5" />
 				<span>Download Search</span>
 			</NavRouterLink>
-
-			<NavItem>
-				<a href="/logout">
-					<LogoutIcon className="w-5" />
-					<span>Log out</span>
-				</a>
-			</NavItem>
 		</>
-	) : (
-		<NavItem>
-			<a href="/login">
-				<LoginIcon className="w-5" />
-				<span>Log in with AniList</span>
-			</a>
-		</NavItem>
 	)
 }
 
@@ -129,16 +111,43 @@ function ViewerStatus() {
 	const viewer = useViewerQuery().data?.Viewer
 
 	if (!viewer) {
-		return null
+		return (
+			<Menu>
+				<MenuButton>
+					<button type="button">
+						<UserCircleIcon className="w-8" />
+					</button>
+				</MenuButton>
+				<MenuPanel>
+					<MenuItem>
+						<a href="/login">Log in with AniList</a>
+					</MenuItem>
+				</MenuPanel>
+			</Menu>
+		)
 	}
 
 	return (
-		<Tooltip text={`Logged in as ${viewer.name}`}>
-			<Image
-				src={viewer.avatar?.medium}
-				alt="Your avatar"
-				className="w-8 h-8 rounded-full"
-			/>
-		</Tooltip>
+		<Menu>
+			<MenuButton>
+				<button type="button">
+					<Image
+						src={viewer.avatar?.medium}
+						alt="Your avatar"
+						className="w-8 h-8 rounded-full"
+					/>
+				</button>
+			</MenuButton>
+			<MenuPanel>
+				<div className="relative z-0 w-48 p-3 overflow-hidden text-sm text-white">
+					<Image src={viewer.bannerImage} className="absolute inset-0" />
+					<span className="absolute inset-0 bg-black bg-opacity-50" />
+					<p className="relative">{viewer.name}</p>
+				</div>
+				<MenuItem>
+					<a href="/logout">Log out</a>
+				</MenuItem>
+			</MenuPanel>
+		</Menu>
 	)
 }
