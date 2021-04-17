@@ -1,6 +1,7 @@
 import { Disclosure } from "@headlessui/react"
 import {
 	BookmarkIcon,
+	CalendarIcon,
 	MenuIcon,
 	UserCircleIcon,
 	XIcon,
@@ -54,6 +55,10 @@ function NavItems() {
 			<NavRouterLink to="/watching">
 				<BookmarkIcon className="w-5" />
 				<span>Watching</span>
+			</NavRouterLink>
+			<NavRouterLink to="/schedule">
+				<CalendarIcon className="w-5" />
+				<span>Schedule</span>
 			</NavRouterLink>
 		</>
 	)

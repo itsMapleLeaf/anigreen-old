@@ -1,10 +1,12 @@
 import { Route, Routes } from "react-router-dom"
+import SchedulePage from "../media/SchedulePage"
 import WatchingPage from "../media/WatchingPage"
 
 export default function AppRoutes() {
 	return (
 		<Routes>
 			<Route path="/watching" element={<WatchingPage />} />
+			<Route path="/schedule" element={<SchedulePage />} />
 			<Route path="*" element={<NotFound />} />
 		</Routes>
 	)
