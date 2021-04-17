@@ -34,7 +34,7 @@ export function MenuPanel({ children }: { children: React.ReactNode }) {
 		>
 			<BaseMenu.Items
 				static
-				className="absolute right-0 mt-2 overflow-hidden text-gray-800 bg-white rounded shadow w-max top-full"
+				className="absolute right-0 mt-2 overflow-hidden text-gray-800 bg-white rounded shadow min-w-[10rem] top-full"
 			>
 				{children}
 			</BaseMenu.Items>
