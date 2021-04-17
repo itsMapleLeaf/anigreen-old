@@ -28,10 +28,10 @@ export default function SectionedMediaCardList({
 	)
 
 	return (
-		<div className="grid gap-8 p-4">
+		<div className="grid gap-8">
 			{sortedListsByDay.map(({ day, entries }) => (
 				<div key={day} className="grid gap-3">
-					<h2 className="font-condensed text-2xl">
+					<h2 className="text-2xl font-condensed">
 						{Number.isFinite(day) ? getWeekday(day) : "Not Airing"}
 					</h2>
 					<div className="grid gap-4 items-start grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">

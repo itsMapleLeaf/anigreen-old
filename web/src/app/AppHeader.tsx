@@ -6,9 +6,7 @@ import {
 	XIcon,
 } from "@heroicons/react/solid"
 import type { ReactElement, ReactNode } from "react"
-import { useCallback } from "react"
 import { Link, useMatch } from "react-router-dom"
-import { useScrollSelector } from "../dom/useScrollSelector"
 import Slot from "../react/Slot"
 import { clearIconButtonStyle } from "../ui/components"
 import Image from "../ui/Image"
@@ -17,49 +15,36 @@ import { useViewerQuery } from "../viewer/queries"
 import AppLogoLink from "./AppLogoLink"
 
 export default function AppHeader() {
-	const isAtTop = useScrollSelector(useCallback((scroll) => scroll === 0, []))
-
 	return (
-		<header
-			className={`
-        z-10 p-2 fixed inset-x-0 top-0 transition-colors duration-300 shadow backdrop-filter backdrop-blur-sm
-        ${isAtTop ? `bg-gray-800` : `bg-black bg-opacity-75`}
-      `}
-		>
-			<Disclosure>
-				{({ open }) => (
-					<>
-						<div className="flex items-center px-3">
-							<Disclosure.Button
-								type="button"
-								className={`${clearIconButtonStyle} -my-1 -ml-1 sm:hidden mr-3`}
-							>
-								<span className="sr-only">Open main menu</span>
-								{open ? (
-									<XIcon className="w-6" />
-								) : (
-									<MenuIcon className="w-6" />
-								)}
-							</Disclosure.Button>
+		<Disclosure>
+			{({ open }) => (
+				<>
+					<div className="flex items-center">
+						<Disclosure.Button
+							type="button"
+							className={`${clearIconButtonStyle} -my-1 sm:hidden mr-3`}
+						>
+							<span className="sr-only">Open main menu</span>
+							{open ? <XIcon className="w-6" /> : <MenuIcon className="w-6" />}
+						</Disclosure.Button>
 
-							<AppLogoLink />
+						<AppLogoLink />
 
-							<nav className="items-center hidden ml-4 sm:flex">
-								<NavItems />
-							</nav>
-
-							<div className="flex-1" />
-
-							<ViewerStatus />
-						</div>
-
-						<Disclosure.Panel className="grid gap-1 mt-2 sm:hidden">
+						<nav className="items-center hidden ml-4 sm:flex">
 							<NavItems />
-						</Disclosure.Panel>
-					</>
-				)}
-			</Disclosure>
-		</header>
+						</nav>
+
+						<div className="flex-1" />
+
+						<ViewerStatus />
+					</div>
+
+					<Disclosure.Panel className="grid gap-1 mt-2 sm:hidden">
+						<NavItems />
+					</Disclosure.Panel>
+				</>
+			)}
+		</Disclosure>
 	)
 }
 
