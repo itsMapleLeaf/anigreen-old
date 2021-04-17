@@ -1,7 +1,6 @@
-import { addDays, startOfWeek } from "date-fns"
+import { startOfDay } from "date-fns"
 import { groupBy, sortBy } from "lodash-es"
 import { Fragment, Key, ReactNode } from "react"
-import { mod } from "../helpers/mod"
 
 export default function WeekdaySectionedList<T>({
 	items,
@@ -15,7 +14,8 @@ export default function WeekdaySectionedList<T>({
 	renderItem: (item: T) => ReactNode
 }) {
 	const listsByDay = groupBy(items, (item) => {
-		return getItemDate(item)?.getDay() ?? Infinity
+		const date = getItemDate(item)
+		return date ? startOfDay(date).valueOf() : Infinity
 	})
 
 	const sortedListsByDay = sortBy(
@@ -23,16 +23,20 @@ export default function WeekdaySectionedList<T>({
 			day: Number(day),
 			items,
 		})),
-		(list) => mod(list.day - 1, 7),
+		(list) => list.day,
 	)
 
 	return (
 		<div className="grid gap-8">
 			{sortedListsByDay.map(({ day, items }) => (
 				<div key={day} className="grid gap-3">
-					<h2 className="text-2xl font-condensed">
-						{Number.isFinite(day) ? getWeekday(day) : "Not Airing"}
-					</h2>
+					<div>
+						<h2 className="text-2xl font-condensed">
+							{formatWeekday(day) || "Not Airing"}
+						</h2>
+						<p className="text-sm opacity-75">{formatDate(day)}</p>
+					</div>
+
 					<div className="grid gap-4 items-start grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
 						{items.map((item) => (
 							<Fragment key={getItemKey(item)}>{renderItem(item)}</Fragment>
@@ -44,7 +48,20 @@ export default function WeekdaySectionedList<T>({
 	)
 }
 
-function getWeekday(day: number) {
-	const date = addDays(startOfWeek(Date.now()), day)
-	return date.toLocaleString(undefined, { weekday: "long" })
+function formatWeekday(timestamp: number) {
+	return (
+		Number.isFinite(timestamp) &&
+		new Date(timestamp).toLocaleString(undefined, { weekday: "long" })
+	)
+}
+
+function formatDate(timestamp: number) {
+	return (
+		Number.isFinite(timestamp) &&
+		new Date(timestamp).toLocaleString(undefined, {
+			month: "long",
+			day: "numeric",
+			year: "numeric",
+		})
+	)
 }

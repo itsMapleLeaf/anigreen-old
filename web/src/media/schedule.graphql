@@ -1,7 +1,12 @@
-query Schedule {
+query Schedule($todaySeconds: Int) {
 	Page {
-		media {
-			...media
+		airingSchedules(airingAt_greater: $todaySeconds, sort: TIME) {
+			media {
+				...media
+			}
+		}
+		pageInfo {
+			hasNextPage
 		}
 	}
 }
