@@ -10,16 +10,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 	const headerBaseClass = `z-10 py-2 fixed inset-x-0 top-0 transition-colors duration-300 shadow backdrop-filter backdrop-blur-sm`
 	const headerScrollClass = scrolledToTop
 		? `bg-gray-800`
-		: `bg-black bg-opacity-75`
+		: `bg-black bg-opacity-50`
 
 	return (
 		<div className="h-screen pt-16 isolate">
 			<header className={`${headerBaseClass} ${headerScrollClass}`}>
-				<div className="max-w-screen-xl px-4 mx-auto">
+				<div className="max-w-5xl px-4 mx-auto">
 					<AppHeader />
 				</div>
 			</header>
-			<main className="w-full max-w-screen-xl min-h-full px-4 py-6 mx-auto">
+			<main className="w-full max-w-5xl min-h-full px-4 py-6 mx-auto">
 				<AppErrorBoundary>
 					<LoadingSuspense>{children}</LoadingSuspense>
 				</AppErrorBoundary>
