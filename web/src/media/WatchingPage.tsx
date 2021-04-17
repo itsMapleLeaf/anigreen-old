@@ -12,10 +12,8 @@ export default function WatchingPage() {
 	const userId = viewerQuery.data?.Viewer?.id
 
 	const watchedMediaListQuery = useQuery({
-		queryKey: ["watchingMedia"],
-		queryFn() {
-			return api.ViewerWatchedMediaList({ userId: userId! })
-		},
+		queryKey: ["watchingMedia", userId],
+		queryFn: () => api.ViewerWatchedMediaList({ userId: userId! }),
 		enabled: !!userId,
 		select(data: ViewerWatchedMediaListQuery) {
 			return compact(
