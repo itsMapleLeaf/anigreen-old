@@ -47,7 +47,7 @@ export default function AppHeader() {
 							<AppLogoLink />
 
 							<nav className="items-center hidden ml-4 sm:flex">
-								<DesktopNavItems />
+								<NavItems />
 							</nav>
 
 							<div className="flex-1" />
@@ -56,7 +56,7 @@ export default function AppHeader() {
 						</div>
 
 						<Disclosure.Panel className="grid gap-1 mt-2 sm:hidden">
-							<DesktopNavItems />
+							<NavItems />
 						</Disclosure.Panel>
 					</>
 				)}
@@ -65,7 +65,7 @@ export default function AppHeader() {
 	)
 }
 
-function DesktopNavItems() {
+function NavItems() {
 	const viewer = useViewerQuery()
 
 	return viewer.data?.Viewer ? (
