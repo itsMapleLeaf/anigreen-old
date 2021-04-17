@@ -19,7 +19,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 					<AppHeader />
 				</div>
 			</header>
-			<main className="w-full h-full max-w-screen-xl px-4 mx-auto">
+			<main className="w-full max-w-screen-xl min-h-full px-4 py-6 mx-auto">
 				<AppErrorBoundary>
 					<LoadingSuspense>{children}</LoadingSuspense>
 				</AppErrorBoundary>
