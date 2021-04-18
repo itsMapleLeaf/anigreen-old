@@ -1,7 +1,5 @@
 import type { WatchingMediaFragment } from "../generated/graphql"
-import AspectBox from "../ui/AspectBox"
-import Image from "../ui/Image"
-import MediaMenu from "./MediaMenu"
+import MediaCardBanner from "./MediaCardBanner"
 import MediaNextEipsode from "./MediaNextEipsode"
 import WatchingMediaAdvanceProgressButton from "./WatchingMediaAdvanceProgressButton"
 import WatchingMediaProgress from "./WatchingMediaProgress"
@@ -12,32 +10,8 @@ export default function WatchingMediaCard({
 	watchingMedia: WatchingMediaFragment
 }) {
 	return (
-		<div className="relative flex flex-col rounded-lg shadow">
-			<div className="relative p-2 bg-black rounded-t-lg">
-				<div className="absolute inset-0 opacity-50">
-					<Image
-						src={watchingMedia?.media?.bannerImage}
-						className="w-full h-full rounded-t-lg"
-					/>
-				</div>
-
-				<div className="absolute inset-0 p-2 opacity-75 bg-gradient-to-t from-black to-transparent"></div>
-
-				<div className={`w-1/3`}>
-					<AspectBox ratio={3 / 4}>
-						<Image
-							src={watchingMedia.media?.coverImage?.large}
-							className="w-full h-full rounded-md shadow"
-						/>
-					</AspectBox>
-				</div>
-
-				{watchingMedia.media && (
-					<div className="absolute right-2 bottom-2">
-						<MediaMenu media={watchingMedia.media} />
-					</div>
-				)}
-			</div>
+		<div className="relative flex flex-col overflow-hidden rounded-lg shadow">
+			{watchingMedia.media && <MediaCardBanner media={watchingMedia.media} />}
 
 			<div className="flex flex-1 p-2 pl-3 bg-gray-800 rounded-b-lg">
 				<div className="flex flex-col flex-1">

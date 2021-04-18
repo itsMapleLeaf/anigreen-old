@@ -14,8 +14,9 @@ fragment media on Media {
 		userPreferred
 	}
 	coverImage {
-		extraLarge
+		medium
 		large
+		extraLarge
 		color
 	}
 	externalLinks {
