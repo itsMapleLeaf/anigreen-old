@@ -2,7 +2,6 @@ import { compact } from "lodash-es"
 import { useInfiniteQuery } from "react-query"
 import { api } from "../api"
 import type { ScheduleQuery } from "../generated/graphql"
-import { isTruthy } from "../helpers/isTruthy"
 import InfiniteScrollCursor from "../ui/InfiniteScrollCursor"
 import LoadingPlaceholder from "../ui/LoadingPlaceholder"
 import { getMediaAiringDate } from "./getMediaAiringDate"
@@ -31,8 +30,7 @@ export default function SchedulePage() {
 	const airings = compact(
 		scheduleQuery.data?.pages
 			.flatMap((page) => page.Page?.airingSchedules)
-			.map((airing) => airing?.media && { ...airing, media: airing.media })
-			.filter(isTruthy),
+			.map((airing) => airing?.media && { ...airing, media: airing.media }),
 	)
 
 	return (
