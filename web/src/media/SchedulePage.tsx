@@ -20,15 +20,18 @@ export default function SchedulePage() {
 	})
 
 	return (
-		<WeekdaySectionedList
-			items={scheduleQuery.data ?? []}
-			getItemKey={(item) => item.id}
-			getItemDate={getMediaAiringDate}
-			renderItem={(media) => (
-				<div>
-					{media.title?.english || media.title?.romaji || media.title?.native}
-				</div>
-			)}
-		/>
+		<>
+			<p className="mb-4">(psst: this page is WIP)</p>
+			<WeekdaySectionedList
+				items={scheduleQuery.data ?? []}
+				getItemKey={(item) => item.id}
+				getItemDate={getMediaAiringDate}
+				renderItem={(media) => (
+					<div>
+						{media.title?.english || media.title?.romaji || media.title?.native}
+					</div>
+				)}
+			/>
+		</>
 	)
 }
