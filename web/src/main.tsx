@@ -4,6 +4,7 @@ import { render } from "react-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
 import { BrowserRouter } from "react-router-dom"
+import AppErrorBoundary from "./app/AppErrorBoundary"
 import AppLayout from "./app/AppLayout"
 import AppRoutes from "./app/AppRoutes"
 import "./tailwind.css"
@@ -26,7 +27,11 @@ render(
 			<BrowserRouter>
 				<LoadingSuspense>
 					<AppLayout>
-						<AppRoutes />
+						<AppErrorBoundary>
+							<LoadingSuspense>
+								<AppRoutes />
+							</LoadingSuspense>
+						</AppErrorBoundary>
 					</AppLayout>
 				</LoadingSuspense>
 			</BrowserRouter>

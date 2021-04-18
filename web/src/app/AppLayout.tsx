@@ -1,7 +1,5 @@
 import { useState } from "react"
 import { useScrollListener } from "../dom/useScrollListener"
-import LoadingSuspense from "../ui/LoadingSuspense"
-import AppErrorBoundary from "./AppErrorBoundary"
 import AppHeader from "./AppHeader"
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
@@ -20,9 +18,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 				</div>
 			</header>
 			<main className="w-full max-w-5xl min-h-full px-4 py-6 mx-auto">
-				<AppErrorBoundary>
-					<LoadingSuspense>{children}</LoadingSuspense>
-				</AppErrorBoundary>
+				{children}
 			</main>
 		</div>
 	)
