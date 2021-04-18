@@ -7,7 +7,10 @@ import MediaNextEipsode from "./MediaNextEipsode"
 export default function MediaCard({ media }: { media: MediaFragment }) {
 	return (
 		<div className="relative flex flex-col rounded-lg shadow">
-			<div className="relative p-2 bg-black rounded-t-lg">
+			<div
+				className="relative p-2 rounded-t-lg"
+				style={{ backgroundColor: media.coverImage?.color }}
+			>
 				<div className="absolute inset-0 opacity-50">
 					<Image
 						src={media.bannerImage}
