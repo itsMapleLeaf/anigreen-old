@@ -65,7 +65,9 @@ export function MenuItem({ children }: { children: React.ReactElement }) {
 			{({ active }) => (
 				<Slot
 					element={children}
-					className={`${baseClass} ${active ? activeClass : ""}`}
+					className={`${baseClass} ${active ? activeClass : ""} ${
+						children.props.className ?? ""
+					}`}
 				/>
 			)}
 		</BaseMenu.Item>
