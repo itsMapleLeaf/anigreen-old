@@ -3,6 +3,7 @@ import { useQuery } from "react-query"
 import { api } from "../api"
 import { useViewerQuery } from "../viewer/queries"
 import { getMediaAiringDate } from "./getMediaAiringDate"
+import MediaCard from "./MediaCard"
 import WeekdaySectionedList from "./WeekdaySectionedList"
 
 export default function SchedulePage() {
@@ -21,16 +22,11 @@ export default function SchedulePage() {
 
 	return (
 		<>
-			<p className="mb-4">(psst: this page is WIP)</p>
 			<WeekdaySectionedList
 				items={scheduleQuery.data ?? []}
 				getItemKey={(item) => item.id}
 				getItemDate={getMediaAiringDate}
-				renderItem={(media) => (
-					<div>
-						{media.title?.english || media.title?.romaji || media.title?.native}
-					</div>
-				)}
+				renderItem={(media) => <MediaCard media={media} />}
 			/>
 		</>
 	)
