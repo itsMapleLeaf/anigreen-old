@@ -45,7 +45,7 @@ export function MenuPanel({ children }: { children: React.ReactNode }) {
 					>
 						<BaseMenu.Items
 							static
-							className="text-gray-800 bg-white rounded shadow min-w-[10rem]"
+							className="text-gray-800 bg-white rounded shadow min-w-[10rem] overflow-hidden"
 						>
 							{children}
 						</BaseMenu.Items>
