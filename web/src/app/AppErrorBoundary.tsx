@@ -1,5 +1,6 @@
 import type { ReactNode } from "react"
 import { ErrorBoundary, FallbackProps } from "react-error-boundary"
+import { useLocation } from "react-router-dom"
 import { ApiError } from "../api"
 import Button from "../dom/Button"
 import { solidButtonStyle } from "../ui/components"
@@ -10,8 +11,11 @@ export default function AppErrorBoundary({
 }: {
 	children: ReactNode
 }) {
+	const location = useLocation()
 	return (
-		<ErrorBoundary FallbackComponent={ErrorFallback}>{children}</ErrorBoundary>
+		<ErrorBoundary FallbackComponent={ErrorFallback} resetKeys={[location]}>
+			{children}
+		</ErrorBoundary>
 	)
 }
 
