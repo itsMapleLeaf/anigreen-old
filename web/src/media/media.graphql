@@ -20,8 +20,12 @@ fragment media on Media {
 		color
 	}
 	externalLinks {
-		id
-		url
-		site
+		...mediaExternalLink
 	}
+}
+
+fragment mediaExternalLink on MediaExternalLink {
+	id
+	url
+	site
 }
