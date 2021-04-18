@@ -18,4 +18,9 @@ fragment media on Media {
 		large
 		color
 	}
+	externalLinks {
+		id
+		url
+		site
+	}
 }

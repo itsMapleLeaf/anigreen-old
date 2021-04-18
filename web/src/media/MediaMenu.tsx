@@ -1,4 +1,5 @@
 import { DotsVerticalIcon, ExternalLinkIcon } from "@heroicons/react/solid"
+import { compact } from "lodash-es"
 import Button from "../dom/Button"
 import ExternalLink from "../dom/ExternalLink"
 import type { MediaFragment } from "../generated/graphql"
@@ -15,6 +16,16 @@ export default function MediaMenu({ media }: { media: MediaFragment }) {
 				</Button>
 			</MenuButton>
 			<MenuPanel>
+				{compact(media.externalLinks)?.map((link) => (
+					<MenuItem key={link.id}>
+						<ExternalLink href={link.url}>
+							<IconWithText
+								iconLeft={<ExternalLinkIcon className="w-5" />}
+								text={link.site}
+							/>
+						</ExternalLink>
+					</MenuItem>
+				))}
 				<MenuItem>
 					<ExternalLink href={`https://anilist.co/anime/${media.id}`}>
 						<IconWithText
