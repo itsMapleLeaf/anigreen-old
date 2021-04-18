@@ -1,28 +1,50 @@
 import { compact } from "lodash-es"
-import { useQuery } from "react-query"
+import { useInfiniteQuery } from "react-query"
 import { api } from "../api"
+import type { ScheduleQuery } from "../generated/graphql"
+import { isTruthy } from "../helpers/isTruthy"
+import InfiniteScrollCursor from "../ui/InfiniteScrollCursor"
+import LoadingPlaceholder from "../ui/LoadingPlaceholder"
 import { getMediaAiringDate } from "./getMediaAiringDate"
 import MediaCard from "./MediaCard"
 import WeekdaySectionedList from "./WeekdaySectionedList"
 
+const SCHEDULE_QUERY_KEY = "schedule"
+
 export default function SchedulePage() {
-	const scheduleQuery = useQuery({
-		queryKey: ["schedule"],
-		queryFn: () => {
-			return api.Schedule({ todaySeconds: Math.floor(Date.now() / 1000) })
+	const scheduleQuery = useInfiniteQuery({
+		queryKey: [SCHEDULE_QUERY_KEY],
+		queryFn({ pageParam }) {
+			return api.Schedule({
+				todaySeconds: Math.floor(Date.now() / 1000),
+				page: pageParam,
+			})
 		},
-		select: (data) =>
-			compact(data.Page?.airingSchedules?.flatMap((item) => item?.media)),
+		getNextPageParam(data: ScheduleQuery) {
+			const info = data.Page?.pageInfo
+			if (info?.hasNextPage) {
+				return (info.currentPage ?? 0) + 1
+			}
+		},
 	})
+
+	const airings = compact(
+		scheduleQuery.data?.pages
+			.flatMap((page) => page.Page?.airingSchedules)
+			.map((airing) => airing?.media && { ...airing, media: airing.media })
+			.filter(isTruthy),
+	)
 
 	return (
 		<>
 			<WeekdaySectionedList
-				items={scheduleQuery.data ?? []}
-				getItemKey={(item) => item.id}
-				getItemDate={getMediaAiringDate}
-				renderItem={(media) => <MediaCard media={media} />}
+				items={airings}
+				getItemKey={(airing) => airing.id}
+				getItemDate={(airing) => getMediaAiringDate(airing.media)}
+				renderItem={(airing) => <MediaCard media={airing.media} />}
 			/>
+			<InfiniteScrollCursor onEnterPage={scheduleQuery.fetchNextPage} />
+			{scheduleQuery.isFetching && <LoadingPlaceholder />}
 		</>
 	)
 }
