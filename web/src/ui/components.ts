@@ -1,6 +1,6 @@
 export const clearButtonStyle = `
 	h-8 p-1 rounded-md transition
-	hover:(bg-white bg-opacity-25)
+	hover:bg-white hover:bg-opacity-25
 `
 
 export const clearIconButtonStyle = `
