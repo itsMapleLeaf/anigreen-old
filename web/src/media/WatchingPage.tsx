@@ -7,12 +7,14 @@ import { getMediaAiringDate } from "./getMediaAiringDate"
 import WatchingMediaCard from "./WatchingMediaCard"
 import WeekdaySectionedList from "./WeekdaySectionedList"
 
+export const WATCHING_MEDIA_LIST_QUERY_KEY = "watchingMedia"
+
 export default function WatchingPage() {
 	const viewerQuery = useViewerQuery({ required: true })
 	const userId = viewerQuery.data?.Viewer?.id
 
 	const watchedMediaListQuery = useQuery({
-		queryKey: ["watchingMedia", userId],
+		queryKey: [WATCHING_MEDIA_LIST_QUERY_KEY, userId],
 		queryFn: () => api.ViewerWatchedMediaList({ userId: userId! }),
 		enabled: !!userId,
 		select(data: ViewerWatchedMediaListQuery) {

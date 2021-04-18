@@ -4,6 +4,7 @@ import { api } from "../api"
 import Button from "../dom/Button"
 import type { WatchingMediaFragment } from "../generated/graphql"
 import { clearIconButtonStyle } from "../ui/components"
+import { WATCHING_MEDIA_LIST_QUERY_KEY } from "./WatchingPage"
 
 export default function WatchingMediaAdvanceProgressButton({
 	entry,
@@ -14,7 +15,7 @@ export default function WatchingMediaAdvanceProgressButton({
 
 	const updateProgressMutation = useMutation(api.UpdateMediaListProgress, {
 		async onSuccess() {
-			await client.invalidateQueries("AnimeList")
+			await client.invalidateQueries(WATCHING_MEDIA_LIST_QUERY_KEY)
 		},
 	})
 
