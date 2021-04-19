@@ -1,6 +1,6 @@
 import "focus-visible"
-import { StrictMode } from "react"
-import { render } from "react-dom"
+import { ReactElement, StrictMode } from "react"
+import { unstable_createRoot } from "react-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
 import { BrowserRouter } from "react-router-dom"
@@ -20,7 +20,7 @@ const client = new QueryClient({
 	},
 })
 
-render(
+unstable_createRoot(document.getElementById("root")!).render(
 	<QueryClientProvider client={client}>
 		<ReactQueryDevtools />
 		<StrictMode>
@@ -37,5 +37,12 @@ render(
 			</BrowserRouter>
 		</StrictMode>
 	</QueryClientProvider>,
-	document.getElementById("root"),
 )
+
+declare module "react-dom" {
+	export function unstable_createRoot(
+		element: Element,
+	): {
+		render(element: ReactElement): void
+	}
+}
