@@ -3,24 +3,16 @@
 	"description": "a cute and sleek extension to anilist ✨",
 	"private": true,
 	"scripts": {
-		"dev": "npm-run-all --parallel --print-label dev-*",
-		"dev-server": "pnpm -C server run dev",
-		"dev-generate": "pnpm run codegen -- --watch",
-		"codegen": "graphql-codegen --config ./graphql.config.yml",
-		"build": "pnpm run codegen && pnpm -C web run build",
+		"dev": "pnpm -C server run dev",
+		"build": "pnpm -C web run build",
 		"start": "pnpm run start --recursive --parallel --color",
 		"lint": "eslint --ext \"js,ts,tsx,mjs\" .",
 		"format": "prettier --write .",
 		"deploy": "pnpm run build && flyctl deploy",
 		"upgrade": "node scripts/do-serial.js npm-upgrade",
-		"depcheck": "node scripts/do-serial.js depcheck",
-		"prepare": "pnpm run codegen"
+		"depcheck": "node scripts/do-serial.js depcheck"
 	},
 	"devDependencies": {
-		"@graphql-codegen/cli": "1.21.3",
-		"@graphql-codegen/typescript": "1.21.1",
-		"@graphql-codegen/typescript-operations": "1.17.15",
-		"@graphql-codegen/typescript-generic-sdk": "1.17.9",
 		"@pnpm/find-workspace-packages": "^3.0.1",
 		"@pnpm/logger": "^3.2.3",
 		"@typescript-eslint/eslint-plugin": "^4.22.0",
@@ -32,8 +24,6 @@
 		"eslint-plugin-react": "^7.23.2",
 		"eslint-plugin-react-hooks": "^4.2.0",
 		"execa": "^5.0.0",
-		"graphql": "^15.5.0",
-		"npm-run-all": "^4.1.5",
 		"npm-upgrade": "^3.0.0",
 		"prettier": "^2.2.1"
 	}

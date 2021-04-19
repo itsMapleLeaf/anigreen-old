@@ -1,48 +1,70 @@
-import { compact } from "lodash-es"
-import { useInfiniteQuery } from "react-query"
-import { api } from "../api"
-import type { ScheduleQuery } from "../generated/graphql"
+import { AiringSort, usePaginatedQuery } from "../graphql"
 import InfiniteScrollCursor from "../ui/InfiniteScrollCursor"
 import LoadingPlaceholder from "../ui/LoadingPlaceholder"
 import { getMediaAiringDate } from "./getMediaAiringDate"
 import MediaCard from "./MediaCard"
 import WeekdaySectionedList from "./WeekdaySectionedList"
 
-const SCHEDULE_QUERY_KEY = "schedule"
+const todaySeconds = Math.floor(Date.now() / 1000)
 
 export default function SchedulePage() {
-	const scheduleQuery = useInfiniteQuery({
-		queryKey: [SCHEDULE_QUERY_KEY],
-		queryFn({ pageParam }) {
-			return api.Schedule({
-				todaySeconds: Math.floor(Date.now() / 1000),
-				page: pageParam,
+	const { data, fetchMore, isLoading } = usePaginatedQuery(
+		(query, args, { getArrayFields }) => {
+			const page = query.Page(args)
+
+			const airings = page?.airingSchedules({
+				airingAt_greater: todaySeconds,
+				sort: [AiringSort.TIME],
 			})
-		},
-		getNextPageParam(data: ScheduleQuery) {
-			const info = data.Page?.pageInfo
-			if (info?.hasNextPage) {
-				return (info.currentPage ?? 0) + 1
+
+			return {
+				airings: getArrayFields(airings, "id", "media"),
+				hasNextPage: page?.pageInfo?.hasNextPage,
+				nextPage: (page?.pageInfo?.currentPage ?? 0) + 1,
 			}
 		},
-	})
-
-	const airings = compact(
-		scheduleQuery.data?.pages
-			.flatMap((page) => page.Page?.airingSchedules)
-			.map((airing) => airing?.media && { ...airing, media: airing.media }),
+		{
+			initialArgs: {
+				page: 0,
+			},
+			merge({ data, uniqBy }) {
+				if (data.existing) {
+					return {
+						...data.existing,
+						airings: uniqBy(
+							[
+								...(data.existing.airings ?? []),
+								...(data.incoming.airings ?? []),
+							],
+							(it) => it?.id,
+						),
+					}
+				}
+				return data.incoming
+			},
+		},
 	)
 
 	return (
 		<>
 			<WeekdaySectionedList
-				items={airings}
-				getItemKey={(airing) => airing.id}
-				getItemDate={(airing) => getMediaAiringDate(airing.media)}
-				renderItem={(airing) => <MediaCard media={airing.media} />}
+				items={data?.airings ?? []}
+				getItemKey={(airing) => airing?.id ?? 0}
+				getItemDate={(airing) =>
+					airing?.media ? getMediaAiringDate(airing.media) : undefined
+				}
+				renderItem={(airing) =>
+					airing?.media && <MediaCard media={airing.media} />
+				}
 			/>
-			<InfiniteScrollCursor onEnterPage={scheduleQuery.fetchNextPage} />
-			{scheduleQuery.isFetching && <LoadingPlaceholder />}
+			<InfiniteScrollCursor
+				onEnterPage={() => {
+					if (!isLoading && data?.hasNextPage) {
+						fetchMore({ page: data.nextPage })
+					}
+				}}
+			/>
+			{isLoading && <LoadingPlaceholder />}
 		</>
 	)
 }

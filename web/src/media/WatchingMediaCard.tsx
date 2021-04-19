@@ -1,4 +1,4 @@
-import type { WatchingMediaFragment } from "../generated/graphql"
+import type { MediaList } from "../graphql"
 import MediaCardBanner from "./MediaCardBanner"
 import MediaNextEipsode from "./MediaNextEipsode"
 import WatchingMediaAdvanceProgressButton from "./WatchingMediaAdvanceProgressButton"
@@ -7,7 +7,7 @@ import WatchingMediaProgress from "./WatchingMediaProgress"
 export default function WatchingMediaCard({
 	watchingMedia,
 }: {
-	watchingMedia: WatchingMediaFragment
+	watchingMedia: MediaList
 }) {
 	return (
 		<div className="relative flex flex-col overflow-hidden rounded-lg shadow">

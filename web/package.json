@@ -4,10 +4,11 @@
 		"build": "pnpm run typecheck && vite build",
 		"test": "jest",
 		"analyze": "source-map-explorer './dist/**/*.js'",
-		"prepare": "typesync",
+		"prepare": "typesync && gqless generate",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@gqless/react": "^2.0.14",
 		"@headlessui/react": "^1.0.0",
 		"@heroicons/react": "^1.0.1",
 		"@popperjs/core": "^2.9.2",
@@ -15,7 +16,7 @@
 		"constate": "^3.2.0",
 		"date-fns": "^2.21.1",
 		"focus-visible": "^5.2.0",
-		"graphql-request": "^3.4.0",
+		"gqless": "^2.0.12",
 		"history": "^5.0.0",
 		"lodash-es": "^4.17.21",
 		"react": "17.0.2",
@@ -26,6 +27,7 @@
 		"react-use": "^17.2.3"
 	},
 	"devDependencies": {
+		"@gqless/cli": "^2.0.14",
 		"@testing-library/jest-dom": "^5.11.10",
 		"@testing-library/react": "^11.2.6",
 		"@testing-library/react-hooks": "^5.1.1",

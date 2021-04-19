@@ -1,12 +1,13 @@
 import { LogoutIcon, UserCircleIcon } from "@heroicons/react/solid"
 import ExternalLink from "../dom/ExternalLink"
+import { useQuery } from "../graphql"
 import IconWithText from "../ui/IconWithText"
 import Image from "../ui/Image"
 import { Menu, MenuButton, MenuItem, MenuPanel } from "../ui/menu"
-import { useViewerQuery } from "../viewer/queries"
 
 export default function ViewerMenu() {
-	const viewer = useViewerQuery().data?.Viewer
+	const query = useQuery()
+	const viewer = query.Viewer
 
 	if (!viewer) {
 		return (
@@ -30,7 +31,7 @@ export default function ViewerMenu() {
 			<MenuButton>
 				<button type="button">
 					<Image
-						src={viewer.avatar?.medium}
+						src={viewer.avatar?.medium ?? undefined}
 						alt="Your avatar"
 						className="w-8 h-8 rounded-full"
 					/>
@@ -42,7 +43,7 @@ export default function ViewerMenu() {
 					className="relative z-0 block w-48 p-3 overflow-hidden text-sm text-white"
 				>
 					<Image
-						src={viewer.bannerImage}
+						src={viewer.bannerImage ?? undefined}
 						className="absolute inset-0 w-full h-full rounded-t"
 					/>
 					<span className="absolute inset-0 bg-black bg-opacity-50 rounded-t" />

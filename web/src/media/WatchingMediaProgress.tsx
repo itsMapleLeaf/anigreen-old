@@ -1,9 +1,9 @@
-import type { WatchingMediaFragment } from "../generated/graphql"
+import type { MediaList } from "../graphql"
 
 export default function WatchingMediaProgress({
 	watchingMedia,
 }: {
-	watchingMedia: WatchingMediaFragment
+	watchingMedia: MediaList
 }) {
 	const progress = watchingMedia.progress ?? 0
 

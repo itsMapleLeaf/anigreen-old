@@ -1,8 +1,8 @@
 import type { ReactNode } from "react"
 import { ErrorBoundary, FallbackProps } from "react-error-boundary"
 import { useLocation } from "react-router-dom"
-import { ApiError } from "../api"
 import Button from "../dom/Button"
+import { ApiError } from "../graphql"
 import { solidButtonStyle } from "../ui/components"
 import LoginRequiredMessage from "./LoginRequiredMessage"
 

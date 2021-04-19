@@ -1,9 +1,9 @@
 import { InformationCircleIcon } from "@heroicons/react/solid"
-import type { MediaFragment } from "../generated/graphql"
+import type { Media } from "../graphql"
 import { relativeTime } from "../helpers/relativeTime"
 import Tooltip from "../ui/Tooltip"
 
-export default function MediaNextEipsode({ media }: { media: MediaFragment }) {
+export default function MediaNextEipsode({ media }: { media: Media }) {
 	const { airingAt, episode } = media?.nextAiringEpisode ?? {}
 
 	if (!(airingAt && episode)) {

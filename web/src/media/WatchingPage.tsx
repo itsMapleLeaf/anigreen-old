@@ -1,8 +1,6 @@
-import { compact } from "lodash-es"
-import { useQuery } from "react-query"
-import { api } from "../api"
-import type { ViewerWatchedMediaListQuery } from "../generated/graphql"
-import { useViewerQuery } from "../viewer/queries"
+import LoginRequiredMessage from "../app/LoginRequiredMessage"
+import { MediaListSort, MediaListStatus, MediaType, useQuery } from "../graphql"
+import { isTruthy } from "../helpers/isTruthy"
 import { getMediaAiringDate } from "./getMediaAiringDate"
 import WatchingMediaCard from "./WatchingMediaCard"
 import WeekdaySectionedList from "./WeekdaySectionedList"
@@ -10,25 +8,37 @@ import WeekdaySectionedList from "./WeekdaySectionedList"
 export const WATCHING_MEDIA_LIST_QUERY_KEY = "watchingMedia"
 
 export default function WatchingPage() {
-	const viewerQuery = useViewerQuery({ required: true })
-	const userId = viewerQuery.data?.Viewer?.id
+	const query = useQuery()
+	const userId = query.Viewer?.id
 
-	const watchedMediaListQuery = useQuery({
-		queryKey: [WATCHING_MEDIA_LIST_QUERY_KEY, userId],
-		queryFn: () => api.ViewerWatchedMediaList({ userId: userId! }),
-		enabled: !!userId,
-		select(data: ViewerWatchedMediaListQuery) {
-			return compact(
-				data?.MediaListCollection?.lists?.flatMap((list) => list?.entries),
-			)
-		},
-	})
+	return userId != null ? (
+		<WatchingPageAuth userId={userId} />
+	) : (
+		<LoginRequiredMessage />
+	)
+}
+
+function WatchingPageAuth({ userId }: { userId: number }) {
+	const query = useQuery()
+
+	const watchingMediaList =
+		query
+			.MediaListCollection({
+				userId,
+				type: MediaType.ANIME,
+				sort: [MediaListSort.STATUS],
+				status: MediaListStatus.CURRENT,
+			})
+			?.lists?.flatMap((list) => list?.entries)
+			.filter(isTruthy) ?? []
 
 	return (
 		<WeekdaySectionedList
-			items={watchedMediaListQuery.data ?? []}
-			getItemKey={(item) => item.id}
-			getItemDate={(item) => item.media && getMediaAiringDate(item.media)}
+			items={watchingMediaList}
+			getItemKey={(item) => item.id ?? 0}
+			getItemDate={(item) =>
+				item.media ? getMediaAiringDate(item.media) : undefined
+			}
 			renderItem={(entry) => <WatchingMediaCard watchingMedia={entry} />}
 		/>
 	)

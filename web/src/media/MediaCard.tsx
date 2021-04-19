@@ -1,8 +1,8 @@
-import type { MediaFragment } from "../generated/graphql"
+import type { Media } from "../graphql"
 import MediaCardBanner from "./MediaCardBanner"
 import MediaNextEipsode from "./MediaNextEipsode"
 
-export default function MediaCard({ media }: { media: MediaFragment }) {
+export default function MediaCard({ media }: { media: Media }) {
 	return (
 		<div className="relative flex flex-col overflow-hidden rounded-lg shadow">
 			<MediaCardBanner media={media} />

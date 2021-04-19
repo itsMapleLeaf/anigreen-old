@@ -1,16 +1,19 @@
-import type { MediaFragment } from "../generated/graphql"
+import type { Media } from "../graphql"
 import AspectBox from "../ui/AspectBox"
 import Image from "../ui/Image"
 import MediaMenu from "./MediaMenu"
 
-export default function MediaCardBanner({ media }: { media: MediaFragment }) {
+export default function MediaCardBanner({ media }: { media: Media }) {
 	return (
 		<div
 			className="relative p-2"
-			style={{ backgroundColor: media.coverImage?.color }}
+			style={{ backgroundColor: media.coverImage?.color ?? undefined }}
 		>
 			<div className="absolute inset-0 opacity-50">
-				<Image src={media.bannerImage} className="w-full h-full rounded-t-lg" />
+				<Image
+					src={media.bannerImage ?? undefined}
+					className="w-full h-full rounded-t-lg"
+				/>
 			</div>
 
 			<div className="absolute inset-0 p-2 opacity-75 bg-gradient-to-t from-black to-transparent"></div>
@@ -21,7 +24,8 @@ export default function MediaCardBanner({ media }: { media: MediaFragment }) {
 						src={
 							media.coverImage?.medium ??
 							media.coverImage?.large ??
-							media.coverImage?.extraLarge
+							media.coverImage?.extraLarge ??
+							undefined
 						}
 						className="w-full h-full rounded-md shadow"
 					/>
