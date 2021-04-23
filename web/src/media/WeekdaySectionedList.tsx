@@ -11,7 +11,7 @@ export default function WeekdaySectionedList<T>({
 	items: T[]
 	getItemKey: (item: T) => Key
 	getItemDate: (item: T) => Date | undefined
-	renderItem: (item: T) => ReactNode
+	renderItem: (item: T, date?: Date) => ReactNode
 }) {
 	const listsByDay = groupBy(items, (item) => {
 		const date = getItemDate(item)
@@ -39,7 +39,9 @@ export default function WeekdaySectionedList<T>({
 
 					<div className="grid gap-4 items-start grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
 						{items.map((item) => (
-							<Fragment key={getItemKey(item)}>{renderItem(item)}</Fragment>
+							<Fragment key={getItemKey(item)}>
+								{renderItem(item, getItemDate(item))}
+							</Fragment>
 						))}
 					</div>
 				</div>
