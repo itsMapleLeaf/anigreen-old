@@ -13,14 +13,12 @@ importers:
       '@popperjs/core': ^2.9.2
       '@radix-ui/react-tooltip': ^0.0.16
       '@tailwindcss/line-clamp': ^0.2.0
-      '@testing-library/jest-dom': ^5.12.0
       '@types/cookie-session': ^2.0.42
       '@types/express': ^4.17.11
       '@types/lodash-es': ^4.17.4
       '@types/react': ^17.0.3
       '@types/react-dom': ^17.0.3
       '@types/tailwindcss': ^2.0.2
-      '@types/testing-library__jest-dom': ^5.9.5
       '@typescript-eslint/eslint-plugin': ^4.22.0
       '@typescript-eslint/parser': ^4.22.0
       '@vitejs/plugin-react-refresh': 1.3.3
@@ -39,7 +37,6 @@ importers:
       graphql: ^15.5.0
       graphql-request: ^3.4.0
       history: ^5.0.0
-      jest: ^26.6.3
       lodash-es: ^4.17.21
       npm-run-all: ^4.1.5
       postcss: ^8.2.12
@@ -51,7 +48,6 @@ importers:
       react-router-dom: ^6.0.0-beta.0
       source-map-explorer: ^2.5.2
       tailwindcss: ^2.1.2
-      ts-jest: ^26.5.5
       typescript: ^4.2.4
       typesync: 0.8.0
       vite: 2.2.2
@@ -78,14 +74,12 @@ importers:
       '@graphql-codegen/typescript': 1.21.1_graphql@15.5.0
       '@graphql-codegen/typescript-generic-sdk': 1.17.9_graphql@15.5.0
       '@graphql-codegen/typescript-operations': 1.17.15_graphql@15.5.0
-      '@testing-library/jest-dom': 5.12.0
       '@types/cookie-session': 2.0.42
       '@types/express': 4.17.11
       '@types/lodash-es': 4.17.4
       '@types/react': 17.0.3
       '@types/react-dom': 17.0.3
       '@types/tailwindcss': 2.0.2
-      '@types/testing-library__jest-dom': 5.9.5
       '@typescript-eslint/eslint-plugin': 4.22.0_9acede93a3623dd7abe65c65a7010e73
       '@typescript-eslint/parser': 4.22.0_eslint@7.24.0+typescript@4.2.4
       '@vitejs/plugin-react-refresh': 1.3.3
@@ -99,13 +93,11 @@ importers:
       eslint-plugin-react-hooks: 4.2.0_eslint@7.24.0
       express: 4.17.1
       graphql: 15.5.0
-      jest: 26.6.3
       npm-run-all: 4.1.5
       postcss: 8.2.12
       prettier: 2.2.1
       source-map-explorer: 2.5.2
       tailwindcss: 2.1.2_d887a42ede92218908fd5c3cc0b71177
-      ts-jest: 26.5.5_jest@26.6.3+typescript@4.2.4
       typescript: 4.2.4
       typesync: 0.8.0
       vite: 2.2.2
