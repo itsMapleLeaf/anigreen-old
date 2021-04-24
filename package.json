@@ -12,7 +12,7 @@
 		"typecheck": "tsc --noEmit",
 		"lint": "eslint --ext \"js,ts,tsx,mjs\" .",
 		"format": "prettier --write .",
-		"deploy": "pnpm run build && flyctl deploy"
+		"deploy": "flyctl deploy"
 	},
 	"dependencies": {
 		"@headlessui/react": "^1.0.0",
