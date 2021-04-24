@@ -15,8 +15,8 @@ jobs:
           node-version: "14"
 
       - run: npm i -g pnpm
-      - run: pnpm install --recursive --frozen-lockfile
-      - run: pnpm run build --recursive
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
 
       - uses: superfly/flyctl-actions@master
         env:
