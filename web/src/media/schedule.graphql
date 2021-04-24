@@ -1,14 +1,20 @@
-query Schedule($todaySeconds: Int!, $page: Int) {
+query Schedule($startDate: Int!, $page: Int) {
 	Page(page: $page) {
-		airingSchedules(airingAt_greater: $todaySeconds, sort: TIME) {
-			id
-			media {
-				...media
-			}
+		airingSchedules(airingAt_greater: $startDate, sort: TIME) {
+			...airing
 		}
 		pageInfo {
 			currentPage
 			hasNextPage
 		}
+	}
+}
+
+fragment airing on AiringSchedule {
+	id
+	episode
+	airingAt
+	media {
+		...media
 	}
 }

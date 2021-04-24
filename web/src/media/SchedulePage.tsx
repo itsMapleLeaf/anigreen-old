@@ -1,11 +1,13 @@
+import { startOfToday } from "date-fns"
 import { compact } from "lodash-es"
 import { useInfiniteQuery } from "react-query"
 import { api } from "../api"
 import type { ScheduleQuery } from "../generated/graphql"
 import InfiniteScrollCursor from "../ui/InfiniteScrollCursor"
 import LoadingPlaceholder from "../ui/LoadingPlaceholder"
-import { getMediaAiringDate } from "./getMediaAiringDate"
+import { getAiringDate } from "./getAiringDate"
 import MediaCard from "./MediaCard"
+import MediaCardAiringInfo from "./MediaCardAiringInfo"
 import WeekdaySectionedList from "./WeekdaySectionedList"
 
 const SCHEDULE_QUERY_KEY = "schedule"
@@ -15,7 +17,7 @@ export default function SchedulePage() {
 		queryKey: [SCHEDULE_QUERY_KEY],
 		queryFn({ pageParam }) {
 			return api.Schedule({
-				todaySeconds: Math.floor(Date.now() / 1000),
+				startDate: Math.floor(startOfToday().valueOf() / 1000),
 				page: pageParam,
 			})
 		},
@@ -38,8 +40,12 @@ export default function SchedulePage() {
 			<WeekdaySectionedList
 				items={airings}
 				getItemKey={(airing) => airing.id}
-				getItemDate={(airing) => getMediaAiringDate(airing.media)}
-				renderItem={(airing) => <MediaCard media={airing.media} />}
+				getItemDate={getAiringDate}
+				renderItem={(airing) => (
+					<MediaCard media={airing.media}>
+						<MediaCardAiringInfo airing={airing} />
+					</MediaCard>
+				)}
 			/>
 			<InfiniteScrollCursor onEnterPage={scheduleQuery.fetchNextPage} />
 			{scheduleQuery.isFetching && <LoadingPlaceholder />}

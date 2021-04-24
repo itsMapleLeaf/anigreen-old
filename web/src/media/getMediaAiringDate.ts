@@ -1,6 +1,11 @@
 import type { MediaFragment } from "../generated/graphql"
 
+/**
+ * Returns the exact date the media airs on
+ */
 export function getMediaAiringDate(media: MediaFragment) {
 	const airingDateSeconds = media.nextAiringEpisode?.airingAt
-	return airingDateSeconds ? new Date(airingDateSeconds * 1000) : undefined
+	return airingDateSeconds == null
+		? undefined
+		: new Date(airingDateSeconds * 1000)
 }
