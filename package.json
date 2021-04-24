@@ -4,7 +4,7 @@
 		"dev": "npm-run-all --parallel --print-label dev-*",
 		"dev-vite": "vite",
 		"dev-codegen": "pnpm run codegen -- --watch",
-		"build": "pnpm run typecheck && pnpm run codegen && vite build",
+		"build": "pnpm run codegen && vite build",
 		"start": "node build/server.js",
 		"prepare": "typesync --ignorepackages=prettier,eslint && pnpm run codegen",
 		"codegen": "graphql-codegen --config graphql.config.json",
