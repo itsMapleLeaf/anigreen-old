@@ -23,7 +23,7 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [focusVisiblePolyfillPlugin()],
+	plugins: [require("@tailwindcss/line-clamp"), focusVisiblePolyfillPlugin()],
 }
 
 function focusVisiblePolyfillPlugin() {
