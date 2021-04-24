@@ -4,7 +4,7 @@
 		"dev": "npm-run-all --parallel --print-label dev-*",
 		"dev-vite": "vite",
 		"dev-codegen": "pnpm run codegen -- --watch",
-		"build": "pnpm run codegen && vite build",
+		"build": "vite build && pnpm run codegen",
 		"start": "node build/server.js",
 		"prepare": "typesync --ignorepackages=prettier,eslint && pnpm run codegen",
 		"codegen": "graphql-codegen --config graphql.config.json",
@@ -12,7 +12,7 @@
 		"typecheck": "tsc --noEmit",
 		"lint": "eslint --ext \"js,ts,tsx,mjs\" .",
 		"format": "prettier --write .",
-		"deploy": "flyctl deploy"
+		"deploy": "pnpm run build && flyctl deploy"
 	},
 	"dependencies": {
 		"@headlessui/react": "^1.0.0",
@@ -22,6 +22,7 @@
 		"@tailwindcss/line-clamp": "^0.2.0",
 		"constate": "^3.2.0",
 		"date-fns": "^2.21.1",
+		"dotenv": "^8.2.0",
 		"focus-visible": "^5.2.0",
 		"graphql-request": "^3.4.0",
 		"history": "^5.0.0",
