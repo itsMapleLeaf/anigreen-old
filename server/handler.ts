@@ -2,6 +2,7 @@
 import assert from "assert"
 import Axios from "axios"
 import cookieSession from "cookie-session"
+import "dotenv/config"
 import express, { Router } from "express"
 import { request } from "https"
 
@@ -11,7 +12,7 @@ function createHandler() {
 	handler.use(
 		cookieSession({
 			name: "session",
-			secret: import.meta.env.VITE_COOKIE_SECRET as string,
+			secret: process.env["COOKIE_SECRET"] as string,
 			httpOnly: true,
 			sameSite: "lax",
 		}),
@@ -29,9 +30,9 @@ function createHandler() {
 	handler.get("/auth-redirect", (req, res) => {
 		Axios.post("https://anilist.co/api/v2/oauth/token", {
 			grant_type: "authorization_code",
-			client_id: import.meta.env.VITE_ANILIST_APP_ID,
-			client_secret: import.meta.env.VITE_ANILIST_APP_SECRET,
-			redirect_uri: import.meta.env.VITE_ANILIST_REDIRECT_URL,
+			client_id: process.env["ANILIST_APP_ID"],
+			client_secret: process.env["ANILIST_APP_SECRET"],
+			redirect_uri: process.env["ANILIST_REDIRECT_URL"],
 			code: req.query.code,
 		})
 			.then((response) => {
@@ -53,8 +54,8 @@ function createHandler() {
 	handler.get("/login", async (req, res) => {
 		res.redirect(
 			`https://anilist.co/api/v2/oauth/authorize` +
-				`?client_id=${import.meta.env.VITE_ANILIST_APP_ID}` +
-				`&redirect_uri=${import.meta.env.VITE_ANILIST_REDIRECT_URL}` +
+				`?client_id=${process.env["ANILIST_APP_ID"]}` +
+				`&redirect_uri=${process.env["ANILIST_REDIRECT_URL"]}` +
 				`&response_type=code`,
 		)
 	})
