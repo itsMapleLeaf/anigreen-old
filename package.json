@@ -70,5 +70,79 @@
 		"typesync": "0.8.0",
 		"vite": "2.2.2",
 		"vite-plugin-mix": "0.3.0"
+	},
+	"eslintConfig": {
+		"env": {
+			"browser": true,
+			"es2021": true,
+			"node": true
+		},
+		"extends": [
+			"eslint:recommended",
+			"plugin:react/recommended",
+			"plugin:react-hooks/recommended",
+			"plugin:jsx-a11y/recommended",
+			"prettier"
+		],
+		"parser": "@typescript-eslint/parser",
+		"parserOptions": {
+			"ecmaFeatures": {
+				"jsx": true
+			},
+			"ecmaVersion": 2021,
+			"sourceType": "module"
+		},
+		"plugins": [
+			"react",
+			"@typescript-eslint"
+		],
+		"rules": {
+			"no-undef": "off",
+			"no-unused-vars": "off",
+			"react/react-in-jsx-scope": [
+				"off"
+			],
+			"react/prop-types": [
+				"off"
+			]
+		},
+		"ignorePatterns": [
+			"**/node_modules/**",
+			"**/dist/**",
+			"src/generated/**"
+		],
+		"settings": {
+			"react": {
+				"version": "latest"
+			}
+		}
+	},
+	"prettier": {
+		"quoteProps": "consistent",
+		"semi": false,
+		"trailingComma": "all",
+		"useTabs": true
+	},
+	"graphql": {
+		"overwrite": true,
+		"schema": "https://graphql.anilist.co",
+		"documents": [
+			"src/**/*.graphql"
+		],
+		"generates": {
+			"src/generated/graphql.ts": {
+				"plugins": [
+					"typescript",
+					"typescript-operations",
+					"typescript-generic-sdk"
+				]
+			}
+		},
+		"config": {
+			"documentMode": "documentNode",
+			"useTypeImports": true,
+			"maybeValue": "T | undefined",
+			"skipTypename": true
+		}
 	}
 }
