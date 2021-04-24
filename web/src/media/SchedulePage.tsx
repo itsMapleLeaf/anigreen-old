@@ -1,8 +1,8 @@
 import { startOfToday } from "date-fns"
-import { compact } from "lodash-es"
 import { useInfiniteQuery } from "react-query"
 import { api } from "../api"
 import type { ScheduleQuery } from "../generated/graphql"
+import { isTruthy } from "../helpers/isTruthy"
 import InfiniteScrollCursor from "../ui/InfiniteScrollCursor"
 import LoadingPlaceholder from "../ui/LoadingPlaceholder"
 import { getAiringDate } from "./getAiringDate"
@@ -29,11 +29,15 @@ export default function SchedulePage() {
 		},
 	})
 
-	const airings = compact(
+	const airings =
 		scheduleQuery.data?.pages
 			.flatMap((page) => page.Page?.airingSchedules)
-			.map((airing) => airing?.media && { ...airing, media: airing.media }),
-	)
+			.map((airing) => airing?.media && { ...airing, media: airing.media })
+			.filter(isTruthy)
+			.filter(
+				({ media }) =>
+					!media.isAdult && media.isLicensed && media.countryOfOrigin === "JP",
+			) ?? []
 
 	return (
 		<>

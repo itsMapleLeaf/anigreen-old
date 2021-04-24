@@ -4,7 +4,10 @@ import { api } from "../api"
 import type { ViewerWatchedMediaListQuery } from "../generated/graphql"
 import { useViewerQuery } from "../viewer/queries"
 import { getMediaAiringDate } from "./getMediaAiringDate"
-import WatchingMediaCard from "./WatchingMediaCard"
+import MediaCard from "./MediaCard"
+import MediaNextEipsode from "./MediaNextEipsode"
+import WatchingMediaAdvanceProgressButton from "./WatchingMediaAdvanceProgressButton"
+import WatchingMediaProgress from "./WatchingMediaProgress"
 import WeekdaySectionedList from "./WeekdaySectionedList"
 
 export const WATCHING_MEDIA_LIST_QUERY_KEY = "watchingMedia"
@@ -29,7 +32,19 @@ export default function WatchingPage() {
 			items={watchedMediaListQuery.data ?? []}
 			getItemKey={(item) => item.id}
 			getItemDate={(item) => item.media && getMediaAiringDate(item.media)}
-			renderItem={(entry) => <WatchingMediaCard watchingMedia={entry} />}
+			renderItem={(watchingMedia) =>
+				watchingMedia.media && (
+					<MediaCard media={watchingMedia.media}>
+						<div className="relative pr-6 mt-2 opacity-70">
+							<WatchingMediaProgress watchingMedia={watchingMedia} />
+							<MediaNextEipsode media={watchingMedia.media} />
+							<div className="absolute bottom-0 right-0">
+								<WatchingMediaAdvanceProgressButton entry={watchingMedia} />
+							</div>
+						</div>
+					</MediaCard>
+				)
+			}
 		/>
 	)
 }

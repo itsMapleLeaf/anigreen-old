@@ -31,13 +31,13 @@ export default function WeekdaySectionedList<T>({
 			{sortedListsByDay.map(({ day, items }) => (
 				<div key={day} className="grid gap-3">
 					<div>
-						<h2 className="text-2xl font-condensed">
+						<h2 className="text-3xl font-condensed">
 							{formatWeekday(day) || "Not Airing"}
 						</h2>
 						<p className="text-sm opacity-75">{formatDate(day)}</p>
 					</div>
 
-					<div className="grid gap-4 items-start grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
+					<div className="grid gap-6 items-start grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
 						{items.map((item) => (
 							<Fragment key={getItemKey(item)}>
 								{renderItem(item, getItemDate(item))}

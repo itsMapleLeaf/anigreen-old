@@ -22,6 +22,10 @@ fragment media on Media {
 	externalLinks {
 		...mediaExternalLink
 	}
+	isAdult
+	isLicensed
+	countryOfOrigin
+	format
 }
 
 fragment mediaExternalLink on MediaExternalLink {
