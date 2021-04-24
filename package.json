@@ -4,10 +4,10 @@
 		"dev": "npm-run-all --parallel --print-label dev-*",
 		"dev-vite": "vite",
 		"dev-codegen": "pnpm run codegen -- --watch",
-		"build": "pnpm run typecheck && vite build",
+		"build": "pnpm run typecheck && pnpm run codegen && vite build",
 		"start": "node build/server.js",
 		"prepare": "typesync --ignorepackages=prettier,eslint && pnpm run codegen",
-		"codegen": "graphql-codegen --config ./graphql.config.yml",
+		"codegen": "graphql-codegen --config graphql.config.json",
 		"analyze": "source-map-explorer './dist/**/*.js'",
 		"typecheck": "tsc --noEmit",
 		"lint": "eslint --ext \"js,ts,tsx,mjs\" .",
@@ -117,27 +117,5 @@
 		"semi": false,
 		"trailingComma": "all",
 		"useTabs": true
-	},
-	"graphql": {
-		"overwrite": true,
-		"schema": "https://graphql.anilist.co",
-		"documents": [
-			"src/**/*.graphql"
-		],
-		"generates": {
-			"src/generated/graphql.ts": {
-				"plugins": [
-					"typescript",
-					"typescript-operations",
-					"typescript-generic-sdk"
-				]
-			}
-		},
-		"config": {
-			"documentMode": "documentNode",
-			"useTypeImports": true,
-			"maybeValue": "T | undefined",
-			"skipTypename": true
-		}
 	}
 }
