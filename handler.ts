@@ -100,6 +100,16 @@ function createHandler() {
 		req.pipe(proxyRequest)
 	})
 
+	handler.get("/", (req, res) => {
+		assert(req.session)
+
+		if (req.session.user) {
+			res.redirect("/watching")
+		} else {
+			res.redirect("/schedule")
+		}
+	})
+
 	return handler
 }
 
