@@ -4,7 +4,7 @@ import mix from "vite-plugin-mix"
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [react(), mix({ handler: "./handler.ts" })],
+	plugins: [react(), mix({ handler: "./server/handler.ts" })],
 	esbuild: {
 		jsxInject: `import * as jsx from 'react'`,
 		jsxFactory: `jsx.createElement`,
