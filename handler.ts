@@ -2,7 +2,7 @@
 import assert from "assert"
 import Axios from "axios"
 import cookieSession from "cookie-session"
-import { Router } from "express"
+import express, { Router } from "express"
 import { request } from "https"
 
 function createHandler() {
@@ -103,4 +103,4 @@ function createHandler() {
 	return handler
 }
 
-export const handler = createHandler()
+export const handler = express().use(createHandler())

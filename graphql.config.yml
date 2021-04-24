@@ -1,9 +1,9 @@
 overwrite: true
 schema: "https://graphql.anilist.co"
 documents:
-  - "web/src/**/*.graphql"
+  - "src/**/*.graphql"
 generates:
-  web/src/generated/graphql.ts:
+  src/generated/graphql.ts:
     plugins:
       - "typescript"
       - "typescript-operations"
