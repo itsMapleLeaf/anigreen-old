@@ -1,6 +1,7 @@
 import { add, startOfWeek } from "date-fns"
 import { range } from "lodash-es"
 import { Fragment, Key, ReactNode } from "react"
+import FluidGrid from "../ui/FluidGrid"
 
 export default function WeekdaySectionedList<T>({
 	items,
@@ -80,14 +81,6 @@ function SectionHeading({
 		<div>
 			<h2 className="text-3xl font-condensed">{title}</h2>
 			<p className="text-sm opacity-75">{subtitle}</p>
-		</div>
-	)
-}
-
-function FluidGrid({ children }: { children: React.ReactNode }) {
-	return (
-		<div className="grid gap-6 items-start grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
-			{children}
 		</div>
 	)
 }
