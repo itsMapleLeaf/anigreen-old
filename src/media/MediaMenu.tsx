@@ -11,7 +11,10 @@ import IconWithText from "../ui/IconWithText"
 import { Menu, MenuButton, MenuItem, MenuPanel } from "../ui/menu"
 
 export default function MediaMenu({ media }: { media: MediaFragment }) {
-	const externalLinks = compact(media.externalLinks)
+	const externalLinks = compact(media.externalLinks).map((link) => ({
+		...link,
+		url: getMobileFriendlyUrl(link.url),
+	}))
 
 	function otherLinkExistsWithSameName(link: MediaExternalLinkFragment) {
 		return externalLinks.some(
@@ -61,4 +64,15 @@ function getDomain(urlString: string) {
 	} catch {
 		return ""
 	}
+}
+
+function getMobileFriendlyUrl(urlString: string): string {
+	const url = new URL(urlString)
+
+	// the funimation mobile app only opens with www.
+	if (url.hostname === "funimation.com") {
+		url.hostname = "www.funimation.com"
+	}
+
+	return url.toString()
 }
