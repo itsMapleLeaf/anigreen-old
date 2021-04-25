@@ -9,9 +9,17 @@ export default function MediaCardBanner({ media }: { media: MediaFragment }) {
 			className="relative p-2"
 			style={{ backgroundColor: media.coverImage?.color }}
 		>
-			<div className="absolute inset-0 opacity-50">
-				<Image src={media.bannerImage} className="w-full h-full rounded-t-lg" />
-			</div>
+			{media.bannerImage && (
+				<div className="absolute inset-0 bg-black">
+					{/* can't apply opacity directly to image lol */}
+					<div className="h-full opacity-75">
+						<Image
+							src={media.bannerImage}
+							className="w-full h-full rounded-t-lg"
+						/>
+					</div>
+				</div>
+			)}
 
 			<div className="absolute inset-0 p-2 opacity-75 bg-gradient-to-t from-black to-transparent"></div>
 
