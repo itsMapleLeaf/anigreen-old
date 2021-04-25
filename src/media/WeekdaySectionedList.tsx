@@ -1,5 +1,5 @@
-import { startOfDay } from "date-fns"
-import { groupBy, sortBy } from "lodash-es"
+import { add, startOfWeek } from "date-fns"
+import { range } from "lodash-es"
 import { Fragment, Key, ReactNode } from "react"
 
 export default function WeekdaySectionedList<T>({
@@ -13,57 +13,97 @@ export default function WeekdaySectionedList<T>({
 	getItemDate: (item: T) => Date | undefined
 	renderItem: (item: T, date?: Date) => ReactNode
 }) {
-	const listsByDay = groupBy(items, (item) => {
-		const date = getItemDate(item)
-		return date ? startOfDay(date).valueOf() : Infinity
-	})
+	const itemsByDay: Record<number, T[]> = {}
+	const unairedItems: T[] = []
 
-	const sortedListsByDay = sortBy(
-		Object.entries(listsByDay).map(([day, items]) => ({
-			day: Number(day),
-			items,
-		})),
-		(list) => list.day,
+	for (const item of items) {
+		const date = getItemDate(item)
+		if (date) {
+			const day = date.getDay()
+			;(itemsByDay[day] ??= []).push(item)
+		} else {
+			unairedItems.push(item)
+		}
+	}
+
+	const currentWeekday = new Date().getDay()
+
+	const weekdaysStartingFromToday = range(0, 7).map(
+		(day) => (currentWeekday + day) % 7,
 	)
 
 	return (
 		<div className="grid gap-8">
-			{sortedListsByDay.map(({ day, items }) => (
-				<div key={day} className="grid gap-3">
-					<div>
-						<h2 className="text-3xl font-condensed">
-							{formatWeekday(day) || "Not Airing"}
-						</h2>
-						<p className="text-sm opacity-75">{formatDate(day)}</p>
-					</div>
+			{weekdaysStartingFromToday.map((weekday) => {
+				const items = itemsByDay[weekday]
+				if (!items?.length) return null
 
-					<div className="grid gap-6 items-start grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
-						{items.map((item) => (
-							<Fragment key={getItemKey(item)}>
-								{renderItem(item, getItemDate(item))}
-							</Fragment>
-						))}
+				return (
+					<div key={weekday} className="grid gap-3">
+						<SectionHeading
+							title={formatAsWeekday(dateFromWeekday(weekday))}
+							subtitle={formatAsDate(dateFromWeekday(weekday))}
+						/>
+						<FluidGrid>
+							{items.map((item) => (
+								<Fragment key={getItemKey(item)}>
+									{renderItem(item, getItemDate(item))}
+								</Fragment>
+							))}
+						</FluidGrid>
 					</div>
+				)
+			})}
+
+			{unairedItems.length ? (
+				<div className="grid gap-3">
+					<SectionHeading title="Not Airing" />
+					<FluidGrid>
+						{unairedItems.map((item) => (
+							<Fragment key={getItemKey(item)}>{renderItem(item)}</Fragment>
+						))}
+					</FluidGrid>
 				</div>
-			))}
+			) : null}
 		</div>
 	)
 }
 
-function formatWeekday(timestamp: number) {
+function SectionHeading({
+	title,
+	subtitle,
+}: {
+	title: ReactNode
+	subtitle?: ReactNode
+}) {
 	return (
-		Number.isFinite(timestamp) &&
-		new Date(timestamp).toLocaleString(undefined, { weekday: "long" })
+		<div>
+			<h2 className="text-3xl font-condensed">{title}</h2>
+			<p className="text-sm opacity-75">{subtitle}</p>
+		</div>
 	)
 }
 
-function formatDate(timestamp: number) {
+function FluidGrid({ children }: { children: React.ReactNode }) {
 	return (
-		Number.isFinite(timestamp) &&
-		new Date(timestamp).toLocaleString(undefined, {
-			month: "long",
-			day: "numeric",
-			year: "numeric",
-		})
+		<div className="grid gap-6 items-start grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
+			{children}
+		</div>
 	)
+}
+
+function dateFromWeekday(weekday: number): Date {
+	return add(startOfWeek(new Date()), { days: weekday })
+}
+
+function formatAsWeekday(date: Date) {
+	return date.toLocaleString(undefined, { weekday: "long" })
+}
+
+function formatAsDate(date: Date): string {
+	return date.toLocaleString(undefined, {
+		month: "long",
+		day: "numeric",
+		year: "numeric",
+	})
 }
