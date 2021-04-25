@@ -1,6 +1,6 @@
-import { add, startOfWeek } from "date-fns"
-import { range } from "lodash-es"
+import { startOfDay } from "date-fns"
 import { Fragment, Key, ReactNode } from "react"
+import type { Dict } from "../helpers/types"
 import FluidGrid from "../ui/FluidGrid"
 
 export default function WeekdaySectionedList<T>({
@@ -14,47 +14,43 @@ export default function WeekdaySectionedList<T>({
 	getItemDate: (item: T) => Date | undefined
 	renderItem: (item: T, date?: Date) => ReactNode
 }) {
-	const itemsByDay: Record<number, T[]> = {}
+	const itemsByDay: Dict<T[]> = {}
 	const unairedItems: T[] = []
 
 	for (const item of items) {
 		const date = getItemDate(item)
 		if (date) {
-			const day = date.getDay()
-			;(itemsByDay[day] ??= []).push(item)
+			const day = startOfDay(date)
+			;(itemsByDay[day.valueOf()] ??= []).push(item)
 		} else {
 			unairedItems.push(item)
 		}
 	}
 
-	const currentWeekday = new Date().getDay()
-
-	const weekdaysStartingFromToday = range(0, 7).map(
-		(day) => (currentWeekday + day) % 7,
-	)
+	const dayLists = Object.entries(itemsByDay)
+		.map(([timestamp, items]) => ({
+			date: new Date(Number(timestamp)),
+			items,
+		}))
+		.sort((a, b) => a.date.valueOf() - b.date.valueOf())
 
 	return (
 		<div className="grid gap-8">
-			{weekdaysStartingFromToday.map((weekday) => {
-				const items = itemsByDay[weekday]
-				if (!items?.length) return null
-
-				return (
-					<div key={weekday} className="grid gap-3">
-						<SectionHeading
-							title={formatAsWeekday(dateFromWeekday(weekday))}
-							subtitle={formatAsDate(dateFromWeekday(weekday))}
-						/>
-						<FluidGrid>
-							{items.map((item) => (
-								<Fragment key={getItemKey(item)}>
-									{renderItem(item, getItemDate(item))}
-								</Fragment>
-							))}
-						</FluidGrid>
-					</div>
-				)
-			})}
+			{dayLists.map(({ date, items }) => (
+				<div key={date.valueOf()} className="grid gap-3">
+					<SectionHeading
+						title={formatAsWeekday(date)}
+						subtitle={formatAsDate(date)}
+					/>
+					<FluidGrid>
+						{items.map((item) => (
+							<Fragment key={getItemKey(item)}>
+								{renderItem(item, getItemDate(item))}
+							</Fragment>
+						))}
+					</FluidGrid>
+				</div>
+			))}
 
 			{unairedItems.length ? (
 				<div className="grid gap-3">
@@ -83,10 +79,6 @@ function SectionHeading({
 			<p className="text-sm opacity-75">{subtitle}</p>
 		</div>
 	)
-}
-
-function dateFromWeekday(weekday: number): Date {
-	return add(startOfWeek(new Date()), { days: weekday })
 }
 
 function formatAsWeekday(date: Date) {
