@@ -2,6 +2,7 @@ import { startOfDay } from "date-fns"
 import { Fragment, Key, ReactNode } from "react"
 import type { Dict } from "../helpers/types"
 import FluidGrid from "../ui/FluidGrid"
+import PageSectionHeading from "../ui/PageSectionHeading"
 
 export default function WeekdaySectionedList<T>({
 	items,
@@ -38,7 +39,7 @@ export default function WeekdaySectionedList<T>({
 		<div className="grid gap-8">
 			{dayLists.map(({ date, items }) => (
 				<div key={date.valueOf()} className="grid gap-3">
-					<SectionHeading
+					<PageSectionHeading
 						title={formatAsWeekday(date)}
 						subtitle={formatAsDate(date)}
 					/>
@@ -54,7 +55,7 @@ export default function WeekdaySectionedList<T>({
 
 			{unairedItems.length ? (
 				<div className="grid gap-3">
-					<SectionHeading title="Not Airing" />
+					<PageSectionHeading title="Not Airing" />
 					<FluidGrid>
 						{unairedItems.map((item) => (
 							<Fragment key={getItemKey(item)}>{renderItem(item)}</Fragment>
@@ -62,21 +63,6 @@ export default function WeekdaySectionedList<T>({
 					</FluidGrid>
 				</div>
 			) : null}
-		</div>
-	)
-}
-
-function SectionHeading({
-	title,
-	subtitle,
-}: {
-	title: ReactNode
-	subtitle?: ReactNode
-}) {
-	return (
-		<div>
-			<h2 className="text-3xl font-condensed">{title}</h2>
-			<p className="text-sm opacity-75">{subtitle}</p>
 		</div>
 	)
 }
