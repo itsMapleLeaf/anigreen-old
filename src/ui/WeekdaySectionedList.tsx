@@ -3,8 +3,8 @@ import { Fragment, Key, ReactNode } from "react"
 import { formatAsDate } from "../helpers/formatAsDate"
 import { formatAsWeekday } from "../helpers/formatAsWeekday"
 import type { Dict } from "../helpers/types"
-import FluidGrid from "../ui/FluidGrid"
-import PageSectionHeading from "../ui/PageSectionHeading"
+import FluidGrid from "./FluidGrid"
+import PageSectionHeading from "./PageSectionHeading"
 
 export default function WeekdaySectionedList<T>({
 	items,

@@ -5,10 +5,10 @@ import type { ScheduleQuery } from "../generated/graphql"
 import { isTruthy } from "../helpers/isTruthy"
 import InfiniteScrollCursor from "../ui/InfiniteScrollCursor"
 import LoadingPlaceholder from "../ui/LoadingPlaceholder"
+import WeekdaySectionedList from "../ui/WeekdaySectionedList"
 import { getAiringDate } from "./getAiringDate"
 import MediaCard from "./MediaCard"
 import MediaCardAiringInfo from "./MediaCardAiringInfo"
-import WeekdaySectionedList from "./WeekdaySectionedList"
 
 const SCHEDULE_QUERY_KEY = "schedule"
 
