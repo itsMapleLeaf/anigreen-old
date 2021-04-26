@@ -10,7 +10,7 @@ import type {
 import { isTruthy } from "../helpers/isTruthy"
 import { solidButtonStyle } from "../ui/components"
 import FluidGrid from "../ui/FluidGrid"
-import PageSectionHeading from "../ui/PageSectionHeading"
+import PageSection from "../ui/PageSection"
 import WeekdaySectionedList from "../ui/WeekdaySectionedList"
 import { useViewerQuery } from "../viewer/useViewerQuery"
 import { getNextEpisodeAiringDate } from "./getNextEpisodeAiringDate"
@@ -47,28 +47,29 @@ function RecentlyAiredList() {
 				: undefined,
 	})
 
-	return (
-		<div className="grid gap-3">
-			<PageSectionHeading title="Recently Aired" />
+	const recentlyAiredItems =
+		recentlyAiredQuery.data?.pages
+			.flatMap((page) => page.Page?.airingSchedules)
+			.map((airing) => airing?.media?.mediaListEntry)
+			.map((item) => item?.media && { ...item, media: item.media })
+			.filter(isTruthy) ?? []
+
+	return recentlyAiredItems.length === 0 ? null : (
+		<PageSection title="Recently Aired">
 			<FluidGrid>
-				{recentlyAiredQuery.data?.pages
-					.flatMap((page) => page.Page?.airingSchedules)
-					.map((airing) => airing?.media?.mediaListEntry)
-					.map((item) => item?.media && { ...item, media: item.media })
-					.filter(isTruthy)
-					.map((mediaListEntry) => (
-						<WatchingMediaCard
-							key={mediaListEntry.id}
-							mediaListEntry={mediaListEntry}
-						/>
-					))}
+				{recentlyAiredItems.map((mediaListEntry) => (
+					<WatchingMediaCard
+						key={mediaListEntry.id}
+						mediaListEntry={mediaListEntry}
+					/>
+				))}
 			</FluidGrid>
 			{recentlyAiredQuery.hasNextPage && (
 				<div>
 					<Button className={solidButtonStyle}>Load More</Button>
 				</div>
 			)}
-		</div>
+		</PageSection>
 	)
 }
 
