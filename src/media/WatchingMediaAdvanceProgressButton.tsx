@@ -33,6 +33,7 @@ export default function WatchingMediaAdvanceProgressButton({
 			onClick={advanceProgress}
 			loading={updateProgressMutation.isLoading}
 		>
+			<span className="sr-only">Advance Progress</span>
 			<PlusIcon className="w-5" />
 		</Button>
 	)

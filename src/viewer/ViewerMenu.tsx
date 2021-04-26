@@ -13,6 +13,7 @@ export default function ViewerMenu() {
 			<Menu>
 				<MenuButton>
 					<button type="button">
+						<span className="sr-only">User Actions</span>
 						<UserCircleIcon className="w-8" />
 					</button>
 				</MenuButton>
@@ -29,6 +30,7 @@ export default function ViewerMenu() {
 		<Menu>
 			<MenuButton>
 				<button type="button">
+					<span className="sr-only">User Actions</span>
 					<Image
 						src={viewer.avatar?.medium}
 						alt="Your avatar"

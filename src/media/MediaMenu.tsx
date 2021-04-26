@@ -26,6 +26,7 @@ export default function MediaMenu({ media }: { media: MediaFragment }) {
 		<Menu>
 			<MenuButton>
 				<Button className={clearIconButtonStyle}>
+					<span className="sr-only">More Actions</span>
 					<DotsVerticalIcon className="w-5" />
 				</Button>
 			</MenuButton>
