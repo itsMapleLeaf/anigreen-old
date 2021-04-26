@@ -4,7 +4,7 @@ import { formatAsDate } from "../helpers/formatAsDate"
 import { formatAsWeekday } from "../helpers/formatAsWeekday"
 import type { Dict } from "../helpers/types"
 import FluidGrid from "./FluidGrid"
-import PageSectionHeading from "./PageSectionHeading"
+import PageSection from "./PageSection"
 
 export default function WeekdaySectionedList<T>({
 	items,
@@ -40,11 +40,11 @@ export default function WeekdaySectionedList<T>({
 	return (
 		<div className="grid gap-8">
 			{dayLists.map(({ date, items }) => (
-				<div key={date.valueOf()} className="grid gap-3">
-					<PageSectionHeading
-						title={formatAsWeekday(date)}
-						subtitle={formatAsDate(date)}
-					/>
+				<PageSection
+					key={date.valueOf()}
+					title={formatAsWeekday(date)}
+					subtitle={formatAsDate(date)}
+				>
 					<FluidGrid>
 						{items.map((item) => (
 							<Fragment key={getItemKey(item)}>
@@ -52,18 +52,17 @@ export default function WeekdaySectionedList<T>({
 							</Fragment>
 						))}
 					</FluidGrid>
-				</div>
+				</PageSection>
 			))}
 
 			{unairedItems.length ? (
-				<div className="grid gap-3">
-					<PageSectionHeading title="Not Airing" />
+				<PageSection title="Not Airing">
 					<FluidGrid>
 						{unairedItems.map((item) => (
 							<Fragment key={getItemKey(item)}>{renderItem(item)}</Fragment>
 						))}
 					</FluidGrid>
-				</div>
+				</PageSection>
 			) : null}
 		</div>
 	)
