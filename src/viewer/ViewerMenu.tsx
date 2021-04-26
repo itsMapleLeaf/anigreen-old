@@ -3,7 +3,7 @@ import ExternalLink from "../dom/ExternalLink"
 import IconWithText from "../ui/IconWithText"
 import Image from "../ui/Image"
 import { Menu, MenuButton, MenuItem, MenuPanel } from "../ui/menu"
-import { useViewerQuery } from "../viewer/queries"
+import { useViewerQuery } from "./useViewerQuery"
 
 export default function ViewerMenu() {
 	const viewer = useViewerQuery().data?.Viewer

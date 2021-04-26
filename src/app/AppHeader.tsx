@@ -9,8 +9,8 @@ import type { ReactElement, ReactNode } from "react"
 import { Link, useMatch } from "react-router-dom"
 import Slot from "../react/Slot"
 import { clearIconButtonStyle } from "../ui/components"
+import ViewerMenu from "../viewer/ViewerMenu"
 import AppLogoLink from "./AppLogoLink"
-import ViewerMenu from "./ViewerMenu"
 
 export default function AppHeader() {
 	return (
