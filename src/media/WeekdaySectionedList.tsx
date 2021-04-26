@@ -1,5 +1,7 @@
 import { startOfDay } from "date-fns"
 import { Fragment, Key, ReactNode } from "react"
+import { formatAsDate } from "../helpers/formatAsDate"
+import { formatAsWeekday } from "../helpers/formatAsWeekday"
 import type { Dict } from "../helpers/types"
 import FluidGrid from "../ui/FluidGrid"
 import PageSectionHeading from "../ui/PageSectionHeading"
@@ -65,16 +67,4 @@ export default function WeekdaySectionedList<T>({
 			) : null}
 		</div>
 	)
-}
-
-function formatAsWeekday(date: Date) {
-	return date.toLocaleString(undefined, { weekday: "long" })
-}
-
-function formatAsDate(date: Date): string {
-	return date.toLocaleString(undefined, {
-		month: "long",
-		day: "numeric",
-		year: "numeric",
-	})
 }
