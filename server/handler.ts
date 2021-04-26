@@ -93,7 +93,9 @@ function createHandler() {
 			},
 			(anilistResponse) => {
 				res.statusCode = anilistResponse.statusCode ?? res.statusCode
-				res.setHeader("Content-Type", "application/json")
+				for (const header in anilistResponse.headers) {
+					res.setHeader(header, anilistResponse.headers[header] ?? "")
+				}
 				anilistResponse.setEncoding("utf-8").pipe(res, { end: true })
 			},
 		)
