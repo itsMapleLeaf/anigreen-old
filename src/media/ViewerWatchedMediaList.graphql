@@ -1,6 +1,6 @@
 query ViewerWatchedMediaList($userId: Int!) {
 	Page {
-		mediaList(compareWithAuthList: true, userId: $userId) {
+		mediaList(compareWithAuthList: true, userId: $userId, status: CURRENT) {
 			...watchingMedia
 		}
 	}
