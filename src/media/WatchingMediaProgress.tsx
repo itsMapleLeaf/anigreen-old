@@ -1,11 +1,12 @@
 import type { WatchingMediaFragment } from "../generated/graphql"
+import { useMediaProgress } from "./useMediaProgress"
 
 export default function WatchingMediaProgress({
 	watchingMedia,
 }: {
 	watchingMedia: WatchingMediaFragment
 }) {
-	const progress = watchingMedia.progress ?? 0
+	const { progress } = useMediaProgress(watchingMedia)
 
 	const nextAiringEpisodeNumber =
 		watchingMedia.media?.nextAiringEpisode?.episode

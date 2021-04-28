@@ -1,31 +1,17 @@
 import { PlusIcon } from "@heroicons/react/solid"
-import { useMutation, useQueryClient } from "react-query"
-import { api } from "../api"
 import Button from "../dom/Button"
+import type { WatchingMediaFragment } from "../generated/graphql"
 import { clearIconButtonStyle } from "../ui/components"
-import { WATCHING_MEDIA_LIST_QUERY_KEY } from "./WatchingPage"
+import { useMediaProgress } from "./useMediaProgress"
 
 export default function WatchingMediaAdvanceProgressButton({
-	mediaListEntryId,
-	progress,
+	mediaListEntry,
 }: {
-	mediaListEntryId: number
-	progress: number
+	mediaListEntry: WatchingMediaFragment
 }) {
-	const client = useQueryClient()
-
-	const updateProgressMutation = useMutation(api.UpdateMediaListProgress, {
-		async onSuccess() {
-			await client.invalidateQueries(WATCHING_MEDIA_LIST_QUERY_KEY)
-		},
-	})
-
-	function advanceProgress() {
-		updateProgressMutation.mutate({
-			id: mediaListEntryId,
-			progress: (progress ?? 0) + 1,
-		})
-	}
+	const { advanceProgress, updateProgressMutation } = useMediaProgress(
+		mediaListEntry,
+	)
 
 	return (
 		<Button

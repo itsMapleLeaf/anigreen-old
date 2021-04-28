@@ -114,8 +114,7 @@ function WatchingMediaCard({
 				<div className="absolute bottom-0 right-0">
 					{mediaListEntry.progress == null ? null : (
 						<WatchingMediaAdvanceProgressButton
-							mediaListEntryId={mediaListEntry.id}
-							progress={mediaListEntry.progress}
+							mediaListEntry={mediaListEntry}
 						/>
 					)}
 				</div>
