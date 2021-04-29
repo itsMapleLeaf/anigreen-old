@@ -23,8 +23,8 @@ function NotFound() {
 	)
 }
 
-function Redirect({ to }: { to: string }) {
+function Redirect({ to, replace = true }: { to: string; replace?: boolean }) {
 	const navigate = useNavigate()
-	useEffect(() => navigate(to), [navigate, to])
+	useEffect(() => navigate(to, { replace }), [navigate, replace, to])
 	return null
 }
