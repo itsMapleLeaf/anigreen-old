@@ -67,12 +67,6 @@ function createHandler() {
 		res.redirect("/")
 	})
 
-	handler.get("/session", (req, res) => {
-		assert(req.session)
-
-		return res.json({ authenticated: !!req.session.user })
-	})
-
 	handler.post("/anilist", (req, res) => {
 		assert(req.session)
 
