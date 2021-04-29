@@ -7,27 +7,27 @@ import WatchingPage from "../media/WatchingPage"
 export default function AppRoutes() {
 	return (
 		<Routes>
-			<CustomRoute
+			<AwesomeRoute
 				title="Watching"
 				path="/"
 				element={<Redirect to="/watching" />}
 			/>
-			<CustomRoute
+			<AwesomeRoute
 				title="Watching"
 				path="/watching"
 				element={<WatchingPage />}
 			/>
-			<CustomRoute
+			<AwesomeRoute
 				title="Schedule"
 				path="/schedule"
 				element={<SchedulePage />}
 			/>
-			<CustomRoute title="Page not found" path="*" element={<NotFound />} />
+			<AwesomeRoute title="Page not found" path="*" element={<NotFound />} />
 		</Routes>
 	)
 }
 
-function CustomRoute({ title, ...props }: RouteProps & { title: string }) {
+function AwesomeRoute({ title, ...props }: RouteProps & { title: string }) {
 	useEffect(() => {
 		document.title = `${title} | anigreen`
 	})
