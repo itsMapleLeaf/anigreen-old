@@ -27,6 +27,13 @@ function createHandler() {
 		next()
 	})
 
+	// https://expressjs.com/en/resources/middleware/cookie-session.html#extending-the-session-expiration
+	handler.use((req, res, next) => {
+		assert(req.session)
+		req.session.nowInMinutes = Math.floor(Date.now() / 60e3)
+		next()
+	})
+
 	handler.get("/auth-redirect", (req, res) => {
 		Axios.post("https://anilist.co/api/v2/oauth/token", {
 			grant_type: "authorization_code",
