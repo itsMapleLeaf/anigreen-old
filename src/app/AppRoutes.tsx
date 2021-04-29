@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import type { RouteProps } from "react-router"
 import { Route, Routes, useNavigate } from "react-router-dom"
 import SchedulePage from "../media/SchedulePage"
 import WatchingPage from "../media/WatchingPage"
@@ -6,12 +7,31 @@ import WatchingPage from "../media/WatchingPage"
 export default function AppRoutes() {
 	return (
 		<Routes>
-			<Route path="/" element={<Redirect to="/watching" />} />
-			<Route path="/watching" element={<WatchingPage />} />
-			<Route path="/schedule" element={<SchedulePage />} />
-			<Route path="*" element={<NotFound />} />
+			<CustomRoute
+				title="Watching"
+				path="/"
+				element={<Redirect to="/watching" />}
+			/>
+			<CustomRoute
+				title="Watching"
+				path="/watching"
+				element={<WatchingPage />}
+			/>
+			<CustomRoute
+				title="Schedule"
+				path="/schedule"
+				element={<SchedulePage />}
+			/>
+			<CustomRoute title="Page not found" path="*" element={<NotFound />} />
 		</Routes>
 	)
+}
+
+function CustomRoute({ title, ...props }: RouteProps & { title: string }) {
+	useEffect(() => {
+		document.title = `${title} | anigreen`
+	})
+	return <Route {...props} />
 }
 
 function NotFound() {
