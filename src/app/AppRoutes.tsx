@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import type { RouteProps } from "react-router"
 import { Route, Routes, useNavigate } from "react-router-dom"
 import SchedulePage from "../media/SchedulePage"
@@ -45,6 +45,14 @@ function NotFound() {
 
 function Redirect({ to, replace = true }: { to: string; replace?: boolean }) {
 	const navigate = useNavigate()
-	useEffect(() => navigate(to, { replace }), [navigate, replace, to])
+	const didNavigate = useRef(false)
+
+	useEffect(() => {
+		if (!didNavigate.current) {
+			navigate(to, { replace })
+			didNavigate.current = true
+		}
+	})
+
 	return null
 }
