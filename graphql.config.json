@@ -7,14 +7,17 @@
 			"plugins": [
 				"typescript",
 				"typescript-operations",
-				"typescript-generic-sdk"
+				"typescript-react-query"
 			]
 		}
 	},
 	"config": {
-		"documentMode": "documentNode",
-		"useTypeImports": true,
+		"fetcher": {
+			"func": "../network/fetchData#fetchData"
+		},
 		"maybeValue": "T | undefined",
-		"skipTypename": true
+		"skipTypename": true,
+		"exposeQueryKeys": true,
+		"exposeDocument": true
 	}
 }

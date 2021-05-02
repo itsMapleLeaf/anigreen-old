@@ -1,18 +1,19 @@
 import { sub } from "date-fns"
-import { useInfiniteQuery, useQuery } from "react-query"
-import { api } from "../api"
 import Button from "../dom/Button"
-import type {
+import {
 	MediaFragment,
 	RecentlyAiredQuery,
+	useRecentlyAiredQuery,
+	useViewerQuery,
+	useViewerWatchedMediaListQuery,
 	WatchingMediaFragment,
 } from "../generated/graphql"
 import { isTruthy } from "../helpers/isTruthy"
+import { useInfiniteGraphQLQuery } from "../network/useInfiniteGraphQLQuery"
 import { solidButtonStyle } from "../ui/components"
 import FluidGrid from "../ui/FluidGrid"
 import PageSection from "../ui/PageSection"
 import WeekdaySectionedList from "../ui/WeekdaySectionedList"
-import { useViewerQuery } from "../viewer/useViewerQuery"
 import { getNextEpisodeAiringDate } from "./getNextEpisodeAiringDate"
 import MediaCard from "./MediaCard"
 import MediaNextEipsode from "./MediaNextEipsode"
@@ -31,21 +32,20 @@ export default function WatchingPage() {
 }
 
 function RecentlyAiredList() {
-	const recentlyAiredQuery = useInfiniteQuery({
-		queryKey: ["recentlyAired"],
-
-		queryFn: ({ pageParam = 0 }) =>
-			api.RecentlyAired({
-				startDate: Math.floor(sub(Date.now(), { days: 1 }).valueOf() / 1000),
-				endDate: Math.floor(Date.now() / 1000),
-				page: pageParam,
-			}),
-
-		getNextPageParam: (data: RecentlyAiredQuery) =>
-			data.Page?.pageInfo?.hasNextPage
-				? (data.Page?.pageInfo.currentPage ?? 0) + 1
-				: undefined,
-	})
+	const recentlyAiredQuery = useInfiniteGraphQLQuery(
+		useRecentlyAiredQuery,
+		({ pageParam = 0 }) => ({
+			startDate: Math.floor(sub(Date.now(), { days: 1 }).valueOf() / 1000),
+			endDate: Math.floor(Date.now() / 1000),
+			page: pageParam,
+		}),
+		{
+			getNextPageParam: (data: RecentlyAiredQuery) =>
+				data.Page?.pageInfo?.hasNextPage
+					? (data.Page?.pageInfo.currentPage ?? 0) + 1
+					: undefined,
+		},
+	)
 
 	const recentlyAiredItems =
 		recentlyAiredQuery.data?.pages
@@ -74,14 +74,13 @@ function RecentlyAiredList() {
 }
 
 function WatchingList() {
-	const viewer = useViewerQuery({ required: true })
+	const viewer = useViewerQuery()
 	const viewerId = viewer.data?.Viewer?.id
 
-	const watchedMediaListQuery = useQuery({
-		queryKey: [WATCHING_MEDIA_LIST_QUERY_KEY],
-		queryFn: () => api.ViewerWatchedMediaList({ userId: viewerId! }),
-		enabled: !!viewerId,
-	})
+	const watchedMediaListQuery = useViewerWatchedMediaListQuery(
+		{ userId: viewerId! },
+		{ enabled: !!viewerId },
+	)
 
 	const watchedMediaList =
 		watchedMediaListQuery.data?.Page?.mediaList

@@ -1,4 +1,5 @@
-import type { DocumentNode } from 'graphql';
+import { useQuery, UseQueryOptions, useMutation, UseMutationOptions } from 'react-query';
+import { fetchData } from '../network/fetchData';
 export type Maybe<T> = T | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -4335,7 +4336,7 @@ export type UpdateMediaListProgressMutationVariables = Exact<{
 }>;
 
 
-export type UpdateMediaListProgressMutation = { SaveMediaListEntry?: Maybe<Pick<MediaList, 'progress'>> };
+export type UpdateMediaListProgressMutation = { SaveMediaListEntry?: Maybe<Pick<MediaList, 'id' | 'progress'>> };
 
 export type WatchingMediaFragment = (
   Pick<MediaList, 'id' | 'progress' | 'score'>
@@ -4350,37 +4351,216 @@ export type ViewerQuery = { Viewer?: Maybe<(
     & { avatar?: Maybe<Pick<UserAvatar, 'medium' | 'large'>> }
   )> };
 
-export const MediaExternalLinkFragmentDoc: DocumentNode = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"mediaExternalLink"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaExternalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"site"}}]}}]};
-export const MediaFragmentDoc: DocumentNode = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"media"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"format"}},{"kind":"Field","name":{"kind":"Name","value":"episodes"}},{"kind":"Field","name":{"kind":"Name","value":"nextAiringEpisode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"airingAt"}},{"kind":"Field","name":{"kind":"Name","value":"episode"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bannerImage"}},{"kind":"Field","name":{"kind":"Name","value":"title"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"english"}},{"kind":"Field","name":{"kind":"Name","value":"romaji"}},{"kind":"Field","name":{"kind":"Name","value":"native"}},{"kind":"Field","name":{"kind":"Name","value":"userPreferred"}}]}},{"kind":"Field","name":{"kind":"Name","value":"coverImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"medium"}},{"kind":"Field","name":{"kind":"Name","value":"large"}},{"kind":"Field","name":{"kind":"Name","value":"extraLarge"}},{"kind":"Field","name":{"kind":"Name","value":"color"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"mediaExternalLink"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isAdult"}},{"kind":"Field","name":{"kind":"Name","value":"isLicensed"}},{"kind":"Field","name":{"kind":"Name","value":"countryOfOrigin"}},{"kind":"Field","name":{"kind":"Name","value":"format"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"mediaExternalLink"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaExternalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"site"}}]}}]};
-export const AiringFragmentDoc: DocumentNode = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"airing"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AiringSchedule"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"episode"}},{"kind":"Field","name":{"kind":"Name","value":"airingAt"}},{"kind":"Field","name":{"kind":"Name","value":"media"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"media"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"media"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"format"}},{"kind":"Field","name":{"kind":"Name","value":"episodes"}},{"kind":"Field","name":{"kind":"Name","value":"nextAiringEpisode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"airingAt"}},{"kind":"Field","name":{"kind":"Name","value":"episode"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bannerImage"}},{"kind":"Field","name":{"kind":"Name","value":"title"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"english"}},{"kind":"Field","name":{"kind":"Name","value":"romaji"}},{"kind":"Field","name":{"kind":"Name","value":"native"}},{"kind":"Field","name":{"kind":"Name","value":"userPreferred"}}]}},{"kind":"Field","name":{"kind":"Name","value":"coverImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"medium"}},{"kind":"Field","name":{"kind":"Name","value":"large"}},{"kind":"Field","name":{"kind":"Name","value":"extraLarge"}},{"kind":"Field","name":{"kind":"Name","value":"color"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"mediaExternalLink"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isAdult"}},{"kind":"Field","name":{"kind":"Name","value":"isLicensed"}},{"kind":"Field","name":{"kind":"Name","value":"countryOfOrigin"}},{"kind":"Field","name":{"kind":"Name","value":"format"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"mediaExternalLink"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaExternalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"site"}}]}}]};
-export const WatchingMediaFragmentDoc: DocumentNode = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"watchingMedia"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaList"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"progress"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"media"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"media"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"media"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"format"}},{"kind":"Field","name":{"kind":"Name","value":"episodes"}},{"kind":"Field","name":{"kind":"Name","value":"nextAiringEpisode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"airingAt"}},{"kind":"Field","name":{"kind":"Name","value":"episode"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bannerImage"}},{"kind":"Field","name":{"kind":"Name","value":"title"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"english"}},{"kind":"Field","name":{"kind":"Name","value":"romaji"}},{"kind":"Field","name":{"kind":"Name","value":"native"}},{"kind":"Field","name":{"kind":"Name","value":"userPreferred"}}]}},{"kind":"Field","name":{"kind":"Name","value":"coverImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"medium"}},{"kind":"Field","name":{"kind":"Name","value":"large"}},{"kind":"Field","name":{"kind":"Name","value":"extraLarge"}},{"kind":"Field","name":{"kind":"Name","value":"color"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"mediaExternalLink"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isAdult"}},{"kind":"Field","name":{"kind":"Name","value":"isLicensed"}},{"kind":"Field","name":{"kind":"Name","value":"countryOfOrigin"}},{"kind":"Field","name":{"kind":"Name","value":"format"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"mediaExternalLink"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaExternalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"site"}}]}}]};
-export const MediaProgressDocument: DocumentNode = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MediaProgress"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"mediaListId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"MediaList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"mediaListId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"progress"}}]}}]}}]};
-export const ViewerWatchedMediaListDocument: DocumentNode = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ViewerWatchedMediaList"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Page"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"mediaList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"compareWithAuthList"},"value":{"kind":"BooleanValue","value":true}},{"kind":"Argument","name":{"kind":"Name","value":"userId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}},{"kind":"Argument","name":{"kind":"Name","value":"status"},"value":{"kind":"EnumValue","value":"CURRENT"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"watchingMedia"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"media"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"format"}},{"kind":"Field","name":{"kind":"Name","value":"episodes"}},{"kind":"Field","name":{"kind":"Name","value":"nextAiringEpisode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"airingAt"}},{"kind":"Field","name":{"kind":"Name","value":"episode"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bannerImage"}},{"kind":"Field","name":{"kind":"Name","value":"title"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"english"}},{"kind":"Field","name":{"kind":"Name","value":"romaji"}},{"kind":"Field","name":{"kind":"Name","value":"native"}},{"kind":"Field","name":{"kind":"Name","value":"userPreferred"}}]}},{"kind":"Field","name":{"kind":"Name","value":"coverImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"medium"}},{"kind":"Field","name":{"kind":"Name","value":"large"}},{"kind":"Field","name":{"kind":"Name","value":"extraLarge"}},{"kind":"Field","name":{"kind":"Name","value":"color"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"mediaExternalLink"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isAdult"}},{"kind":"Field","name":{"kind":"Name","value":"isLicensed"}},{"kind":"Field","name":{"kind":"Name","value":"countryOfOrigin"}},{"kind":"Field","name":{"kind":"Name","value":"format"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"mediaExternalLink"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaExternalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"site"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"watchingMedia"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaList"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"progress"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"media"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"media"}}]}}]}}]};
-export const RecentlyAiredDocument: DocumentNode = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"RecentlyAired"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"startDate"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"endDate"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Page"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"airingSchedules"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"airingAt_greater"},"value":{"kind":"Variable","name":{"kind":"Name","value":"startDate"}}},{"kind":"Argument","name":{"kind":"Name","value":"airingAt_lesser"},"value":{"kind":"Variable","name":{"kind":"Name","value":"endDate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"media"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"mediaListEntry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"watchingMedia"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"currentPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"media"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"format"}},{"kind":"Field","name":{"kind":"Name","value":"episodes"}},{"kind":"Field","name":{"kind":"Name","value":"nextAiringEpisode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"airingAt"}},{"kind":"Field","name":{"kind":"Name","value":"episode"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bannerImage"}},{"kind":"Field","name":{"kind":"Name","value":"title"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"english"}},{"kind":"Field","name":{"kind":"Name","value":"romaji"}},{"kind":"Field","name":{"kind":"Name","value":"native"}},{"kind":"Field","name":{"kind":"Name","value":"userPreferred"}}]}},{"kind":"Field","name":{"kind":"Name","value":"coverImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"medium"}},{"kind":"Field","name":{"kind":"Name","value":"large"}},{"kind":"Field","name":{"kind":"Name","value":"extraLarge"}},{"kind":"Field","name":{"kind":"Name","value":"color"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"mediaExternalLink"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isAdult"}},{"kind":"Field","name":{"kind":"Name","value":"isLicensed"}},{"kind":"Field","name":{"kind":"Name","value":"countryOfOrigin"}},{"kind":"Field","name":{"kind":"Name","value":"format"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"mediaExternalLink"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaExternalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"site"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"watchingMedia"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaList"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"progress"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"media"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"media"}}]}}]}}]};
-export const ScheduleDocument: DocumentNode = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Schedule"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"startDate"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Page"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"airingSchedules"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"airingAt_greater"},"value":{"kind":"Variable","name":{"kind":"Name","value":"startDate"}}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"EnumValue","value":"TIME"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"airing"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"currentPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"media"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"format"}},{"kind":"Field","name":{"kind":"Name","value":"episodes"}},{"kind":"Field","name":{"kind":"Name","value":"nextAiringEpisode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"airingAt"}},{"kind":"Field","name":{"kind":"Name","value":"episode"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bannerImage"}},{"kind":"Field","name":{"kind":"Name","value":"title"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"english"}},{"kind":"Field","name":{"kind":"Name","value":"romaji"}},{"kind":"Field","name":{"kind":"Name","value":"native"}},{"kind":"Field","name":{"kind":"Name","value":"userPreferred"}}]}},{"kind":"Field","name":{"kind":"Name","value":"coverImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"medium"}},{"kind":"Field","name":{"kind":"Name","value":"large"}},{"kind":"Field","name":{"kind":"Name","value":"extraLarge"}},{"kind":"Field","name":{"kind":"Name","value":"color"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"mediaExternalLink"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isAdult"}},{"kind":"Field","name":{"kind":"Name","value":"isLicensed"}},{"kind":"Field","name":{"kind":"Name","value":"countryOfOrigin"}},{"kind":"Field","name":{"kind":"Name","value":"format"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"mediaExternalLink"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaExternalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"site"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"airing"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AiringSchedule"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"episode"}},{"kind":"Field","name":{"kind":"Name","value":"airingAt"}},{"kind":"Field","name":{"kind":"Name","value":"media"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"media"}}]}}]}}]};
-export const UpdateMediaListProgressDocument: DocumentNode = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateMediaListProgress"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"progress"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"SaveMediaListEntry"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"progress"},"value":{"kind":"Variable","name":{"kind":"Name","value":"progress"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"progress"}}]}}]}}]};
-export const ViewerDocument: DocumentNode = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"medium"}},{"kind":"Field","name":{"kind":"Name","value":"large"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bannerImage"}},{"kind":"Field","name":{"kind":"Name","value":"siteUrl"}}]}}]}}]};
-export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
-export function getSdk<C>(requester: Requester<C>) {
-  return {
-    MediaProgress(variables: MediaProgressQueryVariables, options?: C): Promise<MediaProgressQuery> {
-      return requester<MediaProgressQuery, MediaProgressQueryVariables>(MediaProgressDocument, variables, options);
-    },
-    ViewerWatchedMediaList(variables: ViewerWatchedMediaListQueryVariables, options?: C): Promise<ViewerWatchedMediaListQuery> {
-      return requester<ViewerWatchedMediaListQuery, ViewerWatchedMediaListQueryVariables>(ViewerWatchedMediaListDocument, variables, options);
-    },
-    RecentlyAired(variables: RecentlyAiredQueryVariables, options?: C): Promise<RecentlyAiredQuery> {
-      return requester<RecentlyAiredQuery, RecentlyAiredQueryVariables>(RecentlyAiredDocument, variables, options);
-    },
-    Schedule(variables: ScheduleQueryVariables, options?: C): Promise<ScheduleQuery> {
-      return requester<ScheduleQuery, ScheduleQueryVariables>(ScheduleDocument, variables, options);
-    },
-    UpdateMediaListProgress(variables: UpdateMediaListProgressMutationVariables, options?: C): Promise<UpdateMediaListProgressMutation> {
-      return requester<UpdateMediaListProgressMutation, UpdateMediaListProgressMutationVariables>(UpdateMediaListProgressDocument, variables, options);
-    },
-    Viewer(variables?: ViewerQueryVariables, options?: C): Promise<ViewerQuery> {
-      return requester<ViewerQuery, ViewerQueryVariables>(ViewerDocument, variables, options);
-    }
-  };
+export const MediaExternalLinkFragmentDoc = `
+    fragment mediaExternalLink on MediaExternalLink {
+  id
+  url
+  site
 }
-export type Sdk = ReturnType<typeof getSdk>;
+    `;
+export const MediaFragmentDoc = `
+    fragment media on Media {
+  id
+  format
+  episodes
+  nextAiringEpisode {
+    airingAt
+    episode
+  }
+  bannerImage
+  title {
+    english
+    romaji
+    native
+    userPreferred
+  }
+  coverImage {
+    medium
+    large
+    extraLarge
+    color
+  }
+  externalLinks {
+    ...mediaExternalLink
+  }
+  isAdult
+  isLicensed
+  countryOfOrigin
+  format
+}
+    ${MediaExternalLinkFragmentDoc}`;
+export const AiringFragmentDoc = `
+    fragment airing on AiringSchedule {
+  id
+  episode
+  airingAt
+  media {
+    ...media
+  }
+}
+    ${MediaFragmentDoc}`;
+export const WatchingMediaFragmentDoc = `
+    fragment watchingMedia on MediaList {
+  id
+  progress
+  score
+  media {
+    ...media
+  }
+}
+    ${MediaFragmentDoc}`;
+export const MediaProgressDocument = `
+    query MediaProgress($mediaListId: Int!) {
+  MediaList(id: $mediaListId) {
+    progress
+  }
+}
+    `;
+export const useMediaProgressQuery = <
+      TData = MediaProgressQuery,
+      TError = unknown
+    >(
+      variables: MediaProgressQueryVariables, 
+      options?: UseQueryOptions<MediaProgressQuery, TError, TData>
+    ) => 
+    useQuery<MediaProgressQuery, TError, TData>(
+      ['MediaProgress', variables],
+      fetchData<MediaProgressQuery, MediaProgressQueryVariables>(MediaProgressDocument, variables),
+      options
+    );
+useMediaProgressQuery.document = MediaProgressDocument;
+
+useMediaProgressQuery.getKey = (variables: MediaProgressQueryVariables) => ['MediaProgress', variables];
+
+export const ViewerWatchedMediaListDocument = `
+    query ViewerWatchedMediaList($userId: Int!) {
+  Page {
+    mediaList(compareWithAuthList: true, userId: $userId, status: CURRENT) {
+      ...watchingMedia
+    }
+  }
+}
+    ${WatchingMediaFragmentDoc}`;
+export const useViewerWatchedMediaListQuery = <
+      TData = ViewerWatchedMediaListQuery,
+      TError = unknown
+    >(
+      variables: ViewerWatchedMediaListQueryVariables, 
+      options?: UseQueryOptions<ViewerWatchedMediaListQuery, TError, TData>
+    ) => 
+    useQuery<ViewerWatchedMediaListQuery, TError, TData>(
+      ['ViewerWatchedMediaList', variables],
+      fetchData<ViewerWatchedMediaListQuery, ViewerWatchedMediaListQueryVariables>(ViewerWatchedMediaListDocument, variables),
+      options
+    );
+useViewerWatchedMediaListQuery.document = ViewerWatchedMediaListDocument;
+
+useViewerWatchedMediaListQuery.getKey = (variables: ViewerWatchedMediaListQueryVariables) => ['ViewerWatchedMediaList', variables];
+
+export const RecentlyAiredDocument = `
+    query RecentlyAired($startDate: Int!, $endDate: Int!, $page: Int!) {
+  Page(page: $page) {
+    airingSchedules(airingAt_greater: $startDate, airingAt_lesser: $endDate) {
+      media {
+        mediaListEntry {
+          ...watchingMedia
+        }
+      }
+    }
+    pageInfo {
+      currentPage
+      hasNextPage
+    }
+  }
+}
+    ${WatchingMediaFragmentDoc}`;
+export const useRecentlyAiredQuery = <
+      TData = RecentlyAiredQuery,
+      TError = unknown
+    >(
+      variables: RecentlyAiredQueryVariables, 
+      options?: UseQueryOptions<RecentlyAiredQuery, TError, TData>
+    ) => 
+    useQuery<RecentlyAiredQuery, TError, TData>(
+      ['RecentlyAired', variables],
+      fetchData<RecentlyAiredQuery, RecentlyAiredQueryVariables>(RecentlyAiredDocument, variables),
+      options
+    );
+useRecentlyAiredQuery.document = RecentlyAiredDocument;
+
+useRecentlyAiredQuery.getKey = (variables: RecentlyAiredQueryVariables) => ['RecentlyAired', variables];
+
+export const ScheduleDocument = `
+    query Schedule($startDate: Int!, $page: Int) {
+  Page(page: $page) {
+    airingSchedules(airingAt_greater: $startDate, sort: TIME) {
+      ...airing
+    }
+    pageInfo {
+      currentPage
+      hasNextPage
+    }
+  }
+}
+    ${AiringFragmentDoc}`;
+export const useScheduleQuery = <
+      TData = ScheduleQuery,
+      TError = unknown
+    >(
+      variables: ScheduleQueryVariables, 
+      options?: UseQueryOptions<ScheduleQuery, TError, TData>
+    ) => 
+    useQuery<ScheduleQuery, TError, TData>(
+      ['Schedule', variables],
+      fetchData<ScheduleQuery, ScheduleQueryVariables>(ScheduleDocument, variables),
+      options
+    );
+useScheduleQuery.document = ScheduleDocument;
+
+useScheduleQuery.getKey = (variables: ScheduleQueryVariables) => ['Schedule', variables];
+
+export const UpdateMediaListProgressDocument = `
+    mutation UpdateMediaListProgress($id: Int!, $progress: Int!) {
+  SaveMediaListEntry(id: $id, progress: $progress) {
+    id
+    progress
+  }
+}
+    `;
+export const useUpdateMediaListProgressMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<UpdateMediaListProgressMutation, TError, UpdateMediaListProgressMutationVariables, TContext>) => 
+    useMutation<UpdateMediaListProgressMutation, TError, UpdateMediaListProgressMutationVariables, TContext>(
+      (variables?: UpdateMediaListProgressMutationVariables) => fetchData<UpdateMediaListProgressMutation, UpdateMediaListProgressMutationVariables>(UpdateMediaListProgressDocument, variables)(),
+      options
+    );
+export const ViewerDocument = `
+    query Viewer {
+  Viewer {
+    id
+    name
+    avatar {
+      medium
+      large
+    }
+    bannerImage
+    siteUrl
+  }
+}
+    `;
+export const useViewerQuery = <
+      TData = ViewerQuery,
+      TError = unknown
+    >(
+      variables?: ViewerQueryVariables, 
+      options?: UseQueryOptions<ViewerQuery, TError, TData>
+    ) => 
+    useQuery<ViewerQuery, TError, TData>(
+      ['Viewer', variables],
+      fetchData<ViewerQuery, ViewerQueryVariables>(ViewerDocument, variables),
+      options
+    );
+useViewerQuery.document = ViewerDocument;
+
+useViewerQuery.getKey = (variables?: ViewerQueryVariables) => ['Viewer', variables];

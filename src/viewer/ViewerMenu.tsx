@@ -1,30 +1,23 @@
 import { LogoutIcon, UserCircleIcon } from "@heroicons/react/solid"
+import { ErrorBoundary, FallbackProps } from "react-error-boundary"
 import ExternalLink from "../dom/ExternalLink"
+import { useViewerQuery } from "../generated/graphql"
+import { isAuthError } from "../helpers/isAuthError"
 import IconWithText from "../ui/IconWithText"
 import Image from "../ui/Image"
 import { Menu, MenuButton, MenuItem, MenuPanel } from "../ui/menu"
-import { useViewerQuery } from "./useViewerQuery"
 
 export default function ViewerMenu() {
-	const viewer = useViewerQuery().data?.Viewer
+	return (
+		<ErrorBoundary FallbackComponent={ViewerMenuFallback}>
+			<ViewerMenuLoggedIn />
+		</ErrorBoundary>
+	)
+}
 
-	if (!viewer) {
-		return (
-			<Menu>
-				<MenuButton>
-					<button type="button">
-						<span className="sr-only">User Actions</span>
-						<UserCircleIcon className="w-8" />
-					</button>
-				</MenuButton>
-				<MenuPanel>
-					<MenuItem>
-						<a href="/login">Log in with AniList</a>
-					</MenuItem>
-				</MenuPanel>
-			</Menu>
-		)
-	}
+function ViewerMenuLoggedIn() {
+	const viewer = useViewerQuery().data?.Viewer
+	if (!viewer) return null
 
 	return (
 		<Menu>
@@ -64,6 +57,26 @@ export default function ViewerMenu() {
 							iconLeft={<LogoutIcon className="w-5" />}
 						/>
 					</a>
+				</MenuItem>
+			</MenuPanel>
+		</Menu>
+	)
+}
+
+function ViewerMenuFallback({ error }: FallbackProps) {
+	if (!isAuthError(error)) throw error
+
+	return (
+		<Menu>
+			<MenuButton>
+				<button type="button">
+					<span className="sr-only">User Actions</span>
+					<UserCircleIcon className="w-8" />
+				</button>
+			</MenuButton>
+			<MenuPanel>
+				<MenuItem>
+					<a href="/login">Log in with AniList</a>
 				</MenuItem>
 			</MenuPanel>
 		</Menu>

@@ -1,8 +1,8 @@
 import type { ReactNode } from "react"
 import { ErrorBoundary, FallbackProps } from "react-error-boundary"
 import { useLocation } from "react-router-dom"
-import { ApiError } from "../api"
 import Button from "../dom/Button"
+import { isAuthError } from "../helpers/isAuthError"
 import { solidButtonStyle } from "../ui/components"
 import LoginRequiredMessage from "./LoginRequiredMessage"
 
@@ -20,7 +20,7 @@ export default function AppErrorBoundary({
 }
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
-	if (error instanceof ApiError && error.status === 401) {
+	if (isAuthError(error)) {
 		return <LoginRequiredMessage />
 	}
 
