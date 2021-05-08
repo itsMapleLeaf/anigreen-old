@@ -2,7 +2,7 @@ import assert from "assert"
 import Axios from "axios"
 import cookieSession from "cookie-session"
 import "dotenv/config"
-import express, { Router } from "express"
+import express, { ErrorRequestHandler, Router } from "express"
 import { request } from "https"
 
 function createHandler() {
@@ -33,31 +33,26 @@ function createHandler() {
 		next()
 	})
 
-	handler.get("/auth-redirect", (req, res) => {
-		Axios.post("https://anilist.co/api/v2/oauth/token", {
+	handler.get("/auth-redirect", async (req, res) => {
+		assert(req.session)
+
+		const response = await Axios.post("https://anilist.co/api/v2/oauth/token", {
 			grant_type: "authorization_code",
 			client_id: process.env["ANILIST_APP_ID"],
 			client_secret: process.env["ANILIST_APP_SECRET"],
 			redirect_uri: process.env["ANILIST_REDIRECT_URL"],
 			code: req.query.code,
 		})
-			.then((response) => {
-				assert(req.session)
 
-				req.session.user = {
-					...response.data,
-					expiresAt: Date.now() + response.data.expires_in * 1000,
-				}
+		req.session.user = {
+			...response.data,
+			expiresAt: Date.now() + response.data.expires_in * 1000,
+		}
 
-				res.redirect("/")
-			})
-			.catch((error) => {
-				res.redirect("/auth-error")
-				console.error(error)
-			})
+		res.redirect("/")
 	})
 
-	handler.get("/login", async (req, res) => {
+	handler.get("/login", (req, res) => {
 		res.redirect(
 			`https://anilist.co/api/v2/oauth/authorize` +
 				`?client_id=${process.env["ANILIST_APP_ID"]}` +
@@ -73,7 +68,7 @@ function createHandler() {
 		res.redirect("/")
 	})
 
-	handler.post("/anilist", (req, res) => {
+	handler.post("/anilist", async (req, res, next) => {
 		assert(req.session)
 
 		const headers: { [name: string]: string } = {
@@ -100,7 +95,8 @@ function createHandler() {
 			},
 		)
 
-		req.pipe(proxyRequest)
+		proxyRequest.on("error", next)
+		req.pipe(proxyRequest, { end: true })
 	})
 
 	handler.get("/", (req, res) => {
@@ -112,6 +108,12 @@ function createHandler() {
 			res.redirect("/schedule")
 		}
 	})
+
+	const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+		console.error(err.stack)
+		res.status(500).send(err.message ?? "An internal error occurred")
+	}
+	handler.use(errorHandler)
 
 	return handler
 }
