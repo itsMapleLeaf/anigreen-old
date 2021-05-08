@@ -13,7 +13,6 @@ function createHandler() {
 			name: "session",
 			secret: process.env["COOKIE_SECRET"] as string,
 			httpOnly: true,
-			sameSite: "lax",
 		}),
 	)
 
