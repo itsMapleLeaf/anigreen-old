@@ -48,8 +48,6 @@ function createHandler() {
 			expiresAt: Date.now() + response.data.expires_in * 1000,
 		}
 
-		console.log(`new session, expires at ${req.session.user?.expiresAt}`)
-
 		res.redirect("/")
 	})
 
