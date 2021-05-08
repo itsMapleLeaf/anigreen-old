@@ -3,7 +3,7 @@ import Axios from "axios"
 import cookieSession from "cookie-session"
 import "dotenv/config"
 import express, { ErrorRequestHandler, Router } from "express"
-import { request } from "https"
+import proxy from "express-http-proxy"
 import morgan from "morgan"
 
 function createHandler() {
@@ -70,38 +70,24 @@ function createHandler() {
 		res.redirect("/")
 	})
 
-	handler.post("/anilist", async (req, res, next) => {
-		assert(req.session)
+	handler.use(
+		"/anilist",
+		proxy(`https://graphql.anilist.co`, {
+			proxyReqOptDecorator(options, req) {
+				if (!req.session!.user) {
+					return options
+				}
 
-		const headers: { [name: string]: string } = {
-			"Content-Type": "application/json",
-			"Accept": "application/json",
-		}
-
-		if (req.session.user) {
-			headers.Authorization = `Bearer ${req.session.user.access_token}`
-		}
-
-		const proxyRequest = request(
-			`https://graphql.anilist.co`,
-			{
-				method: "POST",
-				headers,
+				return {
+					...options,
+					headers: {
+						...options.headers,
+						Authorization: `Bearer ${req.session!.user.access_token}`,
+					},
+				}
 			},
-			(anilistResponse) => {
-				anilistResponse.pipe(
-					res.writeHead(
-						anilistResponse.statusCode ?? 200,
-						anilistResponse.headers,
-					),
-					{ end: true },
-				)
-			},
-		)
-
-		proxyRequest.on("error", next)
-		req.pipe(proxyRequest, { end: true })
-	})
+		}),
+	)
 
 	handler.get("/", (req, res) => {
 		assert(req.session)

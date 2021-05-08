@@ -15,6 +15,7 @@ importers:
       '@tailwindcss/line-clamp': ^0.2.0
       '@types/cookie-session': ^2.0.42
       '@types/express': ^4.17.11
+      '@types/express-http-proxy': ^1.6.1
       '@types/lodash-es': ^4.17.4
       '@types/morgan': ^1.9.2
       '@types/react': ^17.0.5
@@ -35,6 +36,7 @@ importers:
       eslint-plugin-react: ^7.23.2
       eslint-plugin-react-hooks: ^4.2.0
       express: 5.0.0-alpha.8
+      express-http-proxy: ^1.6.2
       focus-visible: ^5.2.0
       graphql: ^15.5.0
       history: ^5.0.0
@@ -80,6 +82,7 @@ importers:
       '@graphql-codegen/typescript-react-query': 1.3.0_graphql@15.5.0
       '@types/cookie-session': 2.0.42
       '@types/express': 4.17.11
+      '@types/express-http-proxy': 1.6.1
       '@types/lodash-es': 4.17.4
       '@types/morgan': 1.9.2
       '@types/react': 17.0.5
@@ -97,6 +100,7 @@ importers:
       eslint-plugin-react: 7.23.2_eslint@7.26.0
       eslint-plugin-react-hooks: 4.2.0_eslint@7.26.0
       express: 5.0.0-alpha.8
+      express-http-proxy: 1.6.2
       graphql: 15.5.0
       morgan: 1.10.0
       npm-run-all: 4.1.5
@@ -1753,6 +1757,12 @@ packages:
       '@types/keygrip': 1.0.2
     dev: true
 
+  /@types/express-http-proxy/1.6.1:
+    resolution: {integrity: sha512-FjuKVtGaT3ccHD7uFr7vKDsn3shEEc/Upo2YnVsTfoDPuUbCV/GIsinG7gbrkzcIYELqh+8hYmn/rEfqMQA/9g==}
+    dependencies:
+      '@types/express': 4.17.11
+    dev: true
+
   /@types/express-serve-static-core/4.17.19:
     resolution: {integrity: sha512-DJOSHzX7pCiSElWaGR8kCprwibCB/3yW6vcT8VG3P0SJjnv19gnWG/AZMfM60Xj/YJIp/YCaDHyvzsFVeniARA==}
     dependencies:
@@ -3250,6 +3260,10 @@ packages:
       is-symbol: 1.0.3
     dev: true
 
+  /es6-promise/4.2.8:
+    resolution: {integrity: sha512-HJDGx5daxeIvxdBxvG2cb9g4tEvwIk3i8+nhX0yGrYmZUzbkdg8QbDevheDB8gd0//uPj4c1EQua8Q+MViT0/w==}
+    dev: true
+
   /esbuild/0.9.6:
     resolution: {integrity: sha512-F6vASxU0wT/Davt9aj2qtDwDNSkQxh9VbyO56M7PDWD+D/Vgq/rmUDGDQo7te76W5auauVojjnQr/wTu3vpaUA==}
     hasBin: true
@@ -3464,6 +3478,15 @@ packages:
 
   /eventemitter3/3.1.2:
     resolution: {integrity: sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==}
+    dev: true
+
+  /express-http-proxy/1.6.2:
+    resolution: {integrity: sha512-soP7UXySFdLbeeMYL1foBkEoZj6HELq9BDAOCr1sLRpqjPaFruN5o6+bZeC+7U4USWIl4JMKEiIvTeKJ2WQdlQ==}
+    engines: {node: '>=6.0.0'}
+    dependencies:
+      debug: 3.2.7
+      es6-promise: 4.2.8
+      raw-body: 2.4.1
     dev: true
 
   /express/4.17.1:
@@ -5600,6 +5623,16 @@ packages:
       http-errors: 1.7.2
       iconv-lite: 0.4.24
       unpipe: 1.0.0
+
+  /raw-body/2.4.1:
+    resolution: {integrity: sha512-9WmIKF6mkvA0SLmA2Knm9+qj89e+j1zqgyn8aXGd7+nAduPoqgI9lO57SAZNn/Byzo5P7JhXTyg9PzaJbH73bA==}
+    engines: {node: '>= 0.8'}
+    dependencies:
+      bytes: 3.1.0
+      http-errors: 1.7.3
+      iconv-lite: 0.4.24
+      unpipe: 1.0.0
+    dev: true
 
   /rc/1.2.8:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
