@@ -6,6 +6,8 @@ import express, { ErrorRequestHandler, Router } from "express"
 import proxy from "express-http-proxy"
 import morgan from "morgan"
 
+const oneDayMs = 1000 * 60 * 60 * 24
+
 function createHandler() {
 	const handler = Router()
 
@@ -16,20 +18,16 @@ function createHandler() {
 			name: "session",
 			secret: process.env["COOKIE_SECRET"] as string,
 			httpOnly: true,
+			expires: new Date(Date.now() + oneDayMs * 30),
 		}),
 	)
 
 	handler.use((req, res, next) => {
 		assert(req.session)
 
-		console.log(`session is new: ${req.session.isNew}`)
-		console.log(`session is changed: ${req.session.isChanged}`)
-		console.log(`session is populated: ${req.session.isPopulated}`)
+		console.log(req.headers)
 
 		if (req.session.user && Date.now() > req.session.user.expiresAt) {
-			console.log("session expired")
-			console.log(`expiration date: ${req.session.user.expiresAt}`)
-			console.log(`current date: ${Date.now()}`)
 			req.session.user = undefined
 		}
 		next()
