@@ -22,7 +22,14 @@ function createHandler() {
 	handler.use((req, res, next) => {
 		assert(req.session)
 
+		console.log(`session is new: ${req.session.isNew}`)
+		console.log(`session is changed: ${req.session.isChanged}`)
+		console.log(`session is populated: ${req.session.isPopulated}`)
+
 		if (req.session.user && Date.now() > req.session.user.expiresAt) {
+			console.log("session expired")
+			console.log(`expiration date: ${req.session.user.expiresAt}`)
+			console.log(`current date: ${Date.now()}`)
 			req.session.user = undefined
 		}
 		next()
