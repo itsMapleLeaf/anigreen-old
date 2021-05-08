@@ -1,4 +1,3 @@
-/// <reference types="vite/client" />
 import assert from "assert"
 import Axios from "axios"
 import cookieSession from "cookie-session"
