@@ -4,9 +4,12 @@ import cookieSession from "cookie-session"
 import "dotenv/config"
 import express, { ErrorRequestHandler, Router } from "express"
 import { request } from "https"
+import morgan from "morgan"
 
 function createHandler() {
 	const handler = Router()
+
+	handler.use(morgan("short"))
 
 	handler.use(
 		cookieSession({
