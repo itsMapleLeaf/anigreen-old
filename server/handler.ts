@@ -89,11 +89,13 @@ function createHandler() {
 				headers,
 			},
 			(anilistResponse) => {
-				res.statusCode = anilistResponse.statusCode ?? res.statusCode
-				for (const header in anilistResponse.headers) {
-					res.setHeader(header, anilistResponse.headers[header] ?? "")
-				}
-				anilistResponse.setEncoding("utf-8").pipe(res, { end: true })
+				anilistResponse.pipe(
+					res.writeHead(
+						anilistResponse.statusCode ?? 200,
+						anilistResponse.headers,
+					),
+					{ end: true },
+				)
 			},
 		)
 
