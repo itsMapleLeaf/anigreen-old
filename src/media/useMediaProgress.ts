@@ -14,6 +14,15 @@ export function useMediaProgress(watchingMedia: WatchingMediaFragment) {
 
 	const progress = progressQuery.data?.MediaList?.progress ?? 0
 
+	const nextAiringEpisodeNumber =
+		watchingMedia.media?.nextAiringEpisode?.episode
+
+	const maxEpisodes = nextAiringEpisodeNumber
+		? nextAiringEpisodeNumber - 1
+		: watchingMedia.media?.episodes ?? 1
+
+	const isCaughtUp = progress === maxEpisodes
+
 	const client = useQueryClient()
 
 	const updateProgressMutation = useUpdateMediaListProgressMutation({
@@ -34,5 +43,12 @@ export function useMediaProgress(watchingMedia: WatchingMediaFragment) {
 		})
 	}
 
-	return { progress, advanceProgress, updateProgressMutation }
+	return {
+		progress,
+		advanceProgress,
+		updateProgressMutation,
+		nextAiringEpisodeNumber,
+		maxEpisodes,
+		isCaughtUp,
+	}
 }

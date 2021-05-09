@@ -9,9 +9,15 @@ export default function WatchingMediaAdvanceProgressButton({
 }: {
 	mediaListEntry: WatchingMediaFragment
 }) {
-	const { advanceProgress, updateProgressMutation } = useMediaProgress(
-		mediaListEntry,
-	)
+	const {
+		isCaughtUp,
+		advanceProgress,
+		updateProgressMutation,
+	} = useMediaProgress(mediaListEntry)
+
+	if (isCaughtUp) {
+		return null
+	}
 
 	return (
 		<Button

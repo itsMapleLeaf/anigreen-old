@@ -6,14 +6,7 @@ export default function WatchingMediaProgress({
 }: {
 	watchingMedia: WatchingMediaFragment
 }) {
-	const { progress } = useMediaProgress(watchingMedia)
-
-	const nextAiringEpisodeNumber =
-		watchingMedia.media?.nextAiringEpisode?.episode
-
-	const maxEpisodes = nextAiringEpisodeNumber
-		? nextAiringEpisodeNumber - 1
-		: watchingMedia.media?.episodes ?? 1
+	const { progress, maxEpisodes } = useMediaProgress(watchingMedia)
 
 	const progressLagStyle = (() => {
 		const progressLag = maxEpisodes - progress
