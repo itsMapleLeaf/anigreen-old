@@ -102,7 +102,7 @@ app.get("/", (req, res) => {
 })
 
 // :)
-app.use("/cgi-bin/*", (req, res) => {
+app.use(["/cgi-bin/*", "/boaform/admin/*"], (req, res) => {
 	res.status(418).send("🖕")
 })
 
