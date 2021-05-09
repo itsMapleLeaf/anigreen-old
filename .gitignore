@@ -1,11 +1,7 @@
 node_modules
-.DS_Store
-dist
-dist-ssr
-build
-*.local
+
+/.cache
+/server/build
+/public/build
 .vscode
-*.log
-*.env*
-!.env.example
-*.code-workspace
+.env
