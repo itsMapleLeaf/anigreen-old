@@ -101,9 +101,9 @@ app.get("/", (req, res) => {
 	}
 })
 
-const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
-	console.error(err.stack)
-	res.status(500).send(err.message ?? "An internal error occurred")
+const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
+	console.error(error?.stack || error?.message || error)
+	res.status(500).send(error?.message || "An internal error occurred")
 }
 app.use(errorHandler)
 
