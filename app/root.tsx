@@ -1,20 +1,19 @@
-import type { LinksFunction, LoaderFunction } from "remix";
-import { Meta, Links, Scripts, useRouteData, LiveReload } from "remix";
-import { Outlet } from "react-router-dom";
-
-import stylesUrl from "./styles/global.css";
+import { Outlet } from "react-router-dom"
+import type { LinksFunction, LoaderFunction } from "remix"
+import { Links, LiveReload, Meta, Scripts, useRouteData } from "remix"
+import tailwindStyles from "./styles/tailwind.css"
 
 export let links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: stylesUrl }];
-};
+  return [{ rel: "stylesheet", href: tailwindStyles }]
+}
 
 export let loader: LoaderFunction = async () => {
-  return { date: new Date() };
-};
+  return { date: new Date() }
+}
 
 function Document({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-gray-900 text-gray-50">
       <head>
         <meta charSet="utf-8" />
         <link rel="icon" href="/favicon.png" type="image/png" />
@@ -23,35 +22,28 @@ function Document({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
-
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>
-  );
+  )
 }
 
 export default function App() {
-  let data = useRouteData();
+  let data = useRouteData<{ date: string }>()
   return (
     <Document>
+      <h1>ayy lmao</h1>
       <Outlet />
-      <footer>
-        <p>This page was rendered at {data.date.toLocaleString()}</p>
-      </footer>
     </Document>
-  );
+  )
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
   return (
     <Document>
-      <h1>App Error</h1>
+      <h1 className="text-2xl font-condensed">oops! something went wrong :(</h1>
       <pre>{error.message}</pre>
-      <p>
-        Replace this UI with what you want users to see when your app throws
-        uncaught errors.
-      </p>
     </Document>
-  );
+  )
 }
