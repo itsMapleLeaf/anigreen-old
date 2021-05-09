@@ -1,7 +1,7 @@
 module.exports = {
+  browserBuildDirectory: "build/browser",
+  serverBuildDirectory: "build/server",
   appDirectory: "app",
-  browserBuildDirectory: "public/build",
   publicPath: "/build/",
-  serverBuildDirectory: "build",
-  devServerPort: 8002
-};
+  devServerPort: 8002,
+}
