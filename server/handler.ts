@@ -101,6 +101,11 @@ app.get("/", (req, res) => {
 	}
 })
 
+// :)
+app.use("/cgi-bin/*", (req, res) => {
+	res.status(418).send("🖕")
+})
+
 const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
 	console.error(error?.stack || error?.message || error)
 	res.status(500).send(error?.message || "An internal error occurred")
