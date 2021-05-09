@@ -24,8 +24,6 @@ app.use(
 app.use((req, res, next) => {
 	assert(req.session)
 
-	console.log(req.headers)
-
 	if (req.session.user && Date.now() > req.session.user.expiresAt) {
 		req.session.user = undefined
 	}
