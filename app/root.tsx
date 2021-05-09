@@ -17,6 +17,14 @@ function Document({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <link rel="icon" href="/favicon.png" type="image/png" />
+        <link
+          href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,700"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:300"
+          rel="stylesheet"
+        />
         <Meta />
         <Links />
       </head>
