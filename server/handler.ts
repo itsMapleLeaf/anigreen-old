@@ -10,11 +10,7 @@ const oneDayMs = 1000 * 60 * 60 * 24
 
 const app = express()
 
-app.use(
-	morgan(
-		":req[host] :method :url :status :res[content-length] - :response-time ms",
-	),
-)
+app.use(morgan("short"))
 
 app.use(
 	cookieSession({
