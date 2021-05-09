@@ -21,7 +21,7 @@ app.use(
 		name: "session",
 		secret: process.env["COOKIE_SECRET"] as string,
 		httpOnly: true,
-		expires: new Date(Date.now() + oneDayMs * 30),
+		expires: new Date(Date.now() + oneDayMs * 365),
 	}),
 )
 
