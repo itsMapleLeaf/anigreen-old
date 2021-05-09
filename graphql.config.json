@@ -16,7 +16,6 @@
 			"func": "../network/fetchData#fetchData"
 		},
 		"maybeValue": "T | undefined",
-		"skipTypename": true,
 		"exposeQueryKeys": true,
 		"exposeDocument": true
 	}

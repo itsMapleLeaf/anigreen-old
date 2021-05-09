@@ -1,19 +1,72 @@
-import { DotsVerticalIcon, ExternalLinkIcon } from "@heroicons/react/solid"
-import { compact } from "lodash-es"
+import {
+	BookmarkIcon,
+	DotsVerticalIcon,
+	ExternalLinkIcon,
+	MinusCircleIcon,
+	PauseIcon,
+} from "@heroicons/react/solid"
+import { merge } from "lodash-es"
+import { useQueryClient } from "react-query"
 import ExternalLink from "../dom/ExternalLink"
-import type {
+import {
 	MediaExternalLinkFragment,
 	MediaFragment,
+	MediaListStatus,
+	MediaQuery,
+	useMediaQuery,
+	useSetMediaStatusMutation,
+	useViewerQuery,
+	useViewerWatchedMediaListQuery,
 } from "../generated/graphql"
+import { isTruthy } from "../helpers/isTruthy"
+import { raise } from "../helpers/raise"
 import { clearIconButtonStyle } from "../ui/components"
 import IconWithText from "../ui/IconWithText"
 import { Menu, MenuButton, MenuItem, MenuPanel } from "../ui/menu"
 
-export default function MediaMenu({ media }: { media: MediaFragment }) {
-	const externalLinks = compact(media.externalLinks).map((link) => ({
-		...link,
-		url: getMobileFriendlyUrl(link.url),
-	}))
+export default function MediaMenu({
+	media: mediaProp,
+}: {
+	media: MediaFragment
+}) {
+	const client = useQueryClient()
+
+	const mediaQuery = useMediaQuery(
+		{ mediaId: mediaProp.id },
+		{ initialData: { Media: mediaProp } },
+	)
+	const media = mediaQuery.data?.Media
+	const watchingStatus = media?.mediaListEntry?.status
+	console.log({ watchingStatus })
+
+	const viewerId =
+		useViewerQuery().data?.Viewer?.id ?? raise("expected viewerId")
+
+	const setStatusMutation = useSetMediaStatusMutation({
+		async onSuccess(data) {
+			client.setQueryData<MediaQuery>(
+				useMediaQuery.getKey({ mediaId: mediaProp.id }),
+				(current) =>
+					merge(current, {
+						Media: {
+							mediaListEntry: data.SaveMediaListEntry,
+						},
+					}),
+			)
+
+			await client.invalidateQueries(
+				useViewerWatchedMediaListQuery.getKey({ userId: viewerId }),
+			)
+
+			await client.invalidateQueries("RecentlyAired")
+		},
+	})
+
+	const externalLinks =
+		media?.externalLinks?.filter(isTruthy).map((link) => ({
+			...link,
+			url: getMobileFriendlyUrl(link.url),
+		})) ?? []
 
 	function otherLinkExistsWithSameName(link: MediaExternalLinkFragment) {
 		return externalLinks.some(
@@ -29,6 +82,55 @@ export default function MediaMenu({ media }: { media: MediaFragment }) {
 			</MenuButton>
 
 			<MenuPanel>
+				{watchingStatus !== MediaListStatus.Current ? (
+					<MenuItem
+						title="Add this to your watch list"
+						onClick={() => {
+							setStatusMutation.mutate({
+								mediaId: mediaProp.id,
+								status: MediaListStatus.Current,
+							})
+						}}
+					>
+						<IconWithText
+							iconLeft={<BookmarkIcon className="w-5" />}
+							text="Watch"
+						/>
+					</MenuItem>
+				) : (
+					<>
+						<MenuItem
+							title="Didn't like it? Drop it"
+							onClick={() => {
+								setStatusMutation.mutate({
+									mediaId: mediaProp.id,
+									status: MediaListStatus.Dropped,
+								})
+							}}
+						>
+							<IconWithText
+								iconLeft={<MinusCircleIcon className="w-5" />}
+								text="Drop"
+							/>
+						</MenuItem>
+
+						<MenuItem
+							title="Can't get to it right now? Pause your progress"
+							onClick={() => {
+								setStatusMutation.mutate({
+									mediaId: mediaProp.id,
+									status: MediaListStatus.Paused,
+								})
+							}}
+						>
+							<IconWithText
+								iconLeft={<PauseIcon className="w-5" />}
+								text="Pause"
+							/>
+						</MenuItem>
+					</>
+				)}
+
 				{externalLinks.map((link) => (
 					<MenuItem as={ExternalLink} href={link.url} key={link.id}>
 						<IconWithText iconLeft={<ExternalLinkIcon className="w-5" />}>
@@ -44,7 +146,7 @@ export default function MediaMenu({ media }: { media: MediaFragment }) {
 
 				<MenuItem
 					as={ExternalLink}
-					href={media.siteUrl || `https://anilist.co/anime/${media.id}`}
+					href={media?.siteUrl || `https://anilist.co/anime/${mediaProp.id}`}
 				>
 					<IconWithText
 						iconLeft={<ExternalLinkIcon className="w-5" />}

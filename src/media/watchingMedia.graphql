@@ -2,6 +2,7 @@ fragment watchingMedia on MediaList {
 	id
 	progress
 	score
+	status
 	media {
 		...media
 	}

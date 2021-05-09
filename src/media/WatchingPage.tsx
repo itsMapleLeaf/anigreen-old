@@ -2,6 +2,7 @@ import { sub } from "date-fns"
 import Button from "../dom/Button"
 import {
 	MediaFragment,
+	MediaListStatus,
 	RecentlyAiredQuery,
 	useRecentlyAiredQuery,
 	useViewerQuery,
@@ -50,7 +51,12 @@ function RecentlyAiredList() {
 	const recentlyAiredItems =
 		recentlyAiredQuery.data?.pages
 			.flatMap((page) => page.Page?.airingSchedules)
-			.map((airing) => airing?.media?.mediaListEntry)
+			.map(
+				(airing) =>
+					airing?.media?.mediaListEntry?.status === MediaListStatus.Current &&
+					airing.media.mediaListEntry,
+			)
+			.filter(isTruthy)
 			.map((item) => item?.media && { ...item, media: item.media })
 			.filter(isTruthy) ?? []
 
