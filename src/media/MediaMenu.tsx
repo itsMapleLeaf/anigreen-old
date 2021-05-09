@@ -1,6 +1,5 @@
 import { DotsVerticalIcon, ExternalLinkIcon } from "@heroicons/react/solid"
 import { compact } from "lodash-es"
-import Button from "../dom/Button"
 import ExternalLink from "../dom/ExternalLink"
 import type {
 	MediaExternalLinkFragment,
@@ -24,34 +23,33 @@ export default function MediaMenu({ media }: { media: MediaFragment }) {
 
 	return (
 		<Menu>
-			<MenuButton>
-				<Button className={clearIconButtonStyle}>
-					<span className="sr-only">More Actions</span>
-					<DotsVerticalIcon className="w-5" />
-				</Button>
+			<MenuButton className={clearIconButtonStyle}>
+				<span className="sr-only">More Actions</span>
+				<DotsVerticalIcon className="w-5" />
 			</MenuButton>
+
 			<MenuPanel>
 				{externalLinks.map((link) => (
-					<MenuItem key={link.id}>
-						<ExternalLink href={link.url}>
-							<IconWithText iconLeft={<ExternalLinkIcon className="w-5" />}>
-								<p>{link.site}</p>
-								{otherLinkExistsWithSameName(link) && (
-									<p className="text-sm leading-tight opacity-75">
-										{getDomain(link.url)}
-									</p>
-								)}
-							</IconWithText>
-						</ExternalLink>
+					<MenuItem as={ExternalLink} href={link.url} key={link.id}>
+						<IconWithText iconLeft={<ExternalLinkIcon className="w-5" />}>
+							<p>{link.site}</p>
+							{otherLinkExistsWithSameName(link) && (
+								<p className="text-sm leading-tight opacity-75">
+									{getDomain(link.url)}
+								</p>
+							)}
+						</IconWithText>
 					</MenuItem>
 				))}
-				<MenuItem>
-					<ExternalLink href={`https://anilist.co/anime/${media.id}`}>
-						<IconWithText
-							iconLeft={<ExternalLinkIcon className="w-5" />}
-							text="View on AniList"
-						/>
-					</ExternalLink>
+
+				<MenuItem
+					as={ExternalLink}
+					href={media.siteUrl || `https://anilist.co/anime/${media.id}`}
+				>
+					<IconWithText
+						iconLeft={<ExternalLinkIcon className="w-5" />}
+						text="View on AniList"
+					/>
 				</MenuItem>
 			</MenuPanel>
 		</Menu>

@@ -1,6 +1,7 @@
 import { Menu as BaseMenu, Portal, Transition } from "@headlessui/react"
 import * as React from "react"
-import Slot from "../react/Slot"
+import Button from "../dom/Button"
+import type { PolyProps } from "../react/types"
 import { createPopperContext } from "./popper"
 
 const OpenContext = React.createContext(false)
@@ -20,10 +21,12 @@ export function Menu({ children }: { children: React.ReactNode }) {
 	)
 }
 
-export function MenuButton({ children }: { children: React.ReactElement }) {
+export function MenuButton<As extends React.ElementType = typeof Button>(
+	props: PolyProps<As, {}>,
+) {
 	return (
 		<MenuPopper.Reference>
-			<BaseMenu.Button as={React.Fragment}>{children}</BaseMenu.Button>
+			<BaseMenu.Button as={(props.as || Button) as any} {...props} />
 		</MenuPopper.Reference>
 	)
 }
@@ -56,19 +59,30 @@ export function MenuPanel({ children }: { children: React.ReactNode }) {
 	)
 }
 
-export function MenuItem({ children }: { children: React.ReactElement }) {
+type MenuItemProps = {
+	className?: string
+	children: React.ReactNode
+}
+
+export function MenuItem<As extends React.ElementType = typeof Button>({
+	as,
+	children,
+	className = "",
+	...props
+}: PolyProps<As, MenuItemProps>) {
 	const baseClass = `block p-3 w-full leading-none font-medium text-left transition focus:outline-none`
 	const activeClass = `bg-green-100 text-green-900`
+	const Component = as || Button
 
 	return (
 		<BaseMenu.Item as={React.Fragment}>
 			{({ active }) => (
-				<Slot
-					element={children}
-					className={`${baseClass} ${active ? activeClass : ""} ${
-						children.props.className ?? ""
-					}`}
-				/>
+				<Component
+					{...props}
+					className={`${className} ${baseClass} ${active ? activeClass : ""}`}
+				>
+					{children}
+				</Component>
 			)}
 		</BaseMenu.Item>
 	)

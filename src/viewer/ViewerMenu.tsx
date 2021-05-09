@@ -22,14 +22,12 @@ function ViewerMenuLoggedIn() {
 	return (
 		<Menu>
 			<MenuButton>
-				<button type="button">
-					<span className="sr-only">User Actions</span>
-					<Image
-						src={viewer.avatar?.medium}
-						alt="Your avatar"
-						className="w-8 h-8 rounded-full"
-					/>
-				</button>
+				<span className="sr-only">User Actions</span>
+				<Image
+					src={viewer.avatar?.medium}
+					alt="Your avatar"
+					className="w-8 h-8 rounded-full"
+				/>
 			</MenuButton>
 			<MenuPanel>
 				<ExternalLink
@@ -50,13 +48,11 @@ function ViewerMenuLoggedIn() {
 						</IconWithText>
 					</span>
 				</ExternalLink>
-				<MenuItem>
-					<a href="/logout">
-						<IconWithText
-							text="Log out"
-							iconLeft={<LogoutIcon className="w-5" />}
-						/>
-					</a>
+				<MenuItem as="a" href="/logout">
+					<IconWithText
+						text="Log out"
+						iconLeft={<LogoutIcon className="w-5" />}
+					/>
 				</MenuItem>
 			</MenuPanel>
 		</Menu>

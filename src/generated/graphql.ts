@@ -4302,7 +4302,7 @@ export type ViewerWatchedMediaListQueryVariables = Exact<{
 export type ViewerWatchedMediaListQuery = { Page?: Maybe<{ mediaList?: Maybe<Array<Maybe<WatchingMediaFragment>>> }> };
 
 export type MediaFragment = (
-  Pick<Media, 'id' | 'format' | 'episodes' | 'bannerImage' | 'isAdult' | 'isLicensed' | 'countryOfOrigin'>
+  Pick<Media, 'id' | 'format' | 'episodes' | 'bannerImage' | 'isAdult' | 'isLicensed' | 'countryOfOrigin' | 'siteUrl'>
   & { nextAiringEpisode?: Maybe<Pick<AiringSchedule, 'airingAt' | 'episode'>>, title?: Maybe<Pick<MediaTitle, 'english' | 'romaji' | 'native' | 'userPreferred'>>, coverImage?: Maybe<Pick<MediaCoverImage, 'medium' | 'large' | 'extraLarge' | 'color'>>, externalLinks?: Maybe<Array<Maybe<MediaExternalLinkFragment>>> }
 );
 
@@ -4387,6 +4387,7 @@ export const MediaFragmentDoc = `
   isLicensed
   countryOfOrigin
   format
+  siteUrl
 }
     ${MediaExternalLinkFragmentDoc}`;
 export const AiringFragmentDoc = `

@@ -26,6 +26,7 @@ fragment media on Media {
 	isLicensed
 	countryOfOrigin
 	format
+	siteUrl
 }
 
 fragment mediaExternalLink on MediaExternalLink {
