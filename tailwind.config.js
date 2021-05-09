@@ -1,6 +1,6 @@
 module.exports = {
   mode: "jit",
-  purge: [`./{app,public}/**/*.{js,jsx,ts,tsx}`],
+  purge: [`./app/**/*.{js,jsx,ts,tsx}`],
   darkMode: false, // or 'media' or 'class'
   theme: {
     boxShadow: {
