@@ -5,6 +5,7 @@ import "dotenv/config"
 import express, { ErrorRequestHandler } from "express"
 import proxy from "express-http-proxy"
 import morgan from "morgan"
+import { hackermanUrls } from "./hackermans"
 
 const oneDayMs = 1000 * 60 * 60 * 24
 
@@ -102,7 +103,7 @@ app.get("/", (req, res) => {
 })
 
 // :)
-app.use(["/cgi-bin/*", "/boaform/admin/*"], (req, res) => {
+app.use(hackermanUrls, (req, res) => {
 	res.status(418).send("🖕")
 })
 

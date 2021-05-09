@@ -1,0 +1,18 @@
+export const hackermanUrls = [
+	"/cgi-bin/*",
+	"/boaform/admin/*",
+	"/TP/*",
+	"/phpmyadmin/*",
+	"/phpMyAdmin/*",
+	"/pma/*",
+	"/myadmin/*",
+	"/MyAdmin/*",
+	"/GponForm/*",
+	"/portal/redlion*",
+	"/config/getuser*",
+	"/hudson*",
+	"/w00tw00t.at.blackhats.romanian.anti-sec*",
+	"/.well-known/security.txt*",
+	"/shell*",
+	"/.env*",
+]
