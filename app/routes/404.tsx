@@ -1,13 +1,14 @@
-import type { MetaFunction } from "remix";
+import type { MetaFunction } from "remix"
 
 export let meta: MetaFunction = () => {
-  return { title: "Ain't nothing here" };
-};
+  return { title: "page not found" }
+}
 
-export default function FourOhFour() {
+export default function PageNotFound() {
   return (
-    <div>
-      <h1>404</h1>
-    </div>
-  );
+    <>
+      <h1>oops!</h1>
+      <p>couldn't find this page :(</p>
+    </>
+  )
 }

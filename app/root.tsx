@@ -1,14 +1,9 @@
 import { Outlet } from "react-router-dom"
-import type { LinksFunction, LoaderFunction } from "remix"
-import { Links, LiveReload, Meta, Scripts, useRouteData } from "remix"
+import { Links, LinksFunction, LiveReload, Meta, Scripts } from "remix"
 import tailwindStyles from "./styles/tailwind.css"
 
-export let links: LinksFunction = () => {
+export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: tailwindStyles }]
-}
-
-export let loader: LoaderFunction = async () => {
-  return { date: new Date() }
 }
 
 function Document({ children }: { children: React.ReactNode }) {
@@ -38,10 +33,9 @@ function Document({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  let data = useRouteData<{ date: string }>()
   return (
     <Document>
-      <h1>ayy lmao</h1>
+      <h1>ayy lmao it's app</h1>
       <Outlet />
     </Document>
   )

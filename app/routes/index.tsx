@@ -2,8 +2,8 @@ import { LoaderFunction, MetaFunction, useRouteData } from "remix"
 
 export let meta: MetaFunction = () => {
   return {
-    title: "Remix Starter",
-    description: "Welcome to remix!",
+    title: "heya",
+    description: "yeet",
   }
 }
 
