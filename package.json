@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "pnpm run build-css && npm-run-all --parallel --print-label dev-*",
     "dev-remix": "remix run",
-    "dev-css": "postcss styles --dir app/styles --watch",
+    "dev-css": "postcss styles --dir app/styles --verbose --watch",
     "build": "npm-run-all --parallel --print-label build-*",
     "build-remix": "remix build",
-    "build-css": "postcss styles --dir app/styles --env production",
+    "build-css": "postcss styles --dir app/styles --verbose --env production",
     "start": "remix-serve build",
     "deploy": "flyctl deploy --build-arg REMIX_TOKEN=${REMIX_TOKEN}"
   },
