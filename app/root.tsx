@@ -9,9 +9,9 @@ import {
   Scripts,
   useRouteData,
 } from "remix"
+import { createClient } from "./api"
 import AppHeader from "./components/app/AppHeader"
 import AppHeaderContainer from "./components/app/AppHeaderContainer"
-import { parseSession } from "./components/session"
 import tailwindStyles from "./styles/tailwind.css"
 
 export const links: LinksFunction = () => {
@@ -19,7 +19,7 @@ export const links: LinksFunction = () => {
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const query = /* GraphQL */ `
+  const { response, data } = await createClient(request).fetch(/* GraphQL */ `
     query Viewer {
       Viewer {
         id
@@ -32,30 +32,13 @@ export const loader: LoaderFunction = async ({ request }) => {
         siteUrl
       }
     }
-  `
+  `)
 
-  const session = parseSession(request.headers.get("cookie"))
-
-  const headers: Record<string, string> = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
+  if (response.status === 401) {
+    return data
   }
 
-  if (session?.accessToken) {
-    headers.Authorization = `Bearer ${session.accessToken}`
-  }
-
-  const res = await fetch(`https://graphql.anilist.co`, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({
-      query,
-    }),
-  })
-  if (res.status === 401) {
-    return res.json()
-  }
-  return res
+  return response
 }
 
 export default function App() {
