@@ -12,6 +12,8 @@ import {
 import { createClient } from "./api"
 import AppHeader from "./components/app/AppHeader"
 import AppHeaderContainer from "./components/app/AppHeaderContainer"
+import { gql } from "./gql"
+import type { ViewerQuery } from "./graphql"
 import tailwindStyles from "./styles/tailwind.css"
 
 export const links: LinksFunction = () => {
@@ -19,23 +21,25 @@ export const links: LinksFunction = () => {
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const { response, data } = await createClient(request).fetch(/* GraphQL */ `
-    query Viewer {
-      Viewer {
-        id
-        name
-        avatar {
-          medium
-          large
+  const response = await createClient(request).fetch<ViewerQuery>({
+    query: gql`
+      query Viewer {
+        Viewer {
+          id
+          name
+          avatar {
+            medium
+            large
+          }
+          bannerImage
+          siteUrl
         }
-        bannerImage
-        siteUrl
       }
-    }
-  `)
+    `,
+  })
 
   if (response.status === 401) {
-    return data
+    return response.json()
   }
 
   return response
@@ -59,7 +63,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
 }
 
 function Document({ children }: { children: React.ReactNode }) {
-  const data = useRouteData()
+  const data = useRouteData<{ data?: ViewerQuery }>()
 
   return (
     <html lang="en" className="bg-gray-900 text-gray-50">

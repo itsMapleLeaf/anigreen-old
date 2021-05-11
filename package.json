@@ -7,11 +7,13 @@
     "dev": "pnpm run build-css && npm-run-all --parallel --print-label dev-*",
     "dev-remix": "remix run",
     "dev-css": "postcss styles --dir app/styles --verbose --watch",
+    "dev-codegen": "pnpm run codegen -- --watch",
     "build": "npm-run-all --parallel --print-label build-*",
     "build-remix": "remix build",
     "build-css": "postcss styles --dir app/styles --verbose --env production",
     "start": "remix-serve build",
-    "deploy": "flyctl deploy --build-arg REMIX_TOKEN=${REMIX_TOKEN}"
+    "deploy": "flyctl deploy --build-arg REMIX_TOKEN=${REMIX_TOKEN}",
+    "codegen": "graphql-codegen --config graphql.config.yml"
   },
   "dependencies": {
     "@remix-run/node": "0.17.0",
@@ -35,11 +37,15 @@
     "react-error-boundary": "3.1.3"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "1.21.4",
+    "@graphql-codegen/typescript": "1.22.0",
+    "@graphql-codegen/typescript-operations": "1.17.16",
     "@remix-run/dev": "0.17.0",
     "@tailwindcss/line-clamp": "0.2.0",
     "@types/react": "17.0.5",
     "@types/react-dom": "17.0.3",
     "autoprefixer": "10.2.5",
+    "graphql": "15.5.0",
     "npm-run-all": "4.1.5",
     "postcss": "8.2.14",
     "postcss-cli": "8.3.1",
