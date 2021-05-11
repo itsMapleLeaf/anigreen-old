@@ -1,21 +1,12 @@
-import { LoaderFunction, MetaFunction, useRouteData } from "remix"
+import { LoaderFunction, redirect } from "remix"
+import { parseSession } from "../components/session"
+import LoadingPlaceholder from "../components/ui/LoadingPlaceholder"
 
-export let meta: MetaFunction = () => {
-  return {
-    title: "heya",
-    description: "yeet",
-  }
-}
-
-export let loader: LoaderFunction = async () => {
-  return { message: "hi lol" }
+export const loader: LoaderFunction = async ({ request }) => {
+  const session = parseSession(request.headers.get("Cookie"))
+  return redirect(session ? "/watching" : "/schedule")
 }
 
 export default function Index() {
-  const data = useRouteData<{ message: string }>()
-  return (
-    <div>
-      <p>{data.message}</p>
-    </div>
-  )
+  return <LoadingPlaceholder />
 }

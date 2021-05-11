@@ -1,0 +1,15 @@
+query RecentlyAired($startDate: Int!, $endDate: Int!, $page: Int!) {
+	Page(page: $page) {
+		airingSchedules(airingAt_greater: $startDate, airingAt_lesser: $endDate) {
+			media {
+				mediaListEntry {
+					...watchingMedia
+				}
+			}
+		}
+		pageInfo {
+			currentPage
+			hasNextPage
+		}
+	}
+}

@@ -6,9 +6,9 @@ export let meta: MetaFunction = () => {
 
 export default function PageNotFound() {
   return (
-    <>
-      <h1>oops!</h1>
+    <div className="grid gap-4">
+      <h1 className="text-4xl font-condensed">oops</h1>
       <p>couldn't find this page :(</p>
-    </>
+    </div>
   )
 }
