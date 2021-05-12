@@ -2,9 +2,9 @@ import { startOfToday } from "date-fns"
 import { createClient } from "../api"
 import { gql } from "../gql"
 import type { ScheduleQuery, ScheduleQueryVariables } from "../graphql"
-import { loaderFunction, useRouteDataTyped } from "../loader"
+import { LoaderContext, useRouteDataTyped } from "../loader"
 
-export const loader = loaderFunction(({ request }) => {
+export function loader({ request }: LoaderContext) {
   const client = createClient(request)
 
   return client.fetch<ScheduleQuery, ScheduleQueryVariables>({
@@ -62,9 +62,9 @@ export const loader = loaderFunction(({ request }) => {
       startDate: Math.floor(startOfToday().valueOf() / 1000),
     },
   })
-})
+}
 
 export default function Schedule() {
   const { data } = useRouteDataTyped<typeof loader>()
-  return <pre>{JSON.stringify(data, null, 2)}</pre>
+  return <pre className="overflow-x-auto">{JSON.stringify(data, null, 2)}</pre>
 }

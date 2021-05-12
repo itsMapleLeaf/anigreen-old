@@ -3,14 +3,13 @@ import { useRouteData } from "@remix-run/react"
 import type { TypedResponse } from "./typed-response"
 
 type Params = Record<string, string>
+type MaybePromise<T> = Promise<T> | T
 
-type LoaderContext = {
+export type LoaderContext = {
   request: Request
   context: AppLoadContext
   params: Params
 }
-
-type MaybePromise<T> = Promise<T> | T
 
 // prettier-ignore
 type TypedLoaderFunction<Data> = (context: LoaderContext) =>
