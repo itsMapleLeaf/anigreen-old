@@ -5,14 +5,14 @@ import type { TypedResponse } from "./typed-response"
 type Params = Record<string, string>
 type MaybePromise<T> = Promise<T> | T
 
-export type LoaderContext = {
+export type LoaderArgs = {
   request: Request
   context: AppLoadContext
   params: Params
 }
 
 // prettier-ignore
-type TypedLoaderFunction<Data> = (context: LoaderContext) =>
+type TypedLoaderFunction<Data> = (args: LoaderArgs) =>
   MaybePromise<Data | TypedResponse<Data>>
 
 export type LoaderData<Fn> = Fn extends TypedLoaderFunction<infer Data>

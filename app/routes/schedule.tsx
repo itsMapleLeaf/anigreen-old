@@ -2,9 +2,9 @@ import { startOfToday } from "date-fns"
 import { createClient } from "../api"
 import { gql } from "../gql"
 import type { ScheduleQuery, ScheduleQueryVariables } from "../graphql"
-import { LoaderContext, useRouteDataTyped } from "../loader"
+import { LoaderArgs, useRouteDataTyped } from "../loader"
 
-export function loader({ request }: LoaderContext) {
+export function loader({ request }: LoaderArgs) {
   const client = createClient(request)
 
   return client.fetch<ScheduleQuery, ScheduleQueryVariables>({
