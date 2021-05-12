@@ -1,5 +1,5 @@
+import { LoaderFunction, redirect } from "@remix-run/node"
 import React from "react"
-import { LoaderFunction, redirect } from "remix"
 import { clearSession } from "../components/session"
 import LoadingPlaceholder from "../components/ui/LoadingPlaceholder"
 

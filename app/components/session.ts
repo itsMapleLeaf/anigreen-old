@@ -1,4 +1,4 @@
-import { createCookie } from "remix"
+import { createCookie } from "@remix-run/node"
 
 // TODO: use zod to validate this
 // if validation fails, consider the session invalid

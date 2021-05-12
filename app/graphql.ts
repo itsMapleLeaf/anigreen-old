@@ -4418,3 +4418,42 @@ export type ViewerQuery = (
     )> }
   )> }
 );
+
+export type ScheduleQueryVariables = Exact<{
+  startDate: Scalars['Int'];
+}>;
+
+
+export type ScheduleQuery = (
+  { __typename?: 'Query' }
+  & { Page?: Maybe<(
+    { __typename?: 'Page' }
+    & { airingSchedules?: Maybe<Array<Maybe<(
+      { __typename?: 'AiringSchedule' }
+      & Pick<AiringSchedule, 'id' | 'episode' | 'airingAt'>
+      & { media?: Maybe<(
+        { __typename?: 'Media' }
+        & Pick<Media, 'id' | 'format' | 'episodes' | 'bannerImage' | 'isAdult' | 'isLicensed' | 'countryOfOrigin' | 'siteUrl'>
+        & { nextAiringEpisode?: Maybe<(
+          { __typename?: 'AiringSchedule' }
+          & Pick<AiringSchedule, 'airingAt' | 'episode'>
+        )>, title?: Maybe<(
+          { __typename?: 'MediaTitle' }
+          & Pick<MediaTitle, 'english' | 'romaji' | 'native' | 'userPreferred'>
+        )>, coverImage?: Maybe<(
+          { __typename?: 'MediaCoverImage' }
+          & Pick<MediaCoverImage, 'medium' | 'large' | 'extraLarge' | 'color'>
+        )>, externalLinks?: Maybe<Array<Maybe<(
+          { __typename?: 'MediaExternalLink' }
+          & Pick<MediaExternalLink, 'id' | 'url' | 'site'>
+        )>>>, mediaListEntry?: Maybe<(
+          { __typename?: 'MediaList' }
+          & Pick<MediaList, 'status'>
+        )> }
+      )> }
+    )>>>, pageInfo?: Maybe<(
+      { __typename?: 'PageInfo' }
+      & Pick<PageInfo, 'currentPage' | 'hasNextPage'>
+    )> }
+  )> }
+);

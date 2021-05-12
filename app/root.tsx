@@ -1,14 +1,13 @@
-import React from "react"
-import { Outlet } from "react-router-dom"
+import type { LinksFunction, LoaderFunction } from "@remix-run/node"
 import {
   Links,
-  LinksFunction,
   LiveReload,
-  LoaderFunction,
   Meta,
   Scripts,
   useRouteData,
-} from "remix"
+} from "@remix-run/react"
+import React from "react"
+import { Outlet } from "react-router-dom"
 import { createClient } from "./api"
 import AppHeader from "./components/app/AppHeader"
 import AppHeaderContainer from "./components/app/AppHeaderContainer"

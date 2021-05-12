@@ -1,9 +1,6 @@
-import { fetch, Request, Response } from "remix"
+import { fetch, Request } from "@remix-run/node"
 import { parseSession } from "./components/session"
-
-interface TypedResponse<D> extends Response {
-  json(): Promise<D>
-}
+import type { TypedResponse } from "./typed-response"
 
 type NoVariables = { [key: string]: never }
 
