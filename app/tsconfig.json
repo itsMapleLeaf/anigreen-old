@@ -13,7 +13,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "importsNotUsedAsValues": "error",
     "jsx": "preserve",
     "noUncheckedIndexedAccess": true
   }
