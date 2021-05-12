@@ -4,8 +4,7 @@ import { Outlet } from "react-router-dom"
 import { createClient } from "./api"
 import AppHeader from "./components/app/AppHeader"
 import AppHeaderContainer from "./components/app/AppHeaderContainer"
-import { gql } from "./gql"
-import type { ViewerQuery } from "./graphql"
+import { ViewerDocument } from "./graphql"
 import { LoaderArgs, useRouteDataTyped } from "./loader"
 import tailwindStyles from "./styles/tailwind.css"
 
@@ -14,21 +13,8 @@ export function links() {
 }
 
 export async function loader({ request }: LoaderArgs) {
-  const response = await createClient(request).fetch<ViewerQuery>({
-    query: gql`
-      query Viewer {
-        Viewer {
-          id
-          name
-          avatar {
-            medium
-            large
-          }
-          bannerImage
-          siteUrl
-        }
-      }
-    `,
+  const response = await createClient(request).fetch({
+    query: ViewerDocument,
   })
 
   if (response.status === 401) {

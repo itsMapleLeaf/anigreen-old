@@ -1,8 +1,12 @@
 overwrite: true
 schema: "https://graphql.anilist.co"
-documents: "app/**/*.{ts,tsx}"
+documents: "app/graphql/**/*.graphql"
 generates:
   app/graphql.ts:
     plugins:
       - "typescript"
       - "typescript-operations"
+      - "typed-document-node"
+    config:
+      maybeValue: "T | undefined"
+      useTypeImports: true

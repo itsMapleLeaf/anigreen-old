@@ -1,63 +1,13 @@
 import { startOfToday } from "date-fns"
 import { createClient } from "../api"
-import { gql } from "../gql"
-import type { ScheduleQuery, ScheduleQueryVariables } from "../graphql"
+import { ScheduleDocument } from "../graphql"
 import { LoaderArgs, useRouteDataTyped } from "../loader"
 
 export function loader({ request }: LoaderArgs) {
   const client = createClient(request)
 
-  return client.fetch<ScheduleQuery, ScheduleQueryVariables>({
-    query: gql`
-      query Schedule($startDate: Int!) {
-        Page {
-          airingSchedules(airingAt_greater: $startDate, sort: TIME) {
-            id
-            episode
-            airingAt
-            media {
-              id
-              format
-              episodes
-              nextAiringEpisode {
-                airingAt
-                episode
-              }
-              bannerImage
-              title {
-                english
-                romaji
-                native
-                userPreferred
-              }
-              coverImage {
-                medium
-                large
-                extraLarge
-                color
-              }
-              externalLinks {
-                id
-                url
-                site
-              }
-              isAdult
-              isLicensed
-              countryOfOrigin
-              format
-              siteUrl
-              mediaListEntry {
-                status
-              }
-            }
-          }
-          pageInfo {
-            currentPage
-            hasNextPage
-          }
-        }
-      }
-    `,
+  return client.fetch({
+    query: ScheduleDocument,
     variables: {
       startDate: Math.floor(startOfToday().valueOf() / 1000),
     },
