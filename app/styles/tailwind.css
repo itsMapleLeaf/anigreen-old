@@ -812,9 +812,6 @@ video {
 	margin-right: calc(0.25rem * var(--tw-space-x-reverse));
 	margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)));
 }
-.overflow-x-auto {
-	overflow-x: auto;
-}
 .overflow-hidden {
 	overflow: hidden;
 }

@@ -1,0 +1,5 @@
+fragment externalLink on MediaExternalLink {
+  id
+  url
+  site
+}

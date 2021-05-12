@@ -1,0 +1,8 @@
+fragment airing on AiringSchedule {
+  id
+  episode
+  airingAt
+  media {
+    ...media
+  }
+}

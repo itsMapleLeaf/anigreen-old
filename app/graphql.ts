@@ -4405,6 +4405,41 @@ export type YearStats = {
   meanScore?: Maybe<Scalars['Int']>;
 };
 
+export type AiringFragment = (
+  { __typename?: 'AiringSchedule' }
+  & Pick<AiringSchedule, 'id' | 'episode' | 'airingAt'>
+  & { media?: Maybe<(
+    { __typename?: 'Media' }
+    & MediaFragment
+  )> }
+);
+
+export type ExternalLinkFragment = (
+  { __typename?: 'MediaExternalLink' }
+  & Pick<MediaExternalLink, 'id' | 'url' | 'site'>
+);
+
+export type MediaFragment = (
+  { __typename?: 'Media' }
+  & Pick<Media, 'id' | 'format' | 'episodes' | 'bannerImage' | 'isAdult' | 'isLicensed' | 'countryOfOrigin' | 'siteUrl'>
+  & { nextAiringEpisode?: Maybe<(
+    { __typename?: 'AiringSchedule' }
+    & Pick<AiringSchedule, 'airingAt' | 'episode'>
+  )>, title?: Maybe<(
+    { __typename?: 'MediaTitle' }
+    & Pick<MediaTitle, 'english' | 'romaji' | 'native' | 'userPreferred'>
+  )>, coverImage?: Maybe<(
+    { __typename?: 'MediaCoverImage' }
+    & Pick<MediaCoverImage, 'medium' | 'large' | 'extraLarge' | 'color'>
+  )>, externalLinks?: Maybe<Array<Maybe<(
+    { __typename?: 'MediaExternalLink' }
+    & ExternalLinkFragment
+  )>>>, mediaListEntry?: Maybe<(
+    { __typename?: 'MediaList' }
+    & Pick<MediaList, 'status'>
+  )> }
+);
+
 export type ScheduleQueryVariables = Exact<{
   startDate: Scalars['Int'];
 }>;
@@ -4416,27 +4451,7 @@ export type ScheduleQuery = (
     { __typename?: 'Page' }
     & { airingSchedules?: Maybe<Array<Maybe<(
       { __typename?: 'AiringSchedule' }
-      & Pick<AiringSchedule, 'id' | 'episode' | 'airingAt'>
-      & { media?: Maybe<(
-        { __typename?: 'Media' }
-        & Pick<Media, 'id' | 'format' | 'episodes' | 'bannerImage' | 'isAdult' | 'isLicensed' | 'countryOfOrigin' | 'siteUrl'>
-        & { nextAiringEpisode?: Maybe<(
-          { __typename?: 'AiringSchedule' }
-          & Pick<AiringSchedule, 'airingAt' | 'episode'>
-        )>, title?: Maybe<(
-          { __typename?: 'MediaTitle' }
-          & Pick<MediaTitle, 'english' | 'romaji' | 'native' | 'userPreferred'>
-        )>, coverImage?: Maybe<(
-          { __typename?: 'MediaCoverImage' }
-          & Pick<MediaCoverImage, 'medium' | 'large' | 'extraLarge' | 'color'>
-        )>, externalLinks?: Maybe<Array<Maybe<(
-          { __typename?: 'MediaExternalLink' }
-          & Pick<MediaExternalLink, 'id' | 'url' | 'site'>
-        )>>>, mediaListEntry?: Maybe<(
-          { __typename?: 'MediaList' }
-          & Pick<MediaList, 'status'>
-        )> }
-      )> }
+      & AiringFragment
     )>>>, pageInfo?: Maybe<(
       { __typename?: 'PageInfo' }
       & Pick<PageInfo, 'currentPage' | 'hasNextPage'>
@@ -4459,6 +4474,8 @@ export type ViewerQuery = (
   )> }
 );
 
-
-export const ScheduleDocument: DocumentNode<ScheduleQuery, ScheduleQueryVariables> = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Schedule"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"startDate"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Page"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"airingSchedules"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"airingAt_greater"},"value":{"kind":"Variable","name":{"kind":"Name","value":"startDate"}}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"EnumValue","value":"TIME"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"episode"}},{"kind":"Field","name":{"kind":"Name","value":"airingAt"}},{"kind":"Field","name":{"kind":"Name","value":"media"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"format"}},{"kind":"Field","name":{"kind":"Name","value":"episodes"}},{"kind":"Field","name":{"kind":"Name","value":"nextAiringEpisode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"airingAt"}},{"kind":"Field","name":{"kind":"Name","value":"episode"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bannerImage"}},{"kind":"Field","name":{"kind":"Name","value":"title"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"english"}},{"kind":"Field","name":{"kind":"Name","value":"romaji"}},{"kind":"Field","name":{"kind":"Name","value":"native"}},{"kind":"Field","name":{"kind":"Name","value":"userPreferred"}}]}},{"kind":"Field","name":{"kind":"Name","value":"coverImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"medium"}},{"kind":"Field","name":{"kind":"Name","value":"large"}},{"kind":"Field","name":{"kind":"Name","value":"extraLarge"}},{"kind":"Field","name":{"kind":"Name","value":"color"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"site"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isAdult"}},{"kind":"Field","name":{"kind":"Name","value":"isLicensed"}},{"kind":"Field","name":{"kind":"Name","value":"countryOfOrigin"}},{"kind":"Field","name":{"kind":"Name","value":"format"}},{"kind":"Field","name":{"kind":"Name","value":"siteUrl"}},{"kind":"Field","name":{"kind":"Name","value":"mediaListEntry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"currentPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}}]}}]};
+export const ExternalLinkFragmentDoc: DocumentNode<ExternalLinkFragment, unknown> = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"externalLink"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaExternalLink"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"site"}}]}}]};
+export const MediaFragmentDoc: DocumentNode<MediaFragment, unknown> = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"media"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"format"}},{"kind":"Field","name":{"kind":"Name","value":"episodes"}},{"kind":"Field","name":{"kind":"Name","value":"nextAiringEpisode"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"airingAt"}},{"kind":"Field","name":{"kind":"Name","value":"episode"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bannerImage"}},{"kind":"Field","name":{"kind":"Name","value":"title"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"english"}},{"kind":"Field","name":{"kind":"Name","value":"romaji"}},{"kind":"Field","name":{"kind":"Name","value":"native"}},{"kind":"Field","name":{"kind":"Name","value":"userPreferred"}}]}},{"kind":"Field","name":{"kind":"Name","value":"coverImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"medium"}},{"kind":"Field","name":{"kind":"Name","value":"large"}},{"kind":"Field","name":{"kind":"Name","value":"extraLarge"}},{"kind":"Field","name":{"kind":"Name","value":"color"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"externalLink"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isAdult"}},{"kind":"Field","name":{"kind":"Name","value":"isLicensed"}},{"kind":"Field","name":{"kind":"Name","value":"countryOfOrigin"}},{"kind":"Field","name":{"kind":"Name","value":"format"}},{"kind":"Field","name":{"kind":"Name","value":"siteUrl"}},{"kind":"Field","name":{"kind":"Name","value":"mediaListEntry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}},...ExternalLinkFragmentDoc.definitions]};
+export const AiringFragmentDoc: DocumentNode<AiringFragment, unknown> = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"airing"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AiringSchedule"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"episode"}},{"kind":"Field","name":{"kind":"Name","value":"airingAt"}},{"kind":"Field","name":{"kind":"Name","value":"media"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"media"}}]}}]}},...MediaFragmentDoc.definitions]};
+export const ScheduleDocument: DocumentNode<ScheduleQuery, ScheduleQueryVariables> = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Schedule"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"startDate"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Page"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"airingSchedules"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"airingAt_greater"},"value":{"kind":"Variable","name":{"kind":"Name","value":"startDate"}}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"EnumValue","value":"TIME"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"airing"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"currentPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}}]}},...AiringFragmentDoc.definitions]};
 export const ViewerDocument: DocumentNode<ViewerQuery, ViewerQueryVariables> = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"medium"}},{"kind":"Field","name":{"kind":"Name","value":"large"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bannerImage"}},{"kind":"Field","name":{"kind":"Name","value":"siteUrl"}}]}}]}}]};
