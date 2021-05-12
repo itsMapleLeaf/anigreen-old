@@ -48,6 +48,7 @@ function Document({ children }: { children: React.ReactNode }) {
     <html lang="en" className="bg-gray-900 text-gray-50">
       <head>
         <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" type="image/png" />
         <link
           href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,700"
