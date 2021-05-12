@@ -1,11 +1,4 @@
-import type { LinksFunction, LoaderFunction } from "@remix-run/node"
-import {
-  Links,
-  LiveReload,
-  Meta,
-  Scripts,
-  useRouteData,
-} from "@remix-run/react"
+import { Links, LiveReload, Meta, Scripts } from "@remix-run/react"
 import React from "react"
 import { Outlet } from "react-router-dom"
 import { createClient } from "./api"
@@ -13,13 +6,14 @@ import AppHeader from "./components/app/AppHeader"
 import AppHeaderContainer from "./components/app/AppHeaderContainer"
 import { gql } from "./gql"
 import type { ViewerQuery } from "./graphql"
+import { LoaderArgs, useRouteDataTyped } from "./loader"
 import tailwindStyles from "./styles/tailwind.css"
 
-export const links: LinksFunction = () => {
+export function links() {
   return [{ rel: "stylesheet", href: tailwindStyles }]
 }
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: LoaderArgs) {
   const response = await createClient(request).fetch<ViewerQuery>({
     query: gql`
       query Viewer {
@@ -62,7 +56,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
 }
 
 function Document({ children }: { children: React.ReactNode }) {
-  const data = useRouteData<{ data?: ViewerQuery }>()
+  const { data } = useRouteDataTyped<typeof loader>()
 
   return (
     <html lang="en" className="bg-gray-900 text-gray-50">
@@ -84,7 +78,7 @@ function Document({ children }: { children: React.ReactNode }) {
         <div className="h-screen pt-16 isolate">
           <AppHeaderContainer>
             <header className="max-w-5xl px-4 mx-auto">
-              <AppHeader viewer={data.data?.Viewer} />
+              <AppHeader viewer={data?.Viewer} />
             </header>
           </AppHeaderContainer>
           <main className="w-full max-w-5xl min-h-full px-4 py-6 mx-auto">
