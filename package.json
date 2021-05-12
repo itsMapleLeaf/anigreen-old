@@ -45,6 +45,7 @@
     "@graphql-typed-document-node/core": "3.1.0",
     "@remix-run/dev": "0.17.0",
     "@tailwindcss/line-clamp": "0.2.0",
+    "@types/lodash-es": "4.17.4",
     "@types/react": "17.0.5",
     "@types/react-dom": "17.0.3",
     "autoprefixer": "10.2.5",
