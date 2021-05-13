@@ -68,7 +68,7 @@ function Document({ children }: { children: React.ReactNode }) {
               <AppHeader viewer={data?.Viewer} />
             </header>
           </AppHeaderContainer>
-          <main className="w-full max-w-5xl min-h-full px-4 py-6 mx-auto">
+          <main className="w-full max-w-5xl min-h-full px-4 pt-6 pb-12 mx-auto">
             {children}
           </main>
         </div>

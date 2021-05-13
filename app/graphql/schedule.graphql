@@ -1,5 +1,5 @@
-query Schedule($startDate: Int!) {
-  Page {
+query Schedule($page: Int, $startDate: Int!) {
+  Page(page: $page) {
     airingSchedules(airingAt_greater: $startDate, sort: TIME) {
       ...airing
     }
