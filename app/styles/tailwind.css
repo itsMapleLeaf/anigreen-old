@@ -987,11 +987,11 @@ video {
 .font-light {
 	font-weight: 300;
 }
-.uppercase {
-	text-transform: uppercase;
-}
 .capitalize {
 	text-transform: capitalize;
+}
+.uppercase {
+	text-transform: uppercase;
 }
 .leading-none {
 	line-height: 1;

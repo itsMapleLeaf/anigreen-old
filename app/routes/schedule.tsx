@@ -1,5 +1,6 @@
 import { startOfToday } from "date-fns"
 import { createClient } from "../api"
+import { Duration } from "../components/helpers/duration"
 import { isTruthy } from "../components/helpers/isTruthy"
 import { getAiringDate } from "../components/media/getAiringDate"
 import MediaCard from "../components/media/MediaCard"
@@ -17,6 +18,10 @@ export function loader({ request }: LoaderArgs) {
       startDate: Math.floor(startOfToday().valueOf() / 1000),
     },
   })
+}
+
+export function headers() {
+  return { "Cache-Control": `max-age=${Duration.days(1).asSeconds}` }
 }
 
 export default function Schedule() {
