@@ -89,6 +89,7 @@ function Pagination({ page: currentPage }: { page: number }) {
 
       {range(start, end).map((page) => (
         <Link
+          key={page}
           to={`/schedule?page=${page}`}
           className={
             "clear-button " +
