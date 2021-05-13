@@ -7,3 +7,18 @@
     @apply inline-flex items-center gap-1 p-3 font-medium leading-none transition rounded-lg opacity-50 hover:opacity-100 hover:bg-black hover:bg-opacity-20;
   }
 }
+
+@layer utilities {
+  @keyframes spin {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+  .spin {
+    animation: spin 0.8s infinite;
+  }
+}

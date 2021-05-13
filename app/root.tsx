@@ -1,10 +1,17 @@
 import { IdProvider } from "@radix-ui/react-id"
-import { Links, LiveReload, Meta, Scripts } from "@remix-run/react"
+import {
+  Links,
+  LiveReload,
+  Meta,
+  Scripts,
+  usePendingLocation,
+} from "@remix-run/react"
 import React from "react"
 import { Outlet } from "react-router-dom"
 import { createClient } from "./api"
 import AppHeader from "./components/app/AppHeader"
 import AppHeaderContainer from "./components/app/AppHeaderContainer"
+import LoadingPlaceholder from "./components/ui/LoadingPlaceholder"
 import { ViewerDocument } from "./graphql"
 import { LoaderArgs, useRouteDataTyped } from "./loader"
 import tailwindStyles from "./styles/tailwind.css"
@@ -74,10 +81,24 @@ function Document({ children }: { children: React.ReactNode }) {
               {children}
             </main>
           </div>
+          <LoadingCover />
         </IdProvider>
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>
+  )
+}
+
+function LoadingCover() {
+  const pending = usePendingLocation()
+  return (
+    <div
+      className={`fixed inset-0 grid bg-black bg-opacity-75 place-items-center transition-opacity duration-300 ${
+        pending ? "opacity-100 visible" : "opacity-0 invisible"
+      }`}
+    >
+      <LoadingPlaceholder />
+    </div>
   )
 }
