@@ -1,3 +1,4 @@
+import { IdProvider } from "@radix-ui/react-id"
 import { Links, LiveReload, Meta, Scripts } from "@remix-run/react"
 import React from "react"
 import { Outlet } from "react-router-dom"
@@ -62,16 +63,18 @@ function Document({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <div className="h-screen pt-16 isolate">
-          <AppHeaderContainer>
-            <header className="max-w-5xl px-4 mx-auto">
-              <AppHeader viewer={data?.Viewer} />
-            </header>
-          </AppHeaderContainer>
-          <main className="w-full max-w-5xl min-h-full px-4 pt-6 pb-12 mx-auto">
-            {children}
-          </main>
-        </div>
+        <IdProvider>
+          <div className="h-screen pt-16 isolate">
+            <AppHeaderContainer>
+              <header className="max-w-5xl px-4 mx-auto">
+                <AppHeader viewer={data?.Viewer} />
+              </header>
+            </AppHeaderContainer>
+            <main className="w-full max-w-5xl min-h-full px-4 pt-6 pb-12 mx-auto">
+              {children}
+            </main>
+          </div>
+        </IdProvider>
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
