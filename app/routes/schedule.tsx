@@ -87,6 +87,26 @@ function Pagination({ page: currentPage }: { page: number }) {
         </Link>
       )}
 
+      {start >= 2 && (
+        <Link
+          to={`/schedule?page=1`}
+          className={
+            "clear-button " +
+            (1 === currentPage
+              ? `bg-black bg-opacity-20 text-green-400 opacity-100`
+              : ``)
+          }
+        >
+          {1}
+        </Link>
+      )}
+
+      {start >= 3 && (
+        <div className="mx-1 opacity-50" aria-hidden>
+          ...
+        </div>
+      )}
+
       {range(start, end).map((page) => (
         <Link
           key={page}
