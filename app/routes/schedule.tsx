@@ -80,7 +80,7 @@ function Pagination({ page: currentPage }: { page: number }) {
       {currentPage >= 2 && (
         <Link
           to={`/schedule?page=${currentPage - 1}`}
-          className="clear-button"
+          className={pageLinkClass()}
           title="Previous Page"
         >
           <ChevronLeftIcon className="w-5" />
@@ -90,14 +90,9 @@ function Pagination({ page: currentPage }: { page: number }) {
       {start >= 2 && (
         <Link
           to={`/schedule?page=1`}
-          className={
-            "clear-button " +
-            (1 === currentPage
-              ? `bg-black bg-opacity-20 text-green-400 opacity-100`
-              : ``)
-          }
+          className={pageLinkClass(1 === currentPage)}
         >
-          {1}
+          1
         </Link>
       )}
 
@@ -111,12 +106,7 @@ function Pagination({ page: currentPage }: { page: number }) {
         <Link
           key={page}
           to={`/schedule?page=${page}`}
-          className={
-            "clear-button " +
-            (page === currentPage
-              ? `bg-black bg-opacity-20 text-green-400 opacity-100`
-              : ``)
-          }
+          className={pageLinkClass(page === currentPage)}
         >
           {page}
         </Link>
@@ -124,7 +114,7 @@ function Pagination({ page: currentPage }: { page: number }) {
 
       <Link
         to={`/schedule?page=${currentPage + 1}`}
-        className="clear-button"
+        className={pageLinkClass()}
         title="Next Page"
       >
         <ChevronRightIcon className="w-5" />
@@ -132,3 +122,8 @@ function Pagination({ page: currentPage }: { page: number }) {
     </nav>
   )
 }
+
+const pageLinkClass = (active = false) =>
+  `clear-button ${
+    active ? `bg-black bg-opacity-20 text-green-400 opacity-100` : ``
+  }`

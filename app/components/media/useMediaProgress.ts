@@ -1,13 +1,7 @@
-import { useQueryClient } from "react-query"
-import {
-	MediaProgressQuery,
-	useMediaProgressQuery,
-	useUpdateMediaListProgressMutation,
-	WatchingMediaFragment,
-} from "../generated/graphql"
+import { WatchingMediaFragment } from "../../graphql"
 
 export function useMediaProgress(watchingMedia: WatchingMediaFragment) {
-	const progressQuery = useMediaProgressQuery(
+  /* const progressQuery = useMediaProgressQuery(
 		{ mediaListId: watchingMedia.id },
 		{ initialData: { MediaList: watchingMedia } },
 	)
@@ -41,14 +35,19 @@ export function useMediaProgress(watchingMedia: WatchingMediaFragment) {
 			id: watchingMedia.id,
 			progress: (progress ?? 0) + 1,
 		})
-	}
+	} */
 
-	return {
-		progress,
-		advanceProgress,
-		updateProgressMutation,
-		nextAiringEpisodeNumber,
-		maxEpisodes,
-		isCaughtUp,
-	}
+  const progress: number = 0
+  const advanceProgress = () => {}
+  const nextAiringEpisodeNumber = 1
+  const maxEpisodes: number = 12
+  const isCaughtUp = progress === maxEpisodes
+
+  return {
+    progress,
+    advanceProgress,
+    nextAiringEpisodeNumber,
+    maxEpisodes,
+    isCaughtUp,
+  }
 }
