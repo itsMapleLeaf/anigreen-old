@@ -1,5 +1,4 @@
 import { PlusIcon } from "@heroicons/react/solid"
-import { ActionFunction, redirect } from "@remix-run/node"
 import { Form, usePendingFormSubmit } from "@remix-run/react"
 import { sub } from "date-fns"
 import { createClient } from "../api"
@@ -17,7 +16,6 @@ import WeekdaySectionedList from "../components/ui/WeekdaySectionedList"
 import {
   MediaFragment,
   MediaListStatus,
-  SetProgressDocument,
   ViewerDocument,
   WatchingDocument,
   WatchingMediaFragment,
@@ -46,25 +44,6 @@ export async function loader({ request }: LoaderArgs) {
       endDate: Math.floor(Date.now() / 1000),
     },
   })
-}
-
-export async function action({ request }: Parameters<ActionFunction>[0]) {
-  const body = new URLSearchParams(await request.text())
-  const actionType = body.get("actionType")
-  const mediaListEntryId = Number(body.get("mediaListEntryId"))
-  const progress = Number(body.get("progress"))
-
-  if (actionType === "advanceProgress" && mediaListEntryId && progress) {
-    await createClient(request).fetch({
-      query: SetProgressDocument,
-      variables: {
-        mediaListEntryId,
-        progress,
-      },
-    })
-  }
-
-  return redirect("/watching")
 }
 
 export default function Watching() {
@@ -147,12 +126,7 @@ function WatchingMediaCard({
             {pendingForm ? (
               <AdvanceProgressButton loading disabled />
             ) : (
-              <Form replace method="post">
-                <input
-                  type="hidden"
-                  name="actionType"
-                  value="advanceProgress"
-                />
+              <Form replace method="post" action="/update-progress">
                 <input
                   type="hidden"
                   name="mediaListEntryId"
