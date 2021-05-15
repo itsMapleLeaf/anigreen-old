@@ -1,4 +1,5 @@
 import type { MetaFunction } from "@remix-run/node"
+import SystemMessage from "../components/ui/SystemMessage"
 
 export let meta: MetaFunction = () => {
   return { title: "page not found" }
@@ -6,9 +7,8 @@ export let meta: MetaFunction = () => {
 
 export default function PageNotFound() {
   return (
-    <div className="grid gap-4">
-      <h1 className="text-4xl font-condensed">oops</h1>
+    <SystemMessage title="oops">
       <p>couldn't find this page :(</p>
-    </div>
+    </SystemMessage>
   )
 }
