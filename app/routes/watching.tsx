@@ -1,18 +1,23 @@
+import { PlusIcon } from "@heroicons/react/solid"
+import { ActionFunction, redirect } from "@remix-run/node"
+import { Form, usePendingFormSubmit } from "@remix-run/react"
 import { sub } from "date-fns"
 import { createClient } from "../api"
 import LoginRequiredMessage from "../components/app/LoginRequiredMessage"
+import Button, { ButtonProps } from "../components/dom/Button"
 import { isTruthy } from "../components/helpers/isTruthy"
 import { getNextEpisodeAiringDate } from "../components/media/getNextEpisodeAiringDate"
 import MediaCard from "../components/media/MediaCard"
 import MediaNextEipsode from "../components/media/MediaNextEipsode"
-import WatchingMediaAdvanceProgressButton from "../components/media/WatchingMediaAdvanceProgressButton"
 import WatchingMediaProgress from "../components/media/WatchingMediaProgress"
+import { clearIconButtonStyle } from "../components/ui/components"
 import FluidGrid from "../components/ui/FluidGrid"
 import PageSection from "../components/ui/PageSection"
 import WeekdaySectionedList from "../components/ui/WeekdaySectionedList"
 import {
   MediaFragment,
   MediaListStatus,
+  SetProgressDocument,
   ViewerDocument,
   WatchingDocument,
   WatchingMediaFragment,
@@ -41,6 +46,25 @@ export async function loader({ request }: LoaderArgs) {
       endDate: Math.floor(Date.now() / 1000),
     },
   })
+}
+
+export async function action({ request }: Parameters<ActionFunction>[0]) {
+  const body = new URLSearchParams(await request.text())
+  const actionType = body.get("actionType")
+  const mediaListEntryId = Number(body.get("mediaListEntryId"))
+  const progress = Number(body.get("progress"))
+
+  if (actionType === "advanceProgress" && mediaListEntryId && progress) {
+    await createClient(request).fetch({
+      query: SetProgressDocument,
+      variables: {
+        mediaListEntryId,
+        progress,
+      },
+    })
+  }
+
+  return redirect("/watching")
 }
 
 export default function Watching() {
@@ -100,19 +124,59 @@ function WatchingMediaCard({
 }: {
   mediaListEntry: WatchingMediaFragment & { media: MediaFragment }
 }) {
+  const pendingForm = usePendingFormSubmit()
+
+  const progress = mediaListEntry.progress ?? 0
+
+  const nextAiringEpisodeNumber =
+    mediaListEntry.media.nextAiringEpisode?.episode
+
+  const maxEpisodes = nextAiringEpisodeNumber
+    ? nextAiringEpisodeNumber - 1
+    : mediaListEntry.media.episodes ?? 1
+
+  const isCaughtUp = progress === maxEpisodes
+
   return (
     <MediaCard media={mediaListEntry.media}>
       <div className="relative pr-6 mt-2 opacity-70">
-        <WatchingMediaProgress watchingMedia={mediaListEntry} />
+        <WatchingMediaProgress progress={progress} maxEpisodes={maxEpisodes} />
         <MediaNextEipsode media={mediaListEntry.media} />
-        <div className="absolute bottom-0 right-0">
-          {mediaListEntry.progress == null ? null : (
-            <WatchingMediaAdvanceProgressButton
-              mediaListEntry={mediaListEntry}
-            />
-          )}
-        </div>
+        {isCaughtUp ? null : (
+          <div className="absolute bottom-0 right-0">
+            {pendingForm ? (
+              <AdvanceProgressButton loading disabled />
+            ) : (
+              <Form replace method="post">
+                <input
+                  type="hidden"
+                  name="actionType"
+                  value="advanceProgress"
+                />
+                <input
+                  type="hidden"
+                  name="mediaListEntryId"
+                  value={mediaListEntry.id}
+                />
+                <input type="hidden" name="progress" value={progress + 1} />
+                <AdvanceProgressButton type="submit" />
+              </Form>
+            )}
+          </div>
+        )}
       </div>
     </MediaCard>
+  )
+}
+
+function AdvanceProgressButton({ className = "", ...props }: ButtonProps) {
+  return (
+    <Button
+      className={clearIconButtonStyle}
+      title="Advance Progress"
+      {...props}
+    >
+      <PlusIcon className="w-5" />
+    </Button>
   )
 }

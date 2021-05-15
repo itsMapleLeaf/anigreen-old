@@ -1,13 +1,10 @@
-import { WatchingMediaFragment } from "../../graphql"
-import { useMediaProgress } from "./useMediaProgress"
-
 export default function WatchingMediaProgress({
-  watchingMedia,
+  progress,
+  maxEpisodes,
 }: {
-  watchingMedia: WatchingMediaFragment
+  progress: number
+  maxEpisodes: number
 }) {
-  const { progress, maxEpisodes } = useMediaProgress(watchingMedia)
-
   const progressLagStyle = (() => {
     const progressLag = maxEpisodes - progress
     if (progressLag === 0) return `text-green-400`
