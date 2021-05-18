@@ -19,10 +19,6 @@ export type LoaderData<Fn> = Fn extends TypedLoaderFunction<infer Data>
   ? Data
   : unknown
 
-export function loaderFunction<Data>(fn: TypedLoaderFunction<Data>) {
-  return fn
-}
-
 export function useRouteDataTyped<Fn>(): LoaderData<Fn> {
   return useRouteData()
 }
