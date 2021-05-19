@@ -11,8 +11,14 @@ export type LoaderArgs = {
   params: Params
 }
 
+export type ActionArgs = {
+  request: Request
+  context: AppLoadContext
+  params: Params
+}
+
 // prettier-ignore
-type TypedLoaderFunction<Data> = (args: LoaderArgs) =>
+export type TypedLoaderFunction<Data> = (args: LoaderArgs) =>
   MaybePromise<Data | TypedResponse<Data>>
 
 export type LoaderData<Fn> = Fn extends TypedLoaderFunction<infer Data>

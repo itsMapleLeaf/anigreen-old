@@ -1,10 +1,11 @@
-import { ActionFunction, redirect } from "@remix-run/node"
+import { redirect } from "@remix-run/node"
 import { Link } from "react-router-dom"
 import { createClient } from "../api"
 import SystemMessage from "../components/ui/SystemMessage"
 import { SetProgressDocument } from "../graphql"
+import { ActionArgs } from "../remix-helpers"
 
-export async function action({ request }: Parameters<ActionFunction>[0]) {
+export async function action({ request }: ActionArgs) {
   const body = new URLSearchParams(await request.text())
 
   // TODO: validate or typecheck this somehow

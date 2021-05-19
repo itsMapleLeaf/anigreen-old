@@ -13,7 +13,7 @@ import AppHeader from "./components/app/AppHeader"
 import AppHeaderContainer from "./components/app/AppHeaderContainer"
 import LoadingPlaceholder from "./components/ui/LoadingPlaceholder"
 import { ViewerDocument } from "./graphql"
-import { LoaderArgs, useRouteDataTyped } from "./loader"
+import { LoaderArgs, useRouteDataTyped } from "./remix-helpers"
 import tailwindStyles from "./styles/tailwind.css"
 
 export function links() {

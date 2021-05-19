@@ -20,7 +20,7 @@ import {
   WatchingDocument,
   WatchingMediaFragment,
 } from "../graphql"
-import { LoaderArgs, useRouteDataTyped } from "../loader"
+import { LoaderArgs, useRouteDataTyped } from "../remix-helpers"
 import { json } from "../typed-response"
 
 export async function loader({ request }: LoaderArgs) {
