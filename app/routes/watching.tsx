@@ -26,14 +26,14 @@ import { json } from "../typed-response"
 export async function loader({ request }: LoaderArgs) {
   const client = createClient(request)
 
-  const viewer = await client
-    .fetch({ query: ViewerDocument })
-    .then((res) => res.json())
-
-  const viewerId = viewer.data?.Viewer?.id
+  const viewerResponse = await client.fetch({ query: ViewerDocument })
+  const { data: viewerData } = await viewerResponse.json()
+  const viewerId = viewerData?.Viewer?.id
 
   if (!viewerId) {
-    return json({ data: undefined }, { status: 401 })
+    return json({ data: null, unauthorized: true } as const, {
+      status: 401,
+    })
   }
 
   return client.fetch({
@@ -47,15 +47,14 @@ export async function loader({ request }: LoaderArgs) {
 }
 
 export default function Watching() {
-  const { data } = useRouteDataTyped<typeof loader>()
+  const result = useRouteDataTyped<typeof loader>()
 
-  // this check _probably_ isn't sufficient, but works for now
-  if (!data) {
+  if ("unauthorized" in result) {
     return <LoginRequiredMessage />
   }
 
   const recentlyAiredItems =
-    data?.AiringSchedulesPage?.airingSchedules
+    result.data?.AiringSchedulesPage?.airingSchedules
       ?.map(
         (airing) =>
           airing?.media?.mediaListEntry?.status === MediaListStatus.Current &&
@@ -66,7 +65,7 @@ export default function Watching() {
       .filter(isTruthy) ?? []
 
   const watchedMediaList =
-    data?.MediaListPage?.mediaList
+    result.data?.MediaListPage?.mediaList
       // // this weirdness is to make `media` existent in the list items
       ?.map((item) => item?.media && { ...item, media: item.media })
       .filter(isTruthy) ?? []
