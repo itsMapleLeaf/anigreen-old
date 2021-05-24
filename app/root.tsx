@@ -12,30 +12,44 @@ import { createClient } from "./api"
 import AppHeader from "./components/app/AppHeader"
 import AppHeaderContainer from "./components/app/AppHeaderContainer"
 import LoadingPlaceholder from "./components/ui/LoadingPlaceholder"
+import SystemMessage from "./components/ui/SystemMessage"
 import { ViewerDocument } from "./graphql"
 import { LoaderArgs, useRouteDataTyped } from "./remix-helpers"
 import tailwindStyles from "./styles/tailwind.css"
+import { json } from "./typed-response"
 
 export function links() {
   return [{ rel: "stylesheet", href: tailwindStyles }]
 }
 
 export async function loader({ request }: LoaderArgs) {
-  const response = await createClient(request).fetch({
-    query: ViewerDocument,
-  })
+  const response = await createClient(request).fetch({ query: ViewerDocument })
 
+  // if we're unauthorized, treat it as a 200
   if (response.status === 401) {
-    return response.json()
+    return json({ data: undefined }, { status: 200 })
   }
 
   return response
 }
 
 export default function App() {
+  const { data } = useRouteDataTyped<typeof loader>()
   return (
     <Document>
-      <Outlet />
+      <IdProvider>
+        <div className="h-screen pt-16 isolate">
+          <AppHeaderContainer>
+            <header className="max-w-5xl px-4 mx-auto">
+              <AppHeader viewer={data?.Viewer} />
+            </header>
+          </AppHeaderContainer>
+          <main className="w-full max-w-5xl min-h-full px-4 pt-6 pb-12 mx-auto">
+            <Outlet />
+          </main>
+        </div>
+        <LoadingCover />
+      </IdProvider>
     </Document>
   )
 }
@@ -43,15 +57,16 @@ export default function App() {
 export function ErrorBoundary({ error }: { error: Error }) {
   return (
     <Document>
-      <h1 className="text-2xl font-condensed">oops! something went wrong :(</h1>
-      <pre>{error.message}</pre>
+      <div className="p-4">
+        <SystemMessage title="oops! something went wrong :(">
+          <pre className="overflow-x-auto">{error.stack || error.message}</pre>
+        </SystemMessage>
+      </div>
     </Document>
   )
 }
 
 function Document({ children }: { children: React.ReactNode }) {
-  const { data } = useRouteDataTyped<typeof loader>()
-
   return (
     <html lang="en" className="bg-gray-900 text-gray-50">
       <head>
@@ -70,19 +85,7 @@ function Document({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <IdProvider>
-          <div className="h-screen pt-16 isolate">
-            <AppHeaderContainer>
-              <header className="max-w-5xl px-4 mx-auto">
-                <AppHeader viewer={data?.Viewer} />
-              </header>
-            </AppHeaderContainer>
-            <main className="w-full max-w-5xl min-h-full px-4 pt-6 pb-12 mx-auto">
-              {children}
-            </main>
-          </div>
-          <LoadingCover />
-        </IdProvider>
+        {children}
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
