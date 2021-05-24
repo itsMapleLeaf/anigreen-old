@@ -11,11 +11,20 @@ type TypedResponseConstructor = new <D>(
 
 export const TypedResponse: TypedResponseConstructor = Response
 
-export const json = <D>(data: D, init?: ResponseInit) =>
-  new TypedResponse<D>(JSON.stringify(data), {
+type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | Array<Json>
+  | { [key: string]: Json | undefined }
+
+export function json<D extends Json>(data: D, init?: ResponseInit) {
+  return new TypedResponse<D>(JSON.stringify(data), {
     ...init,
     headers: {
       "Content-Type": "application/json",
       ...init?.headers,
     },
   })
+}
