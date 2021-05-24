@@ -680,6 +680,7 @@ export type InternalPageModActionsArgs = {
 export type InternalPageUsersArgs = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  isModerator?: Maybe<Scalars['Boolean']>;
   search?: Maybe<Scalars['String']>;
   sort?: Maybe<Array<Maybe<UserSort>>>;
 };
@@ -2002,6 +2003,36 @@ export enum ModActionType {
   Anon = 'ANON'
 }
 
+/** Mod role enums */
+export enum ModRole {
+  /** An AniList administrator */
+  Admin = 'ADMIN',
+  /** A head developer of AniList */
+  LeadDeveloper = 'LEAD_DEVELOPER',
+  /** An AniList developer */
+  Developer = 'DEVELOPER',
+  /** A lead community moderator */
+  LeadCommunity = 'LEAD_COMMUNITY',
+  /** A community moderator */
+  Community = 'COMMUNITY',
+  /** A discord community moderator */
+  DiscordCommunity = 'DISCORD_COMMUNITY',
+  /** A lead anime data moderator */
+  LeadAnimeData = 'LEAD_ANIME_DATA',
+  /** An anime data moderator */
+  AnimeData = 'ANIME_DATA',
+  /** A lead manga data moderator */
+  LeadMangaData = 'LEAD_MANGA_DATA',
+  /** A manga data moderator */
+  MangaData = 'MANGA_DATA',
+  /** A lead social media moderator */
+  LeadSocialMedia = 'LEAD_SOCIAL_MEDIA',
+  /** A social media moderator */
+  SocialMedia = 'SOCIAL_MEDIA',
+  /** A retired moderator */
+  Retired = 'RETIRED'
+}
+
 export type Mutation = {
   __typename?: 'Mutation';
   UpdateUser?: Maybe<User>;
@@ -2373,6 +2404,7 @@ export type Page = {
 export type PageUsersArgs = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  isModerator?: Maybe<Scalars['Boolean']>;
   search?: Maybe<Scalars['String']>;
   sort?: Maybe<Array<Maybe<UserSort>>>;
 };
@@ -2970,6 +3002,7 @@ export type QueryMediaTagCollectionArgs = {
 export type QueryUserArgs = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  isModerator?: Maybe<Scalars['Boolean']>;
   search?: Maybe<Scalars['String']>;
   sort?: Maybe<Array<Maybe<UserSort>>>;
 };
@@ -4039,8 +4072,8 @@ export type User = {
   donatorTier?: Maybe<Scalars['Int']>;
   /** Custom donation badge text */
   donatorBadge?: Maybe<Scalars['String']>;
-  /** If the user is a moderator or data moderator */
-  moderatorStatus?: Maybe<Scalars['String']>;
+  /** The user's moderator roles if they are a site moderator */
+  moderatorRoles?: Maybe<Array<Maybe<ModRole>>>;
   /** When the user's data was last updated */
   updatedAt?: Maybe<Scalars['Int']>;
   /**
@@ -4048,6 +4081,11 @@ export type User = {
    * @deprecated Deprecated. Replaced with statistics field.
    */
   stats?: Maybe<UserStats>;
+  /**
+   * If the user is a moderator or data moderator
+   * @deprecated Deprecated. Replaced with moderatorRoles field.
+   */
+  moderatorStatus?: Maybe<Scalars['String']>;
 };
 
 
@@ -4129,6 +4167,7 @@ export type UserModData = {
   bans?: Maybe<Scalars['Json']>;
   ip?: Maybe<Scalars['Json']>;
   counts?: Maybe<Scalars['Json']>;
+  email?: Maybe<Scalars['String']>;
 };
 
 /** A user's general options */
