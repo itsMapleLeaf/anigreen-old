@@ -12,4 +12,10 @@ type TypedResponseConstructor = new <D>(
 export const TypedResponse: TypedResponseConstructor = Response
 
 export const json = <D>(data: D, init?: ResponseInit) =>
-  new TypedResponse<D>(JSON.stringify(data), init)
+  new TypedResponse<D>(JSON.stringify(data), {
+    ...init,
+    headers: {
+      "Content-Type": "application/json",
+      ...init?.headers,
+    },
+  })
