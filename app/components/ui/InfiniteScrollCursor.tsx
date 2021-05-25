@@ -2,24 +2,24 @@ import { useEffect, useState } from "react"
 import { useEffectRef } from "../react/useEffectRef"
 
 export default function InfiniteScrollCursor(props: {
-	onEnterPage: () => void
+  onEnterPage: () => void
 }) {
-	const [element, ref] = useState<Element | null>()
+  const [element, ref] = useState<Element | null>()
 
-	const onEnterPageRef = useEffectRef(props.onEnterPage)
+  const onEnterPageRef = useEffectRef(props.onEnterPage)
 
-	useEffect(() => {
-		if (!element) return
+  useEffect(() => {
+    if (!element) return
 
-		const observer = new IntersectionObserver(([info]) => {
-			if (info?.isIntersecting) onEnterPageRef.current()
-		})
+    const observer = new IntersectionObserver(([info]) => {
+      if (info?.isIntersecting) onEnterPageRef.current()
+    })
 
-		observer.observe(element)
-		return () => {
-			observer.disconnect()
-		}
-	}, [element, onEnterPageRef])
+    observer.observe(element)
+    return () => {
+      observer.disconnect()
+    }
+  }, [element, onEnterPageRef])
 
-	return <div className="w-px h-px" ref={ref} />
+  return <div className="w-px h-px" ref={ref} />
 }

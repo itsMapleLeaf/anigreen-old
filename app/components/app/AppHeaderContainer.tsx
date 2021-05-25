@@ -21,7 +21,7 @@ export default function AppHeaderContainer({
 function useScrolledToTop() {
   // scroll bounce means the scroll can be negative
   const [scrolledToTop, setScrolledToTop] = useState(
-    typeof window !== "undefined" ? window.scrollY <= 0 : true
+    typeof window !== "undefined" ? window.scrollY <= 0 : true,
   )
 
   useScrollListener((scroll) => setScrolledToTop(scroll <= 0))

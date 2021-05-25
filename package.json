@@ -14,7 +14,8 @@
     "start": "remix-serve build",
     "deploy": "flyctl deploy --build-arg REMIX_TOKEN=${REMIX_TOKEN}",
     "codegen": "graphql-codegen --config graphql.config.yml",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "format": "prettier . --write"
   },
   "dependencies": {
     "@headlessui/react": "1.2.0",

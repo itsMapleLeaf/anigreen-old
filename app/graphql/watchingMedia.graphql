@@ -1,9 +1,9 @@
 fragment watchingMedia on MediaList {
-	id
-	progress
-	score
-	status
-	media {
-		...media
-	}
+  id
+  progress
+  score
+  status
+  media {
+    ...media
+  }
 }

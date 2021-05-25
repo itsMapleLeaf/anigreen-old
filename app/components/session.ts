@@ -11,6 +11,7 @@ const oneDayMs = 1000 * 60 * 60 * 24
 
 const sessionCookie = createCookie("session", {
   httpOnly: true,
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   secrets: [process.env.COOKIE_SECRET!],
   expires: new Date(Date.now() + oneDayMs * 365),
 })
@@ -20,7 +21,7 @@ export function serializeSession(data: SessionData): string {
 }
 
 export function parseSession(
-  cookieHeader: string | null | undefined
+  cookieHeader: string | null | undefined,
 ): SessionData | undefined {
   return (cookieHeader && sessionCookie.parse(cookieHeader)) || undefined
 }

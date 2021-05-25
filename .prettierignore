@@ -1,0 +1,7 @@
+.cache
+build
+node_modules
+vite-app
+pnpm-lock.yaml
+/app/styles
+/app/graphql.ts

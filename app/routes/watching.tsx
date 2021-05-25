@@ -3,7 +3,8 @@ import { Form, usePendingFormSubmit } from "@remix-run/react"
 import { sub } from "date-fns"
 import { createClient } from "../api"
 import LoginRequiredMessage from "../components/app/LoginRequiredMessage"
-import Button, { ButtonProps } from "../components/dom/Button"
+import type { ButtonProps } from "../components/dom/Button"
+import Button from "../components/dom/Button"
 import { isTruthy } from "../components/helpers/isTruthy"
 import { getNextEpisodeAiringDate } from "../components/media/getNextEpisodeAiringDate"
 import MediaCard from "../components/media/MediaCard"
@@ -13,14 +14,10 @@ import { clearIconButtonStyle } from "../components/ui/components"
 import FluidGrid from "../components/ui/FluidGrid"
 import PageSection from "../components/ui/PageSection"
 import WeekdaySectionedList from "../components/ui/WeekdaySectionedList"
-import {
-  MediaFragment,
-  MediaListStatus,
-  ViewerDocument,
-  WatchingDocument,
-  WatchingMediaFragment,
-} from "../graphql"
-import { LoaderArgs, useRouteDataTyped } from "../remix-helpers"
+import type { MediaFragment, WatchingMediaFragment } from "../graphql"
+import { MediaListStatus, ViewerDocument, WatchingDocument } from "../graphql"
+import type { LoaderArgs } from "../remix-helpers"
+import { useRouteDataTyped } from "../remix-helpers"
 import { json } from "../typed-response"
 
 export async function loader({ request }: LoaderArgs) {
@@ -142,7 +139,8 @@ function WatchingMediaCard({
   )
 }
 
-function AdvanceProgressButton({ className = "", ...props }: ButtonProps) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function AdvanceProgressButton({ className, ...props }: ButtonProps) {
   return (
     <Button
       className={clearIconButtonStyle}

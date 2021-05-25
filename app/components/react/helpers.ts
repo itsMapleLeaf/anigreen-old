@@ -1,4 +1,5 @@
-import { forwardRef, ReactElement, Ref } from "react"
+import type { ReactElement, Ref } from "react"
+import { forwardRef } from "react"
 
 /**
  * Passes ref as a normal prop, makes `forwardRef`ing easier in some cases

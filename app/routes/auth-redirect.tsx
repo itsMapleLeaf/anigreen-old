@@ -1,4 +1,5 @@
-import { LoaderFunction, redirect } from "@remix-run/node"
+import type { LoaderFunction } from "@remix-run/node"
+import { redirect } from "@remix-run/node"
 import { serializeSession } from "../components/session"
 import LoadingPlaceholder from "../components/ui/LoadingPlaceholder"
 

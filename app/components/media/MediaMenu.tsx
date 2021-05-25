@@ -5,11 +5,8 @@ import {
   MinusCircleIcon,
   PauseIcon,
 } from "@heroicons/react/solid"
-import {
-  ExternalLinkFragment,
-  MediaFragment,
-  MediaListStatus,
-} from "../../graphql"
+import type { ExternalLinkFragment, MediaFragment } from "../../graphql"
+import { MediaListStatus } from "../../graphql"
 import ExternalLink from "../dom/ExternalLink"
 import { isTruthy } from "../helpers/isTruthy"
 import { clearIconButtonStyle } from "../ui/components"
@@ -141,6 +138,7 @@ function useWatchingStatus() {
 	}) */
 
   const status = MediaListStatus.Current
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
   const setStatus = (status: MediaListStatus) => {}
   return { status, setStatus }
 }

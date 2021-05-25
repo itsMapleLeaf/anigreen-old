@@ -1,4 +1,5 @@
-import { ComponentPropsWithoutRef, useEffect, useRef } from "react"
+import type { ComponentPropsWithoutRef } from "react"
+import { useEffect, useRef } from "react"
 
 /** HTML <img> tag with defaults */
 export default function Image({
@@ -9,6 +10,7 @@ export default function Image({
   const imageRef = useRef<HTMLImageElement>(null)
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const image = imageRef.current!
     image.style.opacity = "0"
 

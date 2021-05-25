@@ -1,5 +1,5 @@
 import { InformationCircleIcon } from "@heroicons/react/solid"
-import { MediaFragment } from "../../graphql"
+import type { MediaFragment } from "../../graphql"
 import { relativeTime } from "../helpers/relativeTime"
 import Tooltip from "../ui/Tooltip"
 

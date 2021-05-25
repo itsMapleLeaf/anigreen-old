@@ -1,4 +1,5 @@
-import { BodyInit, Response, ResponseInit } from "node-fetch"
+import type { BodyInit, ResponseInit } from "node-fetch"
+import { Response } from "node-fetch"
 
 export interface TypedResponse<D> extends Response {
   json(): Promise<D>

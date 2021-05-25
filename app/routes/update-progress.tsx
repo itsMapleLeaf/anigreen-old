@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { createClient } from "../api"
 import SystemMessage from "../components/ui/SystemMessage"
 import { SetProgressDocument } from "../graphql"
-import { ActionArgs } from "../remix-helpers"
+import type { ActionArgs } from "../remix-helpers"
 
 export async function action({ request }: ActionArgs) {
   const body = new URLSearchParams(await request.text())

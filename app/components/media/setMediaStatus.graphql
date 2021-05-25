@@ -1,5 +1,5 @@
 mutation SetMediaStatus($mediaId: Int!, $status: MediaListStatus!) {
-	SaveMediaListEntry(mediaId: $mediaId, status: $status) {
-		status
-	}
+  SaveMediaListEntry(mediaId: $mediaId, status: $status) {
+    status
+  }
 }

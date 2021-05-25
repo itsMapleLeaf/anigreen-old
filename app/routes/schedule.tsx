@@ -11,7 +11,8 @@ import MediaCard from "../components/media/MediaCard"
 import MediaCardAiringInfo from "../components/media/MediaCardAiringInfo"
 import WeekdaySectionedList from "../components/ui/WeekdaySectionedList"
 import { ScheduleDocument } from "../graphql"
-import { LoaderArgs, useRouteDataTyped } from "../remix-helpers"
+import type { LoaderArgs } from "../remix-helpers"
+import { useRouteDataTyped } from "../remix-helpers"
 
 export function loader({ request }: LoaderArgs) {
   const client = createClient(request)

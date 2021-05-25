@@ -2,9 +2,9 @@ import React, { Suspense } from "react"
 import LoadingPlaceholder from "./LoadingPlaceholder"
 
 export default function LoadingSuspense({
-	children,
+  children,
 }: {
-	children: React.ReactNode
+  children: React.ReactNode
 }) {
-	return <Suspense fallback={<LoadingPlaceholder />}>{children}</Suspense>
+  return <Suspense fallback={<LoadingPlaceholder />}>{children}</Suspense>
 }
