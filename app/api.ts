@@ -2,7 +2,7 @@ import type { TypedDocumentNode } from "@graphql-typed-document-node/core"
 import type { Request } from "@remix-run/node"
 import { fetch } from "@remix-run/node"
 import { print } from "graphql"
-import { parseSession } from "./components/session"
+import { parseSession } from "./session"
 import type { TypedResponse } from "./typed-response"
 
 type NoVariables = { [key: string]: never }

@@ -1,7 +1,7 @@
 import { LogoutIcon, UserCircleIcon } from "@heroicons/react/solid"
 import { Link } from "react-router-dom"
+import type { ViewerQuery } from "../../graphql"
 import ExternalLink from "../dom/ExternalLink"
-import type { ViewerQuery } from "../generated/graphql"
 import IconWithText from "../ui/IconWithText"
 import Image from "../ui/Image"
 import { Menu, MenuButton, MenuItem, MenuPanel } from "../ui/menu"
