@@ -4074,6 +4074,8 @@ export type User = {
   donatorBadge?: Maybe<Scalars['String']>;
   /** The user's moderator roles if they are a site moderator */
   moderatorRoles?: Maybe<Array<Maybe<ModRole>>>;
+  /** When the user's account was created. (Does not exist for accounts created before 2020) */
+  createdAt?: Maybe<Scalars['Int']>;
   /** When the user's data was last updated */
   updatedAt?: Maybe<Scalars['Int']>;
   /**
