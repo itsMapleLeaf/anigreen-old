@@ -306,6 +306,8 @@ export type Character = {
   dateOfBirth?: Maybe<FuzzyDate>;
   /** The character's age. Note this is a string, not an int, it may contain further text and additional ages. */
   age?: Maybe<Scalars['String']>;
+  /** The characters blood type */
+  bloodType?: Maybe<Scalars['String']>;
   /** If the character is marked as favourite by the currently authenticated user */
   isFavourite: Scalars['Boolean'];
   /** If the character is blocked from being added to favourites */
@@ -405,6 +407,8 @@ export type CharacterName = {
   alternative?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Other names the character might be referred to as but are spoilers */
   alternativeSpoiler?: Maybe<Array<Maybe<Scalars['String']>>>;
+  /** The currently authenticated users preferred name language. Default romaji for non-authenticated */
+  userPreferred?: Maybe<Scalars['String']>;
 };
 
 /** The names of the character */
@@ -457,11 +461,15 @@ export type CharacterSubmission = {
   submission?: Maybe<Character>;
   /** Submitter for the submission */
   submitter?: Maybe<User>;
+  /** Data Mod assigned to handle the submission */
+  assignee?: Maybe<User>;
   /** Status of the submission */
   status?: Maybe<SubmissionStatus>;
   /** Inner details of submission status */
   notes?: Maybe<Scalars['String']>;
   source?: Maybe<Scalars['String']>;
+  /** Whether the submission is locked */
+  locked?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['Int']>;
 };
 
@@ -608,6 +616,7 @@ export type InternalPage = {
   revisionHistory?: Maybe<Array<Maybe<RevisionHistory>>>;
   reports?: Maybe<Array<Maybe<Report>>>;
   modActions?: Maybe<Array<Maybe<ModAction>>>;
+  userBlockSearch?: Maybe<Array<Maybe<User>>>;
   /** The pagination information */
   pageInfo?: Maybe<PageInfo>;
   users?: Maybe<Array<Maybe<User>>>;
@@ -636,6 +645,7 @@ export type InternalPageMediaSubmissionsArgs = {
   mediaId?: Maybe<Scalars['Int']>;
   submissionId?: Maybe<Scalars['Int']>;
   userId?: Maybe<Scalars['Int']>;
+  assigneeId?: Maybe<Scalars['Int']>;
   status?: Maybe<SubmissionStatus>;
   type?: Maybe<MediaType>;
   sort?: Maybe<Array<Maybe<SubmissionSort>>>;
@@ -646,6 +656,7 @@ export type InternalPageMediaSubmissionsArgs = {
 export type InternalPageCharacterSubmissionsArgs = {
   characterId?: Maybe<Scalars['Int']>;
   userId?: Maybe<Scalars['Int']>;
+  assigneeId?: Maybe<Scalars['Int']>;
   status?: Maybe<SubmissionStatus>;
   sort?: Maybe<Array<Maybe<SubmissionSort>>>;
 };
@@ -655,6 +666,7 @@ export type InternalPageCharacterSubmissionsArgs = {
 export type InternalPageStaffSubmissionsArgs = {
   staffId?: Maybe<Scalars['Int']>;
   userId?: Maybe<Scalars['Int']>;
+  assigneeId?: Maybe<Scalars['Int']>;
   status?: Maybe<SubmissionStatus>;
   sort?: Maybe<Array<Maybe<SubmissionSort>>>;
 };
@@ -671,6 +683,13 @@ export type InternalPageRevisionHistoryArgs = {
 
 
 /** Page of data (Used for internal use only) */
+export type InternalPageReportsArgs = {
+  reporterId?: Maybe<Scalars['Int']>;
+  reportedId?: Maybe<Scalars['Int']>;
+};
+
+
+/** Page of data (Used for internal use only) */
 export type InternalPageModActionsArgs = {
   userId?: Maybe<Scalars['Int']>;
   modId?: Maybe<Scalars['Int']>;
@@ -678,9 +697,16 @@ export type InternalPageModActionsArgs = {
 
 
 /** Page of data (Used for internal use only) */
+export type InternalPageUserBlockSearchArgs = {
+  search?: Maybe<Scalars['String']>;
+};
+
+
+/** Page of data (Used for internal use only) */
 export type InternalPageUsersArgs = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  isModerator?: Maybe<Scalars['Boolean']>;
   search?: Maybe<Scalars['String']>;
   sort?: Maybe<Array<Maybe<UserSort>>>;
 };
@@ -712,6 +738,7 @@ export type InternalPageMediaArgs = {
   popularity?: Maybe<Scalars['Int']>;
   source?: Maybe<MediaSource>;
   countryOfOrigin?: Maybe<Scalars['CountryCode']>;
+  isLicensed?: Maybe<Scalars['Boolean']>;
   search?: Maybe<Scalars['String']>;
   id_not?: Maybe<Scalars['Int']>;
   id_in?: Maybe<Array<Maybe<Scalars['Int']>>>;
@@ -1128,6 +1155,8 @@ export type Media = {
   studios?: Maybe<StudioConnection>;
   /** If the media is marked as favourite by the current authenticated user */
   isFavourite: Scalars['Boolean'];
+  /** If the media is blocked from being added to favourites */
+  isFavouriteBlocked: Scalars['Boolean'];
   /** If the media is intended only for 18+ adult audiences */
   isAdult?: Maybe<Scalars['Boolean']>;
   /** The media's next episode airing schedule */
@@ -1270,6 +1299,42 @@ export type MediaCoverImage = {
   medium?: Maybe<Scalars['String']>;
   /** Average #hex color of cover image */
   color?: Maybe<Scalars['String']>;
+};
+
+/** Notification for when a media entry's data was changed in a significant way impacting users' list tracking */
+export type MediaDataChangeNotification = {
+  __typename?: 'MediaDataChangeNotification';
+  /** The id of the Notification */
+  id: Scalars['Int'];
+  /** The type of notification */
+  type?: Maybe<NotificationType>;
+  /** The id of the media that received data changes */
+  mediaId: Scalars['Int'];
+  /** The reason for the media data change */
+  context?: Maybe<Scalars['String']>;
+  /** The reason for the media data change */
+  reason?: Maybe<Scalars['String']>;
+  /** The time the notification was created at */
+  createdAt?: Maybe<Scalars['Int']>;
+  /** The media that received data changes */
+  media?: Maybe<Media>;
+};
+
+/** Notification for when a media tracked in a user's list is deleted from the site */
+export type MediaDeletionNotification = {
+  __typename?: 'MediaDeletionNotification';
+  /** The id of the Notification */
+  id: Scalars['Int'];
+  /** The type of notification */
+  type?: Maybe<NotificationType>;
+  /** The title of the deleted media */
+  deletedMediaTitle?: Maybe<Scalars['String']>;
+  /** The reason for the media deletion */
+  context?: Maybe<Scalars['String']>;
+  /** The reason for the media deletion */
+  reason?: Maybe<Scalars['String']>;
+  /** The time the notification was created at */
+  createdAt?: Maybe<Scalars['Int']>;
 };
 
 /** Media connection edge */
@@ -1577,6 +1642,27 @@ export type MediaListTypeOptions = {
   advancedScoringEnabled?: Maybe<Scalars['Boolean']>;
 };
 
+/** Notification for when a media entry is merged into another for a user who had it on their list */
+export type MediaMergeNotification = {
+  __typename?: 'MediaMergeNotification';
+  /** The id of the Notification */
+  id: Scalars['Int'];
+  /** The type of notification */
+  type?: Maybe<NotificationType>;
+  /** The id of the media that was merged into */
+  mediaId: Scalars['Int'];
+  /** The title of the deleted media */
+  deletedMediaTitles?: Maybe<Array<Maybe<Scalars['String']>>>;
+  /** The reason for the media data change */
+  context?: Maybe<Scalars['String']>;
+  /** The reason for the media merge */
+  reason?: Maybe<Scalars['String']>;
+  /** The time the notification was created at */
+  createdAt?: Maybe<Scalars['Int']>;
+  /** The media that was merged into */
+  media?: Maybe<Media>;
+};
+
 /** The ranking of a media in a particular time span and format compared to other media */
 export type MediaRank = {
   __typename?: 'MediaRank';
@@ -1702,12 +1788,24 @@ export enum MediaSource {
   VideoGame = 'VIDEO_GAME',
   /** Other */
   Other = 'OTHER',
-  /** Version 2 only. Written works not published in volumes */
+  /** Version 2+ only. Written works not published in volumes */
   Novel = 'NOVEL',
-  /** Version 2 only. Self-published works */
+  /** Version 2+ only. Self-published works */
   Doujinshi = 'DOUJINSHI',
-  /** Version 2 only. Japanese Anime */
-  Anime = 'ANIME'
+  /** Version 2+ only. Japanese Anime */
+  Anime = 'ANIME',
+  /** Version 3 only. Written works published online */
+  WebNovel = 'WEB_NOVEL',
+  /** Version 3 only. Live action media such as movies or TV show */
+  LiveAction = 'LIVE_ACTION',
+  /** Version 3 only. Games excluding video games */
+  Game = 'GAME',
+  /** Version 3 only. Comics excluding manga */
+  Comic = 'COMIC',
+  /** Version 3 only. Multimedia project */
+  MultimediaProject = 'MULTIMEDIA_PROJECT',
+  /** Version 3 only. Picture book */
+  PictureBook = 'PICTURE_BOOK'
 }
 
 /** A media's statistics */
@@ -1753,12 +1851,16 @@ export type MediaSubmission = {
   id: Scalars['Int'];
   /** User submitter of the submission */
   submitter?: Maybe<User>;
+  /** Data Mod assigned to handle the submission */
+  assignee?: Maybe<User>;
   /** Status of the submission */
   status?: Maybe<SubmissionStatus>;
   submitterStats?: Maybe<Scalars['Json']>;
   notes?: Maybe<Scalars['String']>;
   source?: Maybe<Scalars['String']>;
   changes?: Maybe<Array<Maybe<Scalars['String']>>>;
+  /** Whether the submission is locked */
+  locked?: Maybe<Scalars['Boolean']>;
   media?: Maybe<Media>;
   submission?: Maybe<Media>;
   characters?: Maybe<Array<Maybe<MediaSubmissionComparison>>>;
@@ -1817,6 +1919,8 @@ export type MediaTag = {
   isMediaSpoiler?: Maybe<Scalars['Boolean']>;
   /** If the tag is only for adult 18+ media */
   isAdult?: Maybe<Scalars['Boolean']>;
+  /** The user who submitted the tag */
+  userId?: Maybe<Scalars['Int']>;
 };
 
 /** The official titles of the media in various languages */
@@ -2003,6 +2107,36 @@ export enum ModActionType {
   Anon = 'ANON'
 }
 
+/** Mod role enums */
+export enum ModRole {
+  /** An AniList administrator */
+  Admin = 'ADMIN',
+  /** A head developer of AniList */
+  LeadDeveloper = 'LEAD_DEVELOPER',
+  /** An AniList developer */
+  Developer = 'DEVELOPER',
+  /** A lead community moderator */
+  LeadCommunity = 'LEAD_COMMUNITY',
+  /** A community moderator */
+  Community = 'COMMUNITY',
+  /** A discord community moderator */
+  DiscordCommunity = 'DISCORD_COMMUNITY',
+  /** A lead anime data moderator */
+  LeadAnimeData = 'LEAD_ANIME_DATA',
+  /** An anime data moderator */
+  AnimeData = 'ANIME_DATA',
+  /** A lead manga data moderator */
+  LeadMangaData = 'LEAD_MANGA_DATA',
+  /** A manga data moderator */
+  MangaData = 'MANGA_DATA',
+  /** A lead social media moderator */
+  LeadSocialMedia = 'LEAD_SOCIAL_MEDIA',
+  /** A social media moderator */
+  SocialMedia = 'SOCIAL_MEDIA',
+  /** A retired moderator */
+  Retired = 'RETIRED'
+}
+
 export type Mutation = {
   __typename?: 'Mutation';
   UpdateUser?: Maybe<User>;
@@ -2078,6 +2212,7 @@ export type MutationUpdateUserArgs = {
   activityMergeTime?: Maybe<Scalars['Int']>;
   animeListOptions?: Maybe<MediaListOptionsInput>;
   mangaListOptions?: Maybe<MediaListOptionsInput>;
+  staffNameLanguage?: Maybe<UserStaffNameLanguage>;
 };
 
 
@@ -2272,6 +2407,7 @@ export type MutationSaveThreadCommentArgs = {
   threadId?: Maybe<Scalars['Int']>;
   parentCommentId?: Maybe<Scalars['Int']>;
   comment?: Maybe<Scalars['String']>;
+  locked?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -2338,11 +2474,17 @@ export enum NotificationType {
   /** A user has replied to activity you have also replied to */
   ActivityReplySubscribed = 'ACTIVITY_REPLY_SUBSCRIBED',
   /** A new anime or manga has been added to the site where its related media is on the user's list */
-  RelatedMediaAddition = 'RELATED_MEDIA_ADDITION'
+  RelatedMediaAddition = 'RELATED_MEDIA_ADDITION',
+  /** An anime or manga has had a data change that affects how a user may track it in their lists */
+  MediaDataChange = 'MEDIA_DATA_CHANGE',
+  /** Anime or manga entries on the user's list have been merged into a single entry */
+  MediaMerge = 'MEDIA_MERGE',
+  /** An anime or manga on the user's list has been deleted from the site */
+  MediaDeletion = 'MEDIA_DELETION'
 }
 
 /** Notification union type */
-export type NotificationUnion = AiringNotification | FollowingNotification | ActivityMessageNotification | ActivityMentionNotification | ActivityReplyNotification | ActivityReplySubscribedNotification | ActivityLikeNotification | ActivityReplyLikeNotification | ThreadCommentMentionNotification | ThreadCommentReplyNotification | ThreadCommentSubscribedNotification | ThreadCommentLikeNotification | ThreadLikeNotification | RelatedMediaAdditionNotification;
+export type NotificationUnion = AiringNotification | FollowingNotification | ActivityMessageNotification | ActivityMentionNotification | ActivityReplyNotification | ActivityReplySubscribedNotification | ActivityLikeNotification | ActivityReplyLikeNotification | ThreadCommentMentionNotification | ThreadCommentReplyNotification | ThreadCommentSubscribedNotification | ThreadCommentLikeNotification | ThreadLikeNotification | RelatedMediaAdditionNotification | MediaDataChangeNotification | MediaMergeNotification | MediaDeletionNotification;
 
 /** Page of data */
 export type Page = {
@@ -2374,6 +2516,7 @@ export type Page = {
 export type PageUsersArgs = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  isModerator?: Maybe<Scalars['Boolean']>;
   search?: Maybe<Scalars['String']>;
   sort?: Maybe<Array<Maybe<UserSort>>>;
 };
@@ -2405,6 +2548,7 @@ export type PageMediaArgs = {
   popularity?: Maybe<Scalars['Int']>;
   source?: Maybe<MediaSource>;
   countryOfOrigin?: Maybe<Scalars['CountryCode']>;
+  isLicensed?: Maybe<Scalars['Boolean']>;
   search?: Maybe<Scalars['String']>;
   id_not?: Maybe<Scalars['Int']>;
   id_in?: Maybe<Array<Maybe<Scalars['Int']>>>;
@@ -2685,7 +2829,7 @@ export type PageLikesArgs = {
 
 export type PageInfo = {
   __typename?: 'PageInfo';
-  /** The total number of items */
+  /** The total number of items. Note: This value is not guaranteed to be accurate, do not rely on this for logic */
   total?: Maybe<Scalars['Int']>;
   /** The count on a page */
   perPage?: Maybe<Scalars['Int']>;
@@ -2790,6 +2934,7 @@ export type QueryMediaArgs = {
   popularity?: Maybe<Scalars['Int']>;
   source?: Maybe<MediaSource>;
   countryOfOrigin?: Maybe<Scalars['CountryCode']>;
+  isLicensed?: Maybe<Scalars['Boolean']>;
   search?: Maybe<Scalars['String']>;
   id_not?: Maybe<Scalars['Int']>;
   id_in?: Maybe<Array<Maybe<Scalars['Int']>>>;
@@ -2971,6 +3116,7 @@ export type QueryMediaTagCollectionArgs = {
 export type QueryUserArgs = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  isModerator?: Maybe<Scalars['Boolean']>;
   search?: Maybe<Scalars['String']>;
   sort?: Maybe<Array<Maybe<UserSort>>>;
 };
@@ -3166,6 +3312,7 @@ export type Report = {
   reason?: Maybe<Scalars['String']>;
   /** When the entry data was created */
   createdAt?: Maybe<Scalars['Int']>;
+  cleared?: Maybe<Scalars['Boolean']>;
 };
 
 /** A Review that features in an anime or manga */
@@ -3421,6 +3568,8 @@ export type Staff = {
   yearsActive?: Maybe<Array<Maybe<Scalars['Int']>>>;
   /** The persons birthplace or hometown */
   homeTown?: Maybe<Scalars['String']>;
+  /** The persons blood type */
+  bloodType?: Maybe<Scalars['String']>;
   /** If the staff member is marked as favourite by the currently authenticated user */
   isFavourite: Scalars['Boolean'];
   /** If the staff member is blocked from being added to favourites */
@@ -3549,6 +3698,8 @@ export type StaffName = {
   native?: Maybe<Scalars['String']>;
   /** Other names the staff member might be referred to as (pen names) */
   alternative?: Maybe<Array<Maybe<Scalars['String']>>>;
+  /** The currently authenticated users preferred name language. Default romaji for non-authenticated */
+  userPreferred?: Maybe<Scalars['String']>;
 };
 
 /** The names of the staff member */
@@ -3612,11 +3763,15 @@ export type StaffSubmission = {
   submission?: Maybe<Staff>;
   /** Submitter for the submission */
   submitter?: Maybe<User>;
+  /** Data Mod assigned to handle the submission */
+  assignee?: Maybe<User>;
   /** Status of the submission */
   status?: Maybe<SubmissionStatus>;
   /** Inner details of submission status */
   notes?: Maybe<Scalars['String']>;
   source?: Maybe<Scalars['String']>;
+  /** Whether the submission is locked */
+  locked?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['Int']>;
 };
 
@@ -3855,6 +4010,8 @@ export type ThreadComment = {
   likes?: Maybe<Array<Maybe<User>>>;
   /** The comment's child reply comments */
   childComments?: Maybe<Scalars['Json']>;
+  /** If the comment tree is locked and may not receive replies or edits */
+  isLocked?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -4040,8 +4197,10 @@ export type User = {
   donatorTier?: Maybe<Scalars['Int']>;
   /** Custom donation badge text */
   donatorBadge?: Maybe<Scalars['String']>;
-  /** If the user is a moderator or data moderator */
-  moderatorStatus?: Maybe<Scalars['String']>;
+  /** The user's moderator roles if they are a site moderator */
+  moderatorRoles?: Maybe<Array<Maybe<ModRole>>>;
+  /** When the user's account was created. (Does not exist for accounts created before 2020) */
+  createdAt?: Maybe<Scalars['Int']>;
   /** When the user's data was last updated */
   updatedAt?: Maybe<Scalars['Int']>;
   /**
@@ -4049,6 +4208,13 @@ export type User = {
    * @deprecated Deprecated. Replaced with statistics field.
    */
   stats?: Maybe<UserStats>;
+  /**
+   * If the user is a moderator or data moderator
+   * @deprecated Deprecated. Replaced with moderatorRoles field.
+   */
+  moderatorStatus?: Maybe<Scalars['String']>;
+  /** The user's previously used names. */
+  previousNames?: Maybe<Array<Maybe<UserPreviousName>>>;
 };
 
 
@@ -4130,6 +4296,8 @@ export type UserModData = {
   bans?: Maybe<Scalars['Json']>;
   ip?: Maybe<Scalars['Json']>;
   counts?: Maybe<Scalars['Json']>;
+  privacy?: Maybe<Scalars['Int']>;
+  email?: Maybe<Scalars['String']>;
 };
 
 /** A user's general options */
@@ -4149,6 +4317,19 @@ export type UserOptions = {
   timezone?: Maybe<Scalars['String']>;
   /** Minutes between activity for them to be merged together. 0 is Never, Above 2 weeks (20160 mins) is Always. */
   activityMergeTime?: Maybe<Scalars['Int']>;
+  /** The language the user wants to see staff and character names in */
+  staffNameLanguage?: Maybe<UserStaffNameLanguage>;
+};
+
+/** A user's previous name */
+export type UserPreviousName = {
+  __typename?: 'UserPreviousName';
+  /** A previous name of the user. */
+  name?: Maybe<Scalars['String']>;
+  /** When the user first changed from this name. */
+  createdAt?: Maybe<Scalars['Int']>;
+  /** When the user most recently changed from this name. */
+  updatedAt?: Maybe<Scalars['Int']>;
 };
 
 export type UserReleaseYearStatistic = {
@@ -4182,6 +4363,16 @@ export enum UserSort {
   ChaptersRead = 'CHAPTERS_READ',
   ChaptersReadDesc = 'CHAPTERS_READ_DESC',
   SearchMatch = 'SEARCH_MATCH'
+}
+
+/** The language the user wants to see staff and character names in */
+export enum UserStaffNameLanguage {
+  /** The romanization of the staff or character's native name, with western name ordering */
+  RomajiWestern = 'ROMAJI_WESTERN',
+  /** The romanization of the staff or character's native name */
+  Romaji = 'ROMAJI',
+  /** The staff or character's name in their native language */
+  Native = 'NATIVE'
 }
 
 export type UserStaffStatistic = {
